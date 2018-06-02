@@ -3,12 +3,13 @@ package io.moatwel.crypto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-import static org.powermock.api.mockito.PowerMockito.*;
-
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(KeyPair.class)
@@ -60,7 +61,7 @@ public class KeyPairTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void fail_GenerateKeyPair_public_key_not_compressed() {
+    public void failure_GenerateKeyPair_public_key_not_compressed() {
         when(mockEngine.createKeyGenerator()).thenReturn(mockGenerator);
         when(mockGenerator.derivePublicKey(mockPrivateKey)).thenReturn(mockPublicKey);
         when(mockEngine.createKeyAnalyzer()).thenReturn(mockAnalyzer);

@@ -5,7 +5,6 @@ import java.math.BigInteger;
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
-import io.moatwel.util.ArrayUtils;
 
 public class Ed448Curve implements Curve {
 
@@ -24,7 +23,9 @@ public class Ed448Curve implements Curve {
 
     @Override
     public Point getBasePoint() {
-        return null;
+        Coordinate x = new Coordinate(new BigInteger("224580040295924300187604334099896036246789641632564134246125461686950415467406032909029192869357953282578032075146446173674602635247710"));
+        Coordinate y = new Coordinate(new BigInteger("298819210078481492676017930443930673437544040154080242095928241372331506189835876003536878655418784733982303233503462500531545062832660"));
+        return new Point(x, y);
     }
 
     @Override
