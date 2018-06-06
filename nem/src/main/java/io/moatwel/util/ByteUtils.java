@@ -1,6 +1,8 @@
 package io.moatwel.util;
 
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 public class ByteUtils {
     /**
@@ -95,5 +97,22 @@ public class ByteUtils {
 
         builder.append("}");
         return builder.toString();
+    }
+
+    public static byte[][] split(byte[] input, int firstLength) {
+        if (input.length < firstLength) {
+            throw new ArrayIndexOutOfBoundsException("Specified index over input length");
+        }
+        byte[] first = new byte[firstLength];
+        byte[] second = new byte[input.length - firstLength];
+
+        System.arraycopy(input, 0, first, 0, firstLength);
+        System.arraycopy(input, firstLength, second, 0, input.length - firstLength);
+        return new byte[][]{first, second};
+    }
+
+    public static BigInteger getLittleEndianInteger(byte[] input) {
+        ByteBuffer buf = ByteBuffer.wrap(input);
+        return new BigInteger(buf.order(ByteOrder.LITTLE_ENDIAN).array());
     }
 }

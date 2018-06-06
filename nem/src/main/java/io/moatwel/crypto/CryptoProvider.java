@@ -2,7 +2,7 @@ package io.moatwel.crypto;
 
 import io.moatwel.crypto.eddsa.Curve;
 
-public interface CryptoEngine {
+public interface CryptoProvider {
 
     Curve getCurve();
 

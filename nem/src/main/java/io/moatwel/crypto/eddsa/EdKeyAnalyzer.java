@@ -2,7 +2,6 @@ package io.moatwel.crypto.eddsa;
 
 import io.moatwel.crypto.KeyAnalyzer;
 import io.moatwel.crypto.PublicKey;
-import io.moatwel.crypto.eddsa.Curve;
 
 public class EdKeyAnalyzer implements KeyAnalyzer {
 

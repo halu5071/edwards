@@ -5,6 +5,7 @@ package io.moatwel.crypto.eddsa;
  */
 public class Point {
 
+    //TODO implement Coordinate.ZERO, Coordinate.ONE
     public static final Point ZERO = new Point(Coordinate.ZERO, Coordinate.ONE);
 
     private final Coordinate x;

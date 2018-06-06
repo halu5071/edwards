@@ -2,21 +2,14 @@ package io.moatwel.crypto.eddsa;
 
 import java.math.BigInteger;
 
-import io.moatwel.crypto.eddsa.ed25519.Ed25519Curve;
-
 /**
  * Represents a element of the finite field
  */
 public class Coordinate {
 
-    public static final Coordinate ZERO = null;
+    public static final Coordinate ZERO = new Coordinate(new byte[32]);
     public static final Coordinate ONE = null;
     public static final Coordinate TWO = null;
-
-    public static final Coordinate D = Ed25519Curve.getEdCurve().getD();
-
-    public static final byte[] ZERO_SHORT = new byte[32];
-    public static final byte[] ZERO_LONG = new byte[64];
 
     private final byte[] values;
 
@@ -25,14 +18,18 @@ public class Coordinate {
     }
 
     public Coordinate(byte[] value) {
-        if (value.length == 32 || value.length == 56) {
+        if (value.length == 32) {
             this.values = value;
         } else {
-            throw new IllegalArgumentException("Invalid 2^256 or 2^456 bit representation");
+            throw new IllegalArgumentException("Invalid  representation");
         }
     }
 
     public byte[] getValue() {
         return this.values;
+    }
+
+    public BigInteger getInteger() {
+        return new BigInteger(this.values);
     }
 }

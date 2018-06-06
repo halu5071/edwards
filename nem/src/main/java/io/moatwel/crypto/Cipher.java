@@ -1,16 +1,17 @@
 package io.moatwel.crypto;
 
-import io.moatwel.crypto.eddsa.EdCryptoEngine;
+import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.EdCryptoProvider;
 
 public class Cipher implements BlockCipher {
 
     private final BlockCipher cipher;
 
-    public Cipher(KeyPair senderKeyPair, KeyPair recipientKeyPair) {
-        this(senderKeyPair, recipientKeyPair, new EdCryptoEngine());
+    public Cipher(KeyPair senderKeyPair, KeyPair recipientKeyPair, Curve curve) {
+        this(senderKeyPair, recipientKeyPair, new EdCryptoProvider(curve));
     }
 
-    public Cipher(KeyPair senderKeyPair, KeyPair recipientKeyPair, CryptoEngine cryptoEngine) {
+    public Cipher(KeyPair senderKeyPair, KeyPair recipientKeyPair, CryptoProvider cryptoEngine) {
         this(cryptoEngine.createBlockCipher(senderKeyPair, recipientKeyPair));
     }
 

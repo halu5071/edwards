@@ -1,22 +1,24 @@
 package io.moatwel.crypto.eddsa;
 
+import java.math.BigInteger;
 import java.security.SecureRandom;
 
-import io.moatwel.crypto.CryptoEngine;
+import io.moatwel.crypto.CryptoProvider;
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.PublicKey;
 import io.moatwel.util.ArrayUtils;
+import io.moatwel.util.ByteUtils;
 
 public class EdDsaKeyGenerator implements KeyGenerator {
 
     private final SecureRandom random;
     private Curve curve;
-    private CryptoEngine engine;
+    private CryptoProvider engine;
 
-    public EdDsaKeyGenerator(Curve curve, CryptoEngine engine) {
+    public EdDsaKeyGenerator(Curve curve, CryptoProvider engine) {
         this.random = new SecureRandom();
         this.curve = curve;
         this.engine = engine;
@@ -36,9 +38,16 @@ public class EdDsaKeyGenerator implements KeyGenerator {
     public PublicKey derivePublicKey(PrivateKey privateKey) {
         byte[] h = Hashes.sha3Hash512(privateKey.getRaw().toByteArray());
 
-//        Point a = Point.BASE.scalarMultiply(h);
-//        Coordinate pubKey = a.encode();
-//        return new PublicKey(pubKey.encode().getValue());
+        // Step1
+        byte[] first32 = ByteUtils.split(h, 32)[0];
+
+        // Step2
+        first32[0] = (byte)(first32[0] & 0xF8);
+
+        // Step3
+        BigInteger a = ByteUtils.getLittleEndianInteger(first32);
+
+        // Step4
         return null;
     }
 }

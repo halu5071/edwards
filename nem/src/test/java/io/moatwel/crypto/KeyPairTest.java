@@ -15,7 +15,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @PrepareForTest(KeyPair.class)
 public class KeyPairTest {
 
-    private CryptoEngine mockEngine;
+    private CryptoProvider mockEngine;
     private PrivateKey mockPrivateKey;
     private PublicKey mockPublicKey;
     private KeyGenerator mockGenerator;
@@ -24,7 +24,7 @@ public class KeyPairTest {
 
     @Before
     public void setup() {
-        mockEngine = mock(CryptoEngine.class);
+        mockEngine = mock(CryptoProvider.class);
         mockPrivateKey = mock(PrivateKey.class);
         mockPublicKey = mock(PublicKey.class);
         mockGenerator = mock(KeyGenerator.class);
@@ -54,7 +54,7 @@ public class KeyPairTest {
         when(mockEngine.createKeyAnalyzer()).thenReturn(mockAnalyzer);
         when(mockAnalyzer.isKeyCompressed(mockPublicKey)).thenReturn(true);
 
-        KeyPair pair = KeyPair.random(mockEngine);
+        KeyPair pair = mockEngine.createKeyGenerator().generateKeyPair();
 
         assertThat(pair.getPrivateKey(), is(mockPrivateKey));
         assertThat(pair.getPublicKey(), is(mockPublicKey));

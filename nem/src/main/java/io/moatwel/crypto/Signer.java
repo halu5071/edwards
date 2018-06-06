@@ -1,15 +1,16 @@
 package io.moatwel.crypto;
 
-import io.moatwel.crypto.eddsa.EdCryptoEngine;
+import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.EdCryptoProvider;
 
 public class Signer implements DsaSigner{
     private final DsaSigner signer;
 
-    public Signer(final KeyPair keyPair) {
-        this(keyPair, new EdCryptoEngine());
+    public Signer(final KeyPair keyPair, Curve curve) {
+        this(keyPair, new EdCryptoProvider(curve));
     }
 
-    public Signer(final KeyPair keyPair, final CryptoEngine engine) {
+    public Signer(final KeyPair keyPair, final CryptoProvider engine) {
         this(engine.createDsaSigner(keyPair));
     }
 

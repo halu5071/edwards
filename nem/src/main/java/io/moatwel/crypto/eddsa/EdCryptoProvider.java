@@ -1,17 +1,23 @@
 package io.moatwel.crypto.eddsa;
 
 import io.moatwel.crypto.BlockCipher;
-import io.moatwel.crypto.CryptoEngine;
+import io.moatwel.crypto.CryptoProvider;
 import io.moatwel.crypto.DsaSigner;
 import io.moatwel.crypto.KeyAnalyzer;
 import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.KeyPair;
-import io.moatwel.crypto.eddsa.ed25519.Ed25519Curve;
 
-public class EdCryptoEngine implements CryptoEngine {
+public class EdCryptoProvider implements CryptoProvider {
+
+    private Curve curve;
+
+    public EdCryptoProvider(Curve curve) {
+        this.curve = curve;
+    }
+
     @Override
     public Curve getCurve() {
-        return Ed25519Curve.getEdCurve();
+        return curve;
     }
 
     @Override
@@ -21,7 +27,7 @@ public class EdCryptoEngine implements CryptoEngine {
 
     @Override
     public KeyGenerator createKeyGenerator() {
-        return new EdDsaKeyGenerator(Ed25519Curve.getEdCurve(), new EdCryptoEngine());
+        return new EdDsaKeyGenerator(curve, this);
     }
 
     @Override
@@ -31,6 +37,6 @@ public class EdCryptoEngine implements CryptoEngine {
 
     @Override
     public KeyAnalyzer createKeyAnalyzer() {
-        return new EdKeyAnalyzer(Ed25519Curve.getEdCurve());
+        return new EdKeyAnalyzer(curve);
     }
 }
