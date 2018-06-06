@@ -43,11 +43,20 @@ public class EdDsaKeyGenerator implements KeyGenerator {
 
         // Step2
         first32[0] = (byte)(first32[0] & 0xF8);
+        first32[31] = (byte)(first32[31] & 0xF8);
 
         // Step3
-        BigInteger a = ByteUtils.getLittleEndianInteger(first32);
+        byte[] a = ByteUtils.reverse(first32);
+        BigInteger s = new BigInteger(a);
+        byte[] aX = getACoordinate(new BigInteger(curve.getBasePoint().getX().getValue()).multiply(s));
+        byte[] aY = getACoordinate(new BigInteger(curve.getBasePoint().getY().getValue()).multiply(s));
 
+        byte[] reversedY = ByteUtils.reverse(aY);
         // Step4
         return null;
+    }
+
+    private byte[] getACoordinate(BigInteger integer) {
+        return integer.mod(curve.getPrimePowerP()).toByteArray();
     }
 }

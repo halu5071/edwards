@@ -4,8 +4,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.math.BigInteger;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -28,8 +26,10 @@ public class ByteUtilsTest {
     }
 
     @Test
-    public void success_LittleEndianInteger() {
+    public void success_reverse() {
         byte[] input = new byte[]{26, 94, 11, 65, 43, 13, 62, 53, 13, 43};
-        assertThat(ByteUtils.getLittleEndianInteger(input), is(new BigInteger("124516333474283255041323")));
+        assertThat(ByteUtils.reverse(input), is(new byte[]{43, 13, 53, 62, 13, 43, 65, 11, 94, 26}));
+        byte[] input2 = new byte[]{54, 25, 53, 91, 24, 42, 51, 51, 54, 41, 35, 30, 45, 14, 34, 53};
+        assertThat(ByteUtils.reverse(input2), is(new byte[]{53, 34, 14, 45, 30, 35, 41, 54, 51, 51, 42, 24, 91, 53, 25, 54}));
     }
 }

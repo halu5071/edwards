@@ -111,8 +111,13 @@ public class ByteUtils {
         return new byte[][]{first, second};
     }
 
-    public static BigInteger getLittleEndianInteger(byte[] input) {
-        ByteBuffer buf = ByteBuffer.wrap(input);
-        return new BigInteger(buf.order(ByteOrder.LITTLE_ENDIAN).array());
+    public static byte[] reverse(byte[] input) {
+        byte[] output = new byte[input.length];
+        int counter = 0;
+        for (byte b: input) {
+            output[input.length - counter - 1] = b;
+            counter++;
+        }
+        return output;
     }
 }
