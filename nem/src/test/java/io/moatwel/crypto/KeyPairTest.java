@@ -15,7 +15,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @PrepareForTest(KeyPair.class)
 public class KeyPairTest {
 
-    private CryptoProvider mockEngine;
+    private CryptoProvider mockProvider;
     private PrivateKey mockPrivateKey;
     private PublicKey mockPublicKey;
     private KeyGenerator mockGenerator;
@@ -24,7 +24,7 @@ public class KeyPairTest {
 
     @Before
     public void setup() {
-        mockEngine = mock(CryptoProvider.class);
+        mockProvider = mock(CryptoProvider.class);
         mockPrivateKey = mock(PrivateKey.class);
         mockPublicKey = mock(PublicKey.class);
         mockGenerator = mock(KeyGenerator.class);
@@ -34,12 +34,12 @@ public class KeyPairTest {
 
     @Test
     public void success_GenerateKeyPair_private_key_and_engine() {
-        when(mockEngine.createKeyGenerator()).thenReturn(mockGenerator);
+        when(mockProvider.createKeyGenerator()).thenReturn(mockGenerator);
         when(mockGenerator.derivePublicKey(mockPrivateKey)).thenReturn(mockPublicKey);
-        when(mockEngine.createKeyAnalyzer()).thenReturn(mockAnalyzer);
+        when(mockProvider.createKeyAnalyzer()).thenReturn(mockAnalyzer);
         when(mockAnalyzer.isKeyCompressed(mockPublicKey)).thenReturn(true);
 
-        KeyPair pair = new KeyPair(mockPrivateKey, mockEngine);
+        KeyPair pair = new KeyPair(mockPrivateKey, mockProvider);
 
         assertThat(pair.getPublicKey(), is(mockPublicKey));
         assertThat(pair.getPrivateKey(), is(mockPrivateKey));
@@ -47,14 +47,14 @@ public class KeyPairTest {
 
     @Test
     public void success_GenerateKeyPair_random() {
-        when(mockEngine.createKeyGenerator()).thenReturn(mockGenerator);
+        when(mockProvider.createKeyGenerator()).thenReturn(mockGenerator);
         when(mockGenerator.generateKeyPair()).thenReturn(mockTmpKeyPair);
         when(mockTmpKeyPair.getPrivateKey()).thenReturn(mockPrivateKey);
         when(mockTmpKeyPair.getPublicKey()).thenReturn(mockPublicKey);
-        when(mockEngine.createKeyAnalyzer()).thenReturn(mockAnalyzer);
+        when(mockProvider.createKeyAnalyzer()).thenReturn(mockAnalyzer);
         when(mockAnalyzer.isKeyCompressed(mockPublicKey)).thenReturn(true);
 
-        KeyPair pair = mockEngine.createKeyGenerator().generateKeyPair();
+        KeyPair pair = mockProvider.createKeyGenerator().generateKeyPair();
 
         assertThat(pair.getPrivateKey(), is(mockPrivateKey));
         assertThat(pair.getPublicKey(), is(mockPublicKey));
@@ -62,11 +62,11 @@ public class KeyPairTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void failure_GenerateKeyPair_public_key_not_compressed() {
-        when(mockEngine.createKeyGenerator()).thenReturn(mockGenerator);
+        when(mockProvider.createKeyGenerator()).thenReturn(mockGenerator);
         when(mockGenerator.derivePublicKey(mockPrivateKey)).thenReturn(mockPublicKey);
-        when(mockEngine.createKeyAnalyzer()).thenReturn(mockAnalyzer);
+        when(mockProvider.createKeyAnalyzer()).thenReturn(mockAnalyzer);
         when(mockAnalyzer.isKeyCompressed(mockPublicKey)).thenReturn(false);
 
-        new KeyPair(mockPrivateKey, mockEngine);
+        new KeyPair(mockPrivateKey, mockProvider);
     }
 }

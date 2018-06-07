@@ -1,10 +1,16 @@
 package io.moatwel.crypto;
 
+import java.math.BigInteger;
+
 import io.moatwel.util.HexEncoder;
 
 public class PublicKey {
 
     private final byte[] value;
+
+    public PublicKey(BigInteger integer) {
+        this(integer.toByteArray());
+    }
 
     public PublicKey(byte[] bytes) {
         this.value = bytes;

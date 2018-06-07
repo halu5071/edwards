@@ -1,24 +1,29 @@
 package io.moatwel.crypto;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 import io.moatwel.util.HexEncoder;
 
 public class PrivateKey {
 
-    private final BigInteger value;
+    private final byte[] value;
 
-    public PrivateKey(final BigInteger value) {
+    public PrivateKey(BigInteger integer) {
+        this(integer.toByteArray());
+    }
+
+    public PrivateKey(byte[] value) {
         this.value = value;
     }
 
-    public BigInteger getRaw() {
+    public byte[] getRaw() {
         return value;
     }
 
     @Override
     public int hashCode() {
-        return this.value.hashCode();
+        return Arrays.hashCode(this.value);
     }
 
     @Override
