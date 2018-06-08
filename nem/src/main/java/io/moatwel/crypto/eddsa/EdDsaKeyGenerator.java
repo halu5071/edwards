@@ -1,16 +1,12 @@
 package io.moatwel.crypto.eddsa;
 
-import java.math.BigInteger;
 import java.security.SecureRandom;
 
 import io.moatwel.crypto.CryptoProvider;
-import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.PublicKey;
-import io.moatwel.util.ArrayUtils;
-import io.moatwel.util.ByteUtils;
 
 public class EdDsaKeyGenerator implements KeyGenerator {
 
@@ -29,38 +25,17 @@ public class EdDsaKeyGenerator implements KeyGenerator {
         byte[] seed = new byte[curve.getPublicKeyByteLength()];
         this.random.nextBytes(seed);
 
-        PrivateKey privateKey = new PrivateKey(ArrayUtils.toBigInteger(seed));
+        PrivateKey privateKey = new PrivateKey(seed);
 
         return new KeyPair(privateKey, provider);
     }
 
     @Override
     public PublicKey derivePublicKey(PrivateKey privateKey) {
-        byte[] h = Hashes.sha3Hash512(privateKey.getRaw());
+        PublicKeyGeneratorDelegate delegate = curve.getPublicKeyGeneratorDelegate();
 
-        // Step1
-        byte[] first32 = ByteUtils.split(h, 32)[0];
+        byte[] publicKeySeed = delegate.generatePublicKeyByteArray(privateKey);
 
-        // Step2
-        first32[0] = (byte)(first32[0] & 0xF8);
-        first32[31] |= 0b1000000;
-        first32[31] = (byte)(first32[31] & ~(1 << 8));
-
-        // Step3
-        byte[] a = ByteUtils.reverse(first32);
-        BigInteger s = new BigInteger(a);
-        byte[] aX = getACoordinate(new BigInteger(curve.getBasePoint().getX().getValue()).multiply(s));
-        byte[] aY = getACoordinate(new BigInteger(curve.getBasePoint().getY().getValue()).multiply(s));
-
-        // Step4
-        byte[] reversedY = ByteUtils.reverse(aY);
-        int writeBit = aX[31] & 1;
-        reversedY[31] |= writeBit;
-
-        return new PublicKey(reversedY);
-    }
-
-    private byte[] getACoordinate(BigInteger integer) {
-        return integer.mod(curve.getPrimePowerP()).toByteArray();
+        return new PublicKey(publicKeySeed);
     }
 }

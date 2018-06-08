@@ -14,5 +14,5 @@ public interface Curve {
 
     Coordinate getD();
 
-    BigInteger getHalfGroupOrder();
+    PublicKeyGeneratorDelegate getPublicKeyGeneratorDelegate();
 }

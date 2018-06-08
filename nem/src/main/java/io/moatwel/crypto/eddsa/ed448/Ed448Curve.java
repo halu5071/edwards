@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.crypto.eddsa.PublicKeyGeneratorDelegate;
 
 public class Ed448Curve implements Curve {
 
@@ -46,7 +47,7 @@ public class Ed448Curve implements Curve {
     }
 
     @Override
-    public BigInteger getHalfGroupOrder() {
+    public PublicKeyGeneratorDelegate getPublicKeyGeneratorDelegate() {
         return null;
     }
 
