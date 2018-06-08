@@ -3,6 +3,7 @@ package io.moatwel.crypto;
 import java.math.BigInteger;
 
 import io.moatwel.util.HexEncoder;
+import org.apache.commons.codec.binary.Hex;
 
 public class PublicKey {
 
@@ -26,5 +27,9 @@ public class PublicKey {
 
     public byte[] getRaw() {
         return this.value;
+    }
+
+    public String getHexString() {
+        return Hex.encodeHexString(this.value);
     }
 }

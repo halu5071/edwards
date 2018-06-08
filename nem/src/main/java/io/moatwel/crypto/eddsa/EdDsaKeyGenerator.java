@@ -1,7 +1,5 @@
 package io.moatwel.crypto.eddsa;
 
-import org.apache.commons.codec.binary.Hex;
-
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
@@ -56,7 +54,8 @@ public class EdDsaKeyGenerator implements KeyGenerator {
 
         // Step4
         byte[] reversedY = ByteUtils.reverse(aY);
-        reversedY[31] = aX[31];
+        int writeBit = aX[31] & 1;
+        reversedY[31] |= writeBit;
 
         return new PublicKey(reversedY);
     }

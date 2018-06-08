@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 import io.moatwel.util.HexEncoder;
+import org.apache.commons.codec.binary.Hex;
 
 public class PrivateKey {
 
@@ -19,6 +20,10 @@ public class PrivateKey {
 
     public byte[] getRaw() {
         return value;
+    }
+
+    public String getHexString() {
+        return Hex.encodeHexString(this.value);
     }
 
     @Override
