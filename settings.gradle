@@ -1,1 +1,1 @@
-include ':app', ':nem'
+include ':app', ':eddsa'
