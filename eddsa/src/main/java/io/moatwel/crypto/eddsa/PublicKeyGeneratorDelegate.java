@@ -2,7 +2,15 @@ package io.moatwel.crypto.eddsa;
 
 import io.moatwel.crypto.PrivateKey;
 
+/**
+ * Represent delegate class for generating {@link io.moatwel.crypto.PublicKey}
+ */
 public interface PublicKeyGeneratorDelegate {
 
-    byte[] generatePublicKeyByteArray(PrivateKey privateKey);
+    /**
+     *
+     * @param privateKey {@link PrivateKey} which this publicKey derived from.
+     * @return seed byte array for {@link io.moatwel.crypto.PublicKey}
+     */
+    byte[] generatePublicKeySeed(PrivateKey privateKey);
 }

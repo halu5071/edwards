@@ -23,7 +23,7 @@ public class EdDsaKeyGeneratorTest {
     }
 
     @Test
-    public void success_GeneratePublicKey() {
+    public void success_GeneratePublicKey_from_all_zero_byte32() {
         long start = System.currentTimeMillis();
         byte[] seed = new byte[32];
         PrivateKey privateKey = new PrivateKey(seed);

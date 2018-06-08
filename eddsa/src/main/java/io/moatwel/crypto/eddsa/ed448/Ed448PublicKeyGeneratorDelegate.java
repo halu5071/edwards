@@ -12,7 +12,7 @@ public class Ed448PublicKeyGeneratorDelegate implements PublicKeyGeneratorDelega
     }
 
     @Override
-    public byte[] generatePublicKeyByteArray(PrivateKey privateKey) {
+    public byte[] generatePublicKeySeed(PrivateKey privateKey) {
         return new byte[0];
     }
 }

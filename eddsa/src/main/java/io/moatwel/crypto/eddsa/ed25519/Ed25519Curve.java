@@ -7,6 +7,12 @@ import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.PublicKeyGeneratorDelegate;
 
+/**
+ * Represent Ed25519 curve of twisted Edwards-curve.
+ *
+ * @author halu5071 (Yasunori Horii)
+ * @see <a href="https://tools.ietf.org/html/rfc8032#section-5.1">RFC 8032 Ed25519</a>
+ */
 public class Ed25519Curve implements Curve {
 
     private static final Ed25519Curve ED_CURVE;
@@ -49,7 +55,7 @@ public class Ed25519Curve implements Curve {
 
     @Override
     public PublicKeyGeneratorDelegate getPublicKeyGeneratorDelegate() {
-        return new Ed25519GeneratePublicKeyDelegate(this);
+        return new Ed25519PublicKeyGeneratorDelegate(this);
     }
 
     public static Ed25519Curve getEdCurve() {

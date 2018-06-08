@@ -7,16 +7,16 @@ import io.moatwel.util.ByteUtils;
 
 import java.math.BigInteger;
 
-public class Ed25519GeneratePublicKeyDelegate implements PublicKeyGeneratorDelegate {
+public class Ed25519PublicKeyGeneratorDelegate implements PublicKeyGeneratorDelegate {
 
     private Ed25519Curve curve;
 
-    Ed25519GeneratePublicKeyDelegate(Ed25519Curve curve) {
+    Ed25519PublicKeyGeneratorDelegate(Ed25519Curve curve) {
         this.curve = curve;
     }
 
     @Override
-    public byte[] generatePublicKeyByteArray(PrivateKey privateKey) {
+    public byte[] generatePublicKeySeed(PrivateKey privateKey) {
         byte[] h = Hashes.sha3Hash512(privateKey.getRaw());
 
         // Step1

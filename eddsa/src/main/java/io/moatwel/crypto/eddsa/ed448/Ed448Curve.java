@@ -7,6 +7,12 @@ import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.PublicKeyGeneratorDelegate;
 
+/**
+ * Represent Ed448 curve of twisted Edwards-curve.
+ *
+ * @author halu5071 (Yasunori Horii)
+ * @see <a href="https://tools.ietf.org/html/rfc8032#section-5.2">RFC 8032 Ed448</a>
+ */
 public class Ed448Curve implements Curve {
 
     private static final Ed448Curve ED_448_CURVE;
