@@ -1,19 +1,12 @@
-package io.moatwel.crypto.eddsa;
+package io.moatwel.crypto.eddsa.ed25519;
 
 import io.moatwel.crypto.DsaSigner;
-import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
-import io.moatwel.util.ByteUtils;
 
-public class EdDsaSigner implements DsaSigner {
-
+public class Ed25519Signer implements DsaSigner {
     @Override
     public Signature sign(KeyPair keyPair, byte[] data) {
-        byte[] h = Hashes.sha3Hash512(keyPair.getPrivateKey().getRaw());
-        byte[] first32 = ByteUtils.split(h, h.length / 2)[0];
-        first32[0] = (byte)(first32[0] & 0xF8);
-
         return null;
     }
 

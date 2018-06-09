@@ -1,9 +1,8 @@
 package io.moatwel.crypto.eddsa;
 
-import io.moatwel.crypto.KeyAnalyzer;
 import io.moatwel.crypto.PublicKey;
 
-public class EdKeyAnalyzer implements KeyAnalyzer {
+public class EdKeyAnalyzer {
 
     private Curve curve;
 
@@ -11,7 +10,6 @@ public class EdKeyAnalyzer implements KeyAnalyzer {
         this.curve = curve;
     }
 
-    @Override
     public boolean isKeyCompressed(PublicKey publicKey) {
         return publicKey.getRaw().length == curve.getPublicKeyByteLength();
     }

@@ -35,8 +35,10 @@ public class Ed25519PublicKeyGeneratorDelegate implements PublicKeyGeneratorDele
 
         // Step4
         byte[] reversedY = ByteUtils.reverse(aY);
-        int writeBit = aX[31] & 1;
-        reversedY[31] |= writeBit;
+        int lengthX = aX.length;
+        int lengthY = reversedY.length;
+        int writeBit = aX[lengthX - 1] & 1;
+        reversedY[lengthY - 1] |= writeBit;
 
         return reversedY;
     }

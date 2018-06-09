@@ -10,6 +10,10 @@ public class PrivateKey {
 
     private final byte[] value;
 
+    public PrivateKey(String hexString) {
+        this(new BigInteger(1, HexEncoder.getBytes(hexString)));
+    }
+
     public PrivateKey(BigInteger integer) {
         this(integer.toByteArray());
     }
@@ -38,29 +42,5 @@ public class PrivateKey {
         }
         final PrivateKey privateKey = ((PrivateKey) obj);
         return this.value.equals(privateKey.value);
-    }
-
-    public static PrivateKey fromHexString(final String hex) {
-        try {
-            return new PrivateKey(new BigInteger(1, HexEncoder.getBytes(hex)));
-        } catch (IllegalArgumentException e) {
-            throw new CryptoException(e);
-        }
-    }
-
-    public static PrivateKey fromBytes(byte[] bytes) {
-        try {
-            return new PrivateKey(new BigInteger(1, bytes));
-        } catch (IllegalArgumentException e) {
-            throw new CryptoException(e);
-        }
-    }
-
-    public static PrivateKey fromDecimalString(String decimal) {
-        try {
-            return new PrivateKey(new BigInteger(decimal, 10));
-        } catch (NumberFormatException e) {
-            throw new CryptoException(e);
-        }
     }
 }

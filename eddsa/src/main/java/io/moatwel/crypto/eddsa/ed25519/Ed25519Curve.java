@@ -58,7 +58,7 @@ public class Ed25519Curve implements Curve {
         return new Ed25519PublicKeyGeneratorDelegate(this);
     }
 
-    public static Ed25519Curve getEdCurve() {
+    public static Ed25519Curve getCurve() {
         return ED_CURVE;
     }
 }

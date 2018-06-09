@@ -22,7 +22,7 @@ public class Ed25519CurveTest {
 
     @Before
     public void setup() {
-        curve = Ed25519Curve.getEdCurve();
+        curve = Ed25519Curve.getCurve();
     }
 
     @Test

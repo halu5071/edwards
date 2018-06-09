@@ -6,6 +6,9 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import io.moatwel.crypto.eddsa.EdKeyAnalyzer;
+import io.moatwel.crypto.eddsa.Edwards;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -15,31 +18,30 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @PrepareForTest(KeyPair.class)
 public class KeyPairTest {
 
-    private CryptoProvider mockProvider;
+    private Edwards mockEdwards;
     private PrivateKey mockPrivateKey;
     private PublicKey mockPublicKey;
     private KeyGenerator mockGenerator;
-    private KeyAnalyzer mockAnalyzer;
+    private EdKeyAnalyzer mockAnalyzer;
     private KeyPair mockTmpKeyPair;
 
     @Before
     public void setup() {
-        mockProvider = mock(CryptoProvider.class);
+        mockEdwards = mock(Edwards.class);
         mockPrivateKey = mock(PrivateKey.class);
         mockPublicKey = mock(PublicKey.class);
         mockGenerator = mock(KeyGenerator.class);
-        mockAnalyzer = mock(KeyAnalyzer.class);
+        mockAnalyzer = mock(EdKeyAnalyzer.class);
         mockTmpKeyPair = mock(KeyPair.class);
     }
 
     @Test
     public void success_GenerateKeyPair_private_key_and_engine() {
-        when(mockProvider.createKeyGenerator()).thenReturn(mockGenerator);
+        when(mockEdwards.getKeyGenerator()).thenReturn(mockGenerator);
         when(mockGenerator.derivePublicKey(mockPrivateKey)).thenReturn(mockPublicKey);
-        when(mockProvider.createKeyAnalyzer()).thenReturn(mockAnalyzer);
         when(mockAnalyzer.isKeyCompressed(mockPublicKey)).thenReturn(true);
 
-        KeyPair pair = new KeyPair(mockPrivateKey, mockProvider);
+        KeyPair pair = new KeyPair(mockPrivateKey, mockGenerator, mockAnalyzer);
 
         assertThat(pair.getPublicKey(), is(mockPublicKey));
         assertThat(pair.getPrivateKey(), is(mockPrivateKey));
@@ -47,14 +49,13 @@ public class KeyPairTest {
 
     @Test
     public void success_GenerateKeyPair_random() {
-        when(mockProvider.createKeyGenerator()).thenReturn(mockGenerator);
+        when(mockEdwards.getKeyGenerator()).thenReturn(mockGenerator);
         when(mockGenerator.generateKeyPair()).thenReturn(mockTmpKeyPair);
         when(mockTmpKeyPair.getPrivateKey()).thenReturn(mockPrivateKey);
         when(mockTmpKeyPair.getPublicKey()).thenReturn(mockPublicKey);
-        when(mockProvider.createKeyAnalyzer()).thenReturn(mockAnalyzer);
         when(mockAnalyzer.isKeyCompressed(mockPublicKey)).thenReturn(true);
 
-        KeyPair pair = mockProvider.createKeyGenerator().generateKeyPair();
+        KeyPair pair = mockEdwards.getKeyGenerator().generateKeyPair();
 
         assertThat(pair.getPrivateKey(), is(mockPrivateKey));
         assertThat(pair.getPublicKey(), is(mockPublicKey));
@@ -62,11 +63,10 @@ public class KeyPairTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void failure_GenerateKeyPair_public_key_not_compressed() {
-        when(mockProvider.createKeyGenerator()).thenReturn(mockGenerator);
+        when(mockEdwards.getKeyGenerator()).thenReturn(mockGenerator);
         when(mockGenerator.derivePublicKey(mockPrivateKey)).thenReturn(mockPublicKey);
-        when(mockProvider.createKeyAnalyzer()).thenReturn(mockAnalyzer);
         when(mockAnalyzer.isKeyCompressed(mockPublicKey)).thenReturn(false);
 
-        new KeyPair(mockPrivateKey, mockProvider);
+        new KeyPair(mockPrivateKey, mockGenerator, mockAnalyzer);
     }
 }

@@ -1,36 +1,12 @@
 package io.moatwel.crypto;
 
 public interface DsaSigner {
-    /**
-     * Signs the SHA3 hash of an arbitrarily sized message.
-     *
-     * @param data The message to sign.
-     * @return The generated signature.
-     */
-    Signature sign(final byte[] data);
 
-    /**
-     * Verifies that the signature is valid.
-     *
-     * @param data      The original message.
-     * @param signature The generated signature.
-     * @return true if the signature is valid.
-     */
-    boolean verify(final byte[] data, final Signature signature);
+    Signature sign(KeyPair keyPair, final byte[] data);
 
-    /**
-     * Determines if the signature is canonical.
-     *
-     * @param signature The signature.
-     * @return true if the signature is canonical.
-     */
+    boolean verify(KeyPair keyPair, final byte[] data, final Signature signature);
+
     boolean isCanonicalSignature(final Signature signature);
 
-    /**
-     * Makes this signature canonical.
-     *
-     * @param signature The signature.
-     * @return Signature in canonical form.
-     */
     Signature makeSignatureCanonical(final Signature signature);
 }

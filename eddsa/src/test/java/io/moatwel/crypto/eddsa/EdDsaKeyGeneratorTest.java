@@ -19,7 +19,7 @@ public class EdDsaKeyGeneratorTest {
 
     @Before
     public void setup() {
-        generator = new EdCryptoProvider(Ed25519Curve.getEdCurve()).createKeyGenerator();
+        generator = new Edwards.Builder().curve(Ed25519Curve.getCurve()).build().getKeyGenerator();
     }
 
     @Test
@@ -30,7 +30,24 @@ public class EdDsaKeyGeneratorTest {
 
         PublicKey publicKey = generator.derivePublicKey(privateKey);
         long end = System.currentTimeMillis();
-        System.out.println("Generate PublicKey: " + (end - start) + " millsec");
+        System.out.println("Generate PublicKey: " + (double)(end - start) + " ms");
         assertThat(publicKey.getHexString(), is("b2ab021789401c61b988459c43239b03a31dc6ee1e2718a7b369667ea0270b1e"));
+    }
+
+    @Test
+    public void success_MeasureGeneratePublicKey() {
+        long start = System.currentTimeMillis();
+
+        for (int i = 1; i <= 1000; i++) {
+            byte[] seed = new byte[32];
+            PrivateKey privateKey = new PrivateKey(seed);
+            PublicKey publicKey = generator.derivePublicKey(privateKey);
+        }
+
+        long end = System.currentTimeMillis();
+
+        double average = (end - start) / 1000d;
+        System.out.println("====== Generated PublicKey ======");
+        System.out.println("ave: " + average + " ms");
     }
 }
