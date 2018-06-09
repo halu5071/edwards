@@ -1,5 +1,9 @@
 package io.moatwel.crypto.eddsa;
 
+import java.math.BigInteger;
+
+import io.moatwel.util.ByteUtils;
+
 /**
  * A point on the eddsa curve which represents a group of {@link Coordinate}.
  */
@@ -27,5 +31,19 @@ public class Point {
 
     public Coordinate getY() {
         return y;
+    }
+
+    public Point scalarMultiply(BigInteger integer) {
+        return null;
+    }
+
+    public EncodedPoint encode() {
+        byte[] reversedY = ByteUtils.reverse(y.getValue());
+        int lengthX = x.getValue().length;
+        int lengthY = reversedY.length;
+        int writeBit = x.getValue()[lengthX - 1] & 1;
+        reversedY[lengthY - 1] |= writeBit;
+
+        return new EncodedPoint(reversedY);
     }
 }

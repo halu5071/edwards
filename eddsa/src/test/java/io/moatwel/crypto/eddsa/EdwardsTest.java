@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.eddsa.ed25519.Ed25519Curve;
 

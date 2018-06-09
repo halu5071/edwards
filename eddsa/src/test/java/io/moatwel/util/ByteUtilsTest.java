@@ -32,4 +32,14 @@ public class ByteUtilsTest {
         byte[] input2 = new byte[]{54, 25, 53, 91, 24, 42, 51, 51, 54, 41, 35, 30, 45, 14, 34, 53};
         assertThat(ByteUtils.reverse(input2), is(new byte[]{53, 34, 14, 45, 30, 35, 41, 54, 51, 51, 42, 24, 91, 53, 25, 54}));
     }
+
+    @Test
+    public void success_JoinByteArray() {
+        byte[] input1 = new byte[]{1, 2, 3, 4, 5};
+        byte[] input2 = new byte[]{6, 7, 8, 9, 10};
+
+        byte[] result = ByteUtils.join(input1, input2);
+
+        assertThat(result, is(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}));
+    }
 }

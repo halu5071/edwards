@@ -2,7 +2,7 @@
 Edwards is a crypto library for Edwards-curve Digital Signature Algorithm (EdDSA) written in pure Java. It makes it easy to generate EdDsa operation (generate KeyPair, signing, verifying).
 
 ```java
-CryptoProvider provider = new EdCryptoProvider(Ed25519Curve.getCurve());
+Edwards edwards = new Edwards.Builder().curve(Ed25519Curve.getCurve()).build();
 ```
 
 # Dependencies
