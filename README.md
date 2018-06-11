@@ -1,15 +1,17 @@
 # Edwards
+[![CircleCI](https://circleci.com/gh/halu5071/edwards.svg?style=svg&circle-token=cbf414b02faf05868c94e788f208e115aea1650d)](https://circleci.com/gh/halu5071/edwards)
+
 Edwards is a crypto library for Edwards-curve Digital Signature Algorithm (EdDSA) written in pure Java. It makes it easy to generate EdDsa operation (generate KeyPair, signing, verifying).
 
 ```java
-Edwards edwards = new Edwards.Builder().curve(Ed25519Curve.getCurve()).build();
+Edwards edwards = new Edwards(Ed25519Curve.getCurve());
 ```
 
-# Dependencies
+## Dependencies
 - Apache Commons Codec
 - Spongy Castle
 
-# License
+## License
 
 ```
 Copyright 2018 halu5071 (Yasunori Horii)
