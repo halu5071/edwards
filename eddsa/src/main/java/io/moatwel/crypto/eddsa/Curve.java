@@ -33,4 +33,6 @@ public interface Curve {
      * @return {@link PublicKeyGeneratorDelegate} instance for each curve.
      */
     PublicKeyGeneratorDelegate getPublicKeyGeneratorDelegate();
+
+    SignerDelegate getSignerDelegate();
 }

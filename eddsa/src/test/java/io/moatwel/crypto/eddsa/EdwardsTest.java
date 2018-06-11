@@ -12,9 +12,7 @@ public class EdwardsTest {
 
     @Test
     public void test() {
-        Edwards edwards = new Edwards.Builder()
-                .curve(Ed25519Curve.getCurve())
-                .build();
+        Edwards edwards = new Edwards(Ed25519Curve.getCurve());
         KeyPair pair = edwards.generateKeyPair();
         edwards.sign(pair, new byte[32]);
     }

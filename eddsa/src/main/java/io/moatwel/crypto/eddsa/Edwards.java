@@ -15,13 +15,13 @@ public class Edwards {
     private DsaSigner signer;
 
     public Edwards() {
-        this(new Builder());
+        this(Ed25519Curve.getCurve());
     }
 
-    Edwards(Builder builder) {
-        this.curve = builder.curve;
-        this.generator = builder.generator;
-        this.signer = builder.signer;
+    Edwards(Curve curve) {
+        this.curve = curve;
+        this.generator = new EdDsaKeyGenerator(curve);
+        this.signer = new EdDsaSigner(curve);
     }
 
     public KeyPair generateKeyPair() {
@@ -50,36 +50,5 @@ public class Edwards {
 
     public KeyGenerator getKeyGenerator() {
         return generator;
-    }
-
-    public static final class Builder {
-        Curve curve;
-        KeyGenerator generator;
-        DsaSigner signer;
-
-        public Builder() {
-            this.curve = Ed25519Curve.getCurve();
-            this.generator = new EdDsaKeyGenerator(curve);
-            this.signer = new EdDsaSigner();
-        }
-
-        public Builder curve(Curve curve) {
-            this.curve = curve;
-            return this;
-        }
-
-        public Builder keyGenerator(KeyGenerator generator) {
-            this.generator = generator;
-            return this;
-        }
-
-        public Builder signer(DsaSigner signer) {
-            this.signer = signer;
-            return this;
-        }
-
-        public Edwards build() {
-            return new Edwards(this);
-        }
     }
 }

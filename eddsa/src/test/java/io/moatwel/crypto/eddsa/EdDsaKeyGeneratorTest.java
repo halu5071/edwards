@@ -19,7 +19,7 @@ public class EdDsaKeyGeneratorTest {
 
     @Before
     public void setup() {
-        generator = new Edwards.Builder().curve(Ed25519Curve.getCurve()).build().getKeyGenerator();
+        generator = new Edwards(Ed25519Curve.getCurve()).getKeyGenerator();
     }
 
     @Test
