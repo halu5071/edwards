@@ -28,11 +28,11 @@ public interface Curve {
     Coordinate getD();
 
     /**
-     * provide PublicKeyGeneratorDelegate instance.
+     * provide PublicKeyAdapter instance.
      *
-     * @return {@link PublicKeyGeneratorDelegate} instance for each curve.
+     * @return {@link PublicKeyAdapter} instance for each curve.
      */
-    PublicKeyGeneratorDelegate getPublicKeyGeneratorDelegate();
+    PublicKeyAdapter getPublicKeyGeneratorDelegate();
 
-    SignerDelegate getSignerDelegate();
+    SignerAdapter getSignerDelegate();
 }

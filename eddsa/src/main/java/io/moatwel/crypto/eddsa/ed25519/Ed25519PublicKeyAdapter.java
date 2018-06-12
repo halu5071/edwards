@@ -2,16 +2,16 @@ package io.moatwel.crypto.eddsa.ed25519;
 
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
-import io.moatwel.crypto.eddsa.PublicKeyGeneratorDelegate;
+import io.moatwel.crypto.eddsa.PublicKeyAdapter;
 import io.moatwel.util.ByteUtils;
 
 import java.math.BigInteger;
 
-public class Ed25519PublicKeyGeneratorDelegate implements PublicKeyGeneratorDelegate {
+public class Ed25519PublicKeyAdapter implements PublicKeyAdapter {
 
     private Ed25519Curve curve;
 
-    Ed25519PublicKeyGeneratorDelegate(Ed25519Curve curve) {
+    Ed25519PublicKeyAdapter(Ed25519Curve curve) {
         this.curve = curve;
     }
 

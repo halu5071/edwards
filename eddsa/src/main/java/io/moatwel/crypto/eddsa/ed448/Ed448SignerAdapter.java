@@ -1,14 +1,14 @@
-package io.moatwel.crypto.eddsa.ed25519;
+package io.moatwel.crypto.eddsa.ed448;
 
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
-import io.moatwel.crypto.eddsa.SignerDelegate;
+import io.moatwel.crypto.eddsa.SignerAdapter;
 
-public class Ed25519SignerDelegate implements SignerDelegate {
+public class Ed448SignerAdapter implements SignerAdapter {
 
-    private final Ed25519Curve curve;
+    private final Ed448Curve curve;
 
-    public Ed25519SignerDelegate(Ed25519Curve curve) {
+    public Ed448SignerAdapter(Ed448Curve curve) {
         this.curve = curve;
     }
 

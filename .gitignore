@@ -7,6 +7,8 @@
 /.idea/codeStyles/
 /.idea/encodings.xml
 /.idea/caches
+/.idea/compiler.xml
+/.idea/copyright
 .DS_Store
 /build
 /captures

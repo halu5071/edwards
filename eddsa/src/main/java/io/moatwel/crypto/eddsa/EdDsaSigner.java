@@ -1,10 +1,8 @@
 package io.moatwel.crypto.eddsa;
 
 import io.moatwel.crypto.DsaSigner;
-import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
-import io.moatwel.util.ByteUtils;
 
 public class EdDsaSigner implements DsaSigner {
 
@@ -16,10 +14,6 @@ public class EdDsaSigner implements DsaSigner {
 
     @Override
     public Signature sign(KeyPair keyPair, byte[] data) {
-        byte[] h = Hashes.sha3Hash512(keyPair.getPrivateKey().getRaw());
-        byte[] first = ByteUtils.split(h, h.length / 2)[0];
-        first[0] = (byte)(first[0] & 0xF8);
-
         return curve.getSignerDelegate().sign(keyPair, data);
     }
 
