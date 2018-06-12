@@ -29,7 +29,7 @@ public class Hashes {
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance(algorithm, "SC");
-            for (byte[] input: inputs) {
+            for (byte[] input : inputs) {
                 digest.update(input);
             }
             return digest.digest();

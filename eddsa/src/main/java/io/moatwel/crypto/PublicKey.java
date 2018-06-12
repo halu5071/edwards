@@ -1,9 +1,10 @@
 package io.moatwel.crypto;
 
+import org.apache.commons.codec.binary.Hex;
+
 import java.math.BigInteger;
 
 import io.moatwel.util.HexEncoder;
-import org.apache.commons.codec.binary.Hex;
 
 public class PublicKey {
 

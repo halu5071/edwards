@@ -27,7 +27,7 @@ public class ByteUtils {
     public static byte[] reverse(byte[] input) {
         byte[] output = new byte[input.length];
         int counter = 0;
-        for (byte b: input) {
+        for (byte b : input) {
             output[input.length - counter - 1] = b;
             counter++;
         }

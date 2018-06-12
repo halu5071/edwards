@@ -8,7 +8,6 @@ import io.moatwel.crypto.PrivateKey;
 public interface PublicKeyAdapter {
 
     /**
-     *
      * @param privateKey {@link PrivateKey} which this publicKey derived from.
      * @return seed byte array for {@link io.moatwel.crypto.PublicKey}
      */

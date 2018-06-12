@@ -1,11 +1,11 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
+import java.math.BigInteger;
+
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.PublicKeyAdapter;
 import io.moatwel.util.ByteUtils;
-
-import java.math.BigInteger;
 
 public class Ed25519PublicKeyAdapter implements PublicKeyAdapter {
 
@@ -23,9 +23,9 @@ public class Ed25519PublicKeyAdapter implements PublicKeyAdapter {
         byte[] first32 = ByteUtils.split(h, 32)[0];
 
         // Step2
-        first32[0] = (byte)(first32[0] & 0xF8);
+        first32[0] = (byte) (first32[0] & 0xF8);
         first32[31] |= 0b1000000;
-        first32[31] = (byte)(first32[31] & ~(1 << 8));
+        first32[31] = (byte) (first32[31] & ~(1 << 8));
 
         // Step3
         byte[] a = ByteUtils.reverse(first32);

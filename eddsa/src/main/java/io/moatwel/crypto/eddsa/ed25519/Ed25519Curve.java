@@ -6,7 +6,6 @@ import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.PublicKeyAdapter;
-import io.moatwel.crypto.eddsa.SignerAdapter;
 
 /**
  * Represent Ed25519 curve of twisted Edwards-curve.
@@ -22,7 +21,8 @@ public class Ed25519Curve implements Curve {
         ED_CURVE = new Ed25519Curve();
     }
 
-    private Ed25519Curve(){}
+    private Ed25519Curve() {
+    }
 
     @Override
     public int getPublicKeyByteLength() {
@@ -57,11 +57,6 @@ public class Ed25519Curve implements Curve {
     @Override
     public PublicKeyAdapter getPublicKeyGeneratorDelegate() {
         return new Ed25519PublicKeyAdapter(this);
-    }
-
-    @Override
-    public SignerAdapter getSignerDelegate() {
-        return new Ed25519SignerAdapter(this);
     }
 
     public static Ed25519Curve getCurve() {

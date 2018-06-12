@@ -1,6 +1,6 @@
 package io.moatwel.crypto;
 
-public interface DsaSigner {
+public interface EdDsaSigner {
 
     Signature sign(KeyPair keyPair, final byte[] data);
 

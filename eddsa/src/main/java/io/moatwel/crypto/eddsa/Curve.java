@@ -4,7 +4,7 @@ import java.math.BigInteger;
 
 /**
  * Represent curve of twisted Edwards-curve.
- *
+ * <p>
  * Some curve has been recommended by RFC.
  *
  * @author halu5071 (Yasunori Horii)
@@ -33,6 +33,4 @@ public interface Curve {
      * @return {@link PublicKeyAdapter} instance for each curve.
      */
     PublicKeyAdapter getPublicKeyGeneratorDelegate();
-
-    SignerAdapter getSignerDelegate();
 }

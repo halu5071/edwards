@@ -1,25 +1,22 @@
-package io.moatwel.crypto.eddsa;
+package io.moatwel.crypto.eddsa.ed448;
 
-import io.moatwel.crypto.DsaSigner;
+import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
+import io.moatwel.crypto.eddsa.Curve;
 
-public class EdDsaSigner implements DsaSigner {
+public class Ed448Signer implements EdDsaSigner {
 
-    private final Curve curve;
-
-    public EdDsaSigner(Curve curve) {
-        this.curve = curve;
-    }
+    private static final Curve curve = Ed448Curve.getCurve();
 
     @Override
     public Signature sign(KeyPair keyPair, byte[] data) {
-        return curve.getSignerDelegate().sign(keyPair, data);
+        return null;
     }
 
     @Override
     public boolean verify(KeyPair keyPair, byte[] data, Signature signature) {
-        return curve.getSignerDelegate().verify(keyPair, data, signature);
+        return false;
     }
 
     @Override

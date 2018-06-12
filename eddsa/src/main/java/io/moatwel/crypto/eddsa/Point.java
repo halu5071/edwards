@@ -17,6 +17,7 @@ public class Point {
 
     /**
      * constructor of Point
+     *
      * @param x x-coordinate
      * @param y y-coordinate
      */
