@@ -1,5 +1,7 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
+import org.apache.commons.codec.binary.Hex;
+
 import java.math.BigInteger;
 
 import io.moatwel.crypto.Hashes;
@@ -20,26 +22,34 @@ public class Ed25519Signer implements io.moatwel.crypto.EdDsaSigner {
         byte[] h = Hashes.sha3Hash512(keyPair.getPrivateKey().getRaw());
         byte[] first = ByteUtils.split(h, h.length / 2)[0];
         first[0] = (byte) (first[0] & 0xF8);
+        first[31] |= 0b1000000;
+        first[31] = (byte) (first[31] & ~(1 << 8));
 
         byte[] prefix = ByteUtils.split(h, h.length / 2)[1];
 
-        byte[] rSeed = Hashes.sha3Hash512(ByteUtils.join(prefix, data));
+        byte[] rSeed = Hashes.sha3Hash512(prefix, data);
         byte[] rSeedReversed = ByteUtils.reverse(rSeed);
+        String hex = Hex.encodeHexString(rSeed);
         BigInteger r = new BigInteger(rSeedReversed);
 
         // Step3
-        BigInteger x = curve.getBasePoint().getX().getInteger().multiply(r).mod(curve.getPrimeL());
-        BigInteger y = curve.getBasePoint().getY().getInteger().multiply(r).mod(curve.getPrimeL());
-        byte[] rPoint = new Point(new Coordinate(x), new Coordinate(y)).encode().getValue();
+        BigInteger x = r.mod(curve.getPrimeL())
+                .multiply(curve.getBasePoint().getX().getInteger())
+                .mod(curve.getPrimeL());
+        byte[] byteX = x.toByteArray();
+        BigInteger y = r.mod(curve.getPrimeL())
+                .multiply(curve.getBasePoint().getY().getInteger())
+                .mod(curve.getPrimeL());
+        byte[] byteY = y.toByteArray();
+        byte[] rPoint = new Point(new Coordinate(byteX), new Coordinate(byteY)).encode().getValue();
 
         // Step4
-        byte[] kSeedTmp = ByteUtils.join(rPoint, first);
-        byte[] kSeed = Hashes.sha3Hash512(ByteUtils.join(kSeedTmp, data));
-        byte[] kSeedReversed = ByteUtils.reverse(kSeed);
+        byte[] kSeed = Hashes.sha3Hash512(rPoint, keyPair.getPublicKey().getRaw(), data);
+//        byte[] kSeedReversed = ByteUtils.reverse(kSeed);
 
         // Step5
         byte[] sSeed = ByteUtils.reverse(first);
-        BigInteger k = new BigInteger(kSeedReversed);
+        BigInteger k = new BigInteger(kSeed);
         BigInteger s = new BigInteger(sSeed);
 
         byte[] S = k.mod(curve.getPrimeL()).multiply(s).add(r).mod(curve.getPrimeL()).toByteArray();
@@ -62,4 +72,10 @@ public class Ed25519Signer implements io.moatwel.crypto.EdDsaSigner {
     public Signature makeSignatureCanonical(Signature signature) {
         return null;
     }
+
+//    private byte[] getByteArrayLength32(byte[] input) {
+//        if (input[0] == 0) {
+//            byte[] tmp = new byte[]
+//        }
+//    }
 }

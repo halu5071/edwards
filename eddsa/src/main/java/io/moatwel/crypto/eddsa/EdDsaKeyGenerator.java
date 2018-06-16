@@ -29,7 +29,7 @@ public class EdDsaKeyGenerator implements KeyGenerator {
         byte[] seed = new byte[curve.getPublicKeyByteLength()];
         this.random.nextBytes(seed);
 
-        PrivateKey privateKey = new PrivateKey(seed);
+        PrivateKey privateKey = PrivateKey.fromBytes(seed);
 
         return new KeyPair(privateKey, this, analyzer);
     }

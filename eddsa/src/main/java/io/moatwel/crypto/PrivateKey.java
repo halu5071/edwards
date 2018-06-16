@@ -27,6 +27,10 @@ public class PrivateKey {
         return value;
     }
 
+    public BigInteger getInteger() {
+        return new BigInteger(1, value);
+    }
+
     public String getHexString() {
         return Hex.encodeHexString(this.value);
     }
@@ -43,5 +47,13 @@ public class PrivateKey {
         }
         final PrivateKey privateKey = ((PrivateKey) obj);
         return this.value.equals(privateKey.value);
+    }
+
+    public static PrivateKey fromBytes(final byte[] bytes) {
+        try {
+            return new PrivateKey(new BigInteger(1, bytes));
+        } catch (final IllegalArgumentException e) {
+            throw new CryptoException(e);
+        }
     }
 }

@@ -14,11 +14,11 @@ public class Hashes {
     }
 
     public static byte[] sha3Hash256(byte[]... inputs) {
-        return hash("SHA3-256", inputs);
+        return hash("KECCAK-256", inputs);
     }
 
     public static byte[] sha3Hash512(byte[]... inputs) {
-        return hash("SHA3-512", inputs);
+        return hash("KECCAK-512", inputs);
     }
 
     public static byte[] ripemd160(byte[]... inputs) {
@@ -28,8 +28,8 @@ public class Hashes {
     private static byte[] hash(String algorithm, byte[]... inputs) throws CryptoException {
         MessageDigest digest = null;
         try {
-            digest = MessageDigest.getInstance(algorithm, "SC");
-            for (byte[] input : inputs) {
+            digest = MessageDigest.getInstance(algorithm, "SC"); // It's SpongyCastle on Android
+            for (final byte[] input : inputs) {
                 digest.update(input);
             }
             return digest.digest();
