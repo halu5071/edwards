@@ -22,7 +22,7 @@ public class Edwards {
     Edwards(Curve curve) {
         this.curve = curve;
         this.generator = new EdDsaKeyGenerator(curve);
-        this.signer = new Ed25519Signer();
+        this.signer = curve.getSigner();
     }
 
     public KeyPair generateKeyPair() {

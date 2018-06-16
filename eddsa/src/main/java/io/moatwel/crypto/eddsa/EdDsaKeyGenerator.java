@@ -36,7 +36,7 @@ public class EdDsaKeyGenerator implements KeyGenerator {
 
     @Override
     public PublicKey derivePublicKey(PrivateKey privateKey) {
-        PublicKeyAdapter delegate = curve.getPublicKeyGeneratorDelegate();
+        PublicKeyDelegate delegate = curve.getPublicKeyGeneratorDelegate();
 
         byte[] publicKeySeed = delegate.generatePublicKeySeed(privateKey);
 

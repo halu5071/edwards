@@ -2,6 +2,8 @@ package io.moatwel.crypto.eddsa;
 
 import java.math.BigInteger;
 
+import io.moatwel.crypto.EdDsaSigner;
+
 /**
  * Represent curve of twisted Edwards-curve.
  * <p>
@@ -28,9 +30,11 @@ public interface Curve {
     Coordinate getD();
 
     /**
-     * provide PublicKeyAdapter instance.
+     * provide PublicKeyDelegate instance.
      *
-     * @return {@link PublicKeyAdapter} instance for each curve.
+     * @return {@link PublicKeyDelegate} instance for each curve.
      */
-    PublicKeyAdapter getPublicKeyGeneratorDelegate();
+    PublicKeyDelegate getPublicKeyGeneratorDelegate();
+
+    EdDsaSigner getSigner();
 }

@@ -5,7 +5,7 @@ import io.moatwel.crypto.PrivateKey;
 /**
  * Represent delegate class for generating {@link io.moatwel.crypto.PublicKey}
  */
-public interface PublicKeyAdapter {
+public interface PublicKeyDelegate {
 
     /**
      * @param privateKey {@link PrivateKey} which this publicKey derived from.

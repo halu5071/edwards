@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import io.moatwel.crypto.KeyPair;
+import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.ed25519.Ed25519Curve;
 
 @RunWith(PowerMockRunner.class)
@@ -14,6 +15,7 @@ public class EdwardsTest {
     public void test() {
         Edwards edwards = new Edwards(Ed25519Curve.getCurve());
         KeyPair pair = edwards.generateKeyPair();
-        edwards.sign(pair, new byte[32]);
+        Signature signature = edwards.sign(pair, new byte[32]);
+        System.out.println("r: " + signature.getR() + " s: " + signature.getS());
     }
 }

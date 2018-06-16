@@ -1,5 +1,8 @@
 package io.moatwel.crypto.eddsa;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
 public class EncodedPoint {
 
     private final byte[] value;
@@ -13,5 +16,11 @@ public class EncodedPoint {
 
     public byte[] getValue() {
         return value;
+    }
+
+    public String asOctetString() {
+        ByteBuffer buffer = ByteBuffer.wrap(value);
+        buffer.order(ByteOrder.LITTLE_ENDIAN);
+        return buffer.toString();
     }
 }

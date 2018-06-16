@@ -1,13 +1,13 @@
 package io.moatwel.crypto.eddsa.ed448;
 
 import io.moatwel.crypto.PrivateKey;
-import io.moatwel.crypto.eddsa.PublicKeyAdapter;
+import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 
-public class Ed448PublicKeyAdapter implements PublicKeyAdapter {
+public class Ed448PublicKeyDelegate implements PublicKeyDelegate {
 
     private Ed448Curve curve;
 
-    public Ed448PublicKeyAdapter(Ed448Curve curve) {
+    public Ed448PublicKeyDelegate(Ed448Curve curve) {
         this.curve = curve;
     }
 

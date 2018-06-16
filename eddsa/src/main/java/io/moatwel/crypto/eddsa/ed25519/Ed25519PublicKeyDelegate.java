@@ -4,14 +4,14 @@ import java.math.BigInteger;
 
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
-import io.moatwel.crypto.eddsa.PublicKeyAdapter;
+import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.util.ByteUtils;
 
-public class Ed25519PublicKeyAdapter implements PublicKeyAdapter {
+public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
     private Ed25519Curve curve;
 
-    Ed25519PublicKeyAdapter(Ed25519Curve curve) {
+    Ed25519PublicKeyDelegate(Ed25519Curve curve) {
         this.curve = curve;
     }
 
