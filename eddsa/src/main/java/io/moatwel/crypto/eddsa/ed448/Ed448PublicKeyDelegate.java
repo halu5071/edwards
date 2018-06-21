@@ -5,11 +5,7 @@ import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 
 public class Ed448PublicKeyDelegate implements PublicKeyDelegate {
 
-    private Ed448Curve curve;
-
-    public Ed448PublicKeyDelegate(Ed448Curve curve) {
-        this.curve = curve;
-    }
+    private Ed448Curve curve = Ed448Curve.getCurve();
 
     @Override
     public byte[] generatePublicKeySeed(PrivateKey privateKey) {

@@ -9,7 +9,6 @@ import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
-import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ByteUtils;
 
@@ -55,7 +54,7 @@ public class Ed25519Signer implements io.moatwel.crypto.EdDsaSigner {
         byte[] S = k.mod(curve.getPrimeL()).multiply(s).add(r).mod(curve.getPrimeL()).toByteArray();
 
         // Step6
-        return new Signature(rPoint, S);
+        return new SignatureEd25519(rPoint, S);
     }
 
     @Override

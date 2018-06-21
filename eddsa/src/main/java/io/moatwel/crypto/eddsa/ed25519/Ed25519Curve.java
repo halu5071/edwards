@@ -57,7 +57,7 @@ public class Ed25519Curve implements Curve {
 
     @Override
     public PublicKeyDelegate getPublicKeyGeneratorDelegate() {
-        return new Ed25519PublicKeyDelegate(this);
+        return new Ed25519PublicKeyDelegate();
     }
 
     @Override
