@@ -25,7 +25,7 @@ public class Hashes {
         return hash("RIPEMD160", inputs);
     }
 
-    private static byte[] hash(String algorithm, byte[]... inputs) throws CryptoException {
+    public static byte[] hash(String algorithm, byte[]... inputs) throws CryptoException {
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance(algorithm, "SC"); // It's SpongyCastle on Android

@@ -13,7 +13,7 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
     @Override
     public byte[] generatePublicKeySeed(PrivateKey privateKey) {
-        byte[] h = Hashes.sha3Hash512(privateKey.getRaw());
+        byte[] h = Hashes.hash(curve.getHashAlgorithm().getName(), privateKey.getRaw());
 
         // Step1
         byte[] first32 = ByteUtils.split(h, 32)[0];
@@ -25,16 +25,16 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
         // Step3
         byte[] a = ByteUtils.reverse(first32);
-        BigInteger s = new BigInteger(first32);
-        BigInteger aXX = s.mod(curve.getPrimePowerP())
-                .multiply(curve.getBasePoint().getX().getInteger())
-                .mod(curve.getPrimePowerP());
+        BigInteger s = new BigInteger(a);
+
         byte[] aX = s.mod(curve.getPrimePowerP())
                 .multiply(curve.getBasePoint().getX().getInteger())
+                .modInverse(curve.getPrimePowerP())
                 .mod(curve.getPrimePowerP())
                 .toByteArray();
         byte[] aY = s.mod(curve.getPrimePowerP())
                 .multiply(curve.getBasePoint().getY().getInteger())
+                .modInverse(curve.getPrimePowerP())
                 .mod(curve.getPrimePowerP())
                 .toByteArray();
 
@@ -47,4 +47,8 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
         return reversedY;
     }
+
+//    private byte[] generateScalarA(byte[] value) {
+//
+//    }
 }

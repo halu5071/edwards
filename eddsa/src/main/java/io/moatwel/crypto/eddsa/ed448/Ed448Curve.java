@@ -3,6 +3,7 @@ package io.moatwel.crypto.eddsa.ed448;
 import java.math.BigInteger;
 
 import io.moatwel.crypto.EdDsaSigner;
+import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
@@ -62,6 +63,11 @@ public class Ed448Curve implements Curve {
     @Override
     public EdDsaSigner getSigner() {
         return new Ed448Signer();
+    }
+
+    @Override
+    public HashAlgorithm getHashAlgorithm() {
+        return null;
     }
 
     public static Ed448Curve getCurve() {

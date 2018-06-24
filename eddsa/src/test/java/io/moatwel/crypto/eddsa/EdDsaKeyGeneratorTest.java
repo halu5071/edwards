@@ -4,18 +4,13 @@ import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.PublicKey;
 import io.moatwel.crypto.eddsa.ed25519.Ed25519Curve;
-import io.moatwel.util.HexEncoder;
 
-import org.apache.commons.codec.binary.Hex;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.math.BigInteger;
-
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 @RunWith(PowerMockRunner.class)
@@ -43,25 +38,6 @@ public class EdDsaKeyGeneratorTest {
         PrivateKey privateKey2 = new PrivateKey(seed2);
         PublicKey publicKey2 = generator.derivePublicKey(privateKey2);
         assertThat(publicKey2.getHexString(), is("1d8507094afcc34d019ed2f064e58f0840eb837ac406ac92bafe48b9cd68b893"));
-    }
-
-    @Test
-    public void test_coordinate() {
-        Curve curve = Ed25519Curve.getCurve();
-        String hexX = "d4725748570c68c5ae774635ec5bd459bc44bdbc7cba4a5187a622c51ea40a6c";
-        String hexY = "1b7adefebab536b364e0b8212993b290e1e7d56680a1401323c4ee23752c854c";
-        String hexZ = "3f8af7bd1285fdae4f175743867858c2cab4bded54a1ccee0d9a45c05efcb519";
-        String hexT = "043e5106aa0950f336db56c69d12897d3554ed3d853da561ce20c28553f3824e";
-
-        BigInteger x = new BigInteger(HexEncoder.getBytes(hexX));
-        BigInteger y = new BigInteger(HexEncoder.getBytes(hexY));
-        BigInteger z = new BigInteger(HexEncoder.getBytes(hexZ));
-        BigInteger t = new BigInteger(HexEncoder.getBytes(hexT));
-
-        BigInteger xx = x.multiply(z).modInverse(curve.getPrimePowerP()).mod(curve.getPrimePowerP());
-        BigInteger yy = y.multiply(z).modInverse(curve.getPrimePowerP()).mod(curve.getPrimePowerP());
-
-        assertEquals(x.multiply(y).mod(curve.getPrimePowerP()), t.multiply(z).modInverse(curve.getPrimePowerP()).mod(curve.getPrimePowerP()));
     }
 
     @Test

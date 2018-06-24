@@ -2,6 +2,7 @@ package io.moatwel.crypto.eddsa;
 
 import java.security.SecureRandom;
 
+import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
@@ -12,6 +13,7 @@ public class EdDsaKeyGenerator implements KeyGenerator {
     private final SecureRandom random;
     private Curve curve;
     private EdKeyAnalyzer analyzer;
+    private HashAlgorithm hashAlgorithm;
 
     public EdDsaKeyGenerator(Curve curve) {
         this.random = new SecureRandom();

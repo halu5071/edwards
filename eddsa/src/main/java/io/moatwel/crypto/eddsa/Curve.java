@@ -3,6 +3,7 @@ package io.moatwel.crypto.eddsa;
 import java.math.BigInteger;
 
 import io.moatwel.crypto.EdDsaSigner;
+import io.moatwel.crypto.HashAlgorithm;
 
 /**
  * Represent curve of twisted Edwards-curve.
@@ -37,4 +38,6 @@ public interface Curve {
     PublicKeyDelegate getPublicKeyGeneratorDelegate();
 
     EdDsaSigner getSigner();
+
+    HashAlgorithm getHashAlgorithm();
 }

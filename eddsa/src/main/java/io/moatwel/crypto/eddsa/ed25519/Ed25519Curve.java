@@ -3,6 +3,7 @@ package io.moatwel.crypto.eddsa.ed25519;
 import java.math.BigInteger;
 
 import io.moatwel.crypto.EdDsaSigner;
+import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
@@ -63,6 +64,11 @@ public class Ed25519Curve implements Curve {
     @Override
     public EdDsaSigner getSigner() {
         return new Ed25519Signer();
+    }
+
+    @Override
+    public HashAlgorithm getHashAlgorithm() {
+        return HashAlgorithm.KECCAK_512;
     }
 
     public static Ed25519Curve getCurve() {

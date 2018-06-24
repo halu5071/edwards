@@ -7,6 +7,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.EncodedPoint;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -45,5 +46,12 @@ public class Ed25519CurveTest {
 
         System.out.println("Result: " + (end - start) + " millsec");
         System.out.println("bitLength: " + result.toByteArray().length);
+    }
+
+    @Test
+    public void success_EncodeBasePoint() {
+        EncodedPoint encodedPoint = curve.getBasePoint().encode();
+
+        assertThat(encodedPoint.getValue(), is(new byte[]{88, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102}));
     }
 }

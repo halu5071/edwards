@@ -7,7 +7,6 @@ import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.PublicKey;
 import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.ed25519.Ed25519Curve;
-import io.moatwel.crypto.eddsa.ed25519.Ed25519Signer;
 
 public class Edwards {
 
