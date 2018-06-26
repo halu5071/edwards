@@ -1,27 +1,30 @@
 package io.moatwel.crypto.eddsa;
 
 import io.moatwel.crypto.EdDsaSigner;
+import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.PublicKey;
 import io.moatwel.crypto.Signature;
-import io.moatwel.crypto.eddsa.ed25519.Ed25519Curve;
+import io.moatwel.crypto.eddsa.ed25519.Ed25519Provider;
 
-public class Edwards {
+public final class Edwards {
 
     private Curve curve;
+    private Provider provider;
     private KeyGenerator generator;
     private EdDsaSigner signer;
 
     public Edwards() {
-        this(Ed25519Curve.getCurve());
+        this(new Ed25519Provider(HashAlgorithm.KECCAK_512));
     }
 
-    Edwards(Curve curve) {
-        this.curve = curve;
-        this.generator = new EdDsaKeyGenerator(curve);
-        this.signer = curve.getSigner();
+    public Edwards(Provider provider) {
+        this.provider = provider;
+        this.curve = provider.getCurve();
+        this.generator = new EdDsaKeyGenerator(provider);
+        this.signer = provider.getSigner();
     }
 
     public KeyPair generateKeyPair() {

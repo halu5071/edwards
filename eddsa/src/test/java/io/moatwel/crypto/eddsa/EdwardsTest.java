@@ -18,7 +18,7 @@ public class EdwardsTest {
 
     @Before
     public void setup() {
-        edwards = new Edwards(Ed25519Curve.getCurve());
+        edwards = new Edwards();
     }
 
     @Test

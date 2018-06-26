@@ -2,6 +2,7 @@ package io.moatwel.crypto.eddsa.ed25519;
 
 import java.math.BigInteger;
 
+import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
@@ -11,9 +12,15 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
     private Ed25519Curve curve = Ed25519Curve.getCurve();
 
+    private HashAlgorithm hashAlgorithm;
+
+    public Ed25519PublicKeyDelegate(HashAlgorithm hashAlgorithm) {
+        this.hashAlgorithm = hashAlgorithm;
+    }
+
     @Override
     public byte[] generatePublicKeySeed(PrivateKey privateKey) {
-        byte[] h = Hashes.hash(curve.getHashAlgorithm().getName(), privateKey.getRaw());
+        byte[] h = Hashes.hash(hashAlgorithm.getName(), privateKey.getRaw());
 
         // Step1
         byte[] first32 = ByteUtils.split(h, 32)[0];

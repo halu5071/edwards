@@ -56,21 +56,6 @@ public class Ed25519Curve implements Curve {
         return new Coordinate(d);
     }
 
-    @Override
-    public PublicKeyDelegate getPublicKeyGeneratorDelegate() {
-        return new Ed25519PublicKeyDelegate();
-    }
-
-    @Override
-    public EdDsaSigner getSigner() {
-        return new Ed25519Signer();
-    }
-
-    @Override
-    public HashAlgorithm getHashAlgorithm() {
-        return HashAlgorithm.KECCAK_512;
-    }
-
     public static Ed25519Curve getCurve() {
         return ED_CURVE;
     }

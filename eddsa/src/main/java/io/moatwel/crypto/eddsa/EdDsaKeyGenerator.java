@@ -2,7 +2,6 @@ package io.moatwel.crypto.eddsa;
 
 import java.security.SecureRandom;
 
-import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
@@ -11,13 +10,14 @@ import io.moatwel.crypto.PublicKey;
 public class EdDsaKeyGenerator implements KeyGenerator {
 
     private final SecureRandom random;
-    private Curve curve;
     private EdKeyAnalyzer analyzer;
-    private HashAlgorithm hashAlgorithm;
+    private Curve curve;
+    private Provider provider;
 
-    public EdDsaKeyGenerator(Curve curve) {
+    public EdDsaKeyGenerator(Provider provider) {
+        this.provider = provider;
         this.random = new SecureRandom();
-        this.curve = curve;
+        this.curve = provider.getCurve();
         this.analyzer = new EdKeyAnalyzer(curve);
     }
 
@@ -38,7 +38,7 @@ public class EdDsaKeyGenerator implements KeyGenerator {
 
     @Override
     public PublicKey derivePublicKey(PrivateKey privateKey) {
-        PublicKeyDelegate delegate = curve.getPublicKeyGeneratorDelegate();
+        PublicKeyDelegate delegate = provider.getPublicKeyDelegate();
 
         byte[] publicKeySeed = delegate.generatePublicKeySeed(privateKey);
 

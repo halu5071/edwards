@@ -3,7 +3,6 @@ package io.moatwel.crypto.eddsa;
 import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.PublicKey;
-import io.moatwel.crypto.eddsa.ed25519.Ed25519Curve;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +19,7 @@ public class EdDsaKeyGeneratorTest {
 
     @Before
     public void setup() {
-        generator = new Edwards(Ed25519Curve.getCurve()).getKeyGenerator();
+        generator = new Edwards().getKeyGenerator();
     }
 
     @Test

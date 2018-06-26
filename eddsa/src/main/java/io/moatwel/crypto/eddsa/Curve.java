@@ -29,15 +29,4 @@ public interface Curve {
     BigInteger getPrimePowerP();
 
     Coordinate getD();
-
-    /**
-     * provide PublicKeyDelegate instance.
-     *
-     * @return {@link PublicKeyDelegate} instance for each curve.
-     */
-    PublicKeyDelegate getPublicKeyGeneratorDelegate();
-
-    EdDsaSigner getSigner();
-
-    HashAlgorithm getHashAlgorithm();
 }

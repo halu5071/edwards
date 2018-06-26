@@ -55,21 +55,6 @@ public class Ed448Curve implements Curve {
         return new Coordinate(d);
     }
 
-    @Override
-    public PublicKeyDelegate getPublicKeyGeneratorDelegate() {
-        return new Ed448PublicKeyDelegate();
-    }
-
-    @Override
-    public EdDsaSigner getSigner() {
-        return new Ed448Signer();
-    }
-
-    @Override
-    public HashAlgorithm getHashAlgorithm() {
-        return null;
-    }
-
     public static Ed448Curve getCurve() {
         return ED_448_CURVE;
     }
