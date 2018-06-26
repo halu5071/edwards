@@ -7,6 +7,10 @@ import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.PublicKey;
 
+/**
+ *
+ * @author halu5071 (Yasunori Horii) at 2018/6/2
+ */
 public class EdDsaKeyGenerator implements KeyGenerator {
 
     private final SecureRandom random;

@@ -1,5 +1,7 @@
 package io.moatwel.crypto.eddsa;
 
+import javax.annotation.Nonnull;
+
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyGenerator;
@@ -9,6 +11,14 @@ import io.moatwel.crypto.PublicKey;
 import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.ed25519.Ed25519Provider;
 
+/**
+ * Base class for operations of EdDsa.
+ *
+ * @author halu5071 (Yasunori Horii) at 2018/6/9
+ * @see Provider
+ * @see HashAlgorithm
+ * @see EdDsaSigner
+ */
 public final class Edwards {
 
     private Curve curve;
@@ -20,7 +30,7 @@ public final class Edwards {
         this(new Ed25519Provider(HashAlgorithm.KECCAK_512));
     }
 
-    public Edwards(Provider provider) {
+    public Edwards(@Nonnull Provider provider) {
         this.provider = provider;
         this.curve = provider.getCurve();
         this.generator = new EdDsaKeyGenerator(provider);

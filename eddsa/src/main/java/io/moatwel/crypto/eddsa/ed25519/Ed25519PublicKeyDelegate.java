@@ -2,19 +2,28 @@ package io.moatwel.crypto.eddsa.ed25519;
 
 import java.math.BigInteger;
 
+import javax.annotation.Nonnull;
+
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.util.ByteUtils;
 
+/**
+ * Delegate class from {@link io.moatwel.crypto.eddsa.EdDsaKeyGenerator}.
+ * This will be provide from {@link Ed25519Provider}
+ *
+ * @author halu5071 (Yasunori Horii) 2018/6/8
+ * @see Ed25519Provider
+ */
 public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
     private Ed25519Curve curve = Ed25519Curve.getCurve();
 
     private HashAlgorithm hashAlgorithm;
 
-    public Ed25519PublicKeyDelegate(HashAlgorithm hashAlgorithm) {
+    public Ed25519PublicKeyDelegate(@Nonnull HashAlgorithm hashAlgorithm) {
         this.hashAlgorithm = hashAlgorithm;
     }
 

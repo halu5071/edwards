@@ -5,6 +5,10 @@ import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.eddsa.Provider;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 
+/**
+ *
+ * @author halu5071 (Yasunori Horii) at 2018/6/26
+ */
 public class Ed25519Provider extends Provider {
 
     private HashAlgorithm hashAlgorithm;

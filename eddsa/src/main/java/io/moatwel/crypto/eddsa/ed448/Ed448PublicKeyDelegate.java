@@ -4,6 +4,10 @@ import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 
+/**
+ *
+ * @author halu5071 (Yasunori Horii) at 2018/6/26
+ */
 public class Ed448PublicKeyDelegate implements PublicKeyDelegate {
 
     private Ed448Curve curve = Ed448Curve.getCurve();

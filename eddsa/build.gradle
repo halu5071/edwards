@@ -7,6 +7,9 @@ def mockito_version = '2.8.9'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    // Annotation
+    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
+
     // Apache Common Codec
     compile "commons-codec:commons-codec:1.10"
 
