@@ -20,11 +20,11 @@ public class Ed448Provider extends Provider {
 
     @Override
     protected EdDsaSigner getSigner() {
-        return null;
+        return new Ed448Signer();
     }
 
     @Override
     protected PublicKeyDelegate getPublicKeyDelegate() {
-        return null;
+        return new Ed448PublicKeyDelegate(hashAlgorithm);
     }
 }

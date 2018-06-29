@@ -23,7 +23,7 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
     private HashAlgorithm hashAlgorithm;
 
-    public Ed25519PublicKeyDelegate(@Nonnull HashAlgorithm hashAlgorithm) {
+    Ed25519PublicKeyDelegate(@Nonnull HashAlgorithm hashAlgorithm) {
         this.hashAlgorithm = hashAlgorithm;
     }
 
@@ -41,7 +41,9 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
         // Step3
         byte[] a = ByteUtils.reverse(first32);
-        BigInteger s = new BigInteger(a);
+//        BigInteger s = new BigInteger(a);
+
+        BigInteger s = new BigInteger("39325648866980652792715009169219496062012184734522019333892538943312776480336");
 
         byte[] aX = s.mod(curve.getPrimePowerP())
                 .multiply(curve.getBasePoint().getX().getInteger())

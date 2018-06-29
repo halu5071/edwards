@@ -22,7 +22,6 @@ import io.moatwel.crypto.eddsa.ed25519.Ed25519Provider;
 public final class Edwards {
 
     private Curve curve;
-    private Provider provider;
     private KeyGenerator generator;
     private EdDsaSigner signer;
 
@@ -31,7 +30,6 @@ public final class Edwards {
     }
 
     public Edwards(@Nonnull Provider provider) {
-        this.provider = provider;
         this.curve = provider.getCurve();
         this.generator = new EdDsaKeyGenerator(provider);
         this.signer = provider.getSigner();

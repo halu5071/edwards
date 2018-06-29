@@ -8,10 +8,7 @@ import io.moatwel.util.ByteUtils;
  * A point on the eddsa curve which represents a group of {@link Coordinate}.
  */
 public class Point {
-
-    //TODO implement Coordinate.ZERO, Coordinate.ONE
-    public static final Point ZERO = new Point(Coordinate.ZERO, Coordinate.ONE);
-
+    
     private final Coordinate x;
     private final Coordinate y;
 

@@ -15,6 +15,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         new Edwards();
-        new Edwards(new Ed25519Provider(HashAlgorithm.KECCAK_512));
+        new Edwards(new Ed25519Provider(HashAlgorithm.SHA3_512));
     }
 }

@@ -49,6 +49,27 @@ public class Ed25519CurveTest {
     }
 
     @Test
+    public void check_D() {
+        assertThat(curve.getD().getInteger(),
+                is(new BigInteger("37095705934669439343138083508754565189542113879843219016388785533085940283555")));
+    }
+
+    @Test
+    public void measure_CalculateModulo() {
+        long start = System.currentTimeMillis();
+
+        for (int i = 0; i < 10000; i++) {
+            BigInteger d = new BigInteger("-121665")
+                    .multiply(new BigInteger("121666").modInverse(curve.getPrimePowerP()))
+                    .mod(curve.getPrimePowerP());
+        }
+
+        long end = System.currentTimeMillis();
+
+        System.out.println("Calculate Result: " + (end - start) / 10000.0 + " ms");
+    }
+
+    @Test
     public void success_EncodeBasePoint() {
         EncodedPoint encodedPoint = curve.getBasePoint().encode();
 
