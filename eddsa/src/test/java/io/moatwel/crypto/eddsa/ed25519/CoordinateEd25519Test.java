@@ -57,4 +57,36 @@ public class CoordinateEd25519Test {
 
         assertEquals(result.getInteger(), new BigInteger("3"));
     }
+
+    @Test
+    public void success_DivideCoordinate() {
+        Coordinate coordinate1 = new CoordinateEd25519(new BigInteger("1000"));
+        Coordinate coordinate2 = new CoordinateEd25519(new BigInteger("2"));
+
+        Coordinate result = coordinate1.divide(coordinate2);
+
+        assertEquals(result.getInteger(), new BigInteger("500"));
+    }
+
+    @Test
+    public void success_MultiplyCoordinate() {
+        Coordinate coordinate1 = new CoordinateEd25519(new BigInteger("1000"));
+        Coordinate coordinate2 = new CoordinateEd25519(new BigInteger("2"));
+
+        Coordinate result = coordinate1.multiply(coordinate2);
+
+        assertEquals(result.getInteger(), new BigInteger("2000"));
+    }
+
+    @Test
+    public void success_InverseCoordinate() {
+        Coordinate coordinate1 = new CoordinateEd25519(new BigInteger("100"));
+        Coordinate coordinate2 = new CoordinateEd25519(new BigInteger("101241240"));
+
+        Coordinate result1 = coordinate1.inverse();
+        Coordinate result2 = coordinate2.inverse();
+
+        assertThat(result1.getInteger(), is(new BigInteger("29526982755515629833010601177215416502583846089738343830061683922017848058174")));
+        assertThat(result2.getInteger(), is(new BigInteger("38867791596533294917564303539771571723867178851912571219685671691706937241210")));
+    }
 }

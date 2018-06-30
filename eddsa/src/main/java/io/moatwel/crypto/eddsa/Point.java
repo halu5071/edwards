@@ -2,6 +2,7 @@ package io.moatwel.crypto.eddsa;
 
 import java.math.BigInteger;
 
+import io.moatwel.crypto.eddsa.ed25519.Ed25519Curve;
 import io.moatwel.util.ByteUtils;
 
 /**
@@ -11,6 +12,9 @@ public class Point {
 
     private final Coordinate x;
     private final Coordinate y;
+
+    // TODO: make this class abstract
+    private final Curve curve = Ed25519Curve.getCurve();
 
     /**
      * constructor of Point
@@ -36,6 +40,9 @@ public class Point {
         Coordinate y1 = this.y;
         Coordinate x2 = point.getX();
         Coordinate y2 = point.getY();
+
+        // TODO: add d which is on curve.
+        Coordinate x3 = x1.multiply(y2).add(x2.multiply(y1)).multiply(Coordinate.ONE.add(x1.multiply(x2).multiply(y1).multiply(y2)));
 
         return null;
     }

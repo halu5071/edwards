@@ -8,7 +8,8 @@ import java.math.BigInteger;
 public abstract class Coordinate {
 
     protected byte[] value;
-    protected Coordinate ZERO;
+    public static Coordinate ZERO;
+    public static Coordinate ONE;
 
     public byte[] getValue() {
         return this.value;
