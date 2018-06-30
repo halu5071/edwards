@@ -54,7 +54,7 @@ public class Ed25519PublicKeyDelegateTest {
 
         assertThat(s, is(new BigInteger("39325648866980652792715009169219496062012184734522019333892538943312776480336")));
 
-        BigInteger aX = s.mod(curve.getPrimePowerP())
+        BigInteger aX = s
                 .multiply(curve.getBasePoint().getX().getInteger())
                 .mod(curve.getPrimePowerP());
 
@@ -62,8 +62,8 @@ public class Ed25519PublicKeyDelegateTest {
                 .multiply(curve.getBasePoint().getY().getInteger())
                 .mod(curve.getPrimePowerP());
 
-        assertThat(aX, is(new BigInteger("3205632240428480443209976895419713849754028114186048007443887719900703834110")));
-        assertThat(aY, is(new BigInteger("31235857845008461271882680638741530064761688615151283004977755695767914807410")));
+        assertThat(aX, is(new BigInteger("9639205628789703341510410801487549615560488670885798085067615194958049462616")));
+        assertThat(aY, is(new BigInteger("18930617471878267742194159801949745215346600387277955685031939302387136031291")));
     }
 
     private BigInteger getS() {

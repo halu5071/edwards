@@ -8,7 +8,7 @@ import io.moatwel.util.ByteUtils;
  * A point on the eddsa curve which represents a group of {@link Coordinate}.
  */
 public class Point {
-    
+
     private final Coordinate x;
     private final Coordinate y;
 
@@ -29,6 +29,15 @@ public class Point {
 
     public Coordinate getY() {
         return y;
+    }
+
+    public Point add(Point point) {
+        Coordinate x1 = this.x;
+        Coordinate y1 = this.y;
+        Coordinate x2 = point.getX();
+        Coordinate y2 = point.getY();
+
+        return null;
     }
 
     public Point scalarMultiply(BigInteger integer) {

@@ -41,4 +41,12 @@ public class ByteUtils {
         System.arraycopy(value2, 0, result, value1.length, value2.length);
         return result;
     }
+
+    public static byte[] paddingZero(byte[] input, int byteLength) {
+        if (input.length > byteLength) {
+            throw new IllegalArgumentException("input byte array must have length which is less than byteLength you want to be.");
+        }
+        byte[] padding = new byte[byteLength - input.length];
+        return join(padding, input);
+    }
 }
