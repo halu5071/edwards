@@ -19,6 +19,7 @@ dependencies {
     // Test
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:$mockito_version"
+    testCompile "org.mockito:mockito-inline:$mockito_version"
     testCompile "org.powermock:powermock-core:$powermock_version"
     testCompile "org.powermock:powermock-module-junit4:$powermock_version"
     testCompile "org.powermock:powermock-api-mockito2:$powermock_version"

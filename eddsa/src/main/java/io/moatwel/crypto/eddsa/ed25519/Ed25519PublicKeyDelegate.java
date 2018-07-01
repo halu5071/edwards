@@ -29,7 +29,7 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
     @Override
     public byte[] generatePublicKeySeed(PrivateKey privateKey) {
-        byte[] h = Hashes.hash(hashAlgorithm.getName(), privateKey.getRaw());
+        byte[] h = Hashes.hash(hashAlgorithm, privateKey.getRaw());
 
         // Step1
         byte[] first32 = ByteUtils.split(h, 32)[0];

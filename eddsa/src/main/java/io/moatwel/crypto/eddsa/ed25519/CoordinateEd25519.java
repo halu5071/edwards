@@ -20,8 +20,8 @@ public class CoordinateEd25519 extends Coordinate {
         }
 
         this.value = value;
-        this.ZERO = new CoordinateEd25519(new byte[32]);
-        this.ONE = new CoordinateEd25519(new BigInteger("1"));
+        ZERO = new CoordinateEd25519(new byte[32]);
+        ONE = new CoordinateEd25519(new BigInteger("1"));
     }
 
     public CoordinateEd25519(BigInteger integer) {

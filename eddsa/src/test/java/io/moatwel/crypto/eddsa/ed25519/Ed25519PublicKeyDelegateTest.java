@@ -69,7 +69,7 @@ public class Ed25519PublicKeyDelegateTest {
     private BigInteger getS() {
         PrivateKey privateKey = new PrivateKey(new byte[32]);
         // This method use sha-512 algorithm
-        byte[] h = Hashes.hash(HashAlgorithm.SHA_512.getName(), privateKey.getRaw());
+        byte[] h = Hashes.hash(HashAlgorithm.SHA_512, privateKey.getRaw());
 
         // Step1
         byte[] first32 = ByteUtils.split(h, 32)[0];

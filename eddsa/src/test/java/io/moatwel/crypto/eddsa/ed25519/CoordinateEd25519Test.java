@@ -8,7 +8,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.math.BigInteger;
 
 import io.moatwel.crypto.eddsa.Coordinate;
-import io.moatwel.crypto.eddsa.ed25519.CoordinateEd25519;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
@@ -88,5 +87,16 @@ public class CoordinateEd25519Test {
 
         assertThat(result1.getInteger(), is(new BigInteger("29526982755515629833010601177215416502583846089738343830061683922017848058174")));
         assertThat(result2.getInteger(), is(new BigInteger("38867791596533294917564303539771571723867178851912571219685671691706937241210")));
+    }
+
+    @Test
+    public void success_SomeOperation() {
+        Coordinate coordinate1 = new CoordinateEd25519(new BigInteger("1000"));
+        Coordinate coordinate2 = new CoordinateEd25519(new BigInteger("2"));
+        Coordinate coordinate3 = new CoordinateEd25519(new BigInteger("4"));
+
+        Coordinate result = coordinate1.add(coordinate3).multiply(coordinate2);
+
+        assertThat(result.getInteger(), is(new BigInteger("2008")));
     }
 }

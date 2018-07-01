@@ -25,10 +25,10 @@ public class HashesTest {
         byte[] sha3Hash256 = Hashes.sha3Hash256(data.getBytes());
         byte[] sha3Hash512 = Hashes.sha3Hash512(data.getBytes());
         byte[] ripemd160 = Hashes.ripemd160(data.getBytes());
-        byte[] keccakHash512 = Hashes.hash(HashAlgorithm.KECCAK_512.getName(), data.getBytes());
-        byte[] keccakHash256 = Hashes.hash(HashAlgorithm.KECCAK_256.getName(), data.getBytes());
-        byte[] emptyByteArray = Hashes.hash(HashAlgorithm.KECCAK_512.getName(), new byte[32]);
-        byte[] emptySha512 = Hashes.hash(HashAlgorithm.SHA_512.getName(), new byte[32]);
+        byte[] keccakHash512 = Hashes.hash(HashAlgorithm.KECCAK_512, data.getBytes());
+        byte[] keccakHash256 = Hashes.hash(HashAlgorithm.KECCAK_256, data.getBytes());
+        byte[] emptyByteArray = Hashes.hash(HashAlgorithm.KECCAK_512, new byte[32]);
+        byte[] emptySha512 = Hashes.hash(HashAlgorithm.SHA_512, new byte[32]);
 
         assertThat(HexEncoder.getString(sha3Hash256), is("3a784687a2b2ff9a2c72e22b001d33d9f2e2155a7858ff663b0990d35f14745d"));
         assertThat(HexEncoder.getString(sha3Hash512), is("fbf3b9980951aa921b8e30b782317a77a0dcc855551fd86720b1050bf8d40d30a07404021379a7bc8dbbcf8a4506c1c84db02e2e7a4441b80d154d1e7addb2fd"));
