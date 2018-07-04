@@ -35,7 +35,7 @@ public class Ed448Curve implements Curve {
     public Point getBasePoint() {
         Coordinate x = new CoordinateEd448(new BigInteger("224580040295924300187604334099896036246789641632564134246125461686950415467406032909029192869357953282578032075146446173674602635247710"));
         Coordinate y = new CoordinateEd448(new BigInteger("298819210078481492676017930443930673437544040154080242095928241372331506189835876003536878655418784733982303233503462500531545062832660"));
-        return new Point(x, y);
+        return new PointEd448(x, y);
     }
 
     @Override
@@ -53,6 +53,11 @@ public class Ed448Curve implements Curve {
         BigInteger d = new BigInteger("-39081");
         //TODO Coordinate can not handle 52byte coordinate
         return new CoordinateEd448(d);
+    }
+
+    @Override
+    public int getA() {
+        return 1;
     }
 
     public static Ed448Curve getCurve() {

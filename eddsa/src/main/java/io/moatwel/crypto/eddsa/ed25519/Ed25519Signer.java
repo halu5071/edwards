@@ -48,7 +48,7 @@ public class Ed25519Signer implements EdDsaSigner {
                 .multiply(curve.getBasePoint().getY().getInteger())
                 .mod(curve.getPrimeL());
         byte[] byteY = y.toByteArray();
-        byte[] rPoint = new Point(new CoordinateEd25519(byteX), new CoordinateEd25519(byteY)).encode().getValue();
+        byte[] rPoint = new PointEd25519(new CoordinateEd25519(byteX), new CoordinateEd25519(byteY)).encode().getValue();
 
         // Step4
         byte[] kSeed = Hashes.sha3Hash512(rPoint, keyPair.getPublicKey().getRaw(), data);

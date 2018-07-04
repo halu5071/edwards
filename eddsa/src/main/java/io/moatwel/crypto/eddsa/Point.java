@@ -2,19 +2,20 @@ package io.moatwel.crypto.eddsa;
 
 import java.math.BigInteger;
 
+import io.moatwel.crypto.eddsa.ed25519.CoordinateEd25519;
 import io.moatwel.crypto.eddsa.ed25519.Ed25519Curve;
+import io.moatwel.crypto.eddsa.ed25519.PointEd25519;
 import io.moatwel.util.ByteUtils;
 
 /**
  * A point on the eddsa curve which represents a group of {@link Coordinate}.
  */
-public class Point {
+public abstract class Point {
 
-    private final Coordinate x;
-    private final Coordinate y;
+    protected final Coordinate x;
+    protected final Coordinate y;
 
-    // TODO: make this class abstract
-    private final Curve curve = Ed25519Curve.getCurve();
+    protected static Curve curve;
 
     /**
      * constructor of Point
@@ -35,21 +36,9 @@ public class Point {
         return y;
     }
 
-    public Point add(Point point) {
-        Coordinate x1 = this.x;
-        Coordinate y1 = this.y;
-        Coordinate x2 = point.getX();
-        Coordinate y2 = point.getY();
+    public abstract Point add(Point point);
 
-        // TODO: add d which is on curve.
-        Coordinate x3 = x1.multiply(y2).add(x2.multiply(y1)).multiply(Coordinate.ONE.add(x1.multiply(x2).multiply(y1).multiply(y2)));
-
-        return null;
-    }
-
-    public Point scalarMultiply(BigInteger integer) {
-        return null;
-    }
+    public abstract Point scalarMultiply(BigInteger integer);
 
     public EncodedPoint encode() {
         byte[] reversedY = ByteUtils.reverse(y.getValue());

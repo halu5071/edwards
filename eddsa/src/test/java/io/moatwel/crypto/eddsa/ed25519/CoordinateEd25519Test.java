@@ -94,9 +94,14 @@ public class CoordinateEd25519Test {
         Coordinate coordinate1 = new CoordinateEd25519(new BigInteger("1000"));
         Coordinate coordinate2 = new CoordinateEd25519(new BigInteger("2"));
         Coordinate coordinate3 = new CoordinateEd25519(new BigInteger("4"));
+        Coordinate coordinate4 = new CoordinateEd25519(new BigInteger("14"));
 
         Coordinate result = coordinate1.add(coordinate3).multiply(coordinate2);
+        Coordinate result2 = coordinate2.multiply(coordinate3).add(coordinate1);
+        Coordinate result3 = coordinate3.add(coordinate4).add(coordinate1).multiply(coordinate2);
 
         assertThat(result.getInteger(), is(new BigInteger("2008")));
+        assertThat(result2.getInteger(), is(new BigInteger("1008")));
+        assertThat(result3.getInteger(), is(new BigInteger("2036")));
     }
 }

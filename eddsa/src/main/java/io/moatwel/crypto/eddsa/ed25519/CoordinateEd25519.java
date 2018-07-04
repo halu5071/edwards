@@ -14,14 +14,17 @@ public class CoordinateEd25519 extends Coordinate {
 
     private static final Curve curve = Ed25519Curve.getCurve();
 
+    static {
+        ZERO = new CoordinateEd25519(new byte[32]);
+        ONE = new CoordinateEd25519(new BigInteger("1"));
+    }
+
     public CoordinateEd25519(byte[] value) {
         if (value.length != 32) {
             throw new IllegalArgumentException("CoordinateEd25519 must have 32 byte length");
         }
 
         this.value = value;
-        ZERO = new CoordinateEd25519(new byte[32]);
-        ONE = new CoordinateEd25519(new BigInteger("1"));
     }
 
     public CoordinateEd25519(BigInteger integer) {
@@ -36,21 +39,33 @@ public class CoordinateEd25519 extends Coordinate {
     public Coordinate add(Coordinate coordinate) {
         BigInteger integer1 = new BigInteger(this.value);
         BigInteger integer2 = new BigInteger(coordinate.getValue());
-        return new CoordinateEd25519(integer1.add(integer2));
+        return new CoordinateEd25519(integer1.add(integer2).mod(curve.getPrimePowerP()));
     }
 
     @Override
     public Coordinate divide(Coordinate coordinate) {
         BigInteger integer1 = new BigInteger(this.value);
         BigInteger integer2 = new BigInteger(coordinate.getValue());
-        return new CoordinateEd25519(integer1.divide(integer2));
+        return new CoordinateEd25519(integer1.divide(integer2).mod(curve.getPrimePowerP()));
     }
 
     @Override
     public Coordinate multiply(Coordinate coordinate) {
         BigInteger integer1 = new BigInteger(this.value);
         BigInteger integer2 = new BigInteger(coordinate.getValue());
-        return new CoordinateEd25519(integer1.multiply(integer2));
+        return new CoordinateEd25519(integer1.multiply(integer2).mod(curve.getPrimePowerP()));
+    }
+
+    @Override
+    public Coordinate subtract(Coordinate coordinate) {
+        BigInteger integer1 = new BigInteger(this.value);
+        BigInteger integer2 = new BigInteger(coordinate.getValue());
+        return new CoordinateEd25519(integer1.subtract(integer2).mod(curve.getPrimePowerP()));
+    }
+
+    @Override
+    public Coordinate mod() {
+        return new CoordinateEd25519(getInteger().mod(curve.getPrimePowerP()));
     }
 
     @Override

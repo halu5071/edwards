@@ -25,5 +25,9 @@ public abstract class Coordinate {
 
     public abstract Coordinate multiply(Coordinate coordinate);
 
+    public abstract Coordinate subtract(Coordinate coordinate);
+
+    public abstract Coordinate mod();
+
     public abstract Coordinate inverse();
 }

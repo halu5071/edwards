@@ -29,4 +29,6 @@ public interface Curve {
     BigInteger getPrimePowerP();
 
     Coordinate getD();
+
+    int getA();
 }

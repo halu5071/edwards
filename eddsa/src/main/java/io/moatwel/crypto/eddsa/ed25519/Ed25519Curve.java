@@ -35,7 +35,7 @@ public class Ed25519Curve implements Curve {
     public Point getBasePoint() {
         Coordinate x = new CoordinateEd25519(new BigInteger("15112221349535400772501151409588531511454012693041857206046113283949847762202"));
         Coordinate y = new CoordinateEd25519(new BigInteger("46316835694926478169428394003475163141307993866256225615783033603165251855960"));
-        return new Point(x, y);
+        return new PointEd25519(x, y);
     }
 
     @Override
@@ -54,6 +54,11 @@ public class Ed25519Curve implements Curve {
                 .multiply(new BigInteger("121666").modInverse(getPrimePowerP()))
                 .mod(getPrimePowerP());
         return new CoordinateEd25519(d);
+    }
+
+    @Override
+    public int getA() {
+        return -1;
     }
 
     public static Ed25519Curve getCurve() {

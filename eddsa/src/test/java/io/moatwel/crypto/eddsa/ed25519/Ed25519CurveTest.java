@@ -75,4 +75,11 @@ public class Ed25519CurveTest {
 
         assertThat(encodedPoint.getValue(), is(new byte[]{88, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102}));
     }
+
+    @Test
+    public void success_checkA() {
+        BigInteger integer = BigInteger.valueOf(curve.getA());
+
+        assertThat(integer, is(new BigInteger("-1")));
+    }
 }
