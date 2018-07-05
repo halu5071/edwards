@@ -7,16 +7,13 @@ import java.math.BigInteger;
  */
 public abstract class Coordinate {
 
-    protected byte[] value;
     public static Coordinate ZERO;
     public static Coordinate ONE;
 
-    public byte[] getValue() {
-        return this.value;
-    }
+    protected BigInteger value;
 
     public BigInteger getInteger() {
-        return new BigInteger(this.value);
+        return this.value;
     }
 
     public abstract Coordinate add(Coordinate coordinate);

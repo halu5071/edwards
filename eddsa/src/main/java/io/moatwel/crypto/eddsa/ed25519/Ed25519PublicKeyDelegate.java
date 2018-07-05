@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
+import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.util.ByteUtils;
 
@@ -41,20 +42,11 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
         // Step3
         byte[] a = ByteUtils.reverse(first32);
-//        BigInteger s = new BigInteger(a);
+        BigInteger s = new BigInteger(a);
 
-        BigInteger s = new BigInteger("39325648866980652792715009169219496062012184734522019333892538943312776480336");
-
-        byte[] aX = s.mod(curve.getPrimePowerP())
-                .multiply(curve.getBasePoint().getX().getInteger())
-                .modInverse(curve.getPrimePowerP())
-                .mod(curve.getPrimePowerP())
-                .toByteArray();
-        byte[] aY = s.mod(curve.getPrimePowerP())
-                .multiply(curve.getBasePoint().getY().getInteger())
-                .modInverse(curve.getPrimePowerP())
-                .mod(curve.getPrimePowerP())
-                .toByteArray();
+        Point point = curve.getBasePoint().scalarMultiply(s);
+        byte[] aX = point.getX().getInteger().toByteArray();
+        byte[] aY = point.getY().getInteger().toByteArray();
 
         // Step4
         byte[] reversedY = ByteUtils.reverse(aY);
@@ -65,8 +57,4 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
         return reversedY;
     }
-
-//    private byte[] generateScalarA(byte[] value) {
-//
-//    }
 }

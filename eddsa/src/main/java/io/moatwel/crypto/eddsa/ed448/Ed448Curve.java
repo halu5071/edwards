@@ -56,8 +56,8 @@ public class Ed448Curve implements Curve {
     }
 
     @Override
-    public int getA() {
-        return 1;
+    public BigInteger getA() {
+        return BigInteger.ONE;
     }
 
     public static Ed448Curve getCurve() {

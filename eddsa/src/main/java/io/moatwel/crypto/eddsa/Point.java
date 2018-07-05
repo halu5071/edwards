@@ -41,10 +41,10 @@ public abstract class Point {
     public abstract Point scalarMultiply(BigInteger integer);
 
     public EncodedPoint encode() {
-        byte[] reversedY = ByteUtils.reverse(y.getValue());
-        int lengthX = x.getValue().length;
+        byte[] reversedY = ByteUtils.reverse(y.getInteger().toByteArray());
+        int lengthX = x.getInteger().toByteArray().length;
         int lengthY = reversedY.length;
-        int writeBit = x.getValue()[lengthX - 1] & 1;
+        int writeBit = x.getInteger().toByteArray()[lengthX - 1] & 1;
         reversedY[lengthY - 1] |= writeBit;
 
         return new EncodedPoint(reversedY);

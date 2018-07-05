@@ -13,20 +13,13 @@ public class CoordinateEd448 extends Coordinate {
     private static final Curve curve = Ed448Curve.getCurve();
 
     static {
-        ZERO = new CoordinateEd448(new byte[57]);
+        ZERO = new CoordinateEd448(new BigInteger("0"));
         ONE = new CoordinateEd448(new BigInteger("1"));
     }
 
-    public CoordinateEd448(byte[] value) {
-        if (value.length != 57) {
-            throw new IllegalArgumentException("Coordinate byte must have 32 byte length");
-        }
-
-        this.value = value;
-    }
-
     public CoordinateEd448(BigInteger integer) {
-        this(integer.toByteArray());
+        this.value = integer;
+
     }
 
     @Override

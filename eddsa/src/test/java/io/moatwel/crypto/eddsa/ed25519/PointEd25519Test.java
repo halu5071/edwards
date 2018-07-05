@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import io.moatwel.crypto.eddsa.Point;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 @RunWith(PowerMockRunner.class)
@@ -66,6 +67,7 @@ public class PointEd25519Test {
             Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("23")), new CoordinateEd25519(new BigInteger("43")));
 
             Point result = point1.add(point2);
+            assertNotNull(result);
         }
         long end = System.currentTimeMillis();
 

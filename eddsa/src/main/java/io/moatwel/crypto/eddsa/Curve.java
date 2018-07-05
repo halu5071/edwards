@@ -30,5 +30,5 @@ public interface Curve {
 
     Coordinate getD();
 
-    int getA();
+    BigInteger getA();
 }

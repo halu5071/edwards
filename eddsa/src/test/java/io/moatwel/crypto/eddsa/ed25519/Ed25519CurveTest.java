@@ -38,7 +38,7 @@ public class Ed25519CurveTest {
         random.nextBytes(seed);
 
         long start = System.currentTimeMillis();
-        BigInteger baseX = new BigInteger(curve.getBasePoint().getX().getValue());
+        BigInteger baseX = curve.getBasePoint().getX().getInteger();
         BigInteger s = new BigInteger(seed);
 
         BigInteger result = baseX.multiply(s).mod(curve.getPrimePowerP());
@@ -74,12 +74,5 @@ public class Ed25519CurveTest {
         EncodedPoint encodedPoint = curve.getBasePoint().encode();
 
         assertThat(encodedPoint.getValue(), is(new byte[]{88, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102}));
-    }
-
-    @Test
-    public void success_checkA() {
-        BigInteger integer = BigInteger.valueOf(curve.getA());
-
-        assertThat(integer, is(new BigInteger("-1")));
     }
 }

@@ -57,8 +57,8 @@ public class Ed25519Curve implements Curve {
     }
 
     @Override
-    public int getA() {
-        return -1;
+    public BigInteger getA() {
+        return new BigInteger("-1");
     }
 
     public static Ed25519Curve getCurve() {
