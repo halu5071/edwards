@@ -5,15 +5,21 @@ import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.math.BigInteger;
+import java.security.SecureRandom;
 
+import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 @RunWith(PowerMockRunner.class)
 public class PointEd25519Test {
+
+    private Curve curve = Ed25519Curve.getCurve();
 
     @Test
     public void success_AddPoint1() {
@@ -72,5 +78,62 @@ public class PointEd25519Test {
         long end = System.currentTimeMillis();
 
         System.out.println("Measure: Add point: " + (end - start) / 10000.0 + " ms");
+    }
+
+    @Test
+    public void success_ScalarMultiply_1() {
+        Point point = curve.getBasePoint();
+        BigInteger integer = new BigInteger("1234");
+
+        Point result = point.scalarMultiply(integer);
+
+        assertThat(result.getX().getInteger(), is(new BigInteger("55556569241314067156494303609322045323771151550641480329783949256943018472903")));
+        assertThat(result.getY().getInteger(), is(new BigInteger("32784530584814531279135473125766128158866185447326682367874410721387968224179")));
+    }
+
+    @Test
+    public void measure_ScalarMultiply() {
+        SecureRandom random = new SecureRandom();
+        Point basePoint = Ed25519Curve.getCurve().getBasePoint();
+
+        long start = System.currentTimeMillis();
+
+        for (int i = 0; i < 10000; i++) {
+            int seed3 = random.nextInt();
+
+            BigInteger integer = new BigInteger("" + seed3);
+
+            Point result = basePoint.scalarMultiply(integer);
+        }
+
+        long end = System.currentTimeMillis();
+
+        System.out.println("Measure: ScalarMultiply: " + (end - start) / 10000.0 + " ms");
+    }
+
+    @Test
+    public void success_AddBasePoint() {
+        Point doubled = curve.getBasePoint().add(curve.getBasePoint());
+
+        assertThat(doubled.getX().getInteger(), is(new BigInteger("24727413235106541002554574571675588834622768167397638456726423682521233608206")));
+        assertThat(doubled.getY().getInteger(), is(new BigInteger("15549675580280190176352668710449542251549572066445060580507079593062643049417")));
+    }
+
+    @Test
+    public void success_ScalarMultiplyBasePoint() {
+        Point doubled = curve.getBasePoint().scalarMultiply(new BigInteger("2"));
+
+        assertThat(doubled.getX().getInteger(), is(new BigInteger("24727413235106541002554574571675588834622768167397638456726423682521233608206")));
+        assertThat(doubled.getY().getInteger(), is(new BigInteger("15549675580280190176352668710449542251549572066445060580507079593062643049417")));
+    }
+
+    @Test
+    public void success_ClonePoint() {
+        Point point = curve.getBasePoint();
+        Point refCopy = point;
+        Point valCopy = point.clone();
+
+        assertEquals(point, refCopy);
+        assertNotEquals(point, valCopy);
     }
 }

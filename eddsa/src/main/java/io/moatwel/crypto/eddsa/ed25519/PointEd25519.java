@@ -6,8 +6,13 @@ import javax.annotation.Nonnull;
 
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.util.ByteUtils;
 
 public class PointEd25519 extends Point {
+
+    static {
+        ZERO = new PointEd25519(new CoordinateEd25519(BigInteger.ZERO), new CoordinateEd25519(BigInteger.ONE));
+    }
 
     /**
      * constructor of Point
@@ -46,9 +51,15 @@ public class PointEd25519 extends Point {
             return new PointEd25519(new CoordinateEd25519(BigInteger.ZERO), new CoordinateEd25519(BigInteger.ONE));
         }
 
-        Point q = this.scalarMultiply(integer.divide(new BigInteger("2")));
-        q = q.add(q);
-//        if (integer)
-        return q;
+        Point result = this.clone();
+        int[] bin = ByteUtils.toBinaryArray(integer);
+
+        for (int i = 1; i < bin.length; i++) {
+            result = result.add(result);
+            if (bin[i] == 1) {
+                result = result.add(this);
+            }
+        }
+        return result;
     }
 }

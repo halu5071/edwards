@@ -10,12 +10,14 @@ import io.moatwel.util.ByteUtils;
 /**
  * A point on the eddsa curve which represents a group of {@link Coordinate}.
  */
-public abstract class Point {
+public abstract class Point implements Cloneable{
 
-    protected final Coordinate x;
-    protected final Coordinate y;
+    protected Coordinate x;
+    protected Coordinate y;
 
     protected static Curve curve;
+
+    protected static Point ZERO;
 
     /**
      * constructor of Point
@@ -48,5 +50,23 @@ public abstract class Point {
         reversedY[lengthY - 1] |= writeBit;
 
         return new EncodedPoint(reversedY);
+    }
+
+    @Override
+    public Point clone() {
+        Point point = null;
+
+        try {
+            point = ((Point) super.clone());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        if (point != null) {
+            point.x = x.clone();
+            point.y = y.clone();
+        }
+
+        return point;
     }
 }

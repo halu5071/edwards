@@ -7,6 +7,10 @@ import io.moatwel.crypto.eddsa.Point;
 
 public class PointEd448 extends Point {
 
+    static {
+        ZERO = new PointEd448(new CoordinateEd448(BigInteger.ZERO), new CoordinateEd448(BigInteger.ZERO));
+    }
+
     /**
      * constructor of Point
      *
@@ -16,6 +20,7 @@ public class PointEd448 extends Point {
     public PointEd448(Coordinate x, Coordinate y) {
         super(x, y);
         curve = Ed448Curve.getCurve();
+
     }
 
     @Override

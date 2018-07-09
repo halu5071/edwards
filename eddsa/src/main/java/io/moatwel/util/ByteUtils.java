@@ -1,5 +1,7 @@
 package io.moatwel.util;
 
+import java.math.BigInteger;
+
 public class ByteUtils {
 
     public static int isEqualConstantTime(final int b, final int c) { // ok
@@ -48,5 +50,29 @@ public class ByteUtils {
         }
         byte[] padding = new byte[byteLength - input.length];
         return join(padding, input);
+    }
+
+    public static int[] toBinaryArray(BigInteger integer) {
+        byte[] tmp = integer.toByteArray();
+        int[] array = new int[tmp.length * 8];
+        for (int i = 0; i < tmp.length; i++) {
+            for (int j = 0; j < 8; j++) {
+                array[i * 8 + j] = (tmp[i] & 0x80)/0x80;
+                tmp[i] <<= 1;
+            }
+        }
+
+        int count = 0;
+        for (int anArray : array) {
+            if (anArray == 1) {
+                break;
+            } else {
+                count++;
+            }
+        }
+
+        int[] result = new int[array.length - count];
+        System.arraycopy(array, count, result, 0, result.length);
+        return result;
     }
 }
