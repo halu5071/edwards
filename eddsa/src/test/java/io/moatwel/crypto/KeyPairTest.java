@@ -15,7 +15,13 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(KeyPair.class)
+@PrepareForTest({
+        Edwards.class,
+        PrivateKey.class,
+        PublicKey.class,
+        KeyGenerator.class,
+        EdKeyAnalyzer.class,
+        KeyPair.class})
 public class KeyPairTest {
 
     private Edwards mockEdwards;

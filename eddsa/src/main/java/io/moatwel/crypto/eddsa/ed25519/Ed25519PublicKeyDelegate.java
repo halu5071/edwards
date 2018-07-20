@@ -10,7 +10,6 @@ import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.util.ByteUtils;
-import io.moatwel.util.HexEncoder;
 
 /**
  * Delegate class from {@link io.moatwel.crypto.eddsa.EdDsaKeyGenerator}.

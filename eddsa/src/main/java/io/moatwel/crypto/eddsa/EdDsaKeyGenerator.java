@@ -6,6 +6,7 @@ import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.PublicKey;
+import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
 
 /**
  *
@@ -35,7 +36,7 @@ public class EdDsaKeyGenerator implements KeyGenerator {
         byte[] seed = new byte[curve.getPublicKeyByteLength()];
         this.random.nextBytes(seed);
 
-        PrivateKey privateKey = PrivateKey.fromBytes(seed);
+        PrivateKey privateKey = PrivateKeyEd25519.fromBytes(seed);
 
         return new KeyPair(privateKey, this, analyzer);
     }
