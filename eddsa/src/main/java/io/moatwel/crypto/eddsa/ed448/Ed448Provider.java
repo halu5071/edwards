@@ -15,6 +15,10 @@ public class Ed448Provider extends Provider {
 
     public Ed448Provider(HashAlgorithm hashAlgorithm) {
         super(Ed448Curve.getCurve());
+
+        if (hashAlgorithm == null) {
+            throw new IllegalArgumentException("argument HashAlgorithm must not be null.");
+        }
         this.hashAlgorithm = hashAlgorithm;
     }
 

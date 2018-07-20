@@ -22,8 +22,13 @@ public class HexEncoder {
     }
 
     private static byte[] getBytesInternal(final String hexString) throws DecoderException {
-        final String paddedHexString = 0 == hexString.length() % 2 ? hexString : "0" + hexString;
-        return Hex.decode(paddedHexString);
+        byte[] b = new byte[hexString.length() / 2];
+        for (int i = 0; i < b.length; i++) {
+            int index = i * 2;
+            int v = Integer.parseInt(hexString.substring(index, index + 2), 16);
+            b[i] = (byte) v;
+        }
+        return b;
     }
 
     public static String getString(final byte[] bytes) {

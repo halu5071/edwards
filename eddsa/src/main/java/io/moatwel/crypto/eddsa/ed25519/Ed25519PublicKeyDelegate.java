@@ -10,6 +10,7 @@ import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.util.ByteUtils;
+import io.moatwel.util.HexEncoder;
 
 /**
  * Delegate class from {@link io.moatwel.crypto.eddsa.EdDsaKeyGenerator}.
@@ -24,7 +25,7 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
     private HashAlgorithm hashAlgorithm;
 
-    Ed25519PublicKeyDelegate(@Nonnull HashAlgorithm hashAlgorithm) {
+    public Ed25519PublicKeyDelegate(@Nonnull HashAlgorithm hashAlgorithm) {
         this.hashAlgorithm = hashAlgorithm;
     }
 
@@ -53,7 +54,13 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
         int lengthX = aX.length;
         int lengthY = reversedY.length;
         int writeBit = aX[lengthX - 1] & 0b00000001;
-        reversedY[lengthY - 1] |= 1 << writeBit;
+
+        if (writeBit == 1) {
+            reversedY[lengthY - 1] |= 1 << 7;
+        } else {
+            writeBit = ~(1 << 7);
+            reversedY[lengthY - 1] &= writeBit;
+        }
 
         return reversedY;
     }

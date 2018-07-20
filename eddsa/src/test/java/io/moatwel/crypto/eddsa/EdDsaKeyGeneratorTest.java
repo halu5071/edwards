@@ -26,7 +26,7 @@ public class EdDsaKeyGeneratorTest {
     public void success_GeneratePublicKey_from_all_zero_byte32() {
         long start = System.currentTimeMillis();
         byte[] seed = new byte[32];
-        PrivateKey privateKey = new PrivateKey(seed);
+        PrivateKey privateKey = PrivateKey.fromBytes(seed);
         PublicKey publicKey = generator.derivePublicKey(privateKey);
         long end = System.currentTimeMillis();
 
@@ -34,7 +34,7 @@ public class EdDsaKeyGeneratorTest {
         assertThat(publicKey.getHexString(), is("462ee976890916e54fa825d26bdd0235f5eb5b6a143c199ab0ae5ee9328e08ce"));
 
         byte[] seed2 = new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
-        PrivateKey privateKey2 = new PrivateKey(seed2);
+        PrivateKey privateKey2 = PrivateKey.fromBytes(seed2);
         PublicKey publicKey2 = generator.derivePublicKey(privateKey2);
         assertThat(publicKey2.getHexString(), is("1d8507094afcc34d019ed2f064e58f0840eb837ac406ac92bafe48b9cd68b893"));
     }

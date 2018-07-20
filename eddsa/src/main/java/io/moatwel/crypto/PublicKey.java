@@ -1,7 +1,5 @@
 package io.moatwel.crypto;
 
-import org.apache.commons.codec.binary.Hex;
-
 import java.math.BigInteger;
 
 import io.moatwel.util.HexEncoder;
@@ -35,6 +33,6 @@ public class PublicKey {
     }
 
     public String getHexString() {
-        return Hex.encodeHexString(this.value);
+        return HexEncoder.getString(value);
     }
 }

@@ -15,6 +15,10 @@ public class Ed25519Provider extends Provider {
 
     public Ed25519Provider(HashAlgorithm hashAlgorithm) {
         super(Ed25519Curve.getCurve());
+
+        if (hashAlgorithm == null) {
+            throw new IllegalArgumentException("argument HashAlgorithm must not be null.");
+        }
         this.hashAlgorithm = hashAlgorithm;
     }
 

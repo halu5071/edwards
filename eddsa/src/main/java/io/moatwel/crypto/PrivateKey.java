@@ -1,8 +1,7 @@
 package io.moatwel.crypto;
 
-import org.apache.commons.codec.binary.Hex;
-
 import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.Arrays;
 
 import io.moatwel.util.HexEncoder;
@@ -15,15 +14,11 @@ public class PrivateKey {
 
     private final byte[] value;
 
-    public PrivateKey(String hexString) {
-        this(new BigInteger(1, HexEncoder.getBytes(hexString)));
-    }
-
-    public PrivateKey(BigInteger integer) {
+    private PrivateKey(BigInteger integer) {
         this(integer.toByteArray());
     }
 
-    public PrivateKey(byte[] value) {
+    private PrivateKey(byte[] value) {
         this.value = value;
     }
 
@@ -36,7 +31,7 @@ public class PrivateKey {
     }
 
     public String getHexString() {
-        return Hex.encodeHexString(this.value);
+        return HexEncoder.getString(this.value);
     }
 
     @Override
@@ -53,11 +48,33 @@ public class PrivateKey {
         return this.value.equals(privateKey.value);
     }
 
+    public static PrivateKey random() {
+        // TODO: 32 byte length PrivateKey is for Ed25519
+        byte[] seed = new byte[32];
+        SecureRandom random = new SecureRandom();
+        random.nextBytes(seed);
+        return new PrivateKey(seed);
+    }
+
+    public static PrivateKey fromHexString(String hexString) {
+        return new PrivateKey(new BigInteger(HexEncoder.getBytes(hexString)));
+    }
+
     public static PrivateKey fromBytes(final byte[] bytes) {
         try {
-            return new PrivateKey(new BigInteger(1, bytes));
+            return new PrivateKey(bytes);
         } catch (final IllegalArgumentException e) {
             throw new CryptoException(e);
         }
+    }
+
+    public static PrivateKey fromBigInteger(BigInteger integer) {
+        byte[] array = integer.toByteArray();
+        if (array[0] == 0) {
+            byte[] tmp = new byte[array.length - 1];
+            System.arraycopy(array, 1, tmp, 0, tmp.length);
+            array = tmp;
+        }
+        return new PrivateKey(array);
     }
 }

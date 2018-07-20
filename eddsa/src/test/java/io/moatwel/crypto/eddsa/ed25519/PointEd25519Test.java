@@ -128,6 +128,14 @@ public class PointEd25519Test {
     }
 
     @Test
+    public void success_ScalarMultiplyBasePoint_2() {
+        Point scalard = curve.getBasePoint().scalarMultiply(new BigInteger("50459379271018302582465998844449622265826330103819895252966304478993432089656"));
+
+        assertThat(scalard.getX().getInteger(), is(new BigInteger("15803359856018908320086002332714894013924030585248052893900291221487236226419")));
+        assertThat(scalard.getY().getInteger(), is(new BigInteger("25416682171142283067951549518103646638934086440885266225724336361653813092611")));
+    }
+
+    @Test
     public void success_ClonePoint() {
         Point point = curve.getBasePoint();
         Point refCopy = point;
