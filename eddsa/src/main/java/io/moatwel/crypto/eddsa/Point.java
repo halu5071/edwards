@@ -42,15 +42,7 @@ public abstract class Point implements Cloneable{
 
     public abstract Point scalarMultiply(BigInteger integer);
 
-    public EncodedPoint encode() {
-        byte[] reversedY = ByteUtils.reverse(y.getInteger().toByteArray());
-        int lengthX = x.getInteger().toByteArray().length;
-        int lengthY = reversedY.length;
-        int writeBit = x.getInteger().toByteArray()[lengthX - 1] & 1;
-        reversedY[lengthY - 1] |= writeBit;
-
-        return new EncodedPoint(reversedY);
-    }
+    public abstract EncodedPoint encode();
 
     @Override
     public Point clone() {

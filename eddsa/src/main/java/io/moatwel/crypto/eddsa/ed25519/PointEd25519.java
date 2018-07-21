@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import javax.annotation.Nonnull;
 
 import io.moatwel.crypto.eddsa.Coordinate;
+import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ByteUtils;
 
@@ -61,5 +62,16 @@ public class PointEd25519 extends Point {
             }
         }
         return result;
+    }
+
+    @Override
+    public EncodedPoint encode() {
+        byte[] reversedY = ByteUtils.reverse(y.getInteger().toByteArray());
+        int lengthX = x.getInteger().toByteArray().length;
+        int lengthY = reversedY.length;
+        int writeBit = x.getInteger().toByteArray()[lengthX - 1] & 1;
+        reversedY[lengthY - 1] |= writeBit;
+
+        return new EncodedPointEd25519(reversedY);
     }
 }

@@ -3,6 +3,7 @@ package io.moatwel.crypto.eddsa.ed448;
 import java.math.BigInteger;
 
 import io.moatwel.crypto.eddsa.Coordinate;
+import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 
 public class PointEd448 extends Point {
@@ -30,6 +31,11 @@ public class PointEd448 extends Point {
 
     @Override
     public Point scalarMultiply(BigInteger integer) {
+        return null;
+    }
+
+    @Override
+    public EncodedPoint encode() {
         return null;
     }
 }
