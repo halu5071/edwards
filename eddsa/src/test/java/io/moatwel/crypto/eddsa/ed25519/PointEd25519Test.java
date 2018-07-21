@@ -66,21 +66,6 @@ public class PointEd25519Test {
     }
 
     @Test
-    public void measure_AddPoint10000() {
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < 10000; i++) {
-            Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("141")), new CoordinateEd25519(new BigInteger("24")));
-            Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("23")), new CoordinateEd25519(new BigInteger("43")));
-
-            Point result = point1.add(point2);
-            assertNotNull(result);
-        }
-        long end = System.currentTimeMillis();
-
-        System.out.println("Measure: Add point: " + (end - start) / 10000.0 + " ms");
-    }
-
-    @Test
     public void success_ScalarMultiply_1() {
         Point point = curve.getBasePoint();
         BigInteger integer = new BigInteger("1234");
@@ -89,26 +74,6 @@ public class PointEd25519Test {
 
         assertThat(result.getX().getInteger(), is(new BigInteger("55556569241314067156494303609322045323771151550641480329783949256943018472903")));
         assertThat(result.getY().getInteger(), is(new BigInteger("32784530584814531279135473125766128158866185447326682367874410721387968224179")));
-    }
-
-    @Test
-    public void measure_ScalarMultiply() {
-        SecureRandom random = new SecureRandom();
-        Point basePoint = Ed25519Curve.getCurve().getBasePoint();
-
-        long start = System.currentTimeMillis();
-
-        for (int i = 0; i < 10000; i++) {
-            int seed3 = random.nextInt();
-
-            BigInteger integer = new BigInteger("" + seed3);
-
-            Point result = basePoint.scalarMultiply(integer);
-        }
-
-        long end = System.currentTimeMillis();
-
-        System.out.println("Measure: ScalarMultiply: " + (end - start) / 10000.0 + " ms");
     }
 
     @Test
