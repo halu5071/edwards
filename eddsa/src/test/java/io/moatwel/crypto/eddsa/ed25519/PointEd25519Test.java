@@ -9,6 +9,7 @@ import java.security.SecureRandom;
 
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
@@ -108,5 +109,15 @@ public class PointEd25519Test {
 
         assertEquals(point, refCopy);
         assertNotEquals(point, valCopy);
+    }
+
+    @Test
+    public void success_EncodePoint_1() {
+        Point point = new PointEd25519(new CoordinateEd25519(new BigInteger("20266806181347897178517736945403300566236311925948585575972021784256181966831")),
+                new CoordinateEd25519(new BigInteger("20852410506957026626210500909507772892959249564214740554270305643381675686982")));
+
+        byte[] result = point.encode().getValue();
+
+        assertThat(HexEncoder.getString(result), is("467c72ee4596e75c4ccda69acd1f528df3a9e6d787c2fb992f313417cd0b1aae"));
     }
 }

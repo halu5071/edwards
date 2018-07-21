@@ -31,7 +31,7 @@ public class EdDsaKeyGeneratorTest {
         PublicKey publicKey = generator.derivePublicKey(privateKey);
         long end = System.currentTimeMillis();
 
-        System.out.println("Generate PublicKey: " + (double)(end - start) + " ms");
+        System.out.println("Measure: Generate PublicKey: " + (double)(end - start) + " ms");
         assertThat(publicKey.getHexString(), is("462ee976890916e54fa825d26bdd0235f5eb5b6a143c199ab0ae5ee9328e08ce"));
     }
 }

@@ -47,7 +47,6 @@ public class ByteUtilsTest {
         int output1 = buffer.getInt();
         int output2 = ByteBuffer.wrap(input2).getInt();
 
-        System.out.println("output1: " + output1 + " output2: " + output2);
         assertEquals(output1, output2);
     }
 

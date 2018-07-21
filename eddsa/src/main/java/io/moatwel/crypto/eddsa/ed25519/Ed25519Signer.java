@@ -8,6 +8,7 @@ import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ByteUtils;
 import io.moatwel.util.HexEncoder;
 
@@ -31,42 +32,44 @@ public class Ed25519Signer implements EdDsaSigner {
     @Override
     public Signature sign(KeyPair keyPair, byte[] data) {
         byte[] h = Hashes.hash(algorithm, keyPair.getPrivateKey().getRaw());
-        byte[] first = ByteUtils.split(h, h.length / 2)[0];
-        first[0] = (byte) (first[0] & 0xF8);
-        first[31] |= 0b1000000;
-        first[31] = (byte) (first[31] & ~(1 << 8));
 
-        byte[] prefix = ByteUtils.split(h, h.length / 2)[1];
+        // Step1
+        byte[] first32 = ByteUtils.split(h, 32)[0];
+
+        first32[0] &= 0xF8;
+        first32[31] &= 0x7F;
+        first32[31] |= 0x40;
+
+        // Step2
+        byte[] prefix = ByteUtils.split(h, 32)[1];
 
         byte[] rSeed = Hashes.hash(algorithm, prefix, data);
         byte[] rSeedReversed = ByteUtils.reverse(rSeed);
-        String hex = HexEncoder.getString(rSeed);
         BigInteger r = new BigInteger(rSeedReversed);
+        System.out.println("r: " + r.toString());
 
         // Step3
-        BigInteger x = r.mod(curve.getPrimeL())
-                .multiply(curve.getBasePoint().getX().getInteger())
-                .mod(curve.getPrimeL());
-        byte[] byteX = x.toByteArray();
-        BigInteger y = r.mod(curve.getPrimeL())
-                .multiply(curve.getBasePoint().getY().getInteger())
-                .mod(curve.getPrimeL());
-        byte[] byteY = y.toByteArray();
-        byte[] rPoint = new PointEd25519(new CoordinateEd25519(new BigInteger(byteX)), new CoordinateEd25519(new BigInteger(byteY))).encode().getValue();
+        Point pointR = curve.getBasePoint().scalarMultiply(r);
+        System.out.println("Rx: " + pointR.getX().getInteger());
+        System.out.println("Ry: " + pointR.getY().getInteger());
+        byte[] rPoint = pointR.encode().getValue();  // この時点でうまく行ってない
+        System.out.println("R byteHex: " + HexEncoder.getString(rPoint));
 
         // Step4
-        byte[] kSeed = Hashes.sha3Hash512(rPoint, keyPair.getPublicKey().getRaw(), data);
-//        byte[] kSeedReversed = ByteUtils.reverse(kSeed);
+        byte[] kSeed = Hashes.hash(algorithm, rPoint, keyPair.getPublicKey().getRaw(), data);
+        System.out.println("kSeed: " + HexEncoder.getString(kSeed));
 
         // Step5
-        byte[] sSeed = ByteUtils.reverse(first);
-        BigInteger k = new BigInteger(kSeed);
+        BigInteger k = new BigInteger(1, ByteUtils.reverse(kSeed));
+        System.out.println("K: " + k);
+        byte[] sSeed = ByteUtils.reverse(first32);
         BigInteger s = new BigInteger(sSeed);
+        System.out.println("s: " + s.toString());
 
-        byte[] S = k.mod(curve.getPrimeL()).multiply(s).add(r).mod(curve.getPrimeL()).toByteArray();
+        byte[] sPoint = k.mod(curve.getPrimeL()).multiply(s).add(r).mod(curve.getPrimeL()).toByteArray();
 
         // Step6
-        return new SignatureEd25519(rPoint, S);
+        return new SignatureEd25519(rPoint, sPoint);
     }
 
     @Override

@@ -20,7 +20,7 @@ import static org.junit.Assert.assertThat;
 public class HashesTest {
 
     @Test
-    public void success() {
+    public void success_1() {
         String data = "demo";
         byte[] sha3Hash256 = Hashes.sha3Hash256(data.getBytes());
         byte[] sha3Hash512 = Hashes.sha3Hash512(data.getBytes());
@@ -84,16 +84,28 @@ public class HashesTest {
     }
 
     @Test
-    public void success_sha3Hash512_to_little_endian_integer() {
-        byte[] input = new byte[32];
-        byte[] data = new byte[15];
+    public void success_5() {
+        String seed1 = "This is a pen.";
+        String seed2 = "ed25519";
+        String seed3 = "klf;ajdfa98";
 
-        byte[] r = Hashes.sha3Hash512(input, data);
-        ByteBuffer buffer = ByteBuffer.wrap(r);
-        buffer.order(ByteOrder.LITTLE_ENDIAN);
-        int result = buffer.getInt();
+        byte[] result1 = Hashes.hash(HashAlgorithm.SHA_512, seed1.getBytes());
+        byte[] result2 = Hashes.hash(HashAlgorithm.SHA_512, seed2.getBytes());
+        byte[] result3 = Hashes.hash(HashAlgorithm.SHA_512, seed3.getBytes());
 
-        System.out.println(new BigInteger(ByteUtils.reverse(r)));
-        System.out.println(result);
+        assertThat(HexEncoder.getString(result1), is("84b50c6166495578d74b5c0a333aae89990389b3d2895e480750ecf7e5f90200912ccc9b1cb4b0867811d6ffa0d3c6c343c37b1ca928b70124afcff6640bce78"));
+        assertThat(HexEncoder.getString(result2), is("5bd5fc9297204890e536091937435f04c55bba9f21e8701837b144c6d8b6382d8cacfc1ea6cf5967ddac09e5f4cd213dc57870c2837a88765c076a2935782568"));
+        assertThat(HexEncoder.getString(result3), is("80e21b76ffaf5755e60ea1486a7a201c058c88718299711c9ed09e75fc2ed31fc484e3b26e72e6c033b96135692e1970a0c89e2cf7dee8c57a4d3a5a45be509f"));
+    }
+
+    @Test
+    public void success_6() {
+        String seed1 = "abcdfa";
+        String seed2 = "234fad";
+        String seed3 = "daf1-3";
+
+        byte[] result = Hashes.hash(HashAlgorithm.SHA_512, seed1.getBytes(), seed2.getBytes(), seed3.getBytes());
+
+        assertThat(HexEncoder.getString(result), is("69aaaf4b6fc82362212a611caff822be8bb4b8d246c3cd33474914690b32e2bc79da889adae033ecef441a1663028a64ec8f860fb039974bb1bb37500218d998"));
     }
 }

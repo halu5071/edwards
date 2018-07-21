@@ -1,4 +1,10 @@
-apply plugin: 'java-library'
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'maven'
+
+group = 'io.moatwel.crypto'
+archivesBaseName = 'eddsa'
+version = '0.1.0-alpha'
 
 def powermock_version = '1.7.4'
 def mockito_version = '2.8.9'
@@ -25,5 +31,20 @@ dependencies {
     testCompile "org.powermock:powermock-api-mockito2:$powermock_version"
 }
 
+jacoco {
+    toolVersion = '0.8.1'
+}
+
+task jacoco(type: JacocoReport, dependsOn: 'test') {
+    sourceSets sourceSets.main
+    executionData = files(tasks.jacocoTestReport.executionData)
+    reports {
+        html.enabled = true
+        xml.enabled = false
+        csv.enabled = false
+    }
+}
+
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
+

@@ -37,10 +37,8 @@ public class ArrayUtils {
     }
 
     public static BigInteger toBigInteger(final byte[] bytes) {
-        final byte[] bigEndianBytes = new byte[bytes.length + 1];
-        for (int i = 0; i < bytes.length; ++i) {
-            bigEndianBytes[i + 1] = bytes[bytes.length - i - 1];
-        }
+        byte[] bigEndianBytes = new byte[bytes.length + 1];
+        System.arraycopy(bytes, 0, bigEndianBytes, 1, bytes.length);
 
         return new BigInteger(bigEndianBytes);
     }
