@@ -1,5 +1,6 @@
 # Edwards
-[![CircleCI](https://circleci.com/gh/halu5071/edwards.svg?style=svg&circle-token=cbf414b02faf05868c94e788f208e115aea1650d)](https://circleci.com/gh/halu5071/edwards)
+[![CircleCI](https://circleci.com/gh/halu5071/edwards.svg?style=svg&circle-token=cbf414b02faf05868c94e788f208e115aea1650d)](https://circleci.com/gh/halu5071/edwards) [![codecov](https://codecov.io/gh/halu5071/edwards/branch/master/graph/badge.svg?token=ahNKdm6dVP)](https://codecov.io/gh/halu5071/edwards) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 
 Edwards is a crypto library for Edwards-curve Digital Signature Algorithm (EdDSA) written in pure Java. It makes it easy to generate EdDsa operation (generate KeyPair, signing, verifying).
 
@@ -20,7 +21,7 @@ PublicKey publicKey = keyPair.getPublicKey();
 Of course you can generate `PublicKey` from existing `PrivateKey` which is represented in Hex String.
 
 ```java
-PrivateKey privateKey = new PrivateKey("4fd0g24......3415d4eg");
+PrivateKey privateKey = new PrivateKey("4fd0a24......3415d4ef");
 PublicKey publicKey = edwards.derivePublicKey(privateKey);
 ```
 

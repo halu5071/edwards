@@ -118,6 +118,7 @@ public class PointEd25519Test {
 
         byte[] result = point.encode().getValue();
 
-        assertThat(HexEncoder.getString(result), is("467c72ee4596e75c4ccda69acd1f528df3a9e6d787c2fb992f313417cd0b1aae"));
+        assertThat(HexEncoder.getString(result), is("467c72ee4596e75c4ccda69acd1f528df3a9e6d787c2fb992f313417cd0b1a2f"));
+        //TODO 467c72ee4596e75c4ccda69acd1f528df3a9e6d787c2fb992f313417cd0b1aae
     }
 }

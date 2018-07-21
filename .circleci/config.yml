@@ -10,9 +10,6 @@ jobs:
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "eddsa/build.gradle" }}
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
       - save_cache:
           paths:
             - ~/.gradle
@@ -22,12 +19,14 @@ jobs:
           command: ./gradlew eddsa:test
       - run:
           name: Coverage
-          command: ./graldew jacocoTestReport
+          command: |
+                ./gradlew :eddsa:check
+                ./gradlew :eddsa:jacocoTestReport
       - run:
           name: Covercov
-          command: codecov
+          command: bash <(curl -s https://codecov.io/bash)
 dependencies:
   pre:
     - mkdir $ANDROID_HOME/licenses
     - echo "8933bad161af4178b1185d1a37fbf41ea5269c55" >> $ANDROID_HOME/licenses/android-sdk-license
-    - pip install codecov
+    - sudo pip install codecov

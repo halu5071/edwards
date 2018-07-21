@@ -17,7 +17,7 @@ public class SignatureEd25519Test {
 
     @Test(expected = IllegalArgumentException.class)
     public void failure_CreateSignature_wrong_byte_array_32_32() {
-        new SignatureEd25519(new byte[32], new byte[31]);
+        new SignatureEd25519(new byte[32], new byte[33]);
     }
 
     @Test(expected = IllegalArgumentException.class)

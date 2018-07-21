@@ -35,13 +35,10 @@ jacoco {
     toolVersion = '0.8.1'
 }
 
-task jacoco(type: JacocoReport, dependsOn: 'test') {
-    sourceSets sourceSets.main
-    executionData = files(tasks.jacocoTestReport.executionData)
+jacocoTestReport {
     reports {
+        xml.enabled = true
         html.enabled = true
-        xml.enabled = false
-        csv.enabled = false
     }
 }
 
