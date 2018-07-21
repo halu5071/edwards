@@ -42,6 +42,12 @@ public class EdDsaKeyGenerator implements KeyGenerator {
     }
 
     @Override
+    public KeyPair generateKeyPair(PrivateKey privateKey) {
+        PublicKey publicKey = derivePublicKey(privateKey);
+        return new KeyPair(privateKey, publicKey, analyzer);
+    }
+
+    @Override
     public PublicKey derivePublicKey(PrivateKey privateKey) {
         PublicKeyDelegate delegate = provider.getPublicKeyDelegate();
 

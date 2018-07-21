@@ -3,7 +3,6 @@ package io.moatwel.crypto.eddsa.ed25519;
 import org.junit.Test;
 
 import java.math.BigInteger;
-import java.security.SecureRandom;
 
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.Hashes;
@@ -15,7 +14,6 @@ import io.moatwel.util.ByteUtils;
 import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 public class Ed25519PublicKeyDelegateTest {

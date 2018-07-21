@@ -24,7 +24,7 @@ public class Ed25519Provider extends Provider {
 
     @Override
     public EdDsaSigner getSigner() {
-        return new Ed25519Signer();
+        return new Ed25519Signer(hashAlgorithm);
     }
 
     @Override

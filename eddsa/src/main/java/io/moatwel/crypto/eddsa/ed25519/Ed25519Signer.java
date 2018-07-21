@@ -1,17 +1,15 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import org.apache.commons.codec.binary.Hex;
-
 import java.math.BigInteger;
 
 import io.moatwel.crypto.EdDsaSigner;
+import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
-import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
-import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ByteUtils;
+import io.moatwel.util.HexEncoder;
 
 /**
  * A Signer on Edwards-curve DSA specified on Ed25519 curve.
@@ -24,9 +22,15 @@ public class Ed25519Signer implements EdDsaSigner {
 
     private static final Curve curve = Ed25519Curve.getCurve();
 
+    private HashAlgorithm algorithm;
+
+    Ed25519Signer(HashAlgorithm algorithm) {
+        this.algorithm = algorithm;
+    }
+
     @Override
     public Signature sign(KeyPair keyPair, byte[] data) {
-        byte[] h = Hashes.sha3Hash512(keyPair.getPrivateKey().getRaw());
+        byte[] h = Hashes.hash(algorithm, keyPair.getPrivateKey().getRaw());
         byte[] first = ByteUtils.split(h, h.length / 2)[0];
         first[0] = (byte) (first[0] & 0xF8);
         first[31] |= 0b1000000;
@@ -34,9 +38,9 @@ public class Ed25519Signer implements EdDsaSigner {
 
         byte[] prefix = ByteUtils.split(h, h.length / 2)[1];
 
-        byte[] rSeed = Hashes.sha3Hash512(prefix, data);
+        byte[] rSeed = Hashes.hash(algorithm, prefix, data);
         byte[] rSeedReversed = ByteUtils.reverse(rSeed);
-        String hex = Hex.encodeHexString(rSeed);
+        String hex = HexEncoder.getString(rSeed);
         BigInteger r = new BigInteger(rSeedReversed);
 
         // Step3
@@ -80,9 +84,4 @@ public class Ed25519Signer implements EdDsaSigner {
         return null;
     }
 
-//    private byte[] getByteArrayLength32(byte[] input) {
-//        if (input[0] == 0) {
-//            byte[] tmp = new byte[]
-//        }
-//    }
 }
