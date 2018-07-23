@@ -15,30 +15,6 @@ import static org.junit.Assert.assertThat;
 @RunWith(PowerMockRunner.class)
 public class SignatureEd448Test {
 
-    @Test(expected = IllegalArgumentException.class)
-    public void failure_CreateSignature_wrong_byte_array_57_56() {
-        new SignatureEd448(new byte[57], new byte[56]);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void failure_CreateSignature_wrong_BigInteger() {
-        new SignatureEd448(new BigInteger("123456789012345678901234567890123456789012345678901234567"),
-                new BigInteger("12345678901234567890123456789012345678901234567890123456"));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void failure_CreateSignature_wrong_wrong_byte() {
-        new SignatureEd448(new byte[113]);
-    }
-
-    @Test
-    public void success_GenerateSignature_from_one_byte_array() {
-        Signature signature = new SignatureEd448(new byte[114]);
-
-        assertThat(signature.getBinaryR(), is(new byte[57]));
-        assertThat(signature.getBinaryS(), is(new byte[57]));
-    }
-
     @Test
     public void success_GenerateSignature_from_BigInteger() {
         BigInteger r = new BigInteger("12345678901234567890123456789012345678901234567890123456712345678901234567890123456789012345678901234567890123456712345678901234567890123");
@@ -60,9 +36,9 @@ public class SignatureEd448Test {
         byte[] input2 = new byte[57];
         random.nextBytes(input1);
         random.nextBytes(input2);
-        Signature signature = new SignatureEd448(input1, input2);
+        Signature signature = new SignatureEd448(new BigInteger(input1), new BigInteger(input2));
 
-        assertThat(signature.getBinaryR(), is(input1));
-        assertThat(signature.getBinaryS(), is(input2));
+        assertThat(signature.getR(), is(new BigInteger(input1)));
+        assertThat(signature.getS(), is(new BigInteger(input2)));
     }
 }

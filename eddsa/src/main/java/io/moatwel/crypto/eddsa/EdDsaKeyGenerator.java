@@ -17,12 +17,12 @@ public class EdDsaKeyGenerator implements KeyGenerator {
     private final SecureRandom random;
     private EdKeyAnalyzer analyzer;
     private Curve curve;
-    private Provider provider;
+    private CurveProvider curveProvider;
 
-    public EdDsaKeyGenerator(Provider provider) {
-        this.provider = provider;
+    public EdDsaKeyGenerator(CurveProvider curveProvider) {
+        this.curveProvider = curveProvider;
         this.random = new SecureRandom();
-        this.curve = provider.getCurve();
+        this.curve = curveProvider.getCurve();
         this.analyzer = new EdKeyAnalyzer(curve);
     }
 
@@ -49,7 +49,7 @@ public class EdDsaKeyGenerator implements KeyGenerator {
 
     @Override
     public PublicKey derivePublicKey(PrivateKey privateKey) {
-        PublicKeyDelegate delegate = provider.getPublicKeyDelegate();
+        PublicKeyDelegate delegate = curveProvider.getPublicKeyDelegate();
 
         byte[] publicKeySeed = delegate.generatePublicKeySeed(privateKey);
 

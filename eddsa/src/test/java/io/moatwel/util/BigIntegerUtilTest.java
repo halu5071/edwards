@@ -73,6 +73,8 @@ public class BigIntegerUtilTest {
         assertThat(integer3.toByteArray(), not(input3));
         assertThat(integer4.toByteArray(), not(input4));
         assertThat(integer5.toByteArray(), not(input5));
+
+        assertThat(new BigInteger(integer2.toByteArray()), is(integer2));
     }
 
     private byte[] parse(BigInteger integer) {

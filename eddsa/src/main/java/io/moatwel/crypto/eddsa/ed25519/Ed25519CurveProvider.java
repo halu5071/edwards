@@ -1,34 +1,34 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
 import io.moatwel.crypto.EdDsaSigner;
-import io.moatwel.crypto.HashAlgorithm;
-import io.moatwel.crypto.eddsa.Provider;
+import io.moatwel.crypto.HashProvider;
+import io.moatwel.crypto.eddsa.CurveProvider;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 
 /**
  *
  * @author halu5071 (Yasunori Horii) at 2018/6/26
  */
-public class Ed25519Provider extends Provider {
+public class Ed25519CurveProvider extends CurveProvider {
 
-    private HashAlgorithm hashAlgorithm;
+    private HashProvider hashProvider;
 
-    public Ed25519Provider(HashAlgorithm hashAlgorithm) {
+    public Ed25519CurveProvider(HashProvider provider) {
         super(Ed25519Curve.getCurve());
 
-        if (hashAlgorithm == null) {
+        if (provider == null) {
             throw new IllegalArgumentException("argument HashAlgorithm must not be null.");
         }
-        this.hashAlgorithm = hashAlgorithm;
+        this.hashProvider = provider;
     }
 
     @Override
     public EdDsaSigner getSigner() {
-        return new Ed25519Signer(hashAlgorithm);
+        return new Ed25519Signer(hashProvider);
     }
 
     @Override
     public PublicKeyDelegate getPublicKeyDelegate() {
-        return new Ed25519PublicKeyDelegate(hashAlgorithm);
+        return new Ed25519PublicKeyDelegate(hashProvider);
     }
 }

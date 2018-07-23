@@ -11,19 +11,8 @@ import io.moatwel.util.ArrayUtils;
  */
 class SignatureEd25519 extends Signature {
 
-    SignatureEd25519(byte[] r, byte[] s) {
-        if (r.length > 32 || s.length > 32) {
-            throw new IllegalArgumentException("r and s must have 32 byte length.");
-        }
+    SignatureEd25519(BigInteger r, BigInteger s) {
         this.r = r;
         this.s = s;
-    }
-
-    SignatureEd25519(BigInteger r, BigInteger s) {
-        this(r.toByteArray(), s.toByteArray());
-    }
-
-    SignatureEd25519(byte[] bytes) {
-        this(ArrayUtils.split(bytes, 32)[0], ArrayUtils.split(bytes, 32)[1]);
     }
 }

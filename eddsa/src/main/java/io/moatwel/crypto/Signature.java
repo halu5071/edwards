@@ -8,22 +8,14 @@ import java.math.BigInteger;
  */
 public abstract class Signature {
 
-    protected byte[] r;
-    protected byte[] s;
+    protected BigInteger r;
+    protected BigInteger s;
 
     public BigInteger getR() {
-        return new BigInteger(r);
+        return r;
     }
 
     public BigInteger getS() {
-        return new BigInteger(s);
-    }
-
-    public byte[] getBinaryR() {
-        return this.r;
-    }
-
-    public byte[] getBinaryS() {
-        return this.s;
+        return s;
     }
 }

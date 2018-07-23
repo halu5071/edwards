@@ -6,11 +6,11 @@ import io.moatwel.crypto.EdDsaSigner;
  *
  * @author halu5071 (Yasunori Horii) at 2018/6/26
  */
-public abstract class Provider {
+public abstract class CurveProvider {
 
     private Curve curve;
 
-    protected Provider(Curve curve) {
+    protected CurveProvider(Curve curve) {
         if (curve == null) {
             throw new IllegalArgumentException("Curve must not be null");
         }

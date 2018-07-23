@@ -69,8 +69,14 @@ public class PointEd25519 extends Point {
         byte[] reversedY = ByteUtils.reverse(y.getInteger().toByteArray());
         int lengthX = x.getInteger().toByteArray().length;
         int lengthY = reversedY.length;
-        int writeBit = x.getInteger().toByteArray()[lengthX - 1] & 1;
-        reversedY[lengthY - 1] |= writeBit;
+        int writeBit = x.getInteger().toByteArray()[lengthX - 1] & 0b00000001;
+
+        if (writeBit == 1) {
+            reversedY[lengthY - 1] |= 1 << 7;
+        } else {
+            writeBit = ~(1 << 7);
+            reversedY[lengthY - 1] &= writeBit;
+        }
 
         return new EncodedPointEd25519(reversedY);
     }
