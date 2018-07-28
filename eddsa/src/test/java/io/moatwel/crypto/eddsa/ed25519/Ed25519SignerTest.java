@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigInteger;
+import java.security.SecureRandom;
 
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
@@ -176,4 +177,19 @@ public class Ed25519SignerTest {
 
         assertThat(S, is(new BigInteger("1073164242609237669094038971348660945523306704071742924708751717996060223455")));
     }
+//
+//    @Test
+//    public void measure() {
+//        SecureRandom random = new SecureRandom();
+//        byte[] seed = new byte[32];
+//
+//        long start = System.currentTimeMillis();
+//        for (int i = 0; i < 2000; i++) {
+//            random.nextBytes(seed);
+//            signer.sign(pair, seed);
+//        }
+//        long end = System.currentTimeMillis();
+//
+//        System.out.println("Measure: Sign: " + (end - start) + " ms");
+//    }
 }

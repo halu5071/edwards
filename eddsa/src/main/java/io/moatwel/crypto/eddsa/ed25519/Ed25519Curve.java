@@ -18,38 +18,44 @@ import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 public class Ed25519Curve implements Curve {
 
     private static final Ed25519Curve ED_CURVE;
+    private static final Point BASE_POINT;
+    private static final BigInteger PRIME_L;
 
     static {
         ED_CURVE = new Ed25519Curve();
+
+        Coordinate x = new CoordinateEd25519(new BigInteger("15112221349535400772501151409588531511454012693041857206046113283949847762202"));
+        Coordinate y = new CoordinateEd25519(new BigInteger("46316835694926478169428394003475163141307993866256225615783033603165251855960"));
+        BASE_POINT = new PointEd25519(x, y);
+
+        PRIME_L = BigInteger.ONE.shiftLeft(252).add(new BigInteger("27742317777372353535851937790883648493"));
     }
 
     private Ed25519Curve() {
     }
 
     @Override
-    public int getPublicKeyByteLength() {
+    public final int getPublicKeyByteLength() {
         return 32;
     }
 
     @Override
-    public Point getBasePoint() {
-        Coordinate x = new CoordinateEd25519(new BigInteger("15112221349535400772501151409588531511454012693041857206046113283949847762202"));
-        Coordinate y = new CoordinateEd25519(new BigInteger("46316835694926478169428394003475163141307993866256225615783033603165251855960"));
-        return new PointEd25519(x, y);
+    public final Point getBasePoint() {
+        return BASE_POINT;
     }
 
     @Override
-    public BigInteger getPrimeL() {
-        return BigInteger.ONE.shiftLeft(252).add(new BigInteger("27742317777372353535851937790883648493"));
+    public final BigInteger getPrimeL() {
+        return PRIME_L;
     }
 
     @Override
-    public BigInteger getPrimePowerP() {
+    public final BigInteger getPrimePowerP() {
         return BigInteger.ONE.shiftLeft(255).subtract(new BigInteger("19"));
     }
 
     @Override
-    public Coordinate getD() {
+    public final Coordinate getD() {
         BigInteger d = new BigInteger("-121665")
                 .multiply(new BigInteger("121666").modInverse(getPrimePowerP()))
                 .mod(getPrimePowerP());
@@ -57,7 +63,7 @@ public class Ed25519Curve implements Curve {
     }
 
     @Override
-    public BigInteger getA() {
+    public final BigInteger getA() {
         return new BigInteger("-1");
     }
 

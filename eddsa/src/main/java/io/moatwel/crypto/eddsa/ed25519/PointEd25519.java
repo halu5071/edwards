@@ -28,7 +28,7 @@ public class PointEd25519 extends Point {
     }
 
     @Override
-    public Point add(Point point) {
+    public final Point add(Point point) {
         Coordinate x1 = this.x;
         Coordinate y1 = this.y;
         Coordinate x2 = point.getX();
@@ -47,7 +47,7 @@ public class PointEd25519 extends Point {
     }
 
     @Override
-    public Point scalarMultiply(BigInteger integer) {
+    public final Point scalarMultiply(BigInteger integer) {
         if (integer.equals(BigInteger.ZERO)) {
             return new PointEd25519(new CoordinateEd25519(BigInteger.ZERO), new CoordinateEd25519(BigInteger.ONE));
         }
@@ -65,7 +65,7 @@ public class PointEd25519 extends Point {
     }
 
     @Override
-    public EncodedPoint encode() {
+    public final EncodedPoint encode() {
         byte[] reversedY = ByteUtils.reverse(y.getInteger().toByteArray());
         int lengthX = x.getInteger().toByteArray().length;
         int lengthY = reversedY.length;

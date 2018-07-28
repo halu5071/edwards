@@ -9,6 +9,7 @@ import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ByteUtils;
+import io.moatwel.util.HexEncoder;
 
 /**
  * A Signer on Edwards-curve DSA specified on Ed25519 curve.
@@ -46,12 +47,10 @@ public class Ed25519Signer implements EdDsaSigner {
 
         byte[] rSeed = hashProvider.hash(prefix, data);
         byte[] rSeedReversed = ByteUtils.reverse(rSeed);
-        BigInteger r = new BigInteger(rSeedReversed);
+        BigInteger r = new BigInteger(1, rSeedReversed);
 
         // Step3
         Point pointR = curve.getBasePoint().scalarMultiply(r);
-        System.out.println("Rx: " + pointR.getX().getInteger());
-        System.out.println("Ry: " + pointR.getY().getInteger());
         byte[] rPoint = pointR.encode().getValue();
 
         // Step4
@@ -61,8 +60,6 @@ public class Ed25519Signer implements EdDsaSigner {
         BigInteger k = new BigInteger(1, ByteUtils.reverse(kSeed));
 
         BigInteger pointS = k.mod(curve.getPrimeL()).multiply(s).add(r).mod(curve.getPrimeL());
-        System.out.println("pointS: " + pointS);
-        byte[] sPoint = pointS.toByteArray();
 
         // Step6
         return new SignatureEd25519(new BigInteger(rPoint), pointS);
