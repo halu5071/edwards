@@ -8,8 +8,8 @@ import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
-import io.moatwel.util.HexEncoder;
 
 /**
  * A Signer on Edwards-curve DSA specified on Ed25519 curve.
@@ -60,9 +60,10 @@ public class Ed25519Signer implements EdDsaSigner {
         BigInteger k = new BigInteger(1, ByteUtils.reverse(kSeed));
 
         BigInteger pointS = k.mod(curve.getPrimeL()).multiply(s).add(r).mod(curve.getPrimeL());
+        byte[] sPoint = ArrayUtils.toByteArray(pointS, 32);
 
         // Step6
-        return new SignatureEd25519(new BigInteger(rPoint), pointS);
+        return new SignatureEd25519(rPoint, sPoint);
     }
 
     @Override

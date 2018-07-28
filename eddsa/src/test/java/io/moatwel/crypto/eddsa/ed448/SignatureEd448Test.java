@@ -25,8 +25,8 @@ public class SignatureEd448Test {
 
         Signature signature = new SignatureEd448(r, s);
 
-        assertThat(signature.getR(), is(r));
-        assertThat(signature.getS(), is(s));
+        assertThat(signature.getIntegerR(), is(r));
+        assertThat(signature.getIntegerS(), is(s));
     }
 
     @Test
@@ -38,7 +38,7 @@ public class SignatureEd448Test {
         random.nextBytes(input2);
         Signature signature = new SignatureEd448(new BigInteger(input1), new BigInteger(input2));
 
-        assertThat(signature.getR(), is(new BigInteger(input1)));
-        assertThat(signature.getS(), is(new BigInteger(input2)));
+        assertThat(signature.getIntegerR(), is(new BigInteger(1, input1)));
+        assertThat(signature.getIntegerS(), is(new BigInteger(1, input2)));
     }
 }

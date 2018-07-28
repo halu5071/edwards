@@ -17,43 +17,27 @@ public class ArrayUtils {
         return new byte[][]{lhs, rhs};
     }
 
-    public static byte[] toByteArray(BigInteger value, int numBytes) {
-        byte[] outputBytes = new byte[numBytes];
-        byte[] bigIntegerBytes = value.toByteArray();
+    public static byte[] toByteArray(BigInteger value, int expectedBytesLength) {
+        byte[] input = value.toByteArray();
+        int byteTmpLength = input.length;
 
-        int copyStartIndex = (0x00 == bigIntegerBytes[0]) ? 1 : 0;
-        int numBytesCopy = bigIntegerBytes.length - copyStartIndex;
-
-        if (numBytesCopy > numBytes) {
-            copyStartIndex += numBytesCopy - numBytes;
-            numBytesCopy = numBytes;
+        if (byteTmpLength <= expectedBytesLength) {
+            return input;
         }
 
-        for (int i = 0; i < numBytesCopy; ++i) {
-            outputBytes[i] = bigIntegerBytes[copyStartIndex + numBytesCopy - i - 1];
+        int copyStartIndex;
+        byte[] result;
+        if (input[0] == 0x00) {
+            copyStartIndex = 1;
+            result = new byte[byteTmpLength - 1];
+        } else {
+            copyStartIndex = 0;
+            result = new byte[byteTmpLength];
         }
+        int numBytesCopy = byteTmpLength - copyStartIndex;
 
-        return outputBytes;
-    }
+        System.arraycopy(input, copyStartIndex, result, 0, numBytesCopy);
 
-    public static BigInteger toBigInteger(final byte[] bytes) {
-        byte[] bigEndianBytes = new byte[bytes.length + 1];
-        System.arraycopy(bytes, 0, bigEndianBytes, 1, bytes.length);
-
-        return new BigInteger(bigEndianBytes);
-    }
-
-    public static int getBit(final byte[] h, final int i) {
-        return (h[i >> 3] >> (i & 7)) & 1;
-    }
-
-    public static int isEqualConstantTime(final byte[] b, final byte[] c) { // ok
-        int result = 0;
-        result |= b.length - c.length;
-        for (int i = 0; i < b.length; i++) {
-            result |= b[i] ^ c[i];
-        }
-
-        return ByteUtils.isEqualConstantTime(result, 0);
+        return result;
     }
 }

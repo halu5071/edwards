@@ -12,7 +12,15 @@ import io.moatwel.util.ArrayUtils;
 class SignatureEd25519 extends Signature {
 
     SignatureEd25519(BigInteger r, BigInteger s) {
-        this.r = r;
-        this.s = s;
+        this(ArrayUtils.toByteArray(r, 32), ArrayUtils.toByteArray(s, 32));
+    }
+
+    SignatureEd25519(byte[] byteR, byte[] byteS) {
+        if (byteR.length != 32 || byteS.length != 32) {
+            throw new IllegalArgumentException("Signature on ed25519 curve must have 32 byte length.");
+        }
+
+        this.r = byteR;
+        this.s = byteS;
     }
 }

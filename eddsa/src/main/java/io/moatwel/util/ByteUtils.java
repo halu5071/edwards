@@ -4,16 +4,6 @@ import java.math.BigInteger;
 
 public class ByteUtils {
 
-    public static int isEqualConstantTime(final int b, final int c) { // ok
-        int result = 0;
-        final int xor = b ^ c;
-        for (int i = 0; i < 8; i++) {
-            result |= xor >> i;
-        }
-
-        return (result ^ 0x01) & 0x01;
-    }
-
     public static byte[][] split(byte[] input, int firstLength) {
         if (input.length < firstLength) {
             throw new ArrayIndexOutOfBoundsException("Specified index over input length");
