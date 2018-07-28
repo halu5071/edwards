@@ -8,5 +8,10 @@ public abstract class EncodedPoint {
         return value;
     }
 
+    /**
+     * EncodedPoint can be decode to {@link Point}.
+     *
+     * @return {@link Point}
+     */
     public abstract Point decode();
 }

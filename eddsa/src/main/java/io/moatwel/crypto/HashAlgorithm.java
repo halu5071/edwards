@@ -14,7 +14,7 @@ public enum HashAlgorithm {
 
     private String algorithm;
 
-    HashAlgorithm(String algorithm){
+    HashAlgorithm(String algorithm) {
         this.algorithm = algorithm;
     }
 

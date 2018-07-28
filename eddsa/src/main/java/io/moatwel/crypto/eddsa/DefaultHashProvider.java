@@ -9,6 +9,9 @@ public class DefaultHashProvider implements HashProvider {
     private HashAlgorithm algorithm;
 
     public DefaultHashProvider(HashAlgorithm algorithm) {
+        if (algorithm == null) {
+            throw new IllegalArgumentException("DefaultHashProvider need non-null HashAlgorithm");
+        }
         this.algorithm = algorithm;
     }
 

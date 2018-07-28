@@ -2,12 +2,9 @@ package io.moatwel.crypto.eddsa.ed448;
 
 import java.math.BigInteger;
 
-import io.moatwel.crypto.EdDsaSigner;
-import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
-import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 
 /**
  * Represent Ed448 curve of twisted Edwards-curve.
@@ -51,7 +48,6 @@ public class Ed448Curve implements Curve {
     @Override
     public Coordinate getD() {
         BigInteger d = new BigInteger("-39081");
-        //TODO Coordinate can not handle 52byte coordinate
         return new CoordinateEd448(d);
     }
 

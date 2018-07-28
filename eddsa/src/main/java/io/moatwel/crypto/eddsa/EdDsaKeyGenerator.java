@@ -9,7 +9,6 @@ import io.moatwel.crypto.PublicKey;
 import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
 
 /**
- *
  * @author halu5071 (Yasunori Horii) at 2018/6/2
  */
 public class EdDsaKeyGenerator implements KeyGenerator {

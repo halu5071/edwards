@@ -1,14 +1,14 @@
 package io.moatwel.crypto.eddsa;
 
-import io.moatwel.crypto.KeyGenerator;
-import io.moatwel.crypto.PrivateKey;
-import io.moatwel.crypto.PublicKey;
-import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import io.moatwel.crypto.KeyGenerator;
+import io.moatwel.crypto.PrivateKey;
+import io.moatwel.crypto.PublicKey;
+import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -31,7 +31,7 @@ public class EdDsaKeyGeneratorTest {
         PublicKey publicKey = generator.derivePublicKey(privateKey);
         long end = System.currentTimeMillis();
 
-        System.out.println("Measure: Generate PublicKey: " + (double)(end - start) + " ms");
+        System.out.println("Measure: Generate PublicKey: " + (double) (end - start) + " ms");
         assertThat(publicKey.getHexString(), is("462ee976890916e54fa825d26bdd0235f5eb5b6a143c199ab0ae5ee9328e08ce"));
     }
 }

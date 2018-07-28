@@ -2,12 +2,9 @@ package io.moatwel.crypto.eddsa.ed25519;
 
 import java.math.BigInteger;
 
-import io.moatwel.crypto.EdDsaSigner;
-import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
-import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 
 /**
  * Represent Ed25519 curve of twisted Edwards-curve.

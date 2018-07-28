@@ -121,7 +121,7 @@ public class Ed25519PublicKeyDelegateTest {
         byte[] seed = delegate1.generatePublicKeySeed(privateKey);
 
         byte[] value = new byte[]{59, 106, 39, -68, -50, -74, -92, 45, 98, -93, -88, -48, 42
-                ,111, 13, 115, 101, 50, 21, 119, 29, -30, 67, -90, 58, -64, 72, -95, -117, 89, -38, 41};
+                , 111, 13, 115, 101, 50, 21, 119, 29, -30, 67, -90, 58, -64, 72, -95, -117, 89, -38, 41};
 
         assertThat(HexEncoder.getString(value), is("3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29"));
         assertThat(seed, is(value));

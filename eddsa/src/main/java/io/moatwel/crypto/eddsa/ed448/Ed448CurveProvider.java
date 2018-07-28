@@ -6,7 +6,6 @@ import io.moatwel.crypto.eddsa.CurveProvider;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 
 /**
- *
  * @author halu5071 (Yasunori Horii) at 2018/6/26
  */
 public class Ed448CurveProvider extends CurveProvider {

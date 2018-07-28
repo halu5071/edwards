@@ -6,7 +6,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.math.BigInteger;
-import java.nio.ByteBuffer;
 
 import io.moatwel.crypto.eddsa.Coordinate;
 

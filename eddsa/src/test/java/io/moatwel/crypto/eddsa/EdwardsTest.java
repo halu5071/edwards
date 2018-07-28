@@ -5,9 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import io.moatwel.crypto.KeyPair;
-import io.moatwel.crypto.Signature;
-
 @RunWith(PowerMockRunner.class)
 public class EdwardsTest {
 

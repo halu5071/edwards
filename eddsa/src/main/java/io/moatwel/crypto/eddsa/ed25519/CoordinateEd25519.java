@@ -1,11 +1,9 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
 import java.math.BigInteger;
-import java.util.BitSet;
 
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
-import io.moatwel.util.ByteUtils;
 
 /**
  * @author halu5071 (Yasunori Horii) at 2018/06/28

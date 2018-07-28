@@ -6,7 +6,6 @@ import io.moatwel.crypto.Signature;
 import io.moatwel.util.ArrayUtils;
 
 /**
- *
  * @author halu5071 (Yasunori Horii) at 2018/6/21
  */
 class SignatureEd25519 extends Signature {

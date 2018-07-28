@@ -22,8 +22,7 @@ public class PrivateKeyEd25519 extends PrivateKey {
         return new PrivateKeyEd25519(bytes);
     }
 
-    @Override
-    public PrivateKey random() {
+    public static PrivateKey random() {
         byte[] seed = new byte[32];
         SecureRandom random = new SecureRandom();
         random.nextBytes(seed);

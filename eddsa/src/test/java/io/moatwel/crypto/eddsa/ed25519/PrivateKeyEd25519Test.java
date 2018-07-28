@@ -9,6 +9,7 @@ import io.moatwel.util.ByteUtils;
 import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 public class PrivateKeyEd25519Test {
@@ -51,6 +52,13 @@ public class PrivateKeyEd25519Test {
         PrivateKey privateKey1 = PrivateKeyEd25519.fromBytes(seed);
 
         assertThat(privateKey1.getRaw(), is(seed));
+    }
+
+    @Test
+    public void success_GeneratePrivateKey_from_random() {
+        PrivateKey privateKey = PrivateKeyEd25519.random();
+
+        assertNotNull(privateKey);
     }
 
     @Test

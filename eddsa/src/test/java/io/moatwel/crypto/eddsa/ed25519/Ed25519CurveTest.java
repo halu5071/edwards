@@ -6,11 +6,11 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import io.moatwel.crypto.eddsa.Curve;
-import io.moatwel.crypto.eddsa.EncodedPoint;
-
 import java.math.BigInteger;
 import java.security.SecureRandom;
+
+import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.EncodedPoint;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

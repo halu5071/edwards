@@ -40,7 +40,7 @@ public class Hashes {
         return hash(algorithm.getName(), inputs);
     }
 
-    private static byte[] hash(String algorithm, byte[]... inputs) throws CryptoException {
+    private static byte[] hash(String algorithm, byte[]... inputs) throws RuntimeException {
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance(algorithm, "SC"); // It's SpongyCastle on Android
@@ -49,7 +49,7 @@ public class Hashes {
             }
             return digest.digest();
         } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-            throw new CryptoException("Hashing error: " + e.getMessage(), e);
+            throw new RuntimeException("Hashing error: " + e.getMessage(), e);
         }
     }
 }

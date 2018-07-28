@@ -13,8 +13,7 @@ public class PrivateKeyEd448 extends PrivateKey {
         this.value = value;
     }
 
-    @Override
-    public PrivateKey random() {
+    public static PrivateKey random() {
         byte[] seed = new byte[57];
         SecureRandom random = new SecureRandom();
         random.nextBytes(seed);

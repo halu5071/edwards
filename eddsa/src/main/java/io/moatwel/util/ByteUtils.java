@@ -47,7 +47,7 @@ public class ByteUtils {
         int[] array = new int[tmp.length * 8];
         for (int i = 0; i < tmp.length; i++) {
             for (int j = 0; j < 8; j++) {
-                array[i * 8 + j] = (tmp[i] & 0x80)/0x80;
+                array[i * 8 + j] = (tmp[i] & 0x80) / 0x80;
                 tmp[i] <<= 1;
             }
         }

@@ -3,7 +3,6 @@ package io.moatwel.crypto.eddsa;
 import io.moatwel.crypto.EdDsaSigner;
 
 /**
- *
  * @author halu5071 (Yasunori Horii) at 2018/6/26
  */
 public abstract class CurveProvider {

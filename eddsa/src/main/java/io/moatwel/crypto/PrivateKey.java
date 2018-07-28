@@ -1,13 +1,11 @@
 package io.moatwel.crypto;
 
 import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.Arrays;
 
 import io.moatwel.util.HexEncoder;
 
 /**
- *
  * @author halu5071 (Yasunori Horii) at 2018/5/28
  */
 public abstract class PrivateKey {
@@ -39,6 +37,4 @@ public abstract class PrivateKey {
         final PrivateKey privateKey = ((PrivateKey) obj);
         return this.value.equals(privateKey.value);
     }
-
-    public abstract PrivateKey random();
 }

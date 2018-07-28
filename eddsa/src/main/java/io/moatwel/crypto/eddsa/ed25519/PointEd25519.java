@@ -27,6 +27,9 @@ public class PointEd25519 extends Point {
         curve = Ed25519Curve.getCurve();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Point add(Point point) {
         Coordinate x1 = this.x;
@@ -46,6 +49,9 @@ public class PointEd25519 extends Point {
         return new PointEd25519(x3.mod(), y3.mod());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Point scalarMultiply(BigInteger integer) {
         if (integer.equals(BigInteger.ZERO)) {
@@ -64,6 +70,9 @@ public class PointEd25519 extends Point {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final EncodedPoint encode() {
         byte[] reversedY = ByteUtils.reverse(y.getInteger().toByteArray());
