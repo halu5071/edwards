@@ -18,8 +18,6 @@ public abstract class Point implements Cloneable {
 
     protected static Curve curve;
 
-    protected static Point ZERO;
-
     /**
      * constructor of Point
      *
@@ -85,6 +83,31 @@ public abstract class Point implements Cloneable {
      * @return {@link EncodedPoint} on each edwards curve.
      */
     public abstract EncodedPoint encode();
+
+    /**
+     * Check value equality between two Points.
+     * <p>Pay attention not to check different Point implementation. Below code will throw
+     * RuntimeException.
+     * <pre>
+     *      {@code
+     *          Point point1 = new PointEd25519(...);
+     *          Point point2 = new PointEd448(...);
+     *          point1.isEqual(point2);
+     *      }
+     * </pre>
+     *
+     * @param point target {@link Point} to check value.
+     * @return true, if both Points have {@link Coordinate}s which have the same value each.
+     * false, others.
+     * @throws RuntimeException when you check different Point implementations.
+     */
+    public boolean isEqual(Point point) {
+        if (point.getClass() != this.getClass()) {
+            throw new RuntimeException("These points can not be compared. Different point implementation.");
+        }
+
+        return point.getX().isEqual(this.x) && point.getY().isEqual(this.y);
+    }
 
     @Override
     public Point clone() {

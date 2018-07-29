@@ -7,6 +7,7 @@ import io.moatwel.crypto.HashProvider;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
@@ -68,6 +69,20 @@ public class Ed25519Signer implements EdDsaSigner {
 
     @Override
     public boolean verify(KeyPair keyPair, byte[] data, Signature signature) {
+        byte[] rSeed = signature.getR();
+        EncodedPoint encoded = new EncodedPointEd25519(rSeed);
+        Point r = encoded.decode();
+
+        EncodedPoint encodedPublicKey = new EncodedPointEd25519(keyPair.getPublicKey().getRaw());
+        Point a = encodedPublicKey.decode();
+
+        BigInteger s = new BigInteger(1, ByteUtils.reverse(signature.getS()));
+
+        byte[] kSeed = hashProvider.hash(signature.getR(), keyPair.getPublicKey().getRaw(), data);
+        BigInteger k = new BigInteger(1, kSeed);
+
+        Point checkPoint = r.add(a.scalarMultiply(k));
+
         return false;
     }
 

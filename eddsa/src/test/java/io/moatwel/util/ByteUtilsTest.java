@@ -105,4 +105,15 @@ public class ByteUtilsTest {
         assertThat(result2, is(new int[]{1, 0, 0, 0, 0, 0, 0, 0, 1}));
         assertThat(result3, is(new int[]{1, 0, 0, 0, 0, 0, 0, 0, 0}));
     }
+
+    @Test
+    public void success_ReadBit() {
+        byte value = 0b01010101;
+
+        int readBit1 = ByteUtils.readBit(value, 7);
+        int readBit2 = ByteUtils.readBit(value, 6);
+
+        assertThat(readBit1, is(0));
+        assertThat(readBit2, is(1));
+    }
 }

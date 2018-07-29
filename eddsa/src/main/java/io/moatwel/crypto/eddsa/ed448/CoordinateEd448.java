@@ -12,14 +12,11 @@ public class CoordinateEd448 extends Coordinate {
 
     private static final Curve curve = Ed448Curve.getCurve();
 
-    static {
-        ZERO = new CoordinateEd448(new BigInteger("0"));
-        ONE = new CoordinateEd448(new BigInteger("1"));
-    }
+    private static final Coordinate ZERO = new CoordinateEd448(new BigInteger("0"));
+    private static final Coordinate ONE = new CoordinateEd448(new BigInteger("1"));
 
     public CoordinateEd448(BigInteger integer) {
         this.value = integer;
-
     }
 
     @Override
@@ -49,6 +46,11 @@ public class CoordinateEd448 extends Coordinate {
 
     @Override
     public Coordinate inverse() {
+        return null;
+    }
+
+    @Override
+    public Coordinate powerMod(BigInteger integer) {
         return null;
     }
 }

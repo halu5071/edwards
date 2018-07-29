@@ -42,6 +42,11 @@ jacocoTestReport {
     }
 }
 
+javadoc {
+    options.charSet("utf-8")
+    options.encoding("utf-8")
+}
+
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 

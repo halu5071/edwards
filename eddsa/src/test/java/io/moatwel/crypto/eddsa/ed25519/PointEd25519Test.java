@@ -1,13 +1,13 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.math.BigInteger;
 
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.crypto.eddsa.ed448.CoordinateEd448;
+import io.moatwel.crypto.eddsa.ed448.PointEd448;
 import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -15,7 +15,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 
-@RunWith(PowerMockRunner.class)
 public class PointEd25519Test {
 
     private Curve curve = Ed25519Curve.getCurve();
@@ -84,7 +83,7 @@ public class PointEd25519Test {
     }
 
     @Test
-    public void success_ScalarMultiplyBasePoint() {
+    public void success_ScalarMultiplyBasePoint_1() {
         Point doubled = curve.getBasePoint().scalarMultiply(new BigInteger("2"));
 
         assertThat(doubled.getX().getInteger(), is(new BigInteger("24727413235106541002554574571675588834622768167397638456726423682521233608206")));
@@ -206,9 +205,6 @@ public class PointEd25519Test {
         BigInteger y = new BigInteger("20852410506957026626210500909507772892959249564214740554270305643381675686982");
         Point point = new PointEd25519(new CoordinateEd25519(x), new CoordinateEd25519(y));
 
-        byte[] byteX = x.toByteArray();
-        byte[] byteY = y.toByteArray();
-
         byte[] result = point.encode().getValue();
 
         assertThat(HexEncoder.getString(result), is("467c72ee4596e75c4ccda69acd1f528df3a9e6d787c2fb992f313417cd0b1aae"));
@@ -219,9 +215,6 @@ public class PointEd25519Test {
         BigInteger x = new BigInteger("51129866767904606553230589361247885151272909473749371102570783512913896553871");
         BigInteger y = new BigInteger("32605373213074853449054031639075642571848374710300664057820958199552138057137");
         Point point = new PointEd25519(new CoordinateEd25519(x), new CoordinateEd25519(y));
-
-        byte[] byteX = x.toByteArray();
-        byte[] byteY = y.toByteArray();
 
         byte[] result = point.encode().getValue();
 
@@ -326,5 +319,71 @@ public class PointEd25519Test {
         byte[] result = point.encode().getValue();
 
         assertThat(HexEncoder.getString(result), is("1c8dc594082e7ddad6a97f500247a585993d3b1a797041ce6f203902a7816833"));
+    }
+
+    @Test
+    public void success_IsEqual_true_1() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("43891533794047446595129048335950223439754428083113210033800244870979949519638")),
+                new CoordinateEd25519(new BigInteger("23252602200307492321313643524776623321052079804243872788483132543098216090908")));
+
+        Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("43891533794047446595129048335950223439754428083113210033800244870979949519638")),
+                new CoordinateEd25519(new BigInteger("23252602200307492321313643524776623321052079804243872788483132543098216090908")));
+
+        assertThat(point1.isEqual(point2), is(true));
+    }
+
+    @Test
+    public void success_IsEqual_false_1() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("43891533794047446595129048335950223439754428083113210033800244870979949519638")),
+                new CoordinateEd25519(new BigInteger("55756317091645948491064284809040306721406210822346482531807933600495972956139")));
+
+        Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("43891533794047446595129048335950223439754428083113210033800244870979949519638")),
+                new CoordinateEd25519(new BigInteger("23252602200307492321313643524776623321052079804243872788483132543098216090908")));
+
+        assertThat(point1.isEqual(point2), is(false));
+    }
+
+    @Test
+    public void success_IsEqual_false_2() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("47481641482705931103934862287125658686534006637492775092431200862455707981015")),
+                new CoordinateEd25519(new BigInteger("23252602200307492321313643524776623321052079804243872788483132543098216090908")));
+
+        Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("43891533794047446595129048335950223439754428083113210033800244870979949519638")),
+                new CoordinateEd25519(new BigInteger("23252602200307492321313643524776623321052079804243872788483132543098216090908")));
+
+        assertThat(point1.isEqual(point2), is(false));
+    }
+
+    @Test
+    public void success_IsEqual_false_3() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("43891533794047446595129048335950223439754428083113210033800244870979949519638")),
+                new CoordinateEd25519(new BigInteger("23252602200307492321313643524776623321052079804243872788483132543098216090908")));
+
+        Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("43891533794047446595129048335950223439754428083113210033800244870979949519638")),
+                new CoordinateEd25519(new BigInteger("55756317091645948491064284809040306721406210822346482531807933600495972956139")));
+
+        assertThat(point1.isEqual(point2), is(false));
+    }
+
+    @Test
+    public void success_IsEqual_false_4() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("43891533794047446595129048335950223439754428083113210033800244870979949519638")),
+                new CoordinateEd25519(new BigInteger("23252602200307492321313643524776623321052079804243872788483132543098216090908")));
+
+        Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("47481641482705931103934862287125658686534006637492775092431200862455707981015")),
+                new CoordinateEd25519(new BigInteger("23252602200307492321313643524776623321052079804243872788483132543098216090908")));
+
+        assertThat(point1.isEqual(point2), is(false));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void failure_IsEqual_different_implementation() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("43891533794047446595129048335950223439754428083113210033800244870979949519638")),
+                new CoordinateEd25519(new BigInteger("23252602200307492321313643524776623321052079804243872788483132543098216090908")));
+
+        Point diffPointImpl = new PointEd448(new CoordinateEd448(new BigInteger("4389153379404744659512904833595022343975442808311321003380024487097994951963891082741247912730912740912843901823091")),
+                new CoordinateEd448(new BigInteger("232526022003074923213136435247766233210520798042438727884831325430982160909084120418029412094710924809128093")));
+
+        point1.isEqual(diffPointImpl);
     }
 }

@@ -1,21 +1,17 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.math.BigInteger;
 
 import io.moatwel.crypto.eddsa.Coordinate;
+import io.moatwel.crypto.eddsa.ed448.CoordinateEd448;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(Coordinate.class)
 public class CoordinateEd25519Test {
 
     @Test
@@ -93,5 +89,29 @@ public class CoordinateEd25519Test {
 
         assertThat(coordinate5.getInteger(), is(BigInteger.ONE.negate()));
         assertThat(result6.getInteger(), is(new BigInteger("-1000")));
+    }
+
+    @Test
+    public void success_IsEqual_true_1() {
+        Coordinate coordinate1 = new CoordinateEd25519(new BigInteger("29526982755515629833010601177215416502583846089738343830061683922017848058174"));
+        Coordinate coordinate2 = new CoordinateEd25519(new BigInteger("29526982755515629833010601177215416502583846089738343830061683922017848058174"));
+
+        assertThat(coordinate1.isEqual(coordinate2), is(true));
+    }
+
+    @Test
+    public void success_IsEqual_false_1() {
+        Coordinate coordinate1 = new CoordinateEd25519(new BigInteger("29526982755515629833010601177215416502583846089738343830061683922017848058174"));
+        Coordinate coordinate2 = new CoordinateEd25519(new BigInteger("84412282755515629833010601177215416502583846089738343830061683922017848058174"));
+
+        assertThat(coordinate1.isEqual(coordinate2), is(false));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void failure_IsEqual_different_implementation() {
+        Coordinate coordinate1 = new CoordinateEd448(new BigInteger("29526982755515629833010601177215416502583846089738343830061683922017848058174"));
+        Coordinate coordinate2 = new CoordinateEd25519(new BigInteger("84412282755515629833010601177215416502583846089738343830061683922017848058174"));
+
+        coordinate1.isEqual(coordinate2);
     }
 }

@@ -7,13 +7,13 @@ import javax.annotation.Nonnull;
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
 
 public class PointEd25519 extends Point {
 
-    static {
-        ZERO = new PointEd25519(new CoordinateEd25519(BigInteger.ZERO), new CoordinateEd25519(BigInteger.ONE));
-    }
+    private static final Point ZERO =
+            new PointEd25519(new CoordinateEd25519(BigInteger.ZERO), new CoordinateEd25519(BigInteger.ONE));
 
     /**
      * constructor of Point
@@ -23,7 +23,6 @@ public class PointEd25519 extends Point {
      */
     public PointEd25519(@Nonnull Coordinate x, @Nonnull Coordinate y) {
         super(x, y);
-
         curve = Ed25519Curve.getCurve();
     }
 
@@ -75,10 +74,11 @@ public class PointEd25519 extends Point {
      */
     @Override
     public final EncodedPoint encode() {
-        byte[] reversedY = ByteUtils.reverse(y.getInteger().toByteArray());
-        int lengthX = x.getInteger().toByteArray().length;
+        byte[] reversedY = ByteUtils.reverse(ArrayUtils.toByteArray(y.getInteger(), 32));
+        byte[] byteX = ArrayUtils.toByteArray(x.getInteger(), 32);
+        int lengthX = byteX.length;
         int lengthY = reversedY.length;
-        int writeBit = x.getInteger().toByteArray()[lengthX - 1] & 0b00000001;
+        int writeBit = byteX[lengthX - 1] & 0b00000001;
 
         if (writeBit == 1) {
             reversedY[lengthY - 1] |= 1 << 7;

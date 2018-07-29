@@ -65,4 +65,22 @@ public class ByteUtils {
         System.arraycopy(array, count, result, 0, result.length);
         return result;
     }
+
+    /**
+     * Read bit value from one byte.
+     * <p>Java can not handle unsigned byte, so
+     *
+     * @param value target byte.
+     * @param position target position to read.
+     * @return read bit value 0 or 1.
+     */
+    public static int readBit(byte value, int position) {
+        if (position > 7 || position < 0) {
+            throw new ArrayIndexOutOfBoundsException("position must be 0 - 7.");
+        }
+        byte[] data = new byte[2];
+        data[1] = value;
+        int dataValue = new BigInteger(data).intValue();
+        return dataValue >>> position;
+    }
 }

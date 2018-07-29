@@ -12,10 +12,8 @@ public class CoordinateEd25519 extends Coordinate {
 
     private static final Curve curve = Ed25519Curve.getCurve();
 
-    static {
-        ZERO = new CoordinateEd25519(new BigInteger("0"));
-        ONE = new CoordinateEd25519(new BigInteger("1"));
-    }
+    public static final CoordinateEd25519 ZERO = new CoordinateEd25519(new BigInteger("0"));
+    public static final Coordinate ONE = new CoordinateEd25519(new BigInteger("1"));
 
     public CoordinateEd25519(BigInteger integer) {
         this.value = integer;
@@ -58,5 +56,10 @@ public class CoordinateEd25519 extends Coordinate {
     public final Coordinate inverse() {
         BigInteger integer = this.getInteger();
         return new CoordinateEd25519(integer.modInverse(curve.getPrimePowerP()));
+    }
+
+    @Override
+    public Coordinate powerMod(BigInteger integer) {
+        return new CoordinateEd25519(this.value.modPow(integer, curve.getPrimePowerP()));
     }
 }

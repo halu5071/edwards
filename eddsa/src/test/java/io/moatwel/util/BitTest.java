@@ -29,6 +29,24 @@ public class BitTest {
     }
 
     @Test
+    public void clear_the_last_bit() {
+        byte value1 = 0b01011101;
+        byte value2 = 0b01011011;
+        byte value3 = 0b01111111;
+        byte value4 = 0b01000010;
+
+        value1 &= 0xFE;
+        value2 &= 0xFE;
+        value3 &= 0xFE;
+        value4 &= 0xFE;
+
+        assertThat(value1, is((byte) 0b01011100));
+        assertThat(value2, is((byte) 0b01011010));
+        assertThat(value3, is((byte) 0b01111110));
+        assertThat(value4, is((byte) 0b01000010));
+    }
+
+    @Test
     public void set_the_second_highest_bit() {
         byte value1 = 0b00011101;
         byte value2 = 0b01011011;
@@ -68,9 +86,11 @@ public class BitTest {
         byte value = 0b01010101;
         int read = value & 0b00000001;
         int read2 = value & 0b00001000;
+        int read3 = value & 0b10000000;
 
         assertThat(read, is(1));
         assertThat(read2, is(0));
+        assertThat(read3, is(0));
     }
 
     @Test
