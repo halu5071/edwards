@@ -1,8 +1,14 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
+import java.security.SecureRandom;
+
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashProvider;
+import io.moatwel.crypto.KeyGenerator;
+import io.moatwel.crypto.KeyPair;
+import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.CurveProvider;
+import io.moatwel.crypto.eddsa.EdKeyAnalyzer;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 
 /**
@@ -29,5 +35,16 @@ public class Ed25519CurveProvider extends CurveProvider {
     @Override
     public PublicKeyDelegate getPublicKeyDelegate() {
         return new Ed25519PublicKeyDelegate(hashProvider);
+    }
+
+    @Override
+    protected KeyPair generateKeyPair(KeyGenerator generator, EdKeyAnalyzer analyzer) {
+        SecureRandom random = new SecureRandom();
+        byte[] seed = new byte[32];
+        random.nextBytes(seed);
+
+        PrivateKey privateKey = PrivateKeyEd25519.fromBytes(seed);
+
+        return new KeyPair(privateKey, generator, analyzer);
     }
 }
