@@ -21,14 +21,4 @@ public class Ed448Signer implements EdDsaSigner {
     public boolean verify(KeyPair keyPair, byte[] data, Signature signature) {
         return false;
     }
-
-    @Override
-    public boolean isCanonicalSignature(Signature signature) {
-        return false;
-    }
-
-    @Override
-    public Signature makeSignatureCanonical(Signature signature) {
-        return null;
-    }
 }

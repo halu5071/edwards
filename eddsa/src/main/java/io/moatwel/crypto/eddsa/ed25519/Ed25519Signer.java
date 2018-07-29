@@ -83,17 +83,8 @@ public class Ed25519Signer implements EdDsaSigner {
 
         Point checkPoint = r.add(a.scalarMultiply(k));
 
-        return false;
-    }
+        Point target = curve.getBasePoint().scalarMultiply(s);
 
-    @Override
-    public boolean isCanonicalSignature(Signature signature) {
-        return false;
+        return checkPoint.isEqual(target);
     }
-
-    @Override
-    public Signature makeSignatureCanonical(Signature signature) {
-        return null;
-    }
-
 }
