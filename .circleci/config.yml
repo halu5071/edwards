@@ -25,6 +25,13 @@ jobs:
       - run:
           name: Covercov
           command: bash <(curl -s https://codecov.io/bash)
+
+      - run:
+          name: Publish Artifact
+          command: |
+                if [$CIRCLE_BRANCH == "master"]; then
+                    ./gradlew :eddsa:jar
+                fi
 dependencies:
   pre:
     - mkdir $ANDROID_HOME/licenses
