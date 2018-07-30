@@ -3,7 +3,7 @@ package io.moatwel.crypto.eddsa.ed25519;
 import java.security.SecureRandom;
 
 import io.moatwel.crypto.EdDsaSigner;
-import io.moatwel.crypto.HashProvider;
+import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
@@ -16,25 +16,25 @@ import io.moatwel.crypto.eddsa.PublicKeyDelegate;
  */
 public class Ed25519CurveProvider extends CurveProvider {
 
-    private HashProvider hashProvider;
+    private HashAlgorithm hashAlgorithm;
 
-    public Ed25519CurveProvider(HashProvider provider) {
+    public Ed25519CurveProvider(HashAlgorithm algorithm) {
         super(Ed25519Curve.getCurve());
 
-        if (provider == null) {
+        if (algorithm == null) {
             throw new IllegalArgumentException("argument HashAlgorithm must not be null.");
         }
-        this.hashProvider = provider;
+        this.hashAlgorithm = algorithm;
     }
 
     @Override
     public EdDsaSigner getSigner() {
-        return new Ed25519Signer(hashProvider);
+        return new Ed25519Signer(hashAlgorithm);
     }
 
     @Override
     public PublicKeyDelegate getPublicKeyDelegate() {
-        return new Ed25519PublicKeyDelegate(hashProvider);
+        return new Ed25519PublicKeyDelegate(hashAlgorithm);
     }
 
     @Override

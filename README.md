@@ -9,8 +9,7 @@ Edwards is a crypto library for Edwards-curve Digital Signature Algorithm (EdDSA
 First of all, you should create `Edwards` object.
 
 ```java
-HashProvider hashProvider = new DefaultProvider(HashAlgorithm.KECCAK_512);
-Edwards edwards = new Edwards(new Ed25519CurveProvider(hashProvider));
+Edwards edwards = new Edwards(new Ed25519CurveProvider(HashAlgorithm.SHA_512));
 ```
 
 or You want to select KECCAK-512 hash algorithm and Curve25519, just write as below.
@@ -55,8 +54,7 @@ boolean isVerified = edwards.verify(keyPair, /* encrypted data represented in by
 This library use `SpongyCastle`, so you can almost all hash algorithm. Specify hash algorithm you want like this.
 
 ```java
-HashProvider hashProvider = new DefaultHashProvider(HashAlgorithm.KECCAK_512);
-CurveProvider curveProvider = new Ed25519CurveProvider(hashProvider);
+CurveProvider curveProvider = new Ed25519CurveProvider(HashAlgorithm.SHA_512);
 ```
 
 or
@@ -70,26 +68,6 @@ other algorithm here.
 - SHA512
 - SHA3-512
 - KECCAK-512
-
-### Custom Hash
-This library support custom hash you want. Use `HashProvider` interface which has `hash()` method.
-
-```java
-public class YourAwesomeHashProvider implement HashProvider {
-
-    @Override
-    public byte[] hash(byte[]... inputs) {
-        return ...;
-    }
-}
-```
-
-and then use your `HashProvider` to create `Edwards` object.
-
-```java
-HashProvider hashProvider = new YourAwesomeHashProvider();
-Edwards edwards = new Edwards(new Ed25519CurveProvider(hashProvider));
-```
 
 ## Install
 if you use gradle, you can add this library like this.

@@ -5,11 +5,9 @@ import org.junit.Test;
 import java.math.BigInteger;
 
 import io.moatwel.crypto.HashAlgorithm;
-import io.moatwel.crypto.HashProvider;
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.Curve;
-import io.moatwel.crypto.eddsa.DefaultHashProvider;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.util.ByteUtils;
@@ -20,9 +18,7 @@ import static org.junit.Assert.assertThat;
 
 public class Ed25519PublicKeyDelegateTest {
 
-    private HashProvider keccakProvider = new DefaultHashProvider(HashAlgorithm.KECCAK_512);
-    private HashProvider sha512Provider = new DefaultHashProvider(HashAlgorithm.SHA_512);
-    private PublicKeyDelegate delegate = new Ed25519PublicKeyDelegate(keccakProvider);
+    private PublicKeyDelegate delegate = new Ed25519PublicKeyDelegate(HashAlgorithm.KECCAK_512);
     private Curve curve = Ed25519Curve.getCurve();
 
     @Test
@@ -115,7 +111,7 @@ public class Ed25519PublicKeyDelegateTest {
 
     @Test
     public void success_GeneratePublicKeySeed_via_SHA_512_1() {
-        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(sha512Provider);
+        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(HashAlgorithm.SHA_512);
         PrivateKey privateKey = PrivateKeyEd25519.fromBytes(new byte[32]);
 
         byte[] seed = delegate1.generatePublicKeySeed(privateKey);
@@ -138,7 +134,7 @@ public class Ed25519PublicKeyDelegateTest {
 
         PrivateKey privateKey = PrivateKeyEd25519.fromBytes(input);
 
-        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(sha512Provider);
+        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(HashAlgorithm.SHA_512);
         byte[] seed = delegate1.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("03a107bff3ce10be1d70dd18e74bc09967e4d6309ba50d5f1ddc8664125531b8"));
@@ -153,7 +149,7 @@ public class Ed25519PublicKeyDelegateTest {
 
         PrivateKey privateKey = PrivateKeyEd25519.fromBytes(input);
 
-        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(sha512Provider);
+        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(HashAlgorithm.SHA_512);
         byte[] seed = delegate1.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("6caba0ffd7da15129b9aaeb3021c4a6612f6ad3099ea3d90993a60f585243b23"));
@@ -168,7 +164,7 @@ public class Ed25519PublicKeyDelegateTest {
 
         PrivateKey privateKey = PrivateKeyEd25519.fromBytes(input);
 
-        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(sha512Provider);
+        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(HashAlgorithm.SHA_512);
         byte[] seed = delegate1.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("6158e2b8e2ba640375e64b680a239f5df6211791f5858b1348423f88b134b9c8"));
@@ -183,7 +179,7 @@ public class Ed25519PublicKeyDelegateTest {
 
         PrivateKey privateKey = PrivateKeyEd25519.fromBytes(input);
 
-        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(sha512Provider);
+        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(HashAlgorithm.SHA_512);
         byte[] seed = delegate1.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("91fa74ddee42574563acc2579f5e782d618d913b1cec2574e000b7768b462701"));
@@ -198,7 +194,7 @@ public class Ed25519PublicKeyDelegateTest {
 
         PrivateKey privateKey = PrivateKeyEd25519.fromBytes(input);
 
-        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(sha512Provider);
+        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(HashAlgorithm.SHA_512);
         byte[] seed = delegate1.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("6daa7036e3ff1aa3fabb2a01b0b7e90c946f678df105da32bdd329593d3cbe3b"));
@@ -208,7 +204,7 @@ public class Ed25519PublicKeyDelegateTest {
     public void success_GeneratePublicKeySeed_via_SHA_512_from_hex_string_1() {
         PrivateKey privateKey = PrivateKeyEd25519.fromHexString("ab4195d4123f0594e5341c45134c5938cc5913d34aa951234c5938cc2a6eb487");
 
-        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(sha512Provider);
+        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(HashAlgorithm.SHA_512);
         byte[] seed = delegate1.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("9b69ec0a4568848ec9bd9190996fce5a5f46d0a8eb20cdd770953e61855438ef"));
@@ -218,7 +214,7 @@ public class Ed25519PublicKeyDelegateTest {
     public void success_GeneratePublicKeySeed_via_SHA_512_from_hex_string_2() {
         PrivateKey privateKey = PrivateKeyEd25519.fromHexString("ab9d6ed9642b1a34c9938cc2a4123f0594e5341a45134c693bcc5934df0ba4c7");
 
-        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(sha512Provider);
+        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(HashAlgorithm.SHA_512);
         byte[] seed = delegate1.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("5ff5d819b2a0b07ba2db275331def8fd32fb0b463a17e798a9aa87dc6245f079"));
@@ -228,7 +224,7 @@ public class Ed25519PublicKeyDelegateTest {
     public void success_GeneratePublicKeySeed_via_SHA_512_from_hex_string_3() {
         PrivateKey privateKey = PrivateKeyEd25519.fromHexString("abd3df0ba4c941a451c934a44938cc2bf051233c4e535931233c4e5351a4c695");
 
-        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(sha512Provider);
+        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(HashAlgorithm.SHA_512);
         byte[] seed = delegate1.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("195ac5d462f0aa357c424982250f994ab0918ecee50a2ce5c6feb4f6b07ab660"));
@@ -238,7 +234,7 @@ public class Ed25519PublicKeyDelegateTest {
     public void success_GeneratePublicKeySeed_via_SHA_512_from_hex_string_4() {
         PrivateKey privateKey = PrivateKeyEd25519.fromHexString("93c2438333d31c4ac4f05c53cc2ab695d294f0ba451c1531a4e5b35914a449e3");
 
-        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(sha512Provider);
+        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(HashAlgorithm.SHA_512);
         byte[] seed = delegate1.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("9553153da51781058489628fc538e1985522741de0d6162106c7d6d0243f1454"));
@@ -248,7 +244,7 @@ public class Ed25519PublicKeyDelegateTest {
     public void success_GeneratePublicKeySeed_via_SHA_512_from_hex_string_5() {
         PrivateKey privateKey = PrivateKeyEd25519.fromHexString("4b325d1c1c4b5c53ce5b35f0153d32ab694f0b3c9e391a4414a444f7383339ac");
 
-        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(sha512Provider);
+        PublicKeyDelegate delegate1 = new Ed25519PublicKeyDelegate(HashAlgorithm.SHA_512);
         byte[] seed = delegate1.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("6cf7c8ecd9de399fe992cd4dca5362b51c11183850f66f85e446d73ee323a582"));

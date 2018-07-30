@@ -3,7 +3,8 @@ package io.moatwel.crypto.eddsa.ed25519;
 import java.math.BigInteger;
 
 import io.moatwel.crypto.EdDsaSigner;
-import io.moatwel.crypto.HashProvider;
+import io.moatwel.crypto.HashAlgorithm;
+import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.Curve;
@@ -23,15 +24,15 @@ public class Ed25519Signer implements EdDsaSigner {
 
     private static final Curve curve = Ed25519Curve.getCurve();
 
-    private HashProvider hashProvider;
+    private HashAlgorithm hashAlgorithm;
 
-    Ed25519Signer(HashProvider hashProvider) {
-        this.hashProvider = hashProvider;
+    Ed25519Signer(HashAlgorithm algorithm) {
+        this.hashAlgorithm = algorithm;
     }
 
     @Override
     public Signature sign(KeyPair keyPair, byte[] data) {
-        byte[] h = hashProvider.hash(keyPair.getPrivateKey().getRaw());
+        byte[] h = Hashes.hash(hashAlgorithm, keyPair.getPrivateKey().getRaw());
 
         // Step1
         byte[] first32 = ByteUtils.split(h, 32)[0];
@@ -46,7 +47,7 @@ public class Ed25519Signer implements EdDsaSigner {
         // Step2
         byte[] prefix = ByteUtils.split(h, 32)[1];
 
-        byte[] rSeed = hashProvider.hash(prefix, data);
+        byte[] rSeed = Hashes.hash(hashAlgorithm, prefix, data);
         byte[] rSeedReversed = ByteUtils.reverse(rSeed);
         BigInteger r = new BigInteger(1, rSeedReversed);
 
@@ -55,7 +56,7 @@ public class Ed25519Signer implements EdDsaSigner {
         byte[] rPoint = pointR.encode().getValue();
 
         // Step4
-        byte[] kSeed = hashProvider.hash(rPoint, keyPair.getPublicKey().getRaw(), data);
+        byte[] kSeed = Hashes.hash(hashAlgorithm, rPoint, keyPair.getPublicKey().getRaw(), data);
 
         // Step5
         BigInteger k = new BigInteger(1, ByteUtils.reverse(kSeed));
@@ -78,7 +79,7 @@ public class Ed25519Signer implements EdDsaSigner {
 
         BigInteger s = new BigInteger(1, ByteUtils.reverse(signature.getS()));
 
-        byte[] kSeed = hashProvider.hash(signature.getR(), keyPair.getPublicKey().getRaw(), data);
+        byte[] kSeed = Hashes.hash(hashAlgorithm, signature.getR(), keyPair.getPublicKey().getRaw(), data);
         BigInteger k = new BigInteger(1, kSeed);
 
         Point checkPoint = r.add(a.scalarMultiply(k));

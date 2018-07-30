@@ -26,11 +26,11 @@ public final class Edwards {
     private EdDsaSigner signer;
 
     public Edwards() {
-        this(new Ed25519CurveProvider(new DefaultHashProvider(HashAlgorithm.KECCAK_512)));
+        this(new Ed25519CurveProvider(HashAlgorithm.KECCAK_512));
     }
 
     public Edwards(HashAlgorithm algorithm) {
-        this(new Ed25519CurveProvider(new DefaultHashProvider(algorithm)));
+        this(new Ed25519CurveProvider(algorithm));
     }
 
     public Edwards(@Nonnull CurveProvider curveProvider) {

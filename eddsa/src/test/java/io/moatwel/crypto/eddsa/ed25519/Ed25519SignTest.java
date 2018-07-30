@@ -7,12 +7,10 @@ import java.math.BigInteger;
 
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
-import io.moatwel.crypto.HashProvider;
 import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.Signature;
-import io.moatwel.crypto.eddsa.DefaultHashProvider;
 import io.moatwel.crypto.eddsa.EdDsaKeyGenerator;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -21,12 +19,11 @@ import static org.junit.Assert.assertThat;
 public class Ed25519SignTest {
 
     private KeyPair pair;
-    private HashProvider sha512Provider = new DefaultHashProvider(HashAlgorithm.SHA_512);
-    private EdDsaSigner signer = new Ed25519Signer(sha512Provider);
+    private EdDsaSigner signer = new Ed25519Signer(HashAlgorithm.SHA_512);
 
     @Before
     public void setup() {
-        KeyGenerator generator = new EdDsaKeyGenerator(new Ed25519CurveProvider(sha512Provider));
+        KeyGenerator generator = new EdDsaKeyGenerator(new Ed25519CurveProvider(HashAlgorithm.SHA_512));
         PrivateKey privateKey = PrivateKeyEd25519.fromHexString("abd3df0ba4c941a451c934a44938cc2bf051233c4e535931233c4e5351a4c695");
         pair = generator.generateKeyPair(privateKey);
 
