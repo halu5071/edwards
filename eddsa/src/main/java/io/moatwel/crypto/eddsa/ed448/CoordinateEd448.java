@@ -4,6 +4,8 @@ import java.math.BigInteger;
 
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.EncodedCoordinate;
+import io.moatwel.crypto.eddsa.EncodedPoint;
 
 /**
  * @author halu5071 (Yasunori Horii) at 2018/06/28
@@ -51,6 +53,11 @@ public class CoordinateEd448 extends Coordinate {
 
     @Override
     public Coordinate powerMod(BigInteger integer) {
+        return null;
+    }
+
+    @Override
+    public EncodedCoordinate encode() {
         return null;
     }
 }

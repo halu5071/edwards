@@ -45,7 +45,6 @@ public class Ed25519PublicKeyDelegateTest {
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("a5840d03f4f3b879f53f8511ba19f0ba7cfbb4c62c254822ccd2470235f0548e"));
-        // 1d8507094afcc34d019ed2f064e58f0840eb837ac406ac92bafe48b9cd68b893
     }
 
     @Test
@@ -56,7 +55,6 @@ public class Ed25519PublicKeyDelegateTest {
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("e8cd865136cffc97f7637addb27865ff85af3da1ad9dbee40da974ca5bbed111"));
-        // 12e854befd4d2f76f887a08098553fc612b2bec0e71989f340b0743b6a91b103
     }
 
     @Test
@@ -66,7 +64,6 @@ public class Ed25519PublicKeyDelegateTest {
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("71a0d0c6d77f76bc6a0ccde4b7293395962435c13d8fcd86c585ca8a8f2eddb3"));
-        // 47b72fbaff85a1ce10f0ee1fa59151f01bd2af71fefece56b20fdb044cbf097b
     }
 
     @Test
@@ -76,7 +73,6 @@ public class Ed25519PublicKeyDelegateTest {
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("57c9d82d5856f1634f535f8d9774215fcffa3d04e5fd441c7ede5fab03c104c2"));
-        // 2b5cc563ea3b1fd50e3a00e2c3f806f0c5ad8efe4bb778621d31441d7946cdea
     }
 
     @Test
@@ -86,7 +82,6 @@ public class Ed25519PublicKeyDelegateTest {
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("f1b230afee2486a873e06a23f3455708fa0cabce67149c507cff5649d07eb24f"));
-        // b9dded91fcae2bf2639c0be1895c75c9b00ebf30bac31285ca7e387b8123eaf8
     }
 
     @Test
@@ -96,7 +91,6 @@ public class Ed25519PublicKeyDelegateTest {
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("e3286b65a39e17f622407ec080db5732c9de3f74b1d8075d0f0240458f77d197"));
-        // b24be755c6ddf2d9189ffd2acfdafbeb3a8fe8d1dd82e0da8be1776fa0089a3e
     }
 
     @Test
@@ -106,7 +100,6 @@ public class Ed25519PublicKeyDelegateTest {
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
         assertThat(HexEncoder.getString(seed), is("6a12e5b9a9c8494f8e3c7c8af3b54d3b72c33d21fc80271fa54d44620663e58a"));
-        // 12068583a66424201984f65b58eb27f6752be55daf55821e0b64b98ac5501cfb
     }
 
     @Test

@@ -1,7 +1,5 @@
 package io.moatwel.crypto;
 
-import java.math.BigInteger;
-
 import io.moatwel.util.ByteUtils;
 
 /**
@@ -16,16 +14,8 @@ public abstract class Signature {
         return r;
     }
 
-    public BigInteger getIntegerR() {
-        return new BigInteger(1, r);
-    }
-
     public byte[] getS() {
         return s;
-    }
-
-    public BigInteger getIntegerS() {
-        return new BigInteger(1, s);
     }
 
     public byte[] getSignature() {

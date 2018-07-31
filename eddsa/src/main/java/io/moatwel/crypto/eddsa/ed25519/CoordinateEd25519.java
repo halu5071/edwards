@@ -4,6 +4,10 @@ import java.math.BigInteger;
 
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.EncodedCoordinate;
+import io.moatwel.crypto.eddsa.EncodedPoint;
+import io.moatwel.util.ArrayUtils;
+import io.moatwel.util.ByteUtils;
 
 /**
  * @author halu5071 (Yasunori Horii) at 2018/06/28
@@ -61,5 +65,11 @@ public class CoordinateEd25519 extends Coordinate {
     @Override
     public Coordinate powerMod(BigInteger integer) {
         return new CoordinateEd25519(this.value.modPow(integer, curve.getPrimePowerP()));
+    }
+
+    @Override
+    public EncodedCoordinate encode() {
+        byte[] seed = ByteUtils.reverse(ArrayUtils.toByteArray(value, 32));
+        return new EncodedCoordinateEd25519(seed);
     }
 }

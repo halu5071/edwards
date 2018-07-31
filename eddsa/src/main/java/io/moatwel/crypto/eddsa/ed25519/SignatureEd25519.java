@@ -16,7 +16,7 @@ class SignatureEd25519 extends Signature {
 
     SignatureEd25519(byte[] byteR, byte[] byteS) {
         if (byteR.length != 32 || byteS.length != 32) {
-            throw new IllegalArgumentException("Signature on ed25519 curve must have 32 byte length.");
+            throw new IllegalArgumentException("Signature on Curve25519 must have 32 byte length.");
         }
 
         this.r = byteR;

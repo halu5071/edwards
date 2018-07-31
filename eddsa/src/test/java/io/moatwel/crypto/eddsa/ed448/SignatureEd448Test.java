@@ -2,9 +2,6 @@ package io.moatwel.crypto.eddsa.ed448;
 
 import org.junit.Test;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
-
 import io.moatwel.crypto.Signature;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -12,33 +9,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 public class SignatureEd448Test {
-
-    @Test
-    public void success_GenerateSignature_from_BigInteger() {
-        BigInteger r = new BigInteger("12345678901234567890123456789012345678901234567890123456712345678901234567890123456789012345678901234567890123456712345678901234567890123");
-        BigInteger s = new BigInteger("78901234567890123456789012123456123456789012345678901234534567890123456789012345671234567890123456789012345678901234567345678901234567890");
-
-        assertThat(r.toByteArray().length, is(57));
-        assertThat(s.toByteArray().length, is(57));
-
-        Signature signature = new SignatureEd448(r, s);
-
-        assertThat(signature.getIntegerR(), is(r));
-        assertThat(signature.getIntegerS(), is(s));
-    }
-
-    @Test
-    public void success_GenerateSignature_from_two_byte_array() {
-        SecureRandom random = new SecureRandom();
-        byte[] input1 = new byte[57];
-        byte[] input2 = new byte[57];
-        random.nextBytes(input1);
-        random.nextBytes(input2);
-        Signature signature = new SignatureEd448(new BigInteger(input1), new BigInteger(input2));
-
-        assertThat(signature.getIntegerR(), is(new BigInteger(1, input1)));
-        assertThat(signature.getIntegerS(), is(new BigInteger(1, input2)));
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void failure_GenerateSignature_wrong_byte_arrays_1() {

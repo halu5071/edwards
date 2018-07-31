@@ -30,7 +30,7 @@ public class PrivateKeyEd25519Test {
         PrivateKey privateKey = PrivateKeyEd25519.fromBytes(new byte[32]);
         assertThat(privateKey.getInteger(), is(new BigInteger(1, new byte[32])));
         assertThat(privateKey.getInteger(), is(new BigInteger("00")));
-        assertThat(privateKey.getRaw(), is(ByteUtils.paddingZero(new BigInteger("00").toByteArray(), 32)));
+        assertThat(privateKey.getRaw(), is(ByteUtils.paddingZeroOnHead(new BigInteger("00").toByteArray(), 32)));
     }
 
     @Test

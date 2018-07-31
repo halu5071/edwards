@@ -74,8 +74,8 @@ public class ByteUtilsTest {
     public void success_PaddingZeroArray() {
         byte[] input = new byte[]{1, 2, 3, 4, 5, 6, 7, 8};
 
-        byte[] result = ByteUtils.paddingZero(input, 10);
-        byte[] result2 = ByteUtils.paddingZero(input, 20);
+        byte[] result = ByteUtils.paddingZeroOnHead(input, 10);
+        byte[] result2 = ByteUtils.paddingZeroOnHead(input, 20);
 
         assertThat(result, is(new byte[]{0, 0, 1, 2, 3, 4, 5, 6, 7, 8}));
         assertThat(result2, is(new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8}));
@@ -85,7 +85,7 @@ public class ByteUtilsTest {
     public void failure_PaddingZeroArray_larger_than_specified_length() {
         byte[] input = new byte[10];
 
-        ByteUtils.paddingZero(input, 8);
+        ByteUtils.paddingZeroOnHead(input, 8);
     }
 
     @Test

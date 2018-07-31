@@ -84,6 +84,8 @@ public abstract class Coordinate implements Cloneable {
         return value.compareTo(coordinate.getInteger()) == 0;
     }
 
+    public abstract EncodedCoordinate encode();
+
     @Override
     public Coordinate clone() {
         Coordinate coordinate = null;
