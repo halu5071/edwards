@@ -47,7 +47,7 @@ Signature signature = edwards.sign(keyPair, /* data represented in byte array */
 ```java
 KeyPair keyPair = ...;
 Signature signature = ...;
-boolean isVerified = edwards.verify(keyPair, /* encrypted data represented in byte array */, signature);
+boolean isVerified = edwards.verify(keyPair, /* data represented in byte array */, signature);
 ```
 
 ### Built-in Hash algorithm
