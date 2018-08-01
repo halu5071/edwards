@@ -29,8 +29,9 @@ jobs:
       - run:
           name: Publish Artifact
           command: |
-                if [$CIRCLE_BRANCH == "master"]; then
-                    ./gradlew :eddsa:jar
+                if [ $CIRCLE_BRANCH = "master" ]; then
+                    ./gradlew eddsa:jar
+                    ./gradlew eddsa:bintrayUpload
                 fi
 dependencies:
   pre:
