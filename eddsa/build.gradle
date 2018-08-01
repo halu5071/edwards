@@ -1,6 +1,7 @@
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply plugin: 'jacoco'
 apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
 
 group = 'io.moatwel.crypto'
 archivesBaseName = 'eddsa'
@@ -9,6 +10,15 @@ description = 'Edwards is a crypto library for Edwards-curve Digital Signature A
 
 def powermock_version = '1.7.4'
 def mockito_version = '2.8.9'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+    }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -49,19 +59,84 @@ javadoc {
 }
 
 task sourceJar(type: Jar) {
+    classifier = 'sources'
     from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+def pomConfig = {
+    licenses {
+        license {
+            name "The Apache Software License, Version 2.0"
+            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            id "halu5071"
+            name "Yasunori Horii"
+            email "horiiortho5@gmail.com"
+        }
+    }
+
+    scm {
+        url "https://github.com/halu5071/edwards"
+    }
 }
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        EdwardsPublication(MavenPublication) {
             from components.java
-
-            artifact sourceJar {
-                classifier "sources"
+            artifact sourceJar
+            artifact javadocJar
+            groupId 'io.moatwel.crypto'
+            artifactId 'eddsa'
+            version '0.1.0-alpha'
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', project.description)
+                root.appendNode('name', project.archivesBaseName)
+                root.appendNode('url', 'https://github.com/halu5071/edwards')
+                root.children().last() + pomConfig
             }
         }
     }
+}
+
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_API_KEY')
+    publications = ['EdwardsPublication']
+
+    pkg {
+        repo = 'maven'
+        name = 'edwards'
+        licenses = ['Apache-2.0']
+        websiteUrl = 'https://github.com/halu5071/edwards'
+        vcsUrl = 'https://github.com/halu5071/edwards.git'
+        version {
+            name = project.version
+            desc = project.description
+            released = new Date()
+            gpg {
+                sign = true
+                passphrase = System.getenv('BINTRAY_GPG_PASSWORD')
+            }
+        }
+    }
+}
+
+artifacts {
+    archives jar
+    archives sourceJar
+    archives javadocJar
 }
 
 sourceCompatibility = "1.7"
