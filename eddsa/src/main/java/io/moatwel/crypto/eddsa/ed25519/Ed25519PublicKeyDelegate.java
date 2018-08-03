@@ -61,6 +61,6 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
             reversedY[lengthY - 1] &= writeBit;
         }
 
-        return reversedY;
+        return ByteUtils.paddingZeroOnTail(reversedY, 32);
     }
 }

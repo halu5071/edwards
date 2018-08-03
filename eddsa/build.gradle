@@ -5,7 +5,7 @@ apply plugin: 'com.jfrog.bintray'
 
 group = 'io.moatwel.crypto'
 archivesBaseName = 'eddsa'
-version = '0.1.0-alpha'
+version = '0.1.1-alpha'
 description = 'Edwards is a crypto library for Edwards-curve Digital Signature Algorithm (EdDSA) written in pure Java. '
 
 def powermock_version = '1.7.4'
@@ -97,7 +97,7 @@ publishing {
             artifact javadocJar
             groupId 'io.moatwel.crypto'
             artifactId 'eddsa'
-            version '0.1.0-alpha'
+            version '0.1.1-alpha'
             pom.withXml {
                 def root = asNode()
                 root.appendNode('description', project.description)
