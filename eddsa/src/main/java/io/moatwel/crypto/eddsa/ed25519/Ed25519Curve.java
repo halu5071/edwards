@@ -14,11 +14,7 @@ import io.moatwel.crypto.eddsa.Point;
  */
 public class Ed25519Curve implements Curve {
 
-    private static final Ed25519Curve ED_CURVE;
-
-    static {
-        ED_CURVE = new Ed25519Curve();
-    }
+    private static Ed25519Curve curve;
 
     private Ed25519Curve() {
     }
@@ -59,6 +55,10 @@ public class Ed25519Curve implements Curve {
     }
 
     public static Ed25519Curve getCurve() {
-        return ED_CURVE;
+        return CurveHolder.INSTANCE;
+    }
+
+    private static class CurveHolder {
+        private static final Ed25519Curve INSTANCE = new Ed25519Curve();
     }
 }
