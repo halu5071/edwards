@@ -3,6 +3,7 @@ package io.moatwel.crypto.eddsa.ed448;
 import java.security.SecureRandom;
 
 import io.moatwel.crypto.PrivateKey;
+import io.moatwel.util.HexEncoder;
 
 public class PrivateKeyEd448 extends PrivateKey {
 
@@ -22,5 +23,9 @@ public class PrivateKeyEd448 extends PrivateKey {
 
     public static PrivateKey fromBytes(byte[] value) {
         return new PrivateKeyEd448(value);
+    }
+
+    public static PrivateKey fromHexString(String hexStr) {
+        return new PrivateKeyEd448(HexEncoder.getBytes(hexStr));
     }
 }
