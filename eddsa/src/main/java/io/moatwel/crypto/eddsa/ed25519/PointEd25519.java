@@ -31,21 +31,33 @@ public class PointEd25519 extends Point {
      */
     @Override
     public final Point add(Point point) {
+        // z = 1
         Coordinate x1 = this.x;
         Coordinate y1 = this.y;
         Coordinate x2 = point.getX();
         Coordinate y2 = point.getY();
 
+        Coordinate t1 = x1.multiply(y1);
+        Coordinate t2 = x2.multiply(y2);
+
         Coordinate d = new CoordinateEd25519(curve.getD().getInteger());
-        Coordinate a = new CoordinateEd25519(curve.getA());
+        Coordinate coord2 = new CoordinateEd25519(BigInteger.ONE.shiftLeft(1));
 
-        Coordinate x3 = x1.multiply(y2).mod().add(x2.multiply(y1))
-                .multiply(CoordinateEd25519.ONE.add(d.multiply(x1.multiply(x2).mod().multiply(y1).multiply(y2)).mod()).inverse());
+        Coordinate A = y1.subtract(x1).multiply(y2.subtract(x2)).mod();
+        Coordinate B = y1.add(x1).multiply(y2.add(x2)).mod();
+        Coordinate C = t1.multiply(d).multiply(t2).multiply(coord2).mod();
+        Coordinate D = coord2;
+        Coordinate E = B.subtract(A);
+        Coordinate F = D.subtract(C);
+        Coordinate G = D.add(C);
+        Coordinate H = B.add(A);
 
-        Coordinate y3 = y1.multiply(y2).subtract(a.multiply(x1.multiply(x2).mod()))
-                .multiply(CoordinateEd25519.ONE.subtract(d.multiply(x1.multiply(x2).mod().multiply(y1).mod().multiply(y2))).inverse());
+        Coordinate Z3 = F.multiply(G);
 
-        return new PointEd25519(x3.mod(), y3.mod());
+        Coordinate x3 = E.multiply(F).multiply(Z3.inverse()).mod();
+        Coordinate y3 = G.multiply(H).multiply(Z3.inverse()).mod();
+
+        return new PointEd25519(x3, y3);
     }
 
     /**
