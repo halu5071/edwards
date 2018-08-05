@@ -57,16 +57,16 @@ public class PointEd25519 extends Point {
             return new PointEd25519(new CoordinateEd25519(BigInteger.ZERO), new CoordinateEd25519(BigInteger.ONE));
         }
 
-        Point result = this.clone();
+        Point[] points = new Point[2];
+        points[0] = this;
         int[] bin = ByteUtils.toBinaryArray(integer);
 
         for (int i = 1; i < bin.length; i++) {
-            result = result.add(result);
-            if (bin[i] == 1) {
-                result = result.add(this);
-            }
+            points[0] = points[0].add(points[0]);
+            points[1] = points[0].add(this);
+            points[0] = points[bin[i]];
         }
-        return result;
+        return points[0];
     }
 
     /**
