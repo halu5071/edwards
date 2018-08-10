@@ -1,29 +1,23 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
+import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.EncodedPoint;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-import io.moatwel.crypto.eddsa.Curve;
-import io.moatwel.crypto.eddsa.EncodedPoint;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(Ed25519Curve.class)
 public class Ed25519CurveTest {
 
     private Curve curve;
 
     @Before
     public void setup() {
-        curve = Ed25519Curve.getCurve();
+        curve = Curve25519.getInstance();
     }
 
     @Test

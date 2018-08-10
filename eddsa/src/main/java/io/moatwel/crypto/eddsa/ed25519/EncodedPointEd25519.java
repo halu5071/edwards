@@ -1,7 +1,5 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.DecodeException;
@@ -9,13 +7,15 @@ import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ByteUtils;
 
+import java.math.BigInteger;
+
 /**
  * Encoded Point implementation of the Curve25519. Implements {@link EncodedPoint#decode()}
  * operation. This object has byte array whose length is 32, which represents encoded point.
  */
 public class EncodedPointEd25519 extends EncodedPoint {
 
-    private static final Curve curve = Ed25519Curve.getCurve();
+    private static final Curve curve = Curve25519.getInstance();
 
     EncodedPointEd25519(byte[] value) {
         if (value.length != 32) {

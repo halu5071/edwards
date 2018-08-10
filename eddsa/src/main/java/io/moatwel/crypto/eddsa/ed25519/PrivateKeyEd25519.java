@@ -1,9 +1,9 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import java.security.SecureRandom;
-
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.util.HexEncoder;
+
+import java.security.SecureRandom;
 
 public class PrivateKeyEd25519 extends PrivateKey {
 

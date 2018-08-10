@@ -14,47 +14,40 @@ public abstract class Coordinate implements Cloneable {
     }
 
     /**
-     *
      * @param coordinate
      * @return
      */
     public abstract Coordinate add(Coordinate coordinate);
 
     /**
-     *
      * @param coordinate
      * @return
      */
     public abstract Coordinate divide(Coordinate coordinate);
 
     /**
-     *
      * @param coordinate
      * @return
      */
     public abstract Coordinate multiply(Coordinate coordinate);
 
     /**
-     *
      * @param coordinate
      * @return
      */
     public abstract Coordinate subtract(Coordinate coordinate);
 
     /**
-     *
      * @return
      */
     public abstract Coordinate mod();
 
     /**
-     *
      * @return
      */
     public abstract Coordinate inverse();
 
     /**
-     *
      * @param integer
      * @return
      */
@@ -63,7 +56,7 @@ public abstract class Coordinate implements Cloneable {
     /**
      * Check value equality between two Coordinates.
      * <p>Pay attention not to check different Coordinate implementation. Below code will throw
-     * RuntimeException.
+     * {@link IllegalComparisonException}.
      * <pre>
      *      {@code
      *          Coordinate coordinate1 = new CoordinateEd25519(...);
@@ -79,7 +72,7 @@ public abstract class Coordinate implements Cloneable {
      */
     public boolean isEqual(Coordinate coordinate) {
         if (coordinate.getClass() != this.getClass()) {
-            throw new RuntimeException("These coordinates can not be compared. Different coordinate implementations");
+            throw new IllegalComparisonException("These coordinates can not be compared. Different coordinate implementations");
         }
         return value.compareTo(coordinate.getInteger()) == 0;
     }

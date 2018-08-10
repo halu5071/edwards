@@ -1,8 +1,6 @@
 package io.moatwel.util;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
@@ -12,7 +10,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-@RunWith(PowerMockRunner.class)
 public class ByteUtilsTest {
 
     @Test
@@ -71,7 +68,7 @@ public class ByteUtilsTest {
     }
 
     @Test
-    public void success_PaddingZeroArray() {
+    public void success_PaddingHeadZeroArray() {
         byte[] input = new byte[]{1, 2, 3, 4, 5, 6, 7, 8};
 
         byte[] result = ByteUtils.paddingZeroOnHead(input, 10);
@@ -79,6 +76,30 @@ public class ByteUtilsTest {
 
         assertThat(result, is(new byte[]{0, 0, 1, 2, 3, 4, 5, 6, 7, 8}));
         assertThat(result2, is(new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8}));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_PaddingHeadZeroArray() {
+        byte[] input = new byte[]{1, 2, 3, 4, 5, 6, 7, 8};
+        ByteUtils.paddingZeroOnHead(input, 7);
+    }
+
+    @Test
+    public void success_PaddingTailZeroArray() {
+        byte[] input = new byte[]{1, 2, 3, 4, 5, 6, 7, 8};
+
+        byte[] result = ByteUtils.paddingZeroOnTail(input, 10);
+        byte[] result2 = ByteUtils.paddingZeroOnTail(input, 20);
+
+        assertThat(result, is(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 0, 0}));
+        assertThat(result2, is(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_PaddingTailZeroArray() {
+        byte[] input = new byte[]{1, 2, 3, 4, 5, 6, 7, 8};
+        ByteUtils.paddingZeroOnTail(input, 5);
+        ByteUtils.paddingZeroOnTail(input, 2);
     }
 
     @Test(expected = IllegalArgumentException.class)

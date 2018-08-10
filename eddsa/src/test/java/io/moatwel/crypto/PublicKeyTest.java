@@ -1,17 +1,11 @@
 package io.moatwel.crypto;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
 import io.moatwel.util.HexEncoder;
+import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(PublicKey.class)
 public class PublicKeyTest {
 
     @Test

@@ -1,21 +1,18 @@
 package io.moatwel.crypto.eddsa.ed448;
 
+import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.crypto.eddsa.ed25519.PointEd25519;
 import org.junit.Test;
 
 import java.math.BigInteger;
 
-import io.moatwel.crypto.eddsa.Curve;
-import io.moatwel.crypto.eddsa.Point;
-import io.moatwel.crypto.eddsa.ed25519.PointEd25519;
-
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class PointEd448Test {
 
-    private Curve curve = Ed448Curve.getCurve();
+    private Curve curve = Curve448.getInstance();
 
     @Test
     public void success_ClonePoint() {

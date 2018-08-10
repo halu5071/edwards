@@ -1,23 +1,20 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import org.junit.Test;
-
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.ed448.CoordinateEd448;
 import io.moatwel.crypto.eddsa.ed448.PointEd448;
 import io.moatwel.util.HexEncoder;
+import org.junit.Test;
+
+import java.math.BigInteger;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class PointEd25519Test {
 
-    private Curve curve = Ed25519Curve.getCurve();
+    private Curve curve = Curve25519.getInstance();
 
     @Test
     public void success_AddPoint1() {

@@ -1,17 +1,10 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import org.junit.Test;
-
-import java.math.BigInteger;
-
 import io.moatwel.crypto.HashAlgorithm;
-import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
-import io.moatwel.crypto.eddsa.Curve;
-import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
-import io.moatwel.util.ByteUtils;
 import io.moatwel.util.HexEncoder;
+import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -19,7 +12,6 @@ import static org.junit.Assert.assertThat;
 public class Ed25519PublicKeyDelegateTest {
 
     private PublicKeyDelegate delegate = new Ed25519PublicKeyDelegate(HashAlgorithm.KECCAK_512);
-    private Curve curve = Ed25519Curve.getCurve();
 
     @Test
     public void success_GeneratePublicKeySeed_via_KECCAK_512_from_byte_array_1() {
@@ -294,72 +286,14 @@ public class Ed25519PublicKeyDelegateTest {
     }
 
     @Test
-    public void success_ScalarMultipliedBasePoint() {
-        PrivateKey privateKey = PrivateKeyEd25519.fromBytes(new byte[32]);
-        byte[] h = Hashes.hash(HashAlgorithm.SHA_512, privateKey.getRaw());
+    public void measure_GeneratePublicKeySeed() {
+        PrivateKey privateKey = PrivateKeyEd25519.random();
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 2000; i++) {
+            byte[] seed = delegate.generatePublicKeySeed(privateKey);
+        }
+        long end = System.currentTimeMillis();
 
-        // Step1
-        byte[] first32 = ByteUtils.split(h, 32)[0];
-
-        // Step2
-        first32[0] &= 0xF8;
-        first32[31] &= 0x7F;
-        first32[31] |= 0x40;
-
-        // Step3
-        byte[] a = ByteUtils.reverse(first32);
-        BigInteger s = new BigInteger(a);
-
-        Point point = curve.getBasePoint().scalarMultiply(s);
-        BigInteger x = point.getX().getInteger();
-        BigInteger y = point.getY().getInteger();
-
-        assertThat(x, is(new BigInteger("9639205628789703341510410801487549615560488670885798085067615194958049462616")));
-        assertThat(y, is(new BigInteger("18930617471878267742194159801949745215346600387277955685031939302387136031291")));
-    }
-
-    @Test
-    public void success_ScalarMultipliedBasePoint_2() {
-        PrivateKey privateKey = PrivateKeyEd25519.fromBytes(new byte[32]);
-        byte[] h = Hashes.hash(HashAlgorithm.SHA_512, privateKey.getRaw());
-
-        // Step1
-        byte[] first32 = ByteUtils.split(h, 32)[0];
-
-        // Step2
-        first32[0] &= 0xF8;
-        first32[31] &= 0x7F;
-        first32[31] |= 0x40;
-
-        // Step3
-        byte[] a = ByteUtils.reverse(first32);
-        BigInteger s = new BigInteger(a);
-
-        Point point = curve.getBasePoint().scalarMultiply(s);
-        BigInteger x = point.getX().getInteger();
-        BigInteger y = point.getY().getInteger();
-
-        assertThat(x, is(new BigInteger("9639205628789703341510410801487549615560488670885798085067615194958049462616")));
-        assertThat(y, is(new BigInteger("18930617471878267742194159801949745215346600387277955685031939302387136031291")));
-    }
-
-    @Test
-    public void success_GenerateScalarA() {
-        PrivateKey privateKey = PrivateKeyEd25519.fromBytes(new byte[32]);
-        byte[] h = Hashes.hash(HashAlgorithm.SHA_512, privateKey.getRaw());
-
-        // Step1
-        byte[] first32 = ByteUtils.split(h, 32)[0];
-
-        // Step2
-        first32[0] &= 0xF8;
-        first32[31] &= 0x7F;
-        first32[31] |= 0x40;
-
-        // Step3
-        byte[] a = ByteUtils.reverse(first32);
-        BigInteger s = new BigInteger(a);
-
-        assertThat(s, is(new BigInteger("39325648866980652792715009169219496062012184734522019333892538943312776480336")));
+        System.out.println("Measure: GeneratePublicKeySeed: " + (end - start) / 2000.0 + " ms");
     }
 }

@@ -1,19 +1,17 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import java.math.BigInteger;
-
-import javax.annotation.Nonnull;
-
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
 
+import java.math.BigInteger;
+
 public class PointEd25519 extends Point {
 
-    private static final Point ZERO =
-            new PointEd25519(new CoordinateEd25519(BigInteger.ZERO), new CoordinateEd25519(BigInteger.ONE));
+    private static final Coordinate Z1 = new CoordinateEd25519(new BigInteger("1"));
+    private static final Coordinate Z2 = new CoordinateEd25519(new BigInteger("1"));
 
     /**
      * constructor of Point
@@ -21,9 +19,9 @@ public class PointEd25519 extends Point {
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    public PointEd25519(@Nonnull Coordinate x, @Nonnull Coordinate y) {
+    public PointEd25519(Coordinate x, Coordinate y) {
         super(x, y);
-        curve = Ed25519Curve.getCurve();
+        curve = Curve25519.getInstance();
     }
 
     /**
@@ -31,22 +29,21 @@ public class PointEd25519 extends Point {
      */
     @Override
     public final Point add(Point point) {
-        // z = 1
-        Coordinate x1 = this.x;
-        Coordinate y1 = this.y;
-        Coordinate x2 = point.getX();
-        Coordinate y2 = point.getY();
+        Coordinate x1 = this.x.multiply(Z1).mod();
+        Coordinate y1 = this.y.multiply(Z1).mod();
+        Coordinate x2 = point.getX().multiply(Z2).mod();
+        Coordinate y2 = point.getY().multiply(Z2).mod();
 
-        Coordinate t1 = x1.multiply(y1);
-        Coordinate t2 = x2.multiply(y2);
+        Coordinate t1 = x1.multiply(y1).multiply(Z1);
+        Coordinate t2 = x2.multiply(y2).multiply(Z2);
 
         Coordinate d = new CoordinateEd25519(curve.getD().getInteger());
         Coordinate coord2 = new CoordinateEd25519(BigInteger.ONE.shiftLeft(1));
 
         Coordinate A = y1.subtract(x1).multiply(y2.subtract(x2)).mod();
         Coordinate B = y1.add(x1).multiply(y2.add(x2)).mod();
-        Coordinate C = t1.multiply(d).multiply(t2).multiply(coord2).mod();
-        Coordinate D = coord2;
+        Coordinate C = t1.multiply(coord2).multiply(d).multiply(t2).mod();
+        Coordinate D = Z1.multiply(coord2).multiply(Z2);
         Coordinate E = B.subtract(A);
         Coordinate F = D.subtract(C);
         Coordinate G = D.add(C);

@@ -1,7 +1,5 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import java.math.BigInteger;
-
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.Hashes;
@@ -12,9 +10,9 @@ import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
-import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
-import io.moatwel.util.HexEncoder;
+
+import java.math.BigInteger;
 
 /**
  * A Signer on Edwards-curve DSA specified on Ed25519 curve.
@@ -25,7 +23,7 @@ import io.moatwel.util.HexEncoder;
  */
 public class Ed25519Signer implements EdDsaSigner {
 
-    private static final Curve curve = Ed25519Curve.getCurve();
+    private static final Curve curve = Curve25519.getInstance();
 
     private HashAlgorithm hashAlgorithm;
 

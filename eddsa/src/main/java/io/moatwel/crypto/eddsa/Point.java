@@ -1,8 +1,8 @@
 package io.moatwel.crypto.eddsa;
 
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.ed25519.PointEd25519;
+
+import java.math.BigInteger;
 
 /**
  * A point on the eddsa curve which represents a group of {@link Coordinate}.
@@ -87,7 +87,7 @@ public abstract class Point implements Cloneable {
     /**
      * Check value equality between two Points.
      * <p>Pay attention not to check different Point implementation. Below code will throw
-     * RuntimeException.
+     * {@link IllegalComparisonException}.
      * <pre>
      *      {@code
      *          Point point1 = new PointEd25519(...);
@@ -103,7 +103,7 @@ public abstract class Point implements Cloneable {
      */
     public boolean isEqual(Point point) {
         if (point.getClass() != this.getClass()) {
-            throw new RuntimeException("These points can not be compared. Different point implementation.");
+            throw new IllegalComparisonException("These points can not be compared. Different point implementation.");
         }
 
         return point.getX().isEqual(this.x) && point.getY().isEqual(this.y);

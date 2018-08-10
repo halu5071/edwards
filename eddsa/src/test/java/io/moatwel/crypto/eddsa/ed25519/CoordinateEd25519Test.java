@@ -1,18 +1,15 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import org.junit.Test;
-
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
 import io.moatwel.crypto.eddsa.ed448.CoordinateEd448;
 import io.moatwel.util.HexEncoder;
+import org.junit.Test;
+
+import java.math.BigInteger;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class CoordinateEd25519Test {
 

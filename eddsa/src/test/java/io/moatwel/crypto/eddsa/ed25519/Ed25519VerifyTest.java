@@ -1,15 +1,9 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
+import io.moatwel.crypto.*;
+import io.moatwel.crypto.eddsa.EdDsaKeyGenerator;
 import org.junit.Before;
 import org.junit.Test;
-
-import io.moatwel.crypto.EdDsaSigner;
-import io.moatwel.crypto.HashAlgorithm;
-import io.moatwel.crypto.KeyGenerator;
-import io.moatwel.crypto.KeyPair;
-import io.moatwel.crypto.PrivateKey;
-import io.moatwel.crypto.Signature;
-import io.moatwel.crypto.eddsa.EdDsaKeyGenerator;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -206,5 +200,41 @@ public class Ed25519VerifyTest {
         boolean isVerified = signer.verify(pair, "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do".getBytes(), signature);
 
         assertThat(isVerified, is(true));
+    }
+
+    @Test
+    public void failure_VerifySignature_1() {
+        Signature signature = signer.sign(pair, "demo".getBytes());
+
+        boolean isVerified = signer.verify(pair, "demo.".getBytes(), signature);
+
+        assertThat(isVerified, is(false));
+    }
+
+    @Test
+    public void failure_VerifySignature_2() {
+        Signature signature = signer.sign(pair, "This is it.".getBytes());
+
+        boolean isVerified = signer.verify(pair, "This is it".getBytes(), signature);
+
+        assertThat(isVerified, is(false));
+    }
+
+    @Test
+    public void failure_VerifySignature_3() {
+        Signature signature = signer.sign(pair, "klf;ajdfa98".getBytes());
+
+        boolean isVerified = signer.verify(pair, "klf;ajdfa98d".getBytes(), signature);
+
+        assertThat(isVerified, is(false));
+    }
+
+    @Test
+    public void failure_VerifySignature_16() {
+        Signature signature = signer.sign(pair, "Hush, little baby, don't say a word,　Mama's going to buy you a mockingbird.".getBytes());
+
+        boolean isVerified = signer.verify(pair, "Hush,  little baby, don't say a word,　Mama's going to buy you a mockingbird.".getBytes(), signature);
+
+        assertThat(isVerified, is(false));
     }
 }

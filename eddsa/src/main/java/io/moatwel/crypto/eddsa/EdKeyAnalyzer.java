@@ -10,6 +10,9 @@ public class EdKeyAnalyzer {
     private Curve curve;
 
     public EdKeyAnalyzer(Curve curve) {
+        if (curve == null) {
+            throw new NullPointerException("Curve must not be null.");
+        }
         this.curve = curve;
     }
 
