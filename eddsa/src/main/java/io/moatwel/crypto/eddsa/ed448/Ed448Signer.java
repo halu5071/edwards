@@ -10,7 +10,7 @@ import io.moatwel.crypto.eddsa.Curve;
  */
 public class Ed448Signer implements EdDsaSigner {
 
-    private static final Curve curve = Ed448Curve.getCurve();
+    private static final Curve curve = Curve448.getInstance();
 
     @Override
     public Signature sign(KeyPair keyPair, byte[] data) {

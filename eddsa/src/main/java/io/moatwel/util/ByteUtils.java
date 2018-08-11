@@ -78,7 +78,7 @@ public class ByteUtils {
      * Read bit value from one byte.
      * <p>Java can not handle unsigned byte, so
      *
-     * @param value target byte.
+     * @param value    target byte.
      * @param position target position to read.
      * @return read bit value 0 or 1.
      */

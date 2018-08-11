@@ -1,10 +1,10 @@
 package io.moatwel.crypto.eddsa.ed448;
 
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
+
+import java.math.BigInteger;
 
 /**
  * Represent Ed448 curve of twisted Edwards-curve.
@@ -12,15 +12,15 @@ import io.moatwel.crypto.eddsa.Point;
  * @author halu5071 (Yasunori Horii)
  * @see <a href="https://tools.ietf.org/html/rfc8032#section-5.2">RFC 8032 Ed448</a>
  */
-public class Ed448Curve implements Curve {
+public class Curve448 implements Curve {
 
-    private static final Ed448Curve ED_448_CURVE;
+    private static final Curve448 ED_448_CURVE;
 
     static {
-        ED_448_CURVE = new Ed448Curve();
+        ED_448_CURVE = new Curve448();
     }
 
-    private Ed448Curve() {
+    private Curve448() {
     }
 
     @Override
@@ -56,7 +56,7 @@ public class Ed448Curve implements Curve {
         return BigInteger.ONE;
     }
 
-    public static Ed448Curve getCurve() {
+    public static Curve448 getInstance() {
         return ED_448_CURVE;
     }
 }

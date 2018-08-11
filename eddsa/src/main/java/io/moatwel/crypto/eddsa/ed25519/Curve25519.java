@@ -1,10 +1,10 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
+
+import java.math.BigInteger;
 
 /**
  * Represent Ed25519 curve of twisted Edwards-curve.
@@ -12,15 +12,11 @@ import io.moatwel.crypto.eddsa.Point;
  * @author halu5071 (Yasunori Horii)
  * @see <a href="https://tools.ietf.org/html/rfc8032#section-5.1">RFC 8032 Ed25519</a>
  */
-public class Ed25519Curve implements Curve {
+public class Curve25519 implements Curve {
 
-    private static final Ed25519Curve ED_CURVE;
+    private static Curve25519 curve;
 
-    static {
-        ED_CURVE = new Ed25519Curve();
-    }
-
-    private Ed25519Curve() {
+    private Curve25519() {
     }
 
     @Override
@@ -58,7 +54,11 @@ public class Ed25519Curve implements Curve {
         return new BigInteger("-1");
     }
 
-    public static Ed25519Curve getCurve() {
-        return ED_CURVE;
+    public static Curve25519 getInstance() {
+        return CurveHolder.INSTANCE;
+    }
+
+    private static class CurveHolder {
+        private static final Curve25519 INSTANCE = new Curve25519();
     }
 }

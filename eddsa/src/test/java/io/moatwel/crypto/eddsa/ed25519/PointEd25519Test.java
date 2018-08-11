@@ -1,23 +1,20 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import org.junit.Test;
-
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.ed448.CoordinateEd448;
 import io.moatwel.crypto.eddsa.ed448.PointEd448;
 import io.moatwel.util.HexEncoder;
+import org.junit.Test;
+
+import java.math.BigInteger;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class PointEd25519Test {
 
-    private Curve curve = Ed25519Curve.getCurve();
+    private Curve curve = Curve25519.getInstance();
 
     @Test
     public void success_AddPoint1() {
@@ -64,6 +61,84 @@ public class PointEd25519Test {
     }
 
     @Test
+    public void success_AddPoint5() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("20266806181347897178517736945403300566236311925948585575972021784256181966831")),
+                new CoordinateEd25519(new BigInteger("20852410506957026626210500909507772892959249564214740554270305643381675686982")));
+        Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("11675954373387894284288004270057647646117187555908725144338394611307421402153")),
+                new CoordinateEd25519(new BigInteger("6914948912687941235153802070429816612825513145320139793692760076939195789734")));
+
+        Point result = point1.add(point2);
+
+        assertThat(result.getX().getInteger(), is(new BigInteger("48503653771611185505641550378000927615234160991025034313672702576429802482305")));
+        assertThat(result.getY().getInteger(), is(new BigInteger("55906285724051886338008287911122855934156241601415494231223064909912279321827")));
+    }
+
+    @Test
+    public void success_AddPoint6() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("55307901837819056100203421472284281626339181044463972151446027320031681414103")),
+                new CoordinateEd25519(new BigInteger("4592278534742875130003490239944802183338230954052483234431143871319686381534")));
+        Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("20266806181347897178517736945403300566236311925948585575972021784256181966831")),
+                new CoordinateEd25519(new BigInteger("20852410506957026626210500909507772892959249564214740554270305643381675686982")));
+
+        Point result = point1.add(point2);
+
+        assertThat(result.getX().getInteger(), is(new BigInteger("13822711300349466982677984643260416445346651573002956528288968112843725329775")));
+        assertThat(result.getY().getInteger(), is(new BigInteger("49357477884335216030914773679750452456619347178750051140322405303989353243151")));
+    }
+
+    @Test
+    public void success_AddPoint7() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("34533599460759434840195068027488100886792431177105624727278431380599494051297")),
+                new CoordinateEd25519(new BigInteger("51422534855936905954058747336281739654670737325900075107235061596710295322677")));
+        Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("55307901837819056100203421472284281626339181044463972151446027320031681414103")),
+                new CoordinateEd25519(new BigInteger("4592278534742875130003490239944802183338230954052483234431143871319686381534")));
+
+        Point result = point1.add(point2);
+
+        assertThat(result.getX().getInteger(), is(new BigInteger("34000649668223248488254401591736403979321217591392207588742642580926190319364")));
+        assertThat(result.getY().getInteger(), is(new BigInteger("17558251693341875201664128833815398118983031625840378408984148054333403861042")));
+    }
+
+    @Test
+    public void success_AddPoint8() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("53796438671359824102085853653404738634771041230653645888564199631429825277660")),
+                new CoordinateEd25519(new BigInteger("52873790972168047993308827189322012202737756658766965387349495052412272053380")));
+        Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("34533599460759434840195068027488100886792431177105624727278431380599494051297")),
+                new CoordinateEd25519(new BigInteger("51422534855936905954058747336281739654670737325900075107235061596710295322677")));
+
+        Point result = point1.add(point2);
+
+        assertThat(result.getX().getInteger(), is(new BigInteger("20245698879030783691519219675334277708739244551573616706757188813638472517317")));
+        assertThat(result.getY().getInteger(), is(new BigInteger("11927906694103038927593975893798604203875081450043718939350407976683327255477")));
+    }
+
+    @Test
+    public void success_AddPoint9() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("31621228259983782766387151846173419701451207683454700670358544852161525834558")),
+                new CoordinateEd25519(new BigInteger("1087550498622212171315934886475455672530696511327350732598338573849547859723")));
+        Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("53796438671359824102085853653404738634771041230653645888564199631429825277660")),
+                new CoordinateEd25519(new BigInteger("52873790972168047993308827189322012202737756658766965387349495052412272053380")));
+
+        Point result = point1.add(point2);
+
+        assertThat(result.getX().getInteger(), is(new BigInteger("10231238983259957665520424972260773583563625054906107477931951171166394182461")));
+        assertThat(result.getY().getInteger(), is(new BigInteger("16175802527788616834701228315101703266962390276165245252584971134833495651114")));
+    }
+
+    @Test
+    public void success_AddPoint10() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("24714885350915573524959492804958774885039633758708007137167239543662320763472")),
+                new CoordinateEd25519(new BigInteger("32610704945606948033834599741453719010166132071117736619400925734673110257760")));
+        Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("31621228259983782766387151846173419701451207683454700670358544852161525834558")),
+                new CoordinateEd25519(new BigInteger("1087550498622212171315934886475455672530696511327350732598338573849547859723")));
+
+        Point result = point1.add(point2);
+
+        assertThat(result.getX().getInteger(), is(new BigInteger("35609955356486491496360028406142810435910830517694536589708456029301666527874")));
+        assertThat(result.getY().getInteger(), is(new BigInteger("33972043234789475673904984064588138758737764726163691391551272801822821209432")));
+    }
+
+    @Test
     public void success_ScalarMultiply_1() {
         Point point = curve.getBasePoint();
         BigInteger integer = new BigInteger("1234");
@@ -72,6 +147,50 @@ public class PointEd25519Test {
 
         assertThat(result.getX().getInteger(), is(new BigInteger("55556569241314067156494303609322045323771151550641480329783949256943018472903")));
         assertThat(result.getY().getInteger(), is(new BigInteger("32784530584814531279135473125766128158866185447326682367874410721387968224179")));
+    }
+
+    @Test
+    public void success_ScalarMultiply_2() {
+        Point point = curve.getBasePoint();
+        BigInteger integer = new BigInteger("20266806181347897178517736945403300566236311925948585575972021784256181966831");
+
+        Point result = point.scalarMultiply(integer);
+
+        assertThat(result.getX().getInteger(), is(new BigInteger("36568395279531091001405240627702774400329345357946000277861114291457062189012")));
+        assertThat(result.getY().getInteger(), is(new BigInteger("6892543919216139430465404745243127488161491607535545431263766463424432810420")));
+    }
+
+    @Test
+    public void success_ScalarMultiply_3() {
+        Point point = curve.getBasePoint();
+        BigInteger integer = new BigInteger("11675954373387894284288004270057647646117187555908725144338394611307421402153");
+
+        Point result = point.scalarMultiply(integer);
+
+        assertThat(result.getX().getInteger(), is(new BigInteger("2550105584539864958223359997109982244652817874690374654323009420113342284222")));
+        assertThat(result.getY().getInteger(), is(new BigInteger("32100423734119761214020102691557112218747037854384677234614616607240732191696")));
+    }
+
+    @Test
+    public void success_ScalarMultiply_4() {
+        Point point = curve.getBasePoint();
+        BigInteger integer = new BigInteger("53796438671359824102085853653404738634771041230653645888564199631429825277660");
+
+        Point result = point.scalarMultiply(integer);
+
+        assertThat(result.getX().getInteger(), is(new BigInteger("55567266549953732748489637086272210307507483701392087766383203587162091263037")));
+        assertThat(result.getY().getInteger(), is(new BigInteger("39648261582079248220577879738713959882783855750578332978656472445048155089907")));
+    }
+
+    @Test
+    public void success_ScalarMultiply_5() {
+        Point point = curve.getBasePoint();
+        BigInteger integer = new BigInteger("32610704945606948033834599741453719010166132071117736619400925734673110257760");
+
+        Point result = point.scalarMultiply(integer);
+
+        assertThat(result.getX().getInteger(), is(new BigInteger("46453596183992846648371334773013814104200062737923250995844281103986991912429")));
+        assertThat(result.getY().getInteger(), is(new BigInteger("25430834724210084628427024029388177706947140598135008372913684687859787885119")));
     }
 
     @Test
@@ -385,5 +504,21 @@ public class PointEd25519Test {
                 new CoordinateEd448(new BigInteger("232526022003074923213136435247766233210520798042438727884831325430982160909084120418029412094710924809128093")));
 
         point1.isEqual(diffPointImpl);
+    }
+
+    @Test
+    public void measure_AddPoint() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("34533599460759434840195068027488100886792431177105624727278431380599494051297")),
+                new CoordinateEd25519(new BigInteger("51422534855936905954058747336281739654670737325900075107235061596710295322677")));
+        Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("55307901837819056100203421472284281626339181044463972151446027320031681414103")),
+                new CoordinateEd25519(new BigInteger("4592278534742875130003490239944802183338230954052483234431143871319686381534")));
+
+        long start = System.nanoTime();
+        for (int i = 0; i < 2000; i++) {
+            Point result = point1.add(point2);
+        }
+        long end = System.nanoTime();
+
+        System.out.println("Measure Add point: " + (end - start) / 2000.0 + " ns");
     }
 }

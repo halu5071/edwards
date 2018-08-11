@@ -14,6 +14,9 @@ public class EdDsaKeyGenerator implements KeyGenerator {
     private CurveProvider curveProvider;
 
     public EdDsaKeyGenerator(CurveProvider curveProvider) {
+        if (curveProvider == null) {
+            throw new NullPointerException("CurveProvider must not be null.");
+        }
         this.curveProvider = curveProvider;
         Curve curve = curveProvider.getCurve();
         this.analyzer = new EdKeyAnalyzer(curve);

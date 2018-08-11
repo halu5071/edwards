@@ -13,7 +13,7 @@ public abstract class CurveProvider {
 
     protected CurveProvider(Curve curve) {
         if (curve == null) {
-            throw new IllegalArgumentException("Curve must not be null");
+            throw new NullPointerException("Curve must not be null");
         }
         this.curve = curve;
     }
