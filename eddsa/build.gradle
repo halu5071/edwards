@@ -111,6 +111,7 @@ bintray {
     user = System.getenv('BINTRAY_USER_NAME')
     key = System.getenv('BINTRAY_API_KEY')
     publications = ['EdwardsPublication']
+    override = true
 
     pkg {
         repo = 'edwards'
