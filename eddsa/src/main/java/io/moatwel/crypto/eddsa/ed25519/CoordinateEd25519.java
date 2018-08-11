@@ -11,14 +11,14 @@ import java.math.BigInteger;
 /**
  * @author halu5071 (Yasunori Horii) at 2018/06/28
  */
-public class CoordinateEd25519 extends Coordinate {
+class CoordinateEd25519 extends Coordinate {
 
     private static final Curve curve = Curve25519.getInstance();
 
     public static final CoordinateEd25519 ZERO = new CoordinateEd25519(new BigInteger("0"));
     public static final Coordinate ONE = new CoordinateEd25519(new BigInteger("1"));
 
-    public CoordinateEd25519(BigInteger integer) {
+    CoordinateEd25519(BigInteger integer) {
         this.value = integer;
     }
 

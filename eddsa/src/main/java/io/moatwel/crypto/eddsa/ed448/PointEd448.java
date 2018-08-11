@@ -6,7 +6,7 @@ import io.moatwel.crypto.eddsa.Point;
 
 import java.math.BigInteger;
 
-public class PointEd448 extends Point {
+class PointEd448 extends Point {
 
     private static final Point ZERO =
             new PointEd448(new CoordinateEd448(BigInteger.ZERO), new CoordinateEd448(BigInteger.ZERO));
@@ -17,7 +17,7 @@ public class PointEd448 extends Point {
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    public PointEd448(Coordinate x, Coordinate y) {
+    PointEd448(Coordinate x, Coordinate y) {
         super(x, y);
         curve = Curve448.getInstance();
 

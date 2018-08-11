@@ -2,7 +2,6 @@ package io.moatwel.crypto.eddsa.ed448;
 
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
-import io.moatwel.crypto.eddsa.ed25519.PointEd25519;
 import org.junit.Test;
 
 import java.math.BigInteger;
@@ -77,16 +76,5 @@ public class PointEd448Test {
                 new CoordinateEd448(new BigInteger("223456")));
 
         assertThat(point1.isEqual(point2), is(false));
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void failure_IsEqual_different_implementation() {
-        Point point1 = new PointEd448(new CoordinateEd448(new BigInteger("12345")),
-                new CoordinateEd448(new BigInteger("23456")));
-
-        Point point2 = new PointEd25519(new CoordinateEd448(new BigInteger("12345")),
-                new CoordinateEd448(new BigInteger("23456")));
-
-        point1.isEqual(point2);
     }
 }

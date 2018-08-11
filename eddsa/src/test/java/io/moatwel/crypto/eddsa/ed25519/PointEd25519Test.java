@@ -2,8 +2,6 @@ package io.moatwel.crypto.eddsa.ed25519;
 
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
-import io.moatwel.crypto.eddsa.ed448.CoordinateEd448;
-import io.moatwel.crypto.eddsa.ed448.PointEd448;
 import io.moatwel.util.HexEncoder;
 import org.junit.Test;
 
@@ -493,17 +491,6 @@ public class PointEd25519Test {
                 new CoordinateEd25519(new BigInteger("23252602200307492321313643524776623321052079804243872788483132543098216090908")));
 
         assertThat(point1.isEqual(point2), is(false));
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void failure_IsEqual_different_implementation() {
-        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("43891533794047446595129048335950223439754428083113210033800244870979949519638")),
-                new CoordinateEd25519(new BigInteger("23252602200307492321313643524776623321052079804243872788483132543098216090908")));
-
-        Point diffPointImpl = new PointEd448(new CoordinateEd448(new BigInteger("4389153379404744659512904833595022343975442808311321003380024487097994951963891082741247912730912740912843901823091")),
-                new CoordinateEd448(new BigInteger("232526022003074923213136435247766233210520798042438727884831325430982160909084120418029412094710924809128093")));
-
-        point1.isEqual(diffPointImpl);
     }
 
     @Test

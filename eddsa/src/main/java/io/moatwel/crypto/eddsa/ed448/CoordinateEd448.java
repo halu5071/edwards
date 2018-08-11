@@ -9,14 +9,14 @@ import java.math.BigInteger;
 /**
  * @author halu5071 (Yasunori Horii) at 2018/06/28
  */
-public class CoordinateEd448 extends Coordinate {
+class CoordinateEd448 extends Coordinate {
 
     private static final Curve curve = Curve448.getInstance();
 
     private static final Coordinate ZERO = new CoordinateEd448(new BigInteger("0"));
     private static final Coordinate ONE = new CoordinateEd448(new BigInteger("1"));
 
-    public CoordinateEd448(BigInteger integer) {
+    CoordinateEd448(BigInteger integer) {
         this.value = integer;
     }
 

@@ -21,7 +21,7 @@ import java.math.BigInteger;
  * @see Ed25519CurveProvider
  * @see EdDsaSigner
  */
-public class Ed25519Signer implements EdDsaSigner {
+class Ed25519Signer implements EdDsaSigner {
 
     private static final Curve curve = Curve25519.getInstance();
 

@@ -8,7 +8,7 @@ import io.moatwel.util.ByteUtils;
 
 import java.math.BigInteger;
 
-public class PointEd25519 extends Point {
+class PointEd25519 extends Point {
 
     private static final Coordinate Z1 = new CoordinateEd25519(new BigInteger("1"));
     private static final Coordinate Z2 = new CoordinateEd25519(new BigInteger("1"));
@@ -19,7 +19,7 @@ public class PointEd25519 extends Point {
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    public PointEd25519(Coordinate x, Coordinate y) {
+    PointEd25519(Coordinate x, Coordinate y) {
         super(x, y);
         curve = Curve25519.getInstance();
     }

@@ -7,7 +7,7 @@ import io.moatwel.crypto.eddsa.Point;
  * Encoded Point implementation of ed448 curve. Implements {@link EncodedPoint#decode()}
  * operation. This object has byte array whose length is 57, which represents encoded point.
  */
-public class EncodedPointEd448 extends EncodedPoint {
+class EncodedPointEd448 extends EncodedPoint {
 
     EncodedPointEd448(byte[] value) {
         if (value.length != 57) {

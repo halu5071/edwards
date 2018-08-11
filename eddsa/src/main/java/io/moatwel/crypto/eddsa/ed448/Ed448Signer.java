@@ -8,7 +8,7 @@ import io.moatwel.crypto.eddsa.Curve;
 /**
  * @author halu5071 (Yasunori Horii) at 2018/6/26
  */
-public class Ed448Signer implements EdDsaSigner {
+class Ed448Signer implements EdDsaSigner {
 
     private static final Curve curve = Curve448.getInstance();
 

@@ -2,7 +2,6 @@ package io.moatwel.crypto.eddsa.ed25519;
 
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
-import io.moatwel.crypto.eddsa.ed448.CoordinateEd448;
 import io.moatwel.util.HexEncoder;
 import org.junit.Test;
 
@@ -104,14 +103,6 @@ public class CoordinateEd25519Test {
         Coordinate coordinate2 = new CoordinateEd25519(new BigInteger("84412282755515629833010601177215416502583846089738343830061683922017848058174"));
 
         assertThat(coordinate1.isEqual(coordinate2), is(false));
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void failure_IsEqual_different_implementation() {
-        Coordinate coordinate1 = new CoordinateEd448(new BigInteger("29526982755515629833010601177215416502583846089738343830061683922017848058174"));
-        Coordinate coordinate2 = new CoordinateEd25519(new BigInteger("84412282755515629833010601177215416502583846089738343830061683922017848058174"));
-
-        coordinate1.isEqual(coordinate2);
     }
 
     @Test

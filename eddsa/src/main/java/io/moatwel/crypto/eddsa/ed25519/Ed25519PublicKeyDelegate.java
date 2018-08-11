@@ -16,13 +16,13 @@ import java.math.BigInteger;
  * @author halu5071 (Yasunori Horii) 2018/6/8
  * @see Ed25519CurveProvider
  */
-public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
+class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
     private Curve25519 curve = Curve25519.getInstance();
 
     private HashAlgorithm hashAlgorithm;
 
-    public Ed25519PublicKeyDelegate(HashAlgorithm hashAlgorithm) {
+    Ed25519PublicKeyDelegate(HashAlgorithm hashAlgorithm) {
         this.hashAlgorithm = hashAlgorithm;
     }
 

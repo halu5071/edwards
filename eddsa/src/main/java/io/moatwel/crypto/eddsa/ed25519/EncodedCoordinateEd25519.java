@@ -6,7 +6,7 @@ import io.moatwel.util.ByteUtils;
 
 import java.math.BigInteger;
 
-public class EncodedCoordinateEd25519 extends EncodedCoordinate {
+class EncodedCoordinateEd25519 extends EncodedCoordinate {
 
     EncodedCoordinateEd25519(byte[] value) {
         this.value = value;
