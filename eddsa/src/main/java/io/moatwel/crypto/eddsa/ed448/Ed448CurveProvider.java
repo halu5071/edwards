@@ -39,12 +39,7 @@ public class Ed448CurveProvider extends CurveProvider {
 
     @Override
     protected KeyPair generateKeyPair(KeyGenerator generator, EdKeyAnalyzer analyzer) {
-        SecureRandom random = new SecureRandom();
-        byte[] seed = new byte[57];
-        random.nextBytes(seed);
-
-        PrivateKey privateKey = PrivateKeyEd448.fromBytes(seed);
-
+        PrivateKey privateKey = PrivateKeyEd448.random();
         return new KeyPair(privateKey, generator, analyzer);
     }
 }
