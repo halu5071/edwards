@@ -10,6 +10,10 @@ public enum HashAlgorithm {
 
     SHA3_512("SHA3-512"),
 
+    SHAKE_128("SHAKE128"),
+
+    SHAKE_256("SHAKE256"),
+
     SHA_512("SHA-512");
 
     private String algorithm;

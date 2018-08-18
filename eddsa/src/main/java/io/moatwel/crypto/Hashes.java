@@ -1,6 +1,7 @@
 package io.moatwel.crypto;
 
 import org.spongycastle.crypto.digests.SHA3Digest;
+import org.spongycastle.jcajce.provider.symmetric.util.ClassUtil;
 import org.spongycastle.jce.provider.BouncyCastleProvider;
 
 import java.security.MessageDigest;
@@ -11,7 +12,9 @@ import java.security.Security;
 public class Hashes {
 
     static {
-        Security.addProvider(new BouncyCastleProvider());
+        BouncyCastleProvider bouncyCastleProvider = new BouncyCastleProvider();
+        applyShakeSHAAlgorithm(bouncyCastleProvider);
+        Security.addProvider(bouncyCastleProvider);
     }
 
     public static byte[] sha3Hash256(byte[]... inputs) {
@@ -50,6 +53,17 @@ public class Hashes {
             return digest.digest();
         } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
             throw new RuntimeException("Hashing error: " + e.getMessage(), e);
+        }
+    }
+
+    private static void applyShakeSHAAlgorithm(BouncyCastleProvider provider) {
+        Class clazz = ClassUtil.loadClass(BouncyCastleProvider.class, "io.moatwel.crypto.Shake$Mappings");
+        if (clazz != null) {
+            try {
+                ((Shake.Mappings)clazz.newInstance()).configure(provider);
+            } catch (Exception e) {   // this should never ever happen!!
+                throw new InternalError("cannot create instance of io.moatwel.crypto.Shake$Mappings : " + e);
+            }
         }
     }
 }

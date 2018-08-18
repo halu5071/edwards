@@ -1,17 +1,11 @@
 package io.moatwel.crypto;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
 import io.moatwel.util.HexEncoder;
+import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(Hashes.class)
 public class HashesTest {
 
     @Test
@@ -102,5 +96,28 @@ public class HashesTest {
         byte[] result = Hashes.hash(HashAlgorithm.SHA_512, seed1.getBytes(), seed2.getBytes(), seed3.getBytes());
 
         assertThat(HexEncoder.getString(result), is("69aaaf4b6fc82362212a611caff822be8bb4b8d246c3cd33474914690b32e2bc79da889adae033ecef441a1663028a64ec8f860fb039974bb1bb37500218d998"));
+    }
+
+    @Test
+    public void success_7() {
+        String seed1 = "This is a pen.";
+        String seed2 = "ed25519";
+        String seed3 = "klf;ajdfa98";
+
+        byte[] result1 = Hashes.hash(HashAlgorithm.SHAKE_256, seed1.getBytes());
+        byte[] result2 = Hashes.hash(HashAlgorithm.SHAKE_256, seed2.getBytes());
+        byte[] result3 = Hashes.hash(HashAlgorithm.SHAKE_256, seed3.getBytes());
+
+        assertThat(HexEncoder.getString(result1), is("c766adb0fb2e2fe5fb03df0e88b51768ea48f6d956681094de11df13e4c95a63"));
+        assertThat(HexEncoder.getString(result2), is("4670b3737cc4f03c97e005f447da7262359670bbfc72f16a50191a6b083df15a"));
+        assertThat(HexEncoder.getString(result3), is("a64310de53301217bad2cba03f7b66906c45e4a98c3dd8423f4c2ea419a236f1"));
+
+        byte[] result2_1 = Hashes.hash(HashAlgorithm.SHAKE_128, seed1.getBytes());
+        byte[] result2_2 = Hashes.hash(HashAlgorithm.SHAKE_128, seed2.getBytes());
+        byte[] result2_3 = Hashes.hash(HashAlgorithm.SHAKE_128, seed3.getBytes());
+
+        assertThat(HexEncoder.getString(result2_1), is("745c9ea6f6e13dec8dcb9a53329e291b"));
+        assertThat(HexEncoder.getString(result2_2), is("8439da09854ad2f518a11514900fec8e"));
+        assertThat(HexEncoder.getString(result2_3), is("753ef5e996ef04a4cd3bd12ccae5fb00"));
     }
 }
