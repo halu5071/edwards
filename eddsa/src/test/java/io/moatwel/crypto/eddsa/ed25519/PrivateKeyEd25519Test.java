@@ -15,13 +15,13 @@ public class PrivateKeyEd25519Test {
 
     @Test(expected = IllegalArgumentException.class)
     public void failure_GeneratePrivateKey_wrong_byte_length() {
-        PrivateKeyEd25519.fromBytes(new byte[31]);
-        PrivateKeyEd25519.fromBytes(new byte[33]);
+        PrivateKey.newInstance(new byte[31]);
+        PrivateKey.newInstance(new byte[33]);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void failure_GeneratePrivateKey_wrong_hex_string() {
-        PrivateKeyEd25519.fromHexString("98fa9d87f89ad7f");
+        PrivateKey.newInstance("98fa9d87f89ad7f");
     }
 
     @Test
