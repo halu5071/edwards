@@ -9,6 +9,8 @@
 /.idea/caches
 /.idea/compiler.xml
 /.idea/copyright
+/.idea/runConfigurations.xml
+/.idea/misc.xml
 .DS_Store
 /build
 /captures

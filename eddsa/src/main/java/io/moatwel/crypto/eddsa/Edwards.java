@@ -44,6 +44,10 @@ public final class Edwards {
         return generator.generateKeyPair();
     }
 
+    public KeyPair generateKeyPair(PrivateKey privateKey) {
+        return generator.generateKeyPair(privateKey);
+    }
+
     public PublicKey derivePublicKey(PrivateKey privateKey) {
         return generator.derivePublicKey(privateKey);
     }

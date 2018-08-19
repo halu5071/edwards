@@ -1,9 +1,11 @@
 package io.moatwel.crypto;
 
-import io.moatwel.util.HexEncoder;
-
 import java.math.BigInteger;
 import java.util.Arrays;
+
+import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
+import io.moatwel.crypto.eddsa.ed448.PrivateKeyEd448;
+import io.moatwel.util.HexEncoder;
 
 /**
  * @author halu5071 (Yasunori Horii) at 2018/5/28
@@ -36,5 +38,20 @@ public abstract class PrivateKey {
         }
         final PrivateKey privateKey = ((PrivateKey) obj);
         return this.value.equals(privateKey.value);
+    }
+
+    public static PrivateKey newInstance(byte[] seed) {
+        switch (seed.length) {
+            case 32:
+                return PrivateKeyEd25519.fromBytes(seed);
+            case 57:
+                return PrivateKeyEd448.fromBytes(seed);
+            default:
+                throw new IllegalArgumentException("PrivateKey byte length " + seed.length + " is not supported.");
+        }
+    }
+
+    public static PrivateKey newInstance(String hexString) {
+        return newInstance(HexEncoder.getBytes(hexString));
     }
 }

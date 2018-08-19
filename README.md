@@ -28,10 +28,10 @@ PublicKey publicKey = keyPair.getPublicKey();
 ```
 
 ### PublicKey generation from existing PrivateKey
-Of course you can generate `PublicKey` from existing `PrivateKey` which is represented in Hex String or byte array. You must specify the `PrivateKey` implementation which depends on the curve you want to use.
+Of course you can generate `PublicKey` from existing `PrivateKey` which is represented in Hex String or byte array.
 
 ```java
-PrivateKey privateKey = PrivateKeyEd25519.fromHexString("4fd0a24......3415d4ef");
+PrivateKey privateKey = PrivateKey.newInstance("4fd0a24......3415d4ef");
 PublicKey publicKey = edwards.derivePublicKey(privateKey);
 ```
 
@@ -84,7 +84,7 @@ buildscript {
 }
 
 dependencies {
-    compile "io.moatwel.crypto:eddsa:0.1.2-alpha"
+    compile "io.moatwel.crypto:eddsa:0.1.3-alpha"
 }
 ```
 
@@ -94,7 +94,7 @@ dependencies {
 <dependency> 
     <groupId>io.moatwel.crypto</groupId> 
     <artifactId>eddsa</artifactId> 
-    <version>0.1.2-alpha</version> 
+    <version>0.1.3-alpha</version>
     <type>pom</type> 
 </dependency>
 ```

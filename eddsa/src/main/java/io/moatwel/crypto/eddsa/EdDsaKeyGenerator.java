@@ -40,6 +40,9 @@ public class EdDsaKeyGenerator implements KeyGenerator {
 
     @Override
     public PublicKey derivePublicKey(PrivateKey privateKey) {
+        if (privateKey == null) {
+            throw new NullPointerException("PrivateKey must not be null.");
+        }
         PublicKeyDelegate delegate = curveProvider.getPublicKeyDelegate();
 
         byte[] publicKeySeed = delegate.generatePublicKeySeed(privateKey);
