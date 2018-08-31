@@ -21,9 +21,6 @@ public class EdwardsTest {
         byte[] privateKeySeed = new byte[]{42, 52, 74, 1, 6, -34, 13, 64, 83, 21, 34, -3, -7, 41, 92, 38, 43, 77, 21, -91, 23, 11, 84, 34, 98, 28, 44, 54, 123, -123, 34, 55};
         PrivateKey privateKey = PrivateKeyEd25519.fromBytes(privateKeySeed);
 
-        System.out.println(privateKey.getHexString());
-
         PublicKey publicKey = edwards.derivePublicKey(privateKey);
-        System.out.println(publicKey.getHexString());
     }
 }
