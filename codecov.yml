@@ -12,6 +12,11 @@ coverage:
     patch: no
     changes: no
 
+  notify:
+    slack:
+      default:
+        url: secret:RQRboZSlpVwutT59Lf7xmVfrj4ev7ttSIZQXSGPc7F97ogMK97zQeweLuNFEISkdVAS23AsDUXPsxo9LaZVFQIfGclXXj7tUONq6nfiQEEEMPdRFPppdEG+zxCyB5c5nhtJ/uA7sc2a0TNcGuaXxzltRjorc6O8gy1Ws6TkJF04=
+
 parsers:
   gcov:
     branch_detection:
