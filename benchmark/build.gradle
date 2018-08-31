@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin: "me.champeau.gradle.jmh"
+apply plugin: "io.morethan.jmhreport"
+
+dependencies {
+    // JMH
+    compile "org.openjdk.jmh:jmh-core:1.21"
+    compileOnly "org.openjdk.jmh:jmh-generator-annprocess:1.21"
+
+    compile project(":eddsa")
+}
+
+sourceSets {
+    jmh
+}
+
+jmh {
+    iterations = 10 // Number of measurement iterations to do.
+    benchmarkMode = ['avgt']
+    batchSize = 1 // Batch size: number of benchmark method calls per operation. (some benchmark modes can ignore this setting)
+    fork = 1
+    humanOutputFile = project.file("${project.buildDir}/reports/jmh/human.json") // human-readable output file
+    resultsFile = project.file("${project.buildDir}/reports/jmh/results.json") // results file
+    timeOnIteration = '1s' // Time to spend at each measurement iteration.
+    resultFormat = 'JSON' // Result format type (one of CSV, JSON, NONE, SCSV, TEXT)
+    timeout = '1s' // Timeout for benchmark iteration.
+    timeUnit = 'ms' // Output time unit. Available time units are: [m, s, ms, us, ns].
+    verbosity = 'NORMAL' // Verbosity mode. Available modes are: [SILENT, NORMAL, EXTRA]
+    warmup = '1s' // Time to spend at each warmup iteration.
+    warmupIterations = 5
+
+    jmhVersion = '1.21' // Specifies JMH version
+}
+
+jmhReport {
+    jmhResultPath = project.file("${project.buildDir}/reports/jmh/results.json")
+    jmhReportOutput = project.file("${project.buildDir}/reports/jmh")
+}
+
+tasks.getByName('jmhJar').doFirst() {duplicatesStrategy(DuplicatesStrategy.EXCLUDE)}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
