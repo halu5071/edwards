@@ -284,16 +284,4 @@ public class Ed25519PublicKeyDelegateTest {
 
         assertThat(HexEncoder.getString(seed), is("ec172b93ad5e563bf4932c70e1245034c35467ef2efd4d64ebf819683467e2bf"));
     }
-
-    @Test
-    public void measure_GeneratePublicKeySeed() {
-        PrivateKey privateKey = PrivateKeyEd25519.random();
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < 2000; i++) {
-            byte[] seed = delegate.generatePublicKeySeed(privateKey);
-        }
-        long end = System.currentTimeMillis();
-
-        System.out.println("Measure: GeneratePublicKeySeed: " + (end - start) / 2000.0 + " ms");
-    }
 }
