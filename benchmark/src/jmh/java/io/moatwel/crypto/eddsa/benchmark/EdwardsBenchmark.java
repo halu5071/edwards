@@ -13,21 +13,28 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import java.util.concurrent.TimeUnit;
 
 import io.moatwel.crypto.KeyPair;
+import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.Edwards;
 
 @State(Scope.Benchmark)
 public class EdwardsBenchmark {
     private Edwards edwards = new Edwards();
     private KeyPair pair = edwards.generateKeyPair();
+    private Signature signature = edwards.sign(pair, new byte[32]);
 
     @Benchmark
-    public void measureGenerateKeyPair() {
+    public void generate_KeyPair() {
         edwards.generateKeyPair();
     }
 
     @Benchmark
-    public void measureSign() {
+    public void sign() {
         edwards.sign(pair, new byte[32]);
+    }
+
+    @Benchmark
+    public void verify() {
+        edwards.verify(pair, new byte[32], signature);
     }
 
     public static void main(String[] args) throws RunnerException {

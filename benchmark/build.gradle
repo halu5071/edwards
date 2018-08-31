@@ -24,7 +24,7 @@ jmh {
     timeOnIteration = '1s' // Time to spend at each measurement iteration.
     resultFormat = 'JSON' // Result format type (one of CSV, JSON, NONE, SCSV, TEXT)
     timeout = '1s' // Timeout for benchmark iteration.
-    timeUnit = 'ms' // Output time unit. Available time units are: [m, s, ms, us, ns].
+    timeUnit = 'ns' // Output time unit. Available time units are: [m, s, ms, us, ns].
     verbosity = 'NORMAL' // Verbosity mode. Available modes are: [SILENT, NORMAL, EXTRA]
     warmup = '1s' // Time to spend at each warmup iteration.
     warmupIterations = 5
