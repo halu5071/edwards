@@ -28,17 +28,17 @@ public class Ed448SchemeProvider extends SchemeProvider {
     }
 
     @Override
-    protected EdDsaSigner getSigner() {
+    public EdDsaSigner getSigner() {
         return new Ed448Signer();
     }
 
     @Override
-    protected PublicKeyDelegate getPublicKeyDelegate() {
+    public PublicKeyDelegate getPublicKeyDelegate() {
         return new Ed448PublicKeyDelegate(hashAlgorithm);
     }
 
     @Override
-    protected PrivateKey generatePrivateKey() {
+    public PrivateKey generatePrivateKey() {
         SecureRandom random = new SecureRandom();
         byte[] seed = new byte[57];
         random.nextBytes(seed);

@@ -38,7 +38,7 @@ public class Ed25519SchemeProvider extends SchemeProvider {
     }
 
     @Override
-    protected PrivateKey generatePrivateKey() {
+    public PrivateKey generatePrivateKey() {
         SecureRandom random = new SecureRandom();
         byte[] seed = new byte[32];
         random.nextBytes(seed);

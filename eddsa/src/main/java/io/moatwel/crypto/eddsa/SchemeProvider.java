@@ -23,9 +23,9 @@ public abstract class SchemeProvider {
         return curve;
     }
 
-    protected abstract EdDsaSigner getSigner();
+    public abstract EdDsaSigner getSigner();
 
-    protected abstract PublicKeyDelegate getPublicKeyDelegate();
+    public abstract PublicKeyDelegate getPublicKeyDelegate();
 
-    protected abstract PrivateKey generatePrivateKey();
+    public abstract PrivateKey generatePrivateKey();
 }

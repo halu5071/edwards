@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigInteger;
-import java.security.SecureRandom;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -36,5 +35,12 @@ public class Ed25519CurveTest {
         EncodedPoint encodedPoint = curve.getBasePoint().encode();
 
         assertThat(encodedPoint.getValue(), is(new byte[]{88, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102}));
+    }
+
+    @Test
+    public void success_GetA() {
+        BigInteger integer = curve.getA();
+        String str = integer.toString();
+        assertThat(str, is("-1"));
     }
 }
