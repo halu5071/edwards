@@ -18,7 +18,7 @@ import java.math.BigInteger;
  * A Signer on Edwards-curve DSA specified on Ed25519 curve.
  *
  * @author halu5071 (Yasunori Horii) at 2018/6/11
- * @see Ed25519CurveProvider
+ * @see Ed25519SchemeProvider
  * @see EdDsaSigner
  */
 class Ed25519Signer implements EdDsaSigner {

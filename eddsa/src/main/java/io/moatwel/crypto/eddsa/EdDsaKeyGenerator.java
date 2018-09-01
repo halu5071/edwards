@@ -11,14 +11,14 @@ import io.moatwel.crypto.PublicKey;
 public class EdDsaKeyGenerator implements KeyGenerator {
 
     private EdKeyAnalyzer analyzer;
-    private CurveProvider curveProvider;
+    private SchemeProvider schemeProvider;
 
-    public EdDsaKeyGenerator(CurveProvider curveProvider) {
-        if (curveProvider == null) {
-            throw new NullPointerException("CurveProvider must not be null.");
+    public EdDsaKeyGenerator(SchemeProvider schemeProvider) {
+        if (schemeProvider == null) {
+            throw new NullPointerException("SchemeProvider must not be null.");
         }
-        this.curveProvider = curveProvider;
-        Curve curve = curveProvider.getCurve();
+        this.schemeProvider = schemeProvider;
+        Curve curve = schemeProvider.getCurve();
         this.analyzer = new EdKeyAnalyzer(curve);
     }
 
@@ -29,7 +29,8 @@ public class EdDsaKeyGenerator implements KeyGenerator {
 
     @Override
     public KeyPair generateKeyPair() {
-        return curveProvider.generateKeyPair(this, analyzer);
+        PrivateKey privateKey = schemeProvider.generatePrivateKey();
+        return generateKeyPair(privateKey);
     }
 
     @Override
@@ -43,7 +44,7 @@ public class EdDsaKeyGenerator implements KeyGenerator {
         if (privateKey == null) {
             throw new NullPointerException("PrivateKey must not be null.");
         }
-        PublicKeyDelegate delegate = curveProvider.getPublicKeyDelegate();
+        PublicKeyDelegate delegate = schemeProvider.getPublicKeyDelegate();
 
         byte[] publicKeySeed = delegate.generatePublicKeySeed(privateKey);
 

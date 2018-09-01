@@ -22,7 +22,7 @@ public class PublicKey {
     public static PublicKey fromHexString(String hex) {
         try {
             return new PublicKey(HexEncoder.getBytes(hex));
-        } catch (IllegalArgumentException e) {
+        } catch (NumberFormatException e) {
             throw new RuntimeException(e);
         }
     }
