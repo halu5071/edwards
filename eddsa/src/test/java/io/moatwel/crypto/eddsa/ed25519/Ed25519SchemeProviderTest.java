@@ -1,11 +1,11 @@
-package io.moatwel.crypto.eddsa.ed448;
+package io.moatwel.crypto.eddsa.ed25519;
 
 import org.junit.Test;
 
-public class Ed448CurveProviderTest {
+public class Ed25519SchemeProviderTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void failure_NullHashAlgorithm() {
-        new Ed448CurveProvider(null);
+        new Ed25519SchemeProvider(null);
     }
 }

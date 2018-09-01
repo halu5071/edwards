@@ -7,11 +7,11 @@ import io.moatwel.crypto.KeyPair;
 /**
  * @author halu5071 (Yasunori Horii) at 2018/6/26
  */
-public abstract class CurveProvider {
+public abstract class SchemeProvider {
 
     private Curve curve;
 
-    protected CurveProvider(Curve curve) {
+    protected SchemeProvider(Curve curve) {
         if (curve == null) {
             throw new NullPointerException("Curve must not be null");
         }

@@ -9,7 +9,7 @@ Edwards is a crypto library for Edwards-curve Digital Signature Algorithm (EdDSA
 First of all, you should create `Edwards` object.
 
 ```java
-Edwards edwards = new Edwards(new Ed25519CurveProvider(HashAlgorithm.SHA_512));
+Edwards edwards = new Edwards(new Ed25519SchemeProvider(HashAlgorithm.SHA_512));
 ```
 
 or if you select KECCAK-512 hash algorithm and Curve25519, just write as below.
@@ -54,7 +54,7 @@ boolean isVerified = edwards.verify(keyPair, /* data represented in byte array *
 This library use `SpongyCastle` internally, so you can almost all hash algorithm. Specify hash algorithm you want like this.
 
 ```java
-CurveProvider curveProvider = new Ed25519CurveProvider(HashAlgorithm.SHA_512);
+CurveProvider schemeProvider = new Ed25519SchemeProvider(HashAlgorithm.SHA_512);
 ```
 
 or
