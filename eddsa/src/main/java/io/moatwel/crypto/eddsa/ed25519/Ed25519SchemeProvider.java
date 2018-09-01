@@ -1,5 +1,7 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
+import java.security.SecureRandom;
+
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyGenerator;
@@ -36,8 +38,10 @@ public class Ed25519SchemeProvider extends SchemeProvider {
     }
 
     @Override
-    protected KeyPair generateKeyPair(KeyGenerator generator, EdKeyAnalyzer analyzer) {
-        PrivateKey privateKey = PrivateKeyEd25519.random();
-        return new KeyPair(privateKey, generator, analyzer);
+    protected PrivateKey generatePrivateKey() {
+        SecureRandom random = new SecureRandom();
+        byte[] seed = new byte[32];
+        random.nextBytes(seed);
+        return PrivateKey.newInstance(seed);
     }
 }

@@ -29,7 +29,8 @@ public class EdDsaKeyGenerator implements KeyGenerator {
 
     @Override
     public KeyPair generateKeyPair() {
-        return schemeProvider.generateKeyPair(this, analyzer);
+        PrivateKey privateKey = schemeProvider.generatePrivateKey();
+        return generateKeyPair(privateKey);
     }
 
     @Override

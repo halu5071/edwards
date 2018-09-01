@@ -12,7 +12,7 @@ import java.math.BigInteger;
  * @author halu5071 (Yasunori Horii)
  * @see <a href="https://tools.ietf.org/html/rfc8032#section-5.2">RFC 8032 Ed448</a>
  */
-public class Curve448 implements Curve {
+public class Curve448 extends Curve {
 
     private static final Curve448 ED_448_CURVE;
 
