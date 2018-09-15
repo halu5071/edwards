@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.eddsa.Edwards;
-import io.moatwel.crypto.eddsa.ed25519.Ed25519CurveProvider;
+import io.moatwel.crypto.eddsa.ed25519.Ed25519SchemeProvider;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +15,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         new Edwards();
-        new Edwards(new Ed25519CurveProvider(HashAlgorithm.SHA3_512));
+        new Edwards(new Ed25519SchemeProvider(HashAlgorithm.SHA3_512));
     }
 }

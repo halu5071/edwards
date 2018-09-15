@@ -15,7 +15,7 @@ public class Ed25519VerifyTest {
 
     @Before
     public void setup() {
-        KeyGenerator generator = new EdDsaKeyGenerator(new Ed25519CurveProvider(HashAlgorithm.SHA_512));
+        KeyGenerator generator = new EdDsaKeyGenerator(new Ed25519SchemeProvider(HashAlgorithm.SHA_512));
         PrivateKey privateKey = PrivateKeyEd25519.fromHexString("abd3df0ba4c941a451c934a44938cc2bf051233c4e535931233c4e5351a4c695");
         pair = generator.generateKeyPair(privateKey);
 

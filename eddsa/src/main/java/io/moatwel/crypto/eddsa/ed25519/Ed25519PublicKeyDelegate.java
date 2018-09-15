@@ -11,10 +11,10 @@ import java.math.BigInteger;
 
 /**
  * Delegate class from {@link io.moatwel.crypto.eddsa.EdDsaKeyGenerator}.
- * This will be provide from {@link Ed25519CurveProvider}
+ * This will be provide from {@link Ed25519SchemeProvider}
  *
  * @author halu5071 (Yasunori Horii) 2018/6/8
- * @see Ed25519CurveProvider
+ * @see Ed25519SchemeProvider
  */
 class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 

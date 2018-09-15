@@ -11,18 +11,12 @@ public class HashesTest {
     @Test
     public void success_1() {
         String data = "demo";
-        byte[] sha3Hash256 = Hashes.sha3Hash256(data.getBytes());
-        byte[] sha3Hash512 = Hashes.sha3Hash512(data.getBytes());
-        byte[] ripemd160 = Hashes.ripemd160(data.getBytes());
         byte[] sha512 = Hashes.hash(HashAlgorithm.SHA_512, data.getBytes());
         byte[] keccakHash512 = Hashes.hash(HashAlgorithm.KECCAK_512, data.getBytes());
         byte[] keccakHash256 = Hashes.hash(HashAlgorithm.KECCAK_256, data.getBytes());
         byte[] emptyByteArray = Hashes.hash(HashAlgorithm.KECCAK_512, new byte[32]);
         byte[] emptySha512 = Hashes.hash(HashAlgorithm.SHA_512, new byte[32]);
 
-        assertThat(HexEncoder.getString(sha3Hash256), is("3a784687a2b2ff9a2c72e22b001d33d9f2e2155a7858ff663b0990d35f14745d"));
-        assertThat(HexEncoder.getString(sha3Hash512), is("fbf3b9980951aa921b8e30b782317a77a0dcc855551fd86720b1050bf8d40d30a07404021379a7bc8dbbcf8a4506c1c84db02e2e7a4441b80d154d1e7addb2fd"));
-        assertThat(HexEncoder.getString(ripemd160), is("6d910fb0460f1e2ae8546b099e34292f742b1a73"));
         assertThat(HexEncoder.getString(sha512), is("26c669cd0814ac40e5328752b21c4aa6450d16295e4eec30356a06a911c23983aaebe12d5da38eeebfc1b213be650498df8419194d5a26c7e0a50af156853c79"));
         assertThat(HexEncoder.getString(keccakHash512), is("fbf3b9980951aa921b8e30b782317a77a0dcc855551fd86720b1050bf8d40d30a07404021379a7bc8dbbcf8a4506c1c84db02e2e7a4441b80d154d1e7addb2fd"));
         assertThat(HexEncoder.getString(keccakHash256), is("3a784687a2b2ff9a2c72e22b001d33d9f2e2155a7858ff663b0990d35f14745d"));
@@ -60,15 +54,10 @@ public class HashesTest {
     public void success_4() {
         String seed = "ab4195d4123f0594e5341c45134c5938cc5913d34aa951234c5938cc2a6eb487";
 
-        byte[] result = Hashes.sha3Hash512(seed.getBytes());
-        byte[] result2 = Hashes.sha3Hash512(HexEncoder.getBytes(seed));
         byte[] result3 = Hashes.hash(HashAlgorithm.SHA_512, HexEncoder.getBytes(seed));
-        String resultStr = HexEncoder.getString(result);
-        String result2Str = HexEncoder.getString(result2);
+
         String result3Str = HexEncoder.getString(result3);
 
-        assertThat(result2Str, is("b4679ffa31d83e8bdb6c2f45865d9dfa32952545deea5e9e19df8190eb99f5df3a65dd213201a39cc2cc27faedc9cc268dfb2dd1fa3a6b10717dc6cac79e6a79"));
-        assertThat(resultStr, is("f0717586cc7a8b3b857ea75bc17879b2cfbd474b88d44712a00b144f0d49dd6b99ed9930836491ea172a86e7c3e200bbd81ab8f997a68e589df1684a51bc025c"));
         assertThat(result3Str, is("fb51bcb380697c0fd1e1817b4faefff56d780f2609169d69aa7db8e7ae4bc830c2c2b0487bbe69be5f8ce1e3c52abd1ac81e99af98bab15f73b18469376dd375"));
     }
 

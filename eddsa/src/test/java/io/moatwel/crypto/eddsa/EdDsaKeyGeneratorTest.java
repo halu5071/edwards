@@ -21,13 +21,10 @@ public class EdDsaKeyGeneratorTest {
 
     @Test
     public void success_GeneratePublicKey_from_all_zero_byte32() {
-        long start = System.currentTimeMillis();
         byte[] seed = new byte[32];
         PrivateKey privateKey = PrivateKeyEd25519.fromBytes(seed);
         PublicKey publicKey = generator.derivePublicKey(privateKey);
-        long end = System.currentTimeMillis();
 
-        System.out.println("Measure: Generate PublicKey: " + (double) (end - start) + " ms");
         assertThat(publicKey.getHexString(), is("462ee976890916e54fa825d26bdd0235f5eb5b6a143c199ab0ae5ee9328e08ce"));
     }
 
@@ -37,16 +34,5 @@ public class EdDsaKeyGeneratorTest {
         PublicKey publicKey = generator2.derivePublicKey(privateKey);
 
         assertThat(publicKey.getHexString(), is("18c484505c8f175bbdd511acde1faaea8e35a579cfc0d220f6d3513ebb4204b5"));
-    }
-
-    @Test
-    public void measure_GeneratePublicKey() {
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < 2000; i++) {
-            KeyPair pair = generator.generateKeyPair();
-        }
-        long end = System.currentTimeMillis();
-
-        System.out.println("Measure: Generate PublicKey: " + (end - start) / 2000.0 + " ms");
     }
 }

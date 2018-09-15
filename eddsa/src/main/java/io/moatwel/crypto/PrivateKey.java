@@ -37,7 +37,7 @@ public abstract class PrivateKey {
             return false;
         }
         final PrivateKey privateKey = ((PrivateKey) obj);
-        return this.value.equals(privateKey.value);
+        return Arrays.equals(this.value, privateKey.value);
     }
 
     public static PrivateKey newInstance(byte[] seed) {

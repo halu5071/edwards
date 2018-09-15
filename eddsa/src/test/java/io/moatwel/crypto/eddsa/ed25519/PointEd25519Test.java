@@ -492,20 +492,4 @@ public class PointEd25519Test {
 
         assertThat(point1.isEqual(point2), is(false));
     }
-
-    @Test
-    public void measure_AddPoint() {
-        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("34533599460759434840195068027488100886792431177105624727278431380599494051297")),
-                new CoordinateEd25519(new BigInteger("51422534855936905954058747336281739654670737325900075107235061596710295322677")));
-        Point point2 = new PointEd25519(new CoordinateEd25519(new BigInteger("55307901837819056100203421472284281626339181044463972151446027320031681414103")),
-                new CoordinateEd25519(new BigInteger("4592278534742875130003490239944802183338230954052483234431143871319686381534")));
-
-        long start = System.nanoTime();
-        for (int i = 0; i < 2000; i++) {
-            Point result = point1.add(point2);
-        }
-        long end = System.nanoTime();
-
-        System.out.println("Measure Add point: " + (end - start) / 2000.0 + " ns");
-    }
 }

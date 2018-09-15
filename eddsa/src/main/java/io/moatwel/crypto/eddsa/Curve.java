@@ -5,27 +5,27 @@ import java.math.BigInteger;
 /**
  * Represent curve of twisted Edwards-curve.
  * <p>
- * Some curve has been recommended by RFC.
+ * This class provide ONLY values which is unique on each edwards Curves.
  *
  * @author halu5071 (Yasunori Horii)
  * @see <a href="https://tools.ietf.org/html/rfc8032">RFC 8032</a>
  */
-public interface Curve {
+public abstract class Curve {
 
-    int getPublicKeyByteLength();
+    public abstract int getPublicKeyByteLength();
 
     /**
      * Represent BasePoint of this curve. See RFC8032
      *
      * @return {@link Point} instance of BasePoint
      */
-    Point getBasePoint();
+    public abstract Point getBasePoint();
 
-    BigInteger getPrimeL();
+    public abstract BigInteger getPrimeL();
 
-    BigInteger getPrimePowerP();
+    public abstract BigInteger getPrimePowerP();
 
-    Coordinate getD();
+    public abstract Coordinate getD();
 
-    BigInteger getA();
+    public abstract BigInteger getA();
 }

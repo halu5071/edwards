@@ -23,9 +23,17 @@ jobs:
                 ./gradlew :eddsa:check
                 ./gradlew :eddsa:jacocoTestReport
       - run:
-          name: Covercov
+          name: Codecov
           command: bash <(curl -s https://codecov.io/bash)
-
+      - run:
+          name: Benchmark
+          command: |
+                ./gradlew benchmark:clean
+                ./gradlew benchmark:jmh
+                ./gradlew benchmark:jmhReport
+      - store_artifacts:
+          path: /benchmark/build/reports/jmh/
+          destination: index.html
       - run:
           name: Publish Artifact
           command: |

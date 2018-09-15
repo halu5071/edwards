@@ -7,13 +7,13 @@ import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.PublicKey;
 import io.moatwel.crypto.Signature;
-import io.moatwel.crypto.eddsa.ed25519.Ed25519CurveProvider;
+import io.moatwel.crypto.eddsa.ed25519.Ed25519SchemeProvider;
 
 /**
  * Base class for operations of EdDsa.
  *
  * @author halu5071 (Yasunori Horii) at 2018/6/9
- * @see CurveProvider
+ * @see SchemeProvider
  * @see HashAlgorithm
  * @see EdDsaSigner
  */
@@ -24,20 +24,20 @@ public final class Edwards {
     private EdDsaSigner signer;
 
     public Edwards() {
-        this(new Ed25519CurveProvider(HashAlgorithm.KECCAK_512));
+        this(new Ed25519SchemeProvider(HashAlgorithm.KECCAK_512));
     }
 
     public Edwards(HashAlgorithm algorithm) {
-        this(new Ed25519CurveProvider(algorithm));
+        this(new Ed25519SchemeProvider(algorithm));
     }
 
-    public Edwards(CurveProvider curveProvider) {
-        if (curveProvider == null) {
-            throw new NullPointerException("CurveProvider must not be null.");
+    public Edwards(SchemeProvider schemeProvider) {
+        if (schemeProvider == null) {
+            throw new NullPointerException("SchemeProvider must not be null.");
         }
-        this.curve = curveProvider.getCurve();
-        this.generator = new EdDsaKeyGenerator(curveProvider);
-        this.signer = curveProvider.getSigner();
+        this.curve = schemeProvider.getCurve();
+        this.generator = new EdDsaKeyGenerator(schemeProvider);
+        this.signer = schemeProvider.getSigner();
     }
 
     public KeyPair generateKeyPair() {

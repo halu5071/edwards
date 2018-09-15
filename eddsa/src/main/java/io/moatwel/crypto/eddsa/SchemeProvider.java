@@ -3,15 +3,16 @@ package io.moatwel.crypto.eddsa;
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.KeyPair;
+import io.moatwel.crypto.PrivateKey;
 
 /**
  * @author halu5071 (Yasunori Horii) at 2018/6/26
  */
-public abstract class CurveProvider {
+public abstract class SchemeProvider {
 
     private Curve curve;
 
-    protected CurveProvider(Curve curve) {
+    protected SchemeProvider(Curve curve) {
         if (curve == null) {
             throw new NullPointerException("Curve must not be null");
         }
@@ -22,9 +23,9 @@ public abstract class CurveProvider {
         return curve;
     }
 
-    protected abstract EdDsaSigner getSigner();
+    public abstract EdDsaSigner getSigner();
 
-    protected abstract PublicKeyDelegate getPublicKeyDelegate();
+    public abstract PublicKeyDelegate getPublicKeyDelegate();
 
-    protected abstract KeyPair generateKeyPair(KeyGenerator generator, EdKeyAnalyzer analyzer);
+    public abstract PrivateKey generatePrivateKey();
 }
