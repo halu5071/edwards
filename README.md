@@ -84,17 +84,17 @@ buildscript {
 }
 
 dependencies {
-    compile "io.moatwel.crypto:eddsa:0.1.3-alpha"
+    compile "io.moatwel.crypto:eddsa:0.2.0-alpha"
 }
 ```
 
 ### Maven
 
-```maven
+```xml
 <dependency> 
     <groupId>io.moatwel.crypto</groupId> 
     <artifactId>eddsa</artifactId> 
-    <version>0.1.3-alpha</version>
+    <version>0.2.0-alpha</version>
     <type>pom</type> 
 </dependency>
 ```
