@@ -54,7 +54,7 @@ boolean isVerified = edwards.verify(keyPair, /* data represented in byte array *
 This library use `SpongyCastle` internally, so you can almost all hash algorithm. Specify hash algorithm you want like this.
 
 ```java
-CurveProvider schemeProvider = new Ed25519SchemeProvider(HashAlgorithm.SHA_512);
+SchemeProvider schemeProvider = new Ed25519SchemeProvider(HashAlgorithm.SHA_512);
 ```
 
 or
