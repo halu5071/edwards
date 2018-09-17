@@ -1,11 +1,13 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
+import io.moatwel.crypto.eddsa.DecodeException;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.HexEncoder;
 import org.junit.Test;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -210,5 +212,26 @@ public class EncodedPointEd25519Test {
 
         assertThat(point.getX().getInteger(), is(new BigInteger("43891533794047446595129048335950223439754428083113210033800244870979949519638")));
         assertThat(point.getY().getInteger(), is(new BigInteger("23252602200307492321313643524776623321052079804243872788483132543098216090908")));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_GenerateEncodedPoint_1() {
+        byte[] input = new byte[31];
+        new EncodedPointEd25519(input);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_GenerateEncodedPoint_2() {
+        byte[] input2 = new byte[33];
+        new EncodedPointEd25519(input2);
+    }
+
+    @Test(expected = DecodeException.class)
+    public void failure_IllegalCompare() {
+        // BigInteger("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+        byte[] value = new byte[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 127};
+        EncodedPoint encodedPoint = new EncodedPointEd25519(value);
+
+        encodedPoint.decode();
     }
 }
