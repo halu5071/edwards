@@ -35,7 +35,8 @@ class EncodedPointEd25519 extends EncodedPoint {
 
         // Recover Y
         this.value[value.length - 1] &= 0x7F;
-        BigInteger ySeed = new BigInteger(ByteUtils.reverse(this.value));
+        byte[] seed = ByteUtils.reverse(this.value);
+        BigInteger ySeed = new BigInteger(seed);
         if (ySeed.compareTo(curve.getPrimePowerP()) >= 1) {
             throw new DecodeException("EdDsa decoding failed. This point is not on the edwards Curve25519.");
         }
