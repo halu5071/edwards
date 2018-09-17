@@ -1,11 +1,12 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import io.moatwel.crypto.PrivateKey;
-import io.moatwel.util.ByteUtils;
-import io.moatwel.util.HexEncoder;
 import org.junit.Test;
 
 import java.math.BigInteger;
+
+import io.moatwel.crypto.PrivateKey;
+import io.moatwel.util.ByteUtils;
+import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
@@ -14,9 +15,14 @@ import static org.junit.Assert.assertThat;
 public class PrivateKeyEd25519Test {
 
     @Test(expected = IllegalArgumentException.class)
-    public void failure_GeneratePrivateKey_wrong_byte_length() {
+    public void failure_GeneratePrivateKey_wrong_byte_length_1() {
         PrivateKey.newInstance(new byte[31]);
         PrivateKey.newInstance(new byte[33]);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_GeneratePrivateKey_wrong_byte_length_2() {
+        PrivateKeyEd25519.fromBytes(new byte[31]);
     }
 
     @Test(expected = IllegalArgumentException.class)

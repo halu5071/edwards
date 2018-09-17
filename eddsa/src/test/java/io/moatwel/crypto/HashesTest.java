@@ -1,7 +1,8 @@
 package io.moatwel.crypto;
 
-import io.moatwel.util.HexEncoder;
 import org.junit.Test;
+
+import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

@@ -1,10 +1,10 @@
 package io.moatwel.crypto.eddsa.ed448;
 
+import java.math.BigInteger;
+
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
-
-import java.math.BigInteger;
 
 /**
  * @author halu5071 (Yasunori Horii) at 2018/06/28

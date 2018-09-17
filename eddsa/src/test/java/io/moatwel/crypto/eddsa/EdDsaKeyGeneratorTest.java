@@ -1,9 +1,13 @@
 package io.moatwel.crypto.eddsa;
 
-import io.moatwel.crypto.*;
-import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
 import org.junit.Before;
 import org.junit.Test;
+
+import io.moatwel.crypto.HashAlgorithm;
+import io.moatwel.crypto.KeyGenerator;
+import io.moatwel.crypto.PrivateKey;
+import io.moatwel.crypto.PublicKey;
+import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

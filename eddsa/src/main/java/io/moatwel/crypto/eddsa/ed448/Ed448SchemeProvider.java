@@ -4,12 +4,9 @@ import java.security.SecureRandom;
 
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
-import io.moatwel.crypto.KeyGenerator;
-import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
-import io.moatwel.crypto.eddsa.SchemeProvider;
-import io.moatwel.crypto.eddsa.EdKeyAnalyzer;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
+import io.moatwel.crypto.eddsa.SchemeProvider;
 
 /**
  * @author halu5071 (Yasunori Horii) at 2018/6/26

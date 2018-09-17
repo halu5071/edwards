@@ -1,10 +1,10 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
+import java.math.BigInteger;
+
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
 import io.moatwel.util.ByteUtils;
-
-import java.math.BigInteger;
 
 class EncodedCoordinateEd25519 extends EncodedCoordinate {
 

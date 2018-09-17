@@ -1,8 +1,6 @@
 package io.moatwel.crypto.eddsa;
 
 import io.moatwel.crypto.EdDsaSigner;
-import io.moatwel.crypto.KeyGenerator;
-import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
 
 /**

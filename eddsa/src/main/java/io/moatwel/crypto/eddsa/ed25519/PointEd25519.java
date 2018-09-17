@@ -1,12 +1,12 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
+import java.math.BigInteger;
+
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
-
-import java.math.BigInteger;
 
 class PointEd25519 extends Point {
 
