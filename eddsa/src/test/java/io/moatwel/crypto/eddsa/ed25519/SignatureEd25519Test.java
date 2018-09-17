@@ -1,9 +1,10 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import io.moatwel.crypto.Signature;
 import org.junit.Test;
 
 import java.math.BigInteger;
+
+import io.moatwel.crypto.Signature;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
