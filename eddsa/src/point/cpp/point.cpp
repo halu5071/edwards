@@ -1,6 +1,6 @@
 #include <iostream>
 #include "point.hpp"
 
-void hello() {
-  std::cout << "Hello";
+int hello() {
+  return 1;
 }
