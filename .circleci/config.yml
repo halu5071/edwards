@@ -1,6 +1,26 @@
 version: 2
 jobs:
-  build:
+  install:
+    working_directory: ~/code
+    docker:
+      - image: fedora
+    environment:
+      _JAVA_OPTIONS: "-Xms2048m -Xmx2048m"
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: def install -y cmake make
+      - run:
+          name: Build GoogleTest
+          command: |
+              cd 3rdparty/googletest-release/googletest
+              mkdir build
+              cd build
+              cmake ..
+              make
+
+  test:
     working_directory: ~/code
     docker:
       - image: circleci/android:api-27-alpha
@@ -17,14 +37,6 @@ jobs:
       - run:
           name: EdDsa Unit Test
           command: ./gradlew eddsa:test
-      - run:
-          name: Make GoogleTest
-          command: |
-                cd 3rdparty/googletest-release/googletest
-                mkdir build
-                cd build
-                cmake ..
-                make
       - run:
           name: Coverage
           command: |
@@ -49,6 +61,16 @@ jobs:
                     ./gradlew eddsa:jar
                     ./gradlew eddsa:bintrayUpload
                 fi
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - install
+      - test:
+        requires:
+          - install
+
 dependencies:
   pre:
     - mkdir $ANDROID_HOME/licenses
