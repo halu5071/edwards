@@ -18,6 +18,14 @@ jobs:
           name: EdDsa Unit Test
           command: ./gradlew eddsa:test
       - run:
+          name: Make GoogleTest
+          command: |
+                cd 3rdparty/googletest-release/googletest
+                mkdir build
+                cd build
+                cmake ..
+                make
+      - run:
           name: Coverage
           command: |
                 ./gradlew :eddsa:check
