@@ -1,4 +1,6 @@
 apply plugin: 'java-library'
+apply plugin: 'cpp'
+apply plugin: 'google-test'
 apply plugin: 'jacoco'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
@@ -37,6 +39,44 @@ dependencies {
     testCompile "org.powermock:powermock-core:$powermock_version"
     testCompile "org.powermock:powermock-module-junit4:$powermock_version"
     testCompile "org.powermock:powermock-api-mockito2:$powermock_version"
+}
+
+model {
+    repositories {
+        libs(PrebuildLibraries) {
+            googleTest {
+                headers.srcDir new File(projectDir, "3rdparty/googletest-release/googletest/include")
+                binaries.withType(StaticLibraryBinary) {
+                    staticLibraryFile = file(projectDir.getPath() + "/3rdparty/googletest-release/googletest/build/" + findGoogleTestStaticLib(targetPlatform))
+                }
+            }
+        }
+    }
+    components {
+        greeter(NativeLibrarySpec) { }
+    }
+    binaries {
+        withType(SharedLibraryBinarySpec) {
+            if (toolChain in VisualCpp) {
+                cppCompiler.define "DLL_EXPORT"
+            }
+        }
+        withType(GoogleTestTestSuiteBinarySpec) {
+            lib library: "googletest", linkage: "static"
+            if (targetPlatform.operatingSystem.linux) {
+                cppCompiler.args '-pthread'
+                linker.args '-pthread'
+            }
+        }
+    }
+}
+
+static def findGoogleTestStaticLib(Platform p) {
+    if (p.operatingSystem.windows) {
+        return "Release/gtest.lib"
+    } else {
+        return "libgtest.a"
+    }
 }
 
 jacoco {
