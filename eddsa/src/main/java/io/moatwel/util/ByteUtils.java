@@ -34,6 +34,14 @@ public class ByteUtils {
         return result;
     }
 
+    public static byte[] join(byte[]... inputs) {
+        byte[] result = new byte[0];
+        for (byte[] input : inputs) {
+            result = join(result, input);
+        }
+        return result;
+    }
+
     public static byte[] paddingZeroOnHead(byte[] input, int byteLength) {
         if (input.length > byteLength) {
             throw new IllegalArgumentException("input byte array must have length which is less than byteLength you want to be.");

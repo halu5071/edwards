@@ -48,7 +48,8 @@ class Ed25519Signer implements EdDsaSigner {
         // Step2
         byte[] prefix = ByteUtils.split(h, 32)[1];
 
-        byte[] rSeed = Hashes.hash(hashAlgorithm, prefix, data);
+        byte[] bytes = ByteUtils.join(prefix, data);
+        byte[] rSeed = Hashes.hash(hashAlgorithm, bytes);
         byte[] rSeedReversed = ByteUtils.reverse(rSeed);
         BigInteger r = new BigInteger(1, rSeedReversed);
 
@@ -57,7 +58,8 @@ class Ed25519Signer implements EdDsaSigner {
         byte[] rPoint = pointR.encode().getValue();
 
         // Step4
-        byte[] kSeed = Hashes.hash(hashAlgorithm, rPoint, keyPair.getPublicKey().getRaw(), data);
+        bytes = ByteUtils.join(rPoint, keyPair.getPublicKey().getRaw(), data);
+        byte[] kSeed = Hashes.hash(hashAlgorithm, bytes);
 
         // Step5
         BigInteger k = new BigInteger(1, ByteUtils.reverse(kSeed));
@@ -82,7 +84,8 @@ class Ed25519Signer implements EdDsaSigner {
         EncodedCoordinate encodedS = new EncodedCoordinateEd25519(signature.getS());
         Coordinate s = encodedS.decode();
 
-        byte[] kSeed = Hashes.hash(hashAlgorithm, r.encode().getValue(), keyPair.getPublicKey().getRaw(), data);
+        byte[] bytes = ByteUtils.join(r.encode().getValue(), keyPair.getPublicKey().getRaw(), data);
+        byte[] kSeed = Hashes.hash(hashAlgorithm, bytes);
         Coordinate k = new EncodedCoordinateEd25519(kSeed).decode();
 
         Point checkPoint = r.add(a.scalarMultiply(k.getInteger()));

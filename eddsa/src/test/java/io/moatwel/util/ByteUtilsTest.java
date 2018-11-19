@@ -58,13 +58,25 @@ public class ByteUtilsTest {
     }
 
     @Test
-    public void success_JoinByteArray() {
+    public void success_JoinByteArray_1() {
         byte[] input1 = new byte[]{1, 2, 3, 4, 5};
         byte[] input2 = new byte[]{6, 7, 8, 9, 10};
 
         byte[] result = ByteUtils.join(input1, input2);
 
         assertThat(result, is(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}));
+    }
+
+    @Test
+    public void success_JoinByteArray_2() {
+        byte[] input1 = new byte[]{1, 2, 3, 4, 5};
+        byte[] input2 = new byte[]{6, 7, 8, 9, 10};
+        byte[] input3 = new byte[]{11, 12, 13, 14, 15};
+        byte[] input4 = new byte[]{16, 17, 18, 19, 20};
+
+        byte[] result = ByteUtils.join(input1, input2, input3, input4);
+
+        assertThat(result, is(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}));
     }
 
     @Test

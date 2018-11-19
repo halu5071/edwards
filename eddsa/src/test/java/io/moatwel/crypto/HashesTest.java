@@ -2,6 +2,7 @@ package io.moatwel.crypto;
 
 import org.junit.Test;
 
+import io.moatwel.util.ByteUtils;
 import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -83,8 +84,20 @@ public class HashesTest {
         String seed2 = "234fad";
         String seed3 = "daf1-3";
 
-        byte[] result = Hashes.hash(HashAlgorithm.SHA_512, seed1.getBytes(), seed2.getBytes(), seed3.getBytes());
+        byte[] bytes = ByteUtils.join(seed1.getBytes(), seed2.getBytes(), seed3.getBytes());
+        byte[] result = Hashes.hash(HashAlgorithm.SHA_512, bytes);
 
         assertThat(HexEncoder.getString(result), is("69aaaf4b6fc82362212a611caff822be8bb4b8d246c3cd33474914690b32e2bc79da889adae033ecef441a1663028a64ec8f860fb039974bb1bb37500218d998"));
+    }
+
+    @Test
+    public void success_7() {
+        String seed1 = "ed25519";
+
+        byte[] result1 = Hashes.hash(HashAlgorithm.SHAKE_256, seed1.getBytes(), 64);
+        assertThat(HexEncoder.getString(result1), is("4670b3737cc4f03c97e005f447da7262359670bbfc72f16a50191a6b083df15aebe8ad55e1ec161b7b42fa6d1de20e2e426f0ca6c84899a13edacfdff47c788a"));
+
+        byte[] result2 = Hashes.hash(HashAlgorithm.SHAKE_256, seed1.getBytes(), 65);
+        assertThat(HexEncoder.getString(result2), is("4670b3737cc4f03c97e005f447da7262359670bbfc72f16a50191a6b083df15aebe8ad55e1ec161b7b42fa6d1de20e2e426f0ca6c84899a13edacfdff47c788a57"));
     }
 }
