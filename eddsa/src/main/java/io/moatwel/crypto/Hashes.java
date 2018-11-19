@@ -15,7 +15,7 @@ public class Hashes {
     }
 
     public static byte[] hash(HashAlgorithm algorithm, byte[] inputs) {
-        return hash(algorithm, inputs, algorithm.getDefaultByteLength());
+        return hash(algorithm, inputs, algorithm.getDefaultBitLength() / 8);
     }
 
     public static byte[] hash(HashAlgorithm algorithm, byte[] inputs, int outputByteLength) {
@@ -24,10 +24,10 @@ public class Hashes {
             case SHAKE_256:
                 return hashVariableOutput(algorithm, inputs, outputByteLength);
             default:
-                if (algorithm.getDefaultByteLength() == outputByteLength) {
+                if (algorithm.getDefaultBitLength() / 8 == outputByteLength) {
                     return hash(algorithm.getName(), inputs);
                 } else {
-                    throw new IllegalStateException("Specified output bit length is not available.");
+                    throw new IllegalStateException("Specified output byte length(" + outputByteLength + ") is not available.");
                 }
         }
     }
@@ -46,7 +46,7 @@ public class Hashes {
     }
 
     private static byte[] hashVariableOutput(HashAlgorithm algorithm, byte[] input, int byteLength) {
-        SHAKEDigest shakeDigest = new SHAKEDigest(algorithm.getDefaultByteLength());
+        SHAKEDigest shakeDigest = new SHAKEDigest(algorithm.getDefaultBitLength());
         shakeDigest.update(input, 0, input.length);
         byte[] result = new byte[byteLength];
         shakeDigest.doFinal(result, 0, byteLength);

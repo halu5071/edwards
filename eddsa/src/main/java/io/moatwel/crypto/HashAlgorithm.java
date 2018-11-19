@@ -17,18 +17,18 @@ public enum HashAlgorithm {
     SHAKE_256("SHAKE-256", 256);
 
     private String algorithm;
-    private int defaultByteLength;
+    private int defaultBitLength;
 
-    HashAlgorithm(String algorithm, int defaultByteLength) {
+    HashAlgorithm(String algorithm, int defaultBitLength) {
         this.algorithm = algorithm;
-        this.defaultByteLength = defaultByteLength;
+        this.defaultBitLength = defaultBitLength;
     }
 
     public String getName() {
         return algorithm;
     }
 
-    public int getDefaultByteLength() {
-        return defaultByteLength;
+    public int getDefaultBitLength() {
+        return defaultBitLength;
     }
 }

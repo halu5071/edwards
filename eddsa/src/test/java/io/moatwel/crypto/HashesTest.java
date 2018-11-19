@@ -99,5 +99,35 @@ public class HashesTest {
 
         byte[] result2 = Hashes.hash(HashAlgorithm.SHAKE_256, seed1.getBytes(), 65);
         assertThat(HexEncoder.getString(result2), is("4670b3737cc4f03c97e005f447da7262359670bbfc72f16a50191a6b083df15aebe8ad55e1ec161b7b42fa6d1de20e2e426f0ca6c84899a13edacfdff47c788a57"));
+
+        String seed2 = "This is a pen.";
+
+        byte[] result3 = Hashes.hash(HashAlgorithm.SHAKE_256, seed2.getBytes(), 64);
+        assertThat(HexEncoder.getString(result3), is("c766adb0fb2e2fe5fb03df0e88b51768ea48f6d956681094de11df13e4c95a63349fb527e0e08bd30284e9a22b026ffaeace849089d8d632209640a7c125c0c0"));
+
+        byte[] result4 = Hashes.hash(HashAlgorithm.SHAKE_256, seed2.getBytes(), 65);
+        assertThat(HexEncoder.getString(result4), is("c766adb0fb2e2fe5fb03df0e88b51768ea48f6d956681094de11df13e4c95a63349fb527e0e08bd30284e9a22b026ffaeace849089d8d632209640a7c125c0c09e"));
+
+        String seed3 = "lkadjlkfalkgnlaksdnfkladf";
+
+        byte[] result5 = Hashes.hash(HashAlgorithm.SHAKE_128, seed3.getBytes(), 32);
+        assertThat(HexEncoder.getString(result5), is("d00a3d9da389b712ecac6f6c2f9833b866417fa67ed9f1f23dd991df82b847d1"));
+
+        byte[] result6 = Hashes.hash(HashAlgorithm.SHAKE_128, seed3.getBytes(), 36);
+        assertThat(HexEncoder.getString(result6), is("d00a3d9da389b712ecac6f6c2f9833b866417fa67ed9f1f23dd991df82b847d156ca43fe"));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void failure_wrong_outputLength_1() {
+        String seed1 = "hoge";
+
+        Hashes.hash(HashAlgorithm.KECCAK_256, seed1.getBytes(), 12);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void failure_wrong_outputLength_2() {
+        String seed1 = "hoge";
+
+        Hashes.hash(HashAlgorithm.KECCAK_512, seed1.getBytes(), 65);
     }
 }
