@@ -59,6 +59,6 @@ class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
             reversedY[lengthY - 1] &= writeBit;
         }
 
-        return ByteUtils.paddingZeroOnTail(reversedY, 32);
+        return ByteUtils.paddingZeroOnTail(reversedY, curve.getPublicKeyByteLength());
     }
 }

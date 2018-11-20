@@ -5,6 +5,8 @@ import java.math.BigInteger;
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
+import io.moatwel.util.ArrayUtils;
+import io.moatwel.util.ByteUtils;
 
 /**
  * @author halu5071 (Yasunori Horii) at 2018/06/28
@@ -13,31 +15,36 @@ class CoordinateEd448 extends Coordinate {
 
     private static final Curve curve = Curve448.getInstance();
 
-    private static final Coordinate ZERO = new CoordinateEd448(new BigInteger("0"));
-    private static final Coordinate ONE = new CoordinateEd448(new BigInteger("1"));
-
     CoordinateEd448(BigInteger integer) {
         this.value = integer;
     }
 
     @Override
     public Coordinate add(Coordinate coordinate) {
-        return null;
+        BigInteger coord1 = this.getInteger();
+        BigInteger coord2 = coordinate.getInteger();
+        return new CoordinateEd448(coord1.add(coord2));
     }
 
     @Override
     public Coordinate divide(Coordinate coordinate) {
-        return null;
+        BigInteger coord1 = this.getInteger();
+        BigInteger coord2 = coordinate.getInteger();
+        return new CoordinateEd448(coord1.divide(coord2));
     }
 
     @Override
     public Coordinate multiply(Coordinate coordinate) {
-        return null;
+        BigInteger coord1 = this.getInteger();
+        BigInteger coord2 = coordinate.getInteger();
+        return new CoordinateEd448(coord1.multiply(coord2));
     }
 
     @Override
     public Coordinate subtract(Coordinate coordinate) {
-        return null;
+        BigInteger coord1 = this.getInteger();
+        BigInteger coord2 = coordinate.getInteger();
+        return new CoordinateEd448(coord1.subtract(coord2));
     }
 
     @Override
@@ -47,16 +54,18 @@ class CoordinateEd448 extends Coordinate {
 
     @Override
     public Coordinate inverse() {
-        return null;
+        BigInteger integer = this.getInteger();
+        return new CoordinateEd448(integer.modInverse(curve.getPrimePowerP()));
     }
 
     @Override
     public Coordinate powerMod(BigInteger integer) {
-        return null;
+        return new CoordinateEd448(this.value.modPow(integer, curve.getPrimePowerP()));
     }
 
     @Override
     public EncodedCoordinate encode() {
-        return null;
+        byte[] seed = ByteUtils.reverse(ArrayUtils.toByteArray(value, 57));
+        return new EncodedCoordinateEd448(seed);
     }
 }
