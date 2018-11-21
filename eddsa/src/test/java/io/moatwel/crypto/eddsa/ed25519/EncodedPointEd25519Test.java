@@ -227,9 +227,17 @@ public class EncodedPointEd25519Test {
     }
 
     @Test(expected = DecodeException.class)
-    public void failure_IllegalCompare() {
+    public void failure_IllegalDecode_1() {
         // BigInteger("57896044618658097711785492504343953926634992332820282019728792003956564819967")
         byte[] value = new byte[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 127};
+        EncodedPoint encodedPoint = new EncodedPointEd25519(value);
+        encodedPoint.decode();
+    }
+
+    @Test(expected = DecodeException.class)
+    public void failure_IllegalDecode_2() {
+        // BigInteger("56086793224325032158292195863583205366427648822419648206612267253832922169343")
+        byte[] value = new byte[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 123};
         EncodedPoint encodedPoint = new EncodedPointEd25519(value);
         encodedPoint.decode();
     }
