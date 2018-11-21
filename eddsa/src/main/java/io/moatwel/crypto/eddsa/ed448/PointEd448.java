@@ -36,16 +36,16 @@ class PointEd448 extends Point {
 
         Coordinate A = Z1.multiply(Z2);
         Coordinate B = A.multiply(A);
-        Coordinate C = x1.multiply(x2);
-        Coordinate D = y1.multiply(y2);
+        Coordinate C = x1.multiply(x2).mod();
+        Coordinate D = y1.multiply(y2).mod();
 
-        Coordinate E = curve.getD().multiply(C).multiply(D);
-        Coordinate F = B.subtract(E);
+        Coordinate E = curve.getD().multiply(C).multiply(D).mod();
+        Coordinate F = B.subtract(E).mod();
         Coordinate G = B.add(E);
-        Coordinate H = (x1.add(y1)).multiply(x2.add(y2));
-        Coordinate X3 = A.multiply(F).multiply(H.subtract(C).subtract(D));
-        Coordinate Y3 = A.multiply(G).multiply(D.subtract(C));
-        Coordinate Z3 = F.multiply(G);
+        Coordinate H = (x1.add(y1)).multiply(x2.add(y2)).mod();
+        Coordinate X3 = A.multiply(F).multiply(H.subtract(C).subtract(D)).mod();
+        Coordinate Y3 = A.multiply(G).multiply(D.subtract(C)).mod();
+        Coordinate Z3 = F.multiply(G).mod();
 
         Coordinate x3 = X3.multiply(Z3.inverse()).mod();
         Coordinate y3 = Y3.multiply(Z3.inverse()).mod();
@@ -59,7 +59,9 @@ class PointEd448 extends Point {
     @Override
     public Point scalarMultiply(BigInteger integer) {
         if (integer.equals(BigInteger.ZERO)) {
-            return new PointEd448(new CoordinateEd448(BigInteger.ZERO), new CoordinateEd448(BigInteger.ONE));
+            return new PointEd448(
+                    new CoordinateEd448(BigInteger.ZERO),
+                    new CoordinateEd448(BigInteger.ONE));
         }
 
         Point[] points = new Point[2];

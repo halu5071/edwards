@@ -25,7 +25,7 @@ class Ed448PublicKeyDelegate implements PublicKeyDelegate {
     @Override
     public byte[] generatePublicKeySeed(PrivateKey privateKey) {
         // Step1
-        byte[] hash = Hashes.hash(hashAlgorithm, privateKey.getRaw(), 114);
+        byte[] hash = Hashes.hash(hashAlgorithm, 114, privateKey.getRaw());
         byte[] first57 = ByteUtils.split(hash, 57)[0];
 
         // Step2
@@ -42,19 +42,20 @@ class Ed448PublicKeyDelegate implements PublicKeyDelegate {
         byte[] aX = point.getX().getInteger().toByteArray();
         byte[] aY = point.getY().getInteger().toByteArray();
 
-        byte[] reversedY = ByteUtils.reverse(aY);
+        byte[] revY = ByteUtils.reverse(aY);
+        revY = ByteUtils.paddingZeroOnTail(revY, curve.getPublicKeyByteLength());
 
         int lengthX = aX.length;
-        int lengthY = reversedY.length;
+        int lengthY = revY.length;
         int writeBit = aX[lengthX - 1] & 0b00000001;
 
         if (writeBit == 1) {
-            reversedY[lengthY - 1] |= 1 << 7;
+            revY[lengthY - 1] |= 1 << 7;
         } else {
             writeBit = ~(1 << 7);
-            reversedY[lengthY - 1] &= writeBit;
+            revY[lengthY - 1] &= writeBit;
         }
 
-        return ByteUtils.paddingZeroOnTail(reversed, curve.getPublicKeyByteLength());
+        return revY;
     }
 }

@@ -21,28 +21,28 @@ class CoordinateEd448 extends Coordinate {
 
     @Override
     public Coordinate add(Coordinate coordinate) {
-        BigInteger coord1 = this.getInteger();
+        BigInteger coord1 = this.value;
         BigInteger coord2 = coordinate.getInteger();
         return new CoordinateEd448(coord1.add(coord2));
     }
 
     @Override
     public Coordinate divide(Coordinate coordinate) {
-        BigInteger coord1 = this.getInteger();
+        BigInteger coord1 = this.value;
         BigInteger coord2 = coordinate.getInteger();
         return new CoordinateEd448(coord1.divide(coord2));
     }
 
     @Override
     public Coordinate multiply(Coordinate coordinate) {
-        BigInteger coord1 = this.getInteger();
+        BigInteger coord1 = this.value;
         BigInteger coord2 = coordinate.getInteger();
         return new CoordinateEd448(coord1.multiply(coord2));
     }
 
     @Override
     public Coordinate subtract(Coordinate coordinate) {
-        BigInteger coord1 = this.getInteger();
+        BigInteger coord1 = this.value;
         BigInteger coord2 = coordinate.getInteger();
         return new CoordinateEd448(coord1.subtract(coord2));
     }

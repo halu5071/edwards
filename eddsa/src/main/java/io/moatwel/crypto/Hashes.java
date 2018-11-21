@@ -14,15 +14,15 @@ public class Hashes {
         Security.addProvider(new BouncyCastleProvider());
     }
 
-    public static byte[] hash(HashAlgorithm algorithm, byte[] inputs) {
-        return hash(algorithm, inputs, algorithm.getDefaultBitLength() / 8);
+    public static byte[] hash(HashAlgorithm algorithm, byte[]... inputs) {
+        return hash(algorithm, algorithm.getDefaultBitLength() / 8, inputs);
     }
 
-    public static byte[] hash(HashAlgorithm algorithm, byte[] inputs, int outputByteLength) {
+    public static byte[] hash(HashAlgorithm algorithm, int outputByteLength, byte[]... inputs) {
         switch (algorithm) {
             case SHAKE_128:
             case SHAKE_256:
-                return hashVariableOutput(algorithm, inputs, outputByteLength);
+                return hashVariableOutput(algorithm, outputByteLength, inputs);
             default:
                 if (algorithm.getDefaultBitLength() / 8 == outputByteLength) {
                     return hash(algorithm.getName(), inputs);
@@ -45,9 +45,11 @@ public class Hashes {
         }
     }
 
-    private static byte[] hashVariableOutput(HashAlgorithm algorithm, byte[] input, int byteLength) {
+    private static byte[] hashVariableOutput(HashAlgorithm algorithm, int byteLength, byte[]... inputs) {
         SHAKEDigest shakeDigest = new SHAKEDigest(algorithm.getDefaultBitLength());
-        shakeDigest.update(input, 0, input.length);
+        for (byte[] input : inputs) {
+            shakeDigest.update(input, 0, input.length);
+        }
         byte[] result = new byte[byteLength];
         shakeDigest.doFinal(result, 0, byteLength);
         return result;
