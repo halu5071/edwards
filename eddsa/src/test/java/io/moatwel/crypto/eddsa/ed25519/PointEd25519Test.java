@@ -1,14 +1,17 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import io.moatwel.crypto.eddsa.Curve;
-import io.moatwel.crypto.eddsa.Point;
-import io.moatwel.util.HexEncoder;
 import org.junit.Test;
 
 import java.math.BigInteger;
 
+import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.util.HexEncoder;
+
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
 
 public class PointEd25519Test {
 

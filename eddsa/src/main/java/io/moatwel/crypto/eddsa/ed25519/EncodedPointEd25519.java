@@ -1,13 +1,13 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
+import java.math.BigInteger;
+
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.DecodeException;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ByteUtils;
-
-import java.math.BigInteger;
 
 /**
  * Encoded Point implementation of the Curve25519. Implements {@link EncodedPoint#decode()}
@@ -48,10 +48,14 @@ class EncodedPointEd25519 extends EncodedPoint {
         Coordinate x = xx.powerMod(curve.getPrimePowerP().add(new BigInteger("3")).divide(new BigInteger("8")));
 
         if (x.multiply(x).subtract(xx).mod().getInteger().compareTo(BigInteger.ZERO) != 0) {
-            x = x.multiply(new CoordinateEd25519(
-                    BigInteger.ONE.shiftLeft(1).modPow(
-                            curve.getPrimePowerP().subtract(BigInteger.ONE).divide(BigInteger.ONE.shiftLeft(2)),
-                            curve.getPrimePowerP()))).mod();
+            if (x.multiply(x).add(xx).mod().getInteger().compareTo(BigInteger.ZERO) == 0) {
+                x = x.multiply(new CoordinateEd25519(
+                        BigInteger.ONE.shiftLeft(1).modPow(
+                                curve.getPrimePowerP().subtract(BigInteger.ONE).divide(BigInteger.ONE.shiftLeft(2)),
+                                curve.getPrimePowerP()))).mod();
+            } else {
+                throw new DecodeException("EdDsa decoding failed.");
+            }
         }
 
         BigInteger result = x.getInteger().mod(BigInteger.ONE.shiftLeft(1));

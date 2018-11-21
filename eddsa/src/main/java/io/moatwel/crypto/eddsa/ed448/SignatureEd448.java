@@ -1,9 +1,9 @@
 package io.moatwel.crypto.eddsa.ed448;
 
+import java.math.BigInteger;
+
 import io.moatwel.crypto.Signature;
 import io.moatwel.util.ArrayUtils;
-
-import java.math.BigInteger;
 
 /**
  * @author halu5071 (Yasunori Horii) at 2018/6/26
