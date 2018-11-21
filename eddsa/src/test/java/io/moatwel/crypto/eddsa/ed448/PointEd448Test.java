@@ -6,6 +6,7 @@ import java.math.BigInteger;
 
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
@@ -109,5 +110,27 @@ public class PointEd448Test {
                 new CoordinateEd448(new BigInteger("223456")));
 
         assertThat(point1.isEqual(point2), is(false));
+    }
+
+    @Test
+    public void success_EncodePoint_1() {
+        Point point = new PointEd448(
+                new CoordinateEd448(new BigInteger("34739492400859860395182678144950001130156618760165224345037275968255527647563316333838132457128768990740201158779360426801230269378385")),
+                new CoordinateEd448(new BigInteger("649903705284910193856318595038125557166018654435367923522702114760308296858957956415522408311508190563055939943858476798475601957147521")));
+
+        byte[] result = point.encode().getValue();
+
+        assertThat(HexEncoder.getString(result), is("81d3a88178237b46386f73ab08fdd87bc35ec0d5390fb2545f71e78d16cae5a7e0a9089bff7d11187312fff5cd3eab84cfbc2f4a8917e7e480"));
+    }
+
+    @Test
+    public void success_EncodePoint_2() {
+        Point point = new PointEd448(
+                new CoordinateEd448(new BigInteger("405639770870512859128695120627227803995321949712754759135967300223070531129746415370049997168133500416194521744365718523853001285570783")),
+                new CoordinateEd448(new BigInteger("377227646310735357634648536724582072892370230695310953322949371452188035988425778909214764265487982345447623314077586021415261146220898")));
+
+        byte[] result = point.encode().getValue();
+
+        assertThat(HexEncoder.getString(result), is("62896cfce155824cae979e18533d5dc91d80bdbfe541d7ab49a790e2d0579accd810de8da509bc519c47f30363f7e7507733db26fb08dd8480"));
     }
 }
