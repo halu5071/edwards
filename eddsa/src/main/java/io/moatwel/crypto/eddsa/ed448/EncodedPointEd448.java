@@ -43,9 +43,9 @@ class EncodedPointEd448 extends EncodedPoint {
         Coordinate v = curve.getD().multiply(y).multiply(y).subtract(CoordinateEd448.ONE).mod();
         Coordinate xx = u.multiply(v.inverse()).mod();
 
-        Coordinate x = xx.powerMod((curve.getPrimePowerP().add(BigInteger.ONE)).divide(BigInteger.ONE.shiftLeft(2)));
+        Coordinate x = xx.powerMod(curve.getPrimePowerP().add(BigInteger.ONE).divide(BigInteger.ONE.shiftLeft(2)));
 
-        if (x.multiply(x).mod().getInteger().compareTo(xx.getInteger()) != 0) {
+        if (x.multiply(x).mod().subtract(xx).getInteger().compareTo(BigInteger.ZERO) != 0) {
             throw new DecodeException("EdDsa decoding failed. This encoded point is not on the Curve448");
         }
 
@@ -53,8 +53,8 @@ class EncodedPointEd448 extends EncodedPoint {
             throw new DecodeException("EdDsa decoding failed.");
         }
 
-        if (x.divide(CoordinateEd448.TWO).getInteger().compareTo(BigInteger.valueOf((long) x0)) != 0) {
-            x = new CoordinateEd448(curve.getPrimePowerP()).subtract(x);
+        if (x.getInteger().mod(BigInteger.ONE.shiftLeft(1)).compareTo(BigInteger.valueOf((long) x0)) != 0) {
+            x = new CoordinateEd448(BigInteger.ZERO.subtract(x.getInteger()).mod(curve.getPrimePowerP()));
         }
 
         return new PointEd448(x, y);
