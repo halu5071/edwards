@@ -31,7 +31,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_1() {
-        Signature signature = signer.sign(pair, "demo".getBytes());
+        Signature signature = signer.sign(pair, "demo".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -42,7 +42,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_2() {
-        Signature signature = signer.sign(pair, "ed25519".getBytes());
+        Signature signature = signer.sign(pair, "ed25519".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -53,7 +53,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_3() {
-        Signature signature = signer.sign(pair, "klf;ajdfa98".getBytes());
+        Signature signature = signer.sign(pair, "klf;ajdfa98".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -64,7 +64,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_4() {
-        Signature signature = signer.sign(pair, "This is it.".getBytes());
+        Signature signature = signer.sign(pair, "This is it.".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -75,7 +75,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_5() {
-        Signature signature = signer.sign(pair, "!@#$@#Sample".getBytes());
+        Signature signature = signer.sign(pair, "!@#$@#Sample".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -86,7 +86,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_6() {
-        Signature signature = signer.sign(pair, "!@k;adfadslkfjd98fle".getBytes());
+        Signature signature = signer.sign(pair, "!@k;adfadslkfjd98fle".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -97,7 +97,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_7() {
-        Signature signature = signer.sign(pair, "1092834dfakfjd98fle".getBytes());
+        Signature signature = signer.sign(pair, "1092834dfakfjd98fle".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -108,7 +108,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_8() {
-        Signature signature = signer.sign(pair, "099adpktr=2q3jpdaf asl;dkf9".getBytes());
+        Signature signature = signer.sign(pair, "099adpktr=2q3jpdaf asl;dkf9".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -119,7 +119,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_9() {
-        Signature signature = signer.sign(pair, "klad -ifadsopfi ad9ufq4fasdt   24r".getBytes());
+        Signature signature = signer.sign(pair, "klad -ifadsopfi ad9ufq4fasdt   24r".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -130,7 +130,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_10() {
-        Signature signature = signer.sign(pair, "09a[sp i9-a0r90q 90i [qi309qu3r9".getBytes());
+        Signature signature = signer.sign(pair, "09a[sp i9-a0r90q 90i [qi309qu3r9".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -141,7 +141,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_11() {
-        Signature signature = signer.sign(pair, "0lafoaidalkfagahidof".getBytes());
+        Signature signature = signer.sign(pair, "0lafoaidalkfagahidof".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -152,7 +152,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_12() {
-        Signature signature = signer.sign(pair, "Are You Sleeping Brother John".getBytes());
+        Signature signature = signer.sign(pair, "Are You Sleeping Brother John".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -163,7 +163,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_13() {
-        Signature signature = signer.sign(pair, "One day in summer, when a grasshopper was singing in the grassy meadow, a group of ants walked by.".getBytes());
+        Signature signature = signer.sign(pair, "One day in summer, when a grasshopper was singing in the grassy meadow, a group of ants walked by.".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -174,7 +174,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_14() {
-        Signature signature = signer.sign(pair, "Humpty Dumpty sat on a wall, Humpty Dumpty had a great fall. Four-score Men and Four-score more, Could not make Humpty Dumpty where he was before.".getBytes());
+        Signature signature = signer.sign(pair, "Humpty Dumpty sat on a wall, Humpty Dumpty had a great fall. Four-score Men and Four-score more, Could not make Humpty Dumpty where he was before.".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -185,7 +185,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_15() {
-        Signature signature = signer.sign(pair, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.".getBytes());
+        Signature signature = signer.sign(pair, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -196,7 +196,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_16() {
-        Signature signature = signer.sign(pair, "There was once a rich man whose wife lay sick, and when she felt her end drawing near she called to her only daughter to come near her bed".getBytes());
+        Signature signature = signer.sign(pair, "There was once a rich man whose wife lay sick, and when she felt her end drawing near she called to her only daughter to come near her bed".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();
@@ -207,7 +207,7 @@ public class Ed25519SignTest {
 
     @Test
     public void success_SignMessage_17() {
-        Signature signature = signer.sign(pair, "Ed448ph is the same but with PH being SHAKE256(x, 64) and phflag being 1".getBytes());
+        Signature signature = signer.sign(pair, "Ed448ph is the same but with PH being SHAKE256(x, 64) and phflag being 1".getBytes(), null);
 
         byte[] byteS = signature.getS();
         byte[] byteR = signature.getR();

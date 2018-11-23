@@ -84,6 +84,7 @@ class PointEd25519 extends Point {
     @Override
     public final EncodedPoint encode() {
         byte[] reversedY = ByteUtils.reverse(ArrayUtils.toByteArray(y.getInteger(), 32));
+        reversedY = ByteUtils.paddingZeroOnTail(reversedY, 32);
         byte[] byteX = ArrayUtils.toByteArray(x.getInteger(), 32);
         int lengthX = byteX.length;
         int lengthY = reversedY.length;
