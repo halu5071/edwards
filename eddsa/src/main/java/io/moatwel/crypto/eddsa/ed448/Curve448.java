@@ -37,7 +37,7 @@ public class Curve448 extends Curve {
 
     @Override
     public BigInteger getPrimeL() {
-        return BigInteger.ONE.shiftLeft(448).subtract(new BigInteger("13818066809895115352007386748515426880336692474882178609894547503885"));
+        return BigInteger.ONE.shiftLeft(446).subtract(new BigInteger("13818066809895115352007386748515426880336692474882178609894547503885"));
     }
 
     @Override

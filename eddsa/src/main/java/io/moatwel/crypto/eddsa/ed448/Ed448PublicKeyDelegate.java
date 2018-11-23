@@ -1,8 +1,13 @@
 package io.moatwel.crypto.eddsa.ed448;
 
+import java.math.BigInteger;
+
 import io.moatwel.crypto.HashAlgorithm;
+import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
+import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
+import io.moatwel.util.ByteUtils;
 
 /**
  * @author halu5071 (Yasunori Horii) at 2018/6/26
@@ -19,6 +24,38 @@ class Ed448PublicKeyDelegate implements PublicKeyDelegate {
 
     @Override
     public byte[] generatePublicKeySeed(PrivateKey privateKey) {
-        return new byte[0];
+        // Step1
+        byte[] hash = Hashes.hash(hashAlgorithm, 114, privateKey.getRaw());
+        byte[] first57 = ByteUtils.split(hash, 57)[0];
+
+        // Step2
+        first57[0] &= 0xFC;
+        first57[56] &= 0x00;
+        first57[55] |= 0x80;
+
+        // Step3
+        byte[] reversed = ByteUtils.reverse(first57);
+        BigInteger s = new BigInteger(reversed);
+
+        // Step4
+        Point point = curve.getBasePoint().scalarMultiply(s);
+        byte[] aX = point.getX().getInteger().toByteArray();
+        byte[] aY = point.getY().getInteger().toByteArray();
+
+        byte[] revY = ByteUtils.reverse(aY);
+        revY = ByteUtils.paddingZeroOnTail(revY, curve.getPublicKeyByteLength());
+
+        int lengthX = aX.length;
+        int lengthY = revY.length;
+        int writeBit = aX[lengthX - 1] & 0b00000001;
+
+        if (writeBit == 1) {
+            revY[lengthY - 1] |= 1 << 7;
+        } else {
+            writeBit = ~(1 << 7);
+            revY[lengthY - 1] &= writeBit;
+        }
+
+        return revY;
     }
 }

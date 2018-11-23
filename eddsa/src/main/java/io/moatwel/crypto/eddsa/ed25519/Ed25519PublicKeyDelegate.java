@@ -48,6 +48,7 @@ class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
         // Step4
         byte[] reversedY = ByteUtils.reverse(aY);
+        reversedY = ByteUtils.paddingZeroOnTail(reversedY, curve.getPublicKeyByteLength());
         int lengthX = aX.length;
         int lengthY = reversedY.length;
         int writeBit = aX[lengthX - 1] & 0b00000001;
@@ -59,6 +60,6 @@ class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
             reversedY[lengthY - 1] &= writeBit;
         }
 
-        return ByteUtils.paddingZeroOnTail(reversedY, 32);
+        return reversedY;
     }
 }

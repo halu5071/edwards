@@ -2,6 +2,7 @@ package io.moatwel.crypto;
 
 import org.junit.Test;
 
+import io.moatwel.util.ByteUtils;
 import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -83,8 +84,50 @@ public class HashesTest {
         String seed2 = "234fad";
         String seed3 = "daf1-3";
 
-        byte[] result = Hashes.hash(HashAlgorithm.SHA_512, seed1.getBytes(), seed2.getBytes(), seed3.getBytes());
+        byte[] bytes = ByteUtils.join(seed1.getBytes(), seed2.getBytes(), seed3.getBytes());
+        byte[] result = Hashes.hash(HashAlgorithm.SHA_512, bytes);
 
         assertThat(HexEncoder.getString(result), is("69aaaf4b6fc82362212a611caff822be8bb4b8d246c3cd33474914690b32e2bc79da889adae033ecef441a1663028a64ec8f860fb039974bb1bb37500218d998"));
+    }
+
+    @Test
+    public void success_7() {
+        String seed1 = "ed25519";
+
+        byte[] result1 = Hashes.hash(HashAlgorithm.SHAKE_256, 64, seed1.getBytes());
+        assertThat(HexEncoder.getString(result1), is("4670b3737cc4f03c97e005f447da7262359670bbfc72f16a50191a6b083df15aebe8ad55e1ec161b7b42fa6d1de20e2e426f0ca6c84899a13edacfdff47c788a"));
+
+        byte[] result2 = Hashes.hash(HashAlgorithm.SHAKE_256, 65, seed1.getBytes());
+        assertThat(HexEncoder.getString(result2), is("4670b3737cc4f03c97e005f447da7262359670bbfc72f16a50191a6b083df15aebe8ad55e1ec161b7b42fa6d1de20e2e426f0ca6c84899a13edacfdff47c788a57"));
+
+        String seed2 = "This is a pen.";
+
+        byte[] result3 = Hashes.hash(HashAlgorithm.SHAKE_256, 64, seed2.getBytes());
+        assertThat(HexEncoder.getString(result3), is("c766adb0fb2e2fe5fb03df0e88b51768ea48f6d956681094de11df13e4c95a63349fb527e0e08bd30284e9a22b026ffaeace849089d8d632209640a7c125c0c0"));
+
+        byte[] result4 = Hashes.hash(HashAlgorithm.SHAKE_256, 65, seed2.getBytes());
+        assertThat(HexEncoder.getString(result4), is("c766adb0fb2e2fe5fb03df0e88b51768ea48f6d956681094de11df13e4c95a63349fb527e0e08bd30284e9a22b026ffaeace849089d8d632209640a7c125c0c09e"));
+
+        String seed3 = "lkadjlkfalkgnlaksdnfkladf";
+
+        byte[] result5 = Hashes.hash(HashAlgorithm.SHAKE_128, 32, seed3.getBytes());
+        assertThat(HexEncoder.getString(result5), is("d00a3d9da389b712ecac6f6c2f9833b866417fa67ed9f1f23dd991df82b847d1"));
+
+        byte[] result6 = Hashes.hash(HashAlgorithm.SHAKE_128, 36, seed3.getBytes());
+        assertThat(HexEncoder.getString(result6), is("d00a3d9da389b712ecac6f6c2f9833b866417fa67ed9f1f23dd991df82b847d156ca43fe"));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void failure_wrong_outputLength_1() {
+        String seed1 = "hoge";
+
+        Hashes.hash(HashAlgorithm.KECCAK_256, 12, seed1.getBytes());
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void failure_wrong_outputLength_2() {
+        String seed1 = "hoge";
+
+        Hashes.hash(HashAlgorithm.KECCAK_512, 65, seed1.getBytes());
     }
 }

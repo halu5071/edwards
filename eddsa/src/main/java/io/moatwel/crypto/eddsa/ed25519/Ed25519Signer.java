@@ -9,6 +9,7 @@ import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.DecodeException;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
@@ -32,7 +33,7 @@ class Ed25519Signer implements EdDsaSigner {
     }
 
     @Override
-    public Signature sign(KeyPair keyPair, byte[] data) {
+    public Signature sign(KeyPair keyPair, byte[] data, byte[] context) {
         byte[] h = Hashes.hash(hashAlgorithm, keyPair.getPrivateKey().getRaw());
 
         // Step1
@@ -71,24 +72,28 @@ class Ed25519Signer implements EdDsaSigner {
     }
 
     @Override
-    public boolean verify(KeyPair keyPair, byte[] data, Signature signature) {
-        byte[] rSeed = signature.getR();
-        EncodedPoint encodedR = new EncodedPointEd25519(rSeed);
-        Point r = encodedR.decode();
+    public boolean verify(KeyPair keyPair, byte[] data, byte[] context, Signature signature) {
+        try {
+            byte[] rSeed = signature.getR();
+            EncodedPoint encodedR = new EncodedPointEd25519(rSeed);
+            Point r = encodedR.decode();
 
-        EncodedPoint encodedPublicKey = new EncodedPointEd25519(keyPair.getPublicKey().getRaw());
-        Point a = encodedPublicKey.decode();
+            EncodedPoint encodedPublicKey = new EncodedPointEd25519(keyPair.getPublicKey().getRaw());
+            Point a = encodedPublicKey.decode();
 
-        EncodedCoordinate encodedS = new EncodedCoordinateEd25519(signature.getS());
-        Coordinate s = encodedS.decode();
+            EncodedCoordinate encodedS = new EncodedCoordinateEd25519(signature.getS());
+            Coordinate s = encodedS.decode();
 
-        byte[] kSeed = Hashes.hash(hashAlgorithm, r.encode().getValue(), keyPair.getPublicKey().getRaw(), data);
-        Coordinate k = new EncodedCoordinateEd25519(kSeed).decode();
+            byte[] kSeed = Hashes.hash(hashAlgorithm, r.encode().getValue(), keyPair.getPublicKey().getRaw(), data);
+            Coordinate k = new EncodedCoordinateEd25519(kSeed).decode();
 
-        Point checkPoint = r.add(a.scalarMultiply(k.getInteger()));
+            Point checkPoint = r.add(a.scalarMultiply(k.getInteger()));
 
-        Point target = curve.getBasePoint().scalarMultiply(s.getInteger());
+            Point target = curve.getBasePoint().scalarMultiply(s.getInteger());
 
-        return checkPoint.isEqual(target);
+            return checkPoint.isEqual(target);
+        } catch (DecodeException e) {
+            return false;
+        }
     }
 }

@@ -53,11 +53,19 @@ public final class Edwards {
     }
 
     public Signature sign(KeyPair keyPair, byte[] data) {
-        return signer.sign(keyPair, data);
+        return signer.sign(keyPair, data, null);
+    }
+
+    public Signature sign(KeyPair keyPair, byte[] data, byte[] context) {
+        return signer.sign(keyPair, data, context);
     }
 
     public boolean verify(KeyPair keyPair, byte[] data, Signature signature) {
-        return signer.verify(keyPair, data, signature);
+        return signer.verify(keyPair, data, null, signature);
+    }
+
+    public boolean verify(KeyPair keyPair, byte[] data, byte[] context, Signature signature) {
+        return signer.verify(keyPair, data, context, signature);
     }
 
     public Curve getCurve() {

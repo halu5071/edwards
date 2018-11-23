@@ -6,7 +6,6 @@ import java.math.BigInteger;
  * A point on the eddsa curve which represents a group of {@link Coordinate}.
  *
  * @author halu5071 (Yasunori Horii) at 2018/6/2
- * @see io.moatwel.crypto.eddsa.ed448.PointEd448
  */
 public abstract class Point implements Cloneable {
 

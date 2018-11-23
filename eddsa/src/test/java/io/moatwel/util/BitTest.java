@@ -26,6 +26,42 @@ public class BitTest {
     }
 
     @Test
+    public void clear_the_lowest_2_bits() {
+        byte value1 = 0b01011101;
+        byte value2 = 0b01011011;
+        byte value3 = 0b01111111;
+        byte value4 = 0b01000010;
+
+        value1 &= 0xFC;
+        value2 &= 0xFC;
+        value3 &= 0xFC;
+        value4 &= 0xFC;
+
+        assertThat(value1, is((byte) 0b01011100));
+        assertThat(value2, is((byte) 0b01011000));
+        assertThat(value3, is((byte) 0b01111100));
+        assertThat(value4, is((byte) 0b01000000));
+    }
+
+    @Test
+    public void clear_all_bits() {
+        byte value1 = 0b01011101;
+        byte value2 = 0b01011011;
+        byte value3 = 0b01111111;
+        byte value4 = 0b01000010;
+
+        value1 &= 0x00;
+        value2 &= 0x00;
+        value3 &= 0x00;
+        value4 &= 0x00;
+
+        assertThat(value1, is((byte) 0b00000000));
+        assertThat(value2, is((byte) 0b00000000));
+        assertThat(value3, is((byte) 0b00000000));
+        assertThat(value4, is((byte) 0b00000000));
+    }
+
+    @Test
     public void clear_the_last_bit() {
         byte value1 = 0b01011101;
         byte value2 = 0b01011011;
@@ -76,6 +112,35 @@ public class BitTest {
         assertThat(value4, is((byte) 0b01010010));
         assertThat(value5, is((byte) 0b01111101));
         assertThat(value6, is((byte) 0b01010010));
+    }
+
+    @Test
+    public void set_the_highest_bit() {
+        byte value1 = 0b00011101;
+        byte value2 = 0b01011011;
+        byte value3 = 0b00111101;
+        byte value4 = 0b01010010;
+        byte value5 = 0b00111101;
+        byte value6 = 0b00010010;
+
+        value1 |= 0x80;
+
+        value2 |= 0x80;
+
+        value3 |= 0x80;
+
+        value4 |= 0x80;
+
+        value5 |= 0x80;
+
+        value6 |= 0x80;
+
+        assertThat(value1, is((byte) 0b10011101));
+        assertThat(value2, is((byte) 0b11011011));
+        assertThat(value3, is((byte) 0b10111101));
+        assertThat(value4, is((byte) 0b11010010));
+        assertThat(value5, is((byte) 0b10111101));
+        assertThat(value6, is((byte) 0b10010010));
     }
 
     @Test
