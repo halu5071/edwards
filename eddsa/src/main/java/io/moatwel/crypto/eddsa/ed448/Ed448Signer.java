@@ -7,7 +7,11 @@ import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
+import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.DecodeException;
+import io.moatwel.crypto.eddsa.EncodedCoordinate;
+import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.util.ByteUtils;
@@ -84,7 +88,35 @@ class Ed448Signer implements EdDsaSigner {
     }
 
     @Override
-    public boolean verify(KeyPair keyPair, byte[] data, Signature signature) {
-        return false;
+    public boolean verify(KeyPair keyPair, byte[] data, byte[] context, Signature signature) {
+        try {
+            if (context == null) {
+                context = new byte[0];
+            }
+            byte[] rSeed = signature.getR();
+            EncodedPoint encodedR = new EncodedPointEd448(rSeed);
+            Point r = encodedR.decode();
+
+            EncodedPoint encodedPublicKey = new EncodedPointEd448(keyPair.getPublicKey().getRaw());
+            Point a = encodedPublicKey.decode();
+
+            EncodedCoordinate encodedS = new EncodedCoordinateEd448(signature.getS());
+            BigInteger s = encodedS.decode().getInteger();
+            if (s.compareTo(BigInteger.ZERO) < 0 || s.compareTo(curve.getPrimeL()) > 0) {
+                return false;
+            }
+
+            byte[] kSeed = Hashes.hash(algorithm, 114, scheme.dom(context), r.encode().getValue(), a.encode().getValue(), data);
+
+            BigInteger k = new EncodedCoordinateEd448(kSeed).decode().getInteger();
+
+            Point checkPoint = r.add(a.scalarMultiply(k));
+
+            Point target = curve.getBasePoint().scalarMultiply(s);
+
+            return checkPoint.isEqual(target);
+        } catch (DecodeException e) {
+            return false;
+        }
     }
 }

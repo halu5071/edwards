@@ -13,5 +13,5 @@ public abstract class EncodedPoint {
      *
      * @return {@link Point}
      */
-    public abstract Point decode();
+    public abstract Point decode() throws DecodeException;
 }

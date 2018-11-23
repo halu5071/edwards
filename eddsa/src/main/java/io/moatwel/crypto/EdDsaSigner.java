@@ -11,5 +11,5 @@ public interface EdDsaSigner {
 
     Signature sign(KeyPair keyPair, final byte[] data, byte[] context);
 
-    boolean verify(KeyPair keyPair, final byte[] data, final Signature signature);
+    boolean verify(KeyPair keyPair, final byte[] data, byte[] context, final Signature signature);
 }

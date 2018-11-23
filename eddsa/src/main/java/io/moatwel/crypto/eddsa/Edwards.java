@@ -61,7 +61,11 @@ public final class Edwards {
     }
 
     public boolean verify(KeyPair keyPair, byte[] data, Signature signature) {
-        return signer.verify(keyPair, data, signature);
+        return signer.verify(keyPair, data, null, signature);
+    }
+
+    public boolean verify(KeyPair keyPair, byte[] data, byte[] context, Signature signature) {
+        return signer.verify(keyPair, data, context, signature);
     }
 
     public Curve getCurve() {

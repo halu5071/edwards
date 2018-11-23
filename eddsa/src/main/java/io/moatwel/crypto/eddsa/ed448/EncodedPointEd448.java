@@ -28,7 +28,7 @@ class EncodedPointEd448 extends EncodedPoint {
      * {@inheritDoc}
      */
     @Override
-    public Point decode() {
+    public Point decode() throws DecodeException {
         byte readTarget = value[value.length - 1];
         int x0 = ByteUtils.readBit(readTarget, 7);
 

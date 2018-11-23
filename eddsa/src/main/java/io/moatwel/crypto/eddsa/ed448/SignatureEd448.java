@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 import io.moatwel.crypto.Signature;
 import io.moatwel.util.ArrayUtils;
+import io.moatwel.util.ByteUtils;
 
 /**
  * @author halu5071 (Yasunori Horii) at 2018/6/26
@@ -21,5 +22,9 @@ class SignatureEd448 extends Signature {
 
         this.r = byteR;
         this.s = byteS;
+    }
+
+    SignatureEd448(byte[] sig) {
+        this(ByteUtils.split(sig, 57)[0], ByteUtils.split(sig, 57)[1]);
     }
 }
