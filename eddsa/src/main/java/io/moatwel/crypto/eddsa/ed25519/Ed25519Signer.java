@@ -32,7 +32,7 @@ class Ed25519Signer implements EdDsaSigner {
     }
 
     @Override
-    public Signature sign(KeyPair keyPair, byte[] data) {
+    public Signature sign(KeyPair keyPair, byte[] data, byte[] context) {
         byte[] h = Hashes.hash(hashAlgorithm, keyPair.getPrivateKey().getRaw());
 
         // Step1

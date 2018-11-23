@@ -9,7 +9,7 @@ package io.moatwel.crypto;
  */
 public interface EdDsaSigner {
 
-    Signature sign(KeyPair keyPair, final byte[] data);
+    Signature sign(KeyPair keyPair, final byte[] data, byte[] context);
 
     boolean verify(KeyPair keyPair, final byte[] data, final Signature signature);
 }

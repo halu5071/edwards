@@ -41,4 +41,9 @@ public class Ed25519SchemeProvider extends SchemeProvider {
         random.nextBytes(seed);
         return PrivateKey.newInstance(seed);
     }
+
+    @Override
+    public byte[] dom(byte[] context) {
+        return "".getBytes();
+    }
 }

@@ -26,4 +26,6 @@ public abstract class SchemeProvider {
     public abstract PublicKeyDelegate getPublicKeyDelegate();
 
     public abstract PrivateKey generatePrivateKey();
+
+    public abstract byte[] dom(byte[] context);
 }

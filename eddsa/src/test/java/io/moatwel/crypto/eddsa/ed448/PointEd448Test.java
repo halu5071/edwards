@@ -48,6 +48,18 @@ public class PointEd448Test {
     }
 
     @Test
+    public void success_ScalarMultiplePoint_ZERO() {
+        Point point1 = new PointEd448(
+                new CoordinateEd448(new BigInteger("49729590024926883705949292896832095905118054184233662910554366985450733984769365837664107636334549191842981597231441932614315886910607")),
+                new CoordinateEd448(new BigInteger("193741900868621819975499372099647484535272271429894036976062361471930494363363247663029822163982750251639381039128810944511255901134101")));
+
+        Point result = point1.scalarMultiply(BigInteger.ZERO);
+
+        assertThat(result.getX().getInteger(), is(BigInteger.ZERO));
+        assertThat(result.getY().getInteger(), is(BigInteger.ONE));
+    }
+
+    @Test
     public void success_ClonePoint() {
         Point point = curve.getBasePoint();
         Point refCopy = point;
@@ -165,5 +177,16 @@ public class PointEd448Test {
         byte[] result = point.encode().getValue();
 
         assertThat(HexEncoder.getString(result), is("e608be815e330bcc1e6f5dc4b1212313eb67a24cb2604fa7a0f699f697800cf0b3923563e01bbe42261b4c68bf60e0cec061cd0dd534efae00"));
+    }
+
+    @Test
+    public void success_EncodePoint_6() {
+        Point point = new PointEd448(
+                new CoordinateEd448(new BigInteger("225756383469361994764865051983871508178099949800497695499931707392687883349530454451287466079125470038968641752626737669127046516344041")),
+                new CoordinateEd448(new BigInteger("164642323710136210205802282154206391535679777613806891561058890791910414360903683520045572694907798135197993891247717192774546867305043")));
+
+        byte[] result = point.encode().getValue();
+
+        assertThat(HexEncoder.getString(result), is("533a37f6bbe457251f023c0d88f976ae2dfb504a843e34d2074fd823d41a591f2b233f034f628281f2fd7a22ddd47d7828c59bd0a21bfd3980"));
     }
 }
