@@ -27,7 +27,9 @@ public class Hashes {
                 if (algorithm.getDefaultBitLength() / 8 == outputByteLength) {
                     return hash(algorithm.getName(), inputs);
                 } else {
-                    throw new IllegalStateException("Specified output byte length(" + outputByteLength + ") is not available.");
+                    throw new IllegalStateException("Specified output byte length("
+                            + outputByteLength + ") is not available on this hash algorithm("
+                            + algorithm.getName() + ").");
                 }
         }
     }
