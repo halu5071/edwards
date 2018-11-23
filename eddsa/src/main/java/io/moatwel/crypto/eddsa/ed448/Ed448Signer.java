@@ -14,6 +14,8 @@ import io.moatwel.util.ByteUtils;
 import io.moatwel.util.HexEncoder;
 
 /**
+ * A signer on Curve448 of Edwards-curve DSA.
+ *
  * @author halu5071 (Yasunori Horii) at 2018/6/26
  */
 class Ed448Signer implements EdDsaSigner {
@@ -28,6 +30,18 @@ class Ed448Signer implements EdDsaSigner {
         this.scheme = scheme;
     }
 
+    /**
+     * Sign your message on your key pair.
+     *
+     * You can set null value on context byte array. If you do that, Edwards set
+     * zero-length byte array to context.
+     *
+     * @param keyPair {@link KeyPair} you want to use.
+     * @param data byte data you want to sign.
+     * @param context byte array you want to use on signature.
+     * @return {@link Signature} which has result in byte array.
+     * @exception IllegalStateException if you input context which has 256 or above length.
+     */
     @Override
     public Signature sign(KeyPair keyPair, byte[] data, byte[] context) {
         if (context == null) {
