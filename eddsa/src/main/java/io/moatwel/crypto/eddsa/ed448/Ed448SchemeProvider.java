@@ -17,6 +17,14 @@ public class Ed448SchemeProvider extends SchemeProvider {
 
     private HashAlgorithm hashAlgorithm;
 
+    /**
+     * Constructor of Ed448SchemeProvider.
+     *
+     * Note that wrong hash algorithm is not allowed on Curve448 of
+     * Edwards-curve DSA.
+     *
+     * @param hashAlgorithm hash algorithm you use.
+     */
     public Ed448SchemeProvider(HashAlgorithm hashAlgorithm) {
         super(Curve448.getInstance());
 
