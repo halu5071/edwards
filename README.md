@@ -68,6 +68,7 @@ other algorithm here.
 - SHA512
 - SHA3-512
 - KECCAK-512
+- SHAKE-256
 
 If you want to add other hash algorithms, do not hesitate to send me request, or pull request.
 
@@ -84,7 +85,7 @@ buildscript {
 }
 
 dependencies {
-    compile "io.moatwel.crypto:eddsa:0.2.1-alpha"
+    compile "io.moatwel.crypto:eddsa:0.3.0-alpha"
 }
 ```
 
@@ -94,7 +95,7 @@ dependencies {
 <dependency> 
     <groupId>io.moatwel.crypto</groupId> 
     <artifactId>eddsa</artifactId> 
-    <version>0.2.1-alpha</version>
+    <version>0.3.0-alpha</version>
     <type>pom</type> 
 </dependency>
 ```
