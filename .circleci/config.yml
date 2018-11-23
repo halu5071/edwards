@@ -31,9 +31,10 @@ jobs:
                 ./gradlew benchmark:clean
                 ./gradlew benchmark:jmh
                 ./gradlew benchmark:jmhReport
+      - store_test_results:
+          path: ~/code/benchmark/build/reports/jmh
       - store_artifacts:
-          path: /benchmark/build/reports/jmh/
-          destination: index.html
+          path: ~/code/benchmark/build/reports/jmh
       - run:
           name: Publish Artifact
           command: |
