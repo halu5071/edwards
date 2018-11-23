@@ -17,7 +17,7 @@ import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.Edwards;
 
 @State(Scope.Benchmark)
-public class EdwardsBenchmark {
+public class Curve25519Benchmark {
     private Edwards edwards = new Edwards();
     private KeyPair pair = edwards.generateKeyPair();
     private Signature signature = edwards.sign(pair, new byte[32]);
@@ -41,7 +41,8 @@ public class EdwardsBenchmark {
         Options opt = new OptionsBuilder()
                 .resultFormat(ResultFormatType.JSON)
                 .result("benchmark.json")
-                .include(EdwardsBenchmark.class.getCanonicalName())
+                .include(Curve25519Benchmark.class.getCanonicalName())
+                .include(Curve448Benchmark.class.getCanonicalName())
                 .warmupIterations(5)
                 .measurementIterations(5)
                 .timeUnit(TimeUnit.MILLISECONDS)
