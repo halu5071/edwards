@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: circleci/android:api-27-alpha
+      - image: halu5071/edwards-doc:1.5
     environment:
       _JAVA_OPTIONS: "-Xms2048m -Xmx2048m"
     steps:
@@ -14,6 +14,15 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "eddsa/build.gradle" }}
+      - run:
+          name: Prepare googletest
+          command: |
+                chmod u+x setup.sh
+                ./setup.sh
+      - store_test_results:
+          path: ~/code/3rdparty/googletest-release-1.8.0/googletest/build/CMakeFiles/
+      - store_artifacts:
+          path: ~/code/3rdparty/googletest-release-1.8.0/googletest/build/CMakeFiles/
       - run:
           name: EdDsa Unit Test
           command: ./gradlew eddsa:test
@@ -45,5 +54,5 @@ jobs:
 dependencies:
   pre:
     - mkdir $ANDROID_HOME/licenses
-    - echo "8933bad161af4178b1185d1a37fbf41ea5269c55" >> $ANDROID_HOME/licenses/android-sdk-license
+    - echo "d56f5187479451eabf01fb78af6dfcb131a6481e" >> $ANDROID_HOME/licenses/android-sdk-license
     - sudo pip install codecov
