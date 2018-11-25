@@ -103,10 +103,10 @@ dependencies {
 ## How to build
 Please use AndroidStudio or Intellij. Clone this repository, and open it.
 
-1, Prepare some software to build native.
+#### 1. Prepare some software to build native.
 `cmake`, `make`, and c++ compiler needed.
 
-2. Set up googletest
+#### 2. Set up googletest
 Run shellscript we provide as below.
 
 ```
