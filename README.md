@@ -103,6 +103,19 @@ dependencies {
 ## How to build
 Please use AndroidStudio or Intellij. Clone this repository, and open it.
 
+1, Prepare some software to build native.
+`cmake`, `make`, and c++ compiler needed.
+
+2. Set up googletest
+Run shellscript we provide as below.
+
+```
+$ chmod u+x setup.sh
+$ ./setup.sh
+```
+
+if some error occurs. you should install some library cmake needs.
+
 
 ## About ed25519 implemetation of NEM
 NEM(XEM), a cryptocurrency, use ed25519 algorithm to generate key pair or operate some others. However, that implementation of ed25519 is different from the reference implementation or this software. If you want to know more, see [RFC8032](https://tools.ietf.org/html/rfc8032). So you can not use this software as it is. I will show you how to use `edwards` for development NEM application.
