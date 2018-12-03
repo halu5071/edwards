@@ -128,7 +128,6 @@ FYI, NEM2 implementation about a logic of generating public key is already fixed
 ## Dependencies
 This software is built on some Open Source Softwares.
 
-- Apache Commons Codec
 - Spongy Castle
 
 ## License
