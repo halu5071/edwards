@@ -43,23 +43,6 @@ class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
         BigInteger s = new BigInteger(a);
 
         Point point = curve.getBasePoint().scalarMultiply(s);
-        byte[] aX = point.getX().getInteger().toByteArray();
-        byte[] aY = point.getY().getInteger().toByteArray();
-
-        // Step4
-        byte[] reversedY = ByteUtils.reverse(aY);
-        reversedY = ByteUtils.paddingZeroOnTail(reversedY, curve.getPublicKeyByteLength());
-        int lengthX = aX.length;
-        int lengthY = reversedY.length;
-        int writeBit = aX[lengthX - 1] & 0b00000001;
-
-        if (writeBit == 1) {
-            reversedY[lengthY - 1] |= 1 << 7;
-        } else {
-            writeBit = ~(1 << 7);
-            reversedY[lengthY - 1] &= writeBit;
-        }
-
-        return reversedY;
+        return point.encode().getValue();
     }
 }
