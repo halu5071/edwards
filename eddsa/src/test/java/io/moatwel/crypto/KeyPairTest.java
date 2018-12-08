@@ -43,7 +43,6 @@ public class KeyPairTest {
 
     @Test
     public void success_GenerateKeyPair_private_key_and_engine() {
-        when(mockEdwards.getKeyGenerator()).thenReturn(mockGenerator);
         when(mockGenerator.derivePublicKey(mockPrivateKey)).thenReturn(mockPublicKey);
         when(mockAnalyzer.isKeyCompressed(mockPublicKey)).thenReturn(true);
 
