@@ -15,7 +15,7 @@ public class EdDsaKeyGenerator implements KeyGenerator {
 
     public EdDsaKeyGenerator(SchemeProvider schemeProvider) {
         if (schemeProvider == null) {
-            throw new NullPointerException("SchemeProvider must not be null.");
+            throw new IllegalArgumentException("SchemeProvider must not be null.");
         }
         this.schemeProvider = schemeProvider;
         Curve curve = schemeProvider.getCurve();
@@ -42,7 +42,7 @@ public class EdDsaKeyGenerator implements KeyGenerator {
     @Override
     public PublicKey derivePublicKey(PrivateKey privateKey) {
         if (privateKey == null) {
-            throw new NullPointerException("PrivateKey must not be null.");
+            throw new IllegalArgumentException("PrivateKey must not be null.");
         }
         PublicKeyDelegate delegate = schemeProvider.getPublicKeyDelegate();
 

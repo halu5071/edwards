@@ -5,11 +5,14 @@ import org.junit.Test;
 
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyGenerator;
+import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.PublicKey;
 import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
+import io.moatwel.crypto.eddsa.ed448.Ed448SchemeProvider;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 public class EdDsaKeyGeneratorTest {
@@ -38,5 +41,61 @@ public class EdDsaKeyGeneratorTest {
         PublicKey publicKey = generator2.derivePublicKey(privateKey);
 
         assertThat(publicKey.getHexString(), is("18c484505c8f175bbdd511acde1faaea8e35a579cfc0d220f6d3513ebb4204b5"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_GenerateKeyGenerator() {
+        new EdDsaKeyGenerator(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_GeneratePublicKey_Curve25519() {
+        KeyGenerator generator = new Edwards().getKeyGenerator();
+        generator.derivePublicKey(null);
+    }
+
+    @Test
+    public void success_GenerateKeyPair_Curve25519() {
+        KeyGenerator generator = new Edwards().getKeyGenerator();
+        KeyPair keyPair = generator.generateKeyPair();
+
+        assertNotNull(keyPair);
+        assertNotNull(keyPair.getPrivateKey());
+        assertNotNull(keyPair.getPublicKey());
+    }
+
+    @Test
+    public void success_GetKeyAnalyzer_Curve25519() {
+        KeyGenerator generator = new Edwards().getKeyGenerator();
+        EdKeyAnalyzer analyzer = generator.getKeyAnalyzer();
+
+        assertNotNull(analyzer);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_GeneratePublicKey_Curve448() {
+        SchemeProvider schemeProvider = new Ed448SchemeProvider(HashAlgorithm.SHAKE_256);
+        KeyGenerator generator = new Edwards(schemeProvider).getKeyGenerator();
+        generator.derivePublicKey(null);
+    }
+
+    @Test
+    public void success_GenerateKeyPair_Curve448() {
+        SchemeProvider schemeProvider = new Ed448SchemeProvider(HashAlgorithm.SHAKE_256);
+        KeyGenerator generator = new Edwards(schemeProvider).getKeyGenerator();
+        KeyPair keyPair = generator.generateKeyPair();
+
+        assertNotNull(keyPair);
+        assertNotNull(keyPair.getPrivateKey());
+        assertNotNull(keyPair.getPublicKey());
+    }
+
+    @Test
+    public void success_GetKeyAnalyzer_Curve448() {
+        SchemeProvider schemeProvider = new Ed448SchemeProvider(HashAlgorithm.SHAKE_256);
+        KeyGenerator generator = new Edwards(schemeProvider).getKeyGenerator();
+        EdKeyAnalyzer analyzer = generator.getKeyAnalyzer();
+
+        assertNotNull(analyzer);
     }
 }
