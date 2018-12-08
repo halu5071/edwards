@@ -85,7 +85,7 @@ buildscript {
 }
 
 dependencies {
-    compile "io.moatwel.crypto:eddsa:0.3.0-alpha"
+    compile "io.moatwel.crypto:eddsa:0.3.1-alpha"
 }
 ```
 
@@ -95,7 +95,7 @@ dependencies {
 <dependency> 
     <groupId>io.moatwel.crypto</groupId> 
     <artifactId>eddsa</artifactId> 
-    <version>0.3.0-alpha</version>
+    <version>0.3.1-alpha</version>
     <type>pom</type> 
 </dependency>
 ```
@@ -103,27 +103,6 @@ dependencies {
 ## How to build
 Please use AndroidStudio or Intellij. Clone this repository, and open it.
 
-
-## About ed25519 implemetation of NEM
-NEM(XEM), a cryptocurrency, use ed25519 algorithm to generate key pair or operate some others. However, that implementation of ed25519 is different from the reference implementation or this software. If you want to know more, see [RFC8032](https://tools.ietf.org/html/rfc8032). So you can not use this software as it is. I will show you how to use `edwards` for development NEM application.
-
-#### 1. Fork this library
-#### 2. Replace implementation
-In present NEM implementation, generator of public key do hash a reversed byte array of private key. You will do that on this library like this.
-
-```java
-// Ed25519PublicKeyDelegate.java
-byte[] h = Hashes.hash(hashAlgorithm, ByteUtils.reverse(privateKey.getRaw()));
-```
-see [this line](https://github.com/halu5071/edwards/blob/master/eddsa/src/main/java/io/moatwel/crypto/eddsa/ed25519/Ed25519PublicKeyDelegate.java#L33)
-
-#### 3. And use KECCAK-512 hash algorithm
-
-```java
-Edwards edwards = new Edwards(HashAlgorithm.KECCAK_512);
-```
-
-FYI, NEM2 implementation about a logic of generating public key is already fixed, and they use SHA3-512 hash algorithm instead of KECCAK-512. See [here](https://github.com/nemtech/nem2-sdk-java/blob/master/src/main/java/io/nem/core/crypto/ed25519/Ed25519Utils.java#L38).
 
 ## Dependencies
 This software is built on some Open Source Softwares.
