@@ -19,7 +19,8 @@ class EncodedPointEd448 extends EncodedPoint {
 
     EncodedPointEd448(byte[] value) {
         if (value.length != 57) {
-            throw new IllegalArgumentException("EncodedPoint on ed448 curve must have 57 byte length.");
+            throw new IllegalArgumentException("EncodedPoint on ed448 curve must have 57 byte length. " +
+                    "The length of your EncodedPoint was " + value.length);
         }
         this.value = value;
     }
@@ -33,7 +34,7 @@ class EncodedPointEd448 extends EncodedPoint {
         int x0 = ByteUtils.readBit(readTarget, 7);
 
         this.value[value.length - 1] &= 0x7F;
-        BigInteger ySeed = new BigInteger(ByteUtils.reverse(this.value));
+        BigInteger ySeed = new BigInteger(1, ByteUtils.reverse(this.value));
         if (ySeed.compareTo(curve.getPrimePowerP()) >= 1) {
             throw new DecodeException("EdDsa decoding failed. This point is not on the Curve448.");
         }

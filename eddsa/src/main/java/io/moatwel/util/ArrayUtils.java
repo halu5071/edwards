@@ -25,18 +25,16 @@ public class ArrayUtils {
             return input;
         }
 
-        int copyStartIndex;
+        int copyStartIndex = 0;
         byte[] result;
+
         if (input[0] == 0x00) {
             copyStartIndex = 1;
-            result = new byte[byteTmpLength - 1];
-        } else {
-            copyStartIndex = 0;
-            result = new byte[byteTmpLength];
         }
-        int numBytesCopy = byteTmpLength - copyStartIndex;
 
-        System.arraycopy(input, copyStartIndex, result, 0, numBytesCopy);
+        result = new byte[expectedBytesLength];
+
+        System.arraycopy(input, copyStartIndex, result, 0, expectedBytesLength);
 
         return result;
     }
