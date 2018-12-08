@@ -8,7 +8,6 @@ import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.util.ByteUtils;
-import io.moatwel.util.HexEncoder;
 
 /**
  * @author halu5071 (Yasunori Horii) at 2018/6/26
@@ -19,7 +18,7 @@ public class Ed448SchemeProvider extends SchemeProvider {
 
     /**
      * Constructor of Ed448SchemeProvider.
-     *
+     * <p>
      * Note that wrong hash algorithm is not allowed on Curve448 of
      * Edwards-curve DSA.
      *

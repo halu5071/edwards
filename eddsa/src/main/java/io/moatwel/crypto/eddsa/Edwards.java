@@ -33,7 +33,7 @@ public final class Edwards {
 
     public Edwards(SchemeProvider schemeProvider) {
         if (schemeProvider == null) {
-            throw new NullPointerException("SchemeProvider must not be null.");
+            throw new IllegalArgumentException("SchemeProvider must not be null.");
         }
         this.curve = schemeProvider.getCurve();
         this.generator = new EdDsaKeyGenerator(schemeProvider);

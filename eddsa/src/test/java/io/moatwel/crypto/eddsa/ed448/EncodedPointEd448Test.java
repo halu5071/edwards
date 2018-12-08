@@ -142,7 +142,7 @@ public class EncodedPointEd448Test {
     @Test(expected = DecodeException.class)
     public void failure_IllegalDecode_3() {
         byte[] input = HexEncoder.getBytes("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080");
-        input[0] = (byte)1;
+        input[0] = (byte) 1;
         EncodedPoint encodedPoint = new EncodedPointEd448(input);
         encodedPoint.decode();
     }

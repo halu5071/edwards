@@ -7,8 +7,11 @@ import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
+import io.moatwel.crypto.PublicKey;
 import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.EdDsaKeyGenerator;
+import io.moatwel.crypto.eddsa.EdKeyAnalyzer;
+import io.moatwel.crypto.eddsa.Edwards;
 import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.util.HexEncoder;
 
@@ -20,10 +23,12 @@ public class Ed448VerifyTest {
     private SchemeProvider scheme = new Ed448SchemeProvider(HashAlgorithm.SHAKE_256);
 
     private KeyGenerator generator;
+    private Edwards edwards;
 
     @Before
     public void setup() {
         generator = new EdDsaKeyGenerator(scheme);
+        edwards = new Edwards(scheme);
     }
 
     @Test
@@ -432,6 +437,29 @@ public class Ed448VerifyTest {
                         "a9981b51878fd6fc110624dcbcde0bf7" +
                         "a69ccce38fabdf86f3bef6044819de12"), null, signature);
 
+        assertThat(isValid, is(false));
+    }
+
+    @Test
+    public void failure_VerifyMessage_9() {
+        PrivateKey privateKey = PrivateKey.newInstance(
+                "d65df341ad13e008567688baedda8e9d" +
+                        "cdc17dc024974ea5b4227b6530e339bf" +
+                        "f21f99e68ca6968f3cca6dfe0fb9f4fa" +
+                        "b4fa135d5542ea3f01");
+        // make PublicKey to invoke DecodeException
+        PublicKey publicKey = PublicKey.fromHexString(
+                "000c43838ea49d80316e3d1a637e99dc" +
+                        "7adc3fea0c5c7852798ba6d2385b0c66" +
+                        "044462f1913cfb34abdc3fb6d1c1039c" +
+                        "5e1b451827534ea300");
+
+        EdKeyAnalyzer analyzer = edwards.getKeyGenerator().getKeyAnalyzer();
+
+        KeyPair keyPair = new KeyPair(privateKey, publicKey, analyzer);
+
+        // invoke DecodeException
+        boolean isValid = edwards.verify(keyPair, "hoge".getBytes(), new byte[0], new SignatureEd448(new byte[57], new byte[57]));
         assertThat(isValid, is(false));
     }
 }

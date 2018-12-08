@@ -41,9 +41,9 @@ public class EdKeyAnalyzerTest {
 
         boolean isCompressed = analyzer.isKeyCompressed(PublicKey.fromHexString(
                 "5fd7449b59b461fd2ce787ec616ad46a" +
-                "1da1342485a70e1f8a0ea75d80e96778" +
-                "edf124769b46c7061bd6783df1e50f6c" +
-                "d1fa1abeafe8256180"));
+                        "1da1342485a70e1f8a0ea75d80e96778" +
+                        "edf124769b46c7061bd6783df1e50f6c" +
+                        "d1fa1abeafe8256180"));
 
         assertThat(isCompressed, is(true));
     }

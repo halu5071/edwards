@@ -195,6 +195,16 @@ public class PointEd25519Test {
     }
 
     @Test
+    public void success_ScalarMultiply_6() {
+        Point point = curve.getBasePoint();
+
+        Point result = point.scalarMultiply(BigInteger.ZERO);
+
+        assertThat(result.getX().getInteger(), is(BigInteger.ZERO));
+        assertThat(result.getY().getInteger(), is(BigInteger.ONE));
+    }
+
+    @Test
     public void success_AddBasePoint() {
         Point doubled = curve.getBasePoint().add(curve.getBasePoint());
 

@@ -3,13 +3,12 @@ package io.moatwel.crypto.eddsa;
 import org.junit.Before;
 import org.junit.Test;
 
+import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
-import io.moatwel.crypto.PublicKey;
 import io.moatwel.crypto.Signature;
-import io.moatwel.crypto.eddsa.ed25519.Curve25519;
-import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
+import io.moatwel.crypto.eddsa.ed448.Curve448;
 import io.moatwel.crypto.eddsa.ed448.Ed448SchemeProvider;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -26,7 +25,7 @@ public class EdwardsCurve448Test {
         edwards = new Edwards(new Ed448SchemeProvider(HashAlgorithm.SHAKE_256));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void failure_InstantiateEdwards() {
         SchemeProvider provider = null;
         new Edwards(provider);
@@ -52,8 +51,40 @@ public class EdwardsCurve448Test {
                         "1da1342485a70e1f8a0ea75d80e96778" +
                         "edf124769b46c7061bd6783df1e50f6c" +
                         "d1fa1abeafe8256180"));
+    }
 
+    @Test
+    public void success_Sign_and_Verify_with_no_context() {
+        PrivateKey privateKey = PrivateKey.newInstance(
+                "6c82a562cb808d10d632be89c8513ebf" +
+                        "6c929f34ddfa8c9f63c9960ef6e348a3" +
+                        "528c8a3fcc2f044e39a3fc5b94492f8f" +
+                        "032e7549a20098f95b");
+
+        KeyPair pair = edwards.generateKeyPair(privateKey);
+        Signature signature = edwards.sign(pair, "hogehoge".getBytes());
+
+        assertNotNull(signature);
+
+        boolean isValid1 = edwards.verify(pair, "hogehoge".getBytes(), signature);
+        assertThat(isValid1, is(true));
+
+        boolean isValid2 = edwards.verify(pair, "hogefoge".getBytes(), signature);
+        assertThat(isValid2, is(false));
+    }
+
+    @Test
+    public void success_Sign_and_Verify_with_context() {
+        PrivateKey privateKey = PrivateKey.newInstance(
+                "6c82a562cb808d10d632be89c8513ebf" +
+                        "6c929f34ddfa8c9f63c9960ef6e348a3" +
+                        "528c8a3fcc2f044e39a3fc5b94492f8f" +
+                        "032e7549a20098f95b");
+
+        KeyPair pair = edwards.generateKeyPair(privateKey);
         Signature signature = edwards.sign(pair, "hogehoge".getBytes(), "entity".getBytes());
+
+        assertNotNull(signature);
 
         boolean isValid1 = edwards.verify(pair, "hogehoge".getBytes(), "entity".getBytes(), signature);
         assertThat(isValid1, is(true));
@@ -72,5 +103,17 @@ public class EdwardsCurve448Test {
     public void failure_wrong_HashAlgorithm() {
         Edwards edwards = new Edwards(new Ed448SchemeProvider(HashAlgorithm.KECCAK_256));
         edwards.generateKeyPair();
+    }
+
+    @Test
+    public void success_GetCurve() {
+        Curve curve = edwards.getCurve();
+        assertEquals(curve, Curve448.getInstance());
+    }
+
+    @Test
+    public void success_GetSigner() {
+        EdDsaSigner signer = edwards.getDsaSigner();
+        assertNotNull(signer);
     }
 }

@@ -7,7 +7,6 @@ import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
-import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.DecodeException;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
@@ -15,7 +14,6 @@ import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.util.ByteUtils;
-import io.moatwel.util.HexEncoder;
 
 /**
  * A signer on Curve448 of Edwards-curve DSA.
@@ -36,15 +34,15 @@ class Ed448Signer implements EdDsaSigner {
 
     /**
      * Sign your message on your key pair.
-     *
+     * <p>
      * You can set null value on context byte array. If you do that, Edwards set
      * zero-length byte array to context.
      *
      * @param keyPair {@link KeyPair} you want to use.
-     * @param data byte data you want to sign.
+     * @param data    byte data you want to sign.
      * @param context byte array you want to use on signature.
      * @return {@link Signature} which has result in byte array.
-     * @exception IllegalStateException if you input context which has 256 or above length.
+     * @throws IllegalStateException if you input context which has 256 or above length.
      */
     @Override
     public Signature sign(KeyPair keyPair, byte[] data, byte[] context) {
