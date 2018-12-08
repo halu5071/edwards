@@ -149,4 +149,18 @@ public class ByteUtilsTest {
         assertThat(readBit1, is(0));
         assertThat(readBit2, is(1));
     }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void failure_ReadBit_1() {
+        byte value = 0b01010101;
+
+        ByteUtils.readBit(value, -1);
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void failure_ReadBit_2() {
+        byte value = 0b01010101;
+
+        ByteUtils.readBit(value, 8);
+    }
 }

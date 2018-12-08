@@ -57,6 +57,7 @@ public class Ed448SchemeProvider extends SchemeProvider {
         String domPrefix = "SigEd448";
         return ByteUtils.join(
                 domPrefix.getBytes(),
+                // 0 is a flag for Ed448
                 new byte[]{(byte) 0},
                 new byte[]{(byte) context.length},
                 context);

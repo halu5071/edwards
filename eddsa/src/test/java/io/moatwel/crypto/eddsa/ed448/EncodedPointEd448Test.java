@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.math.BigInteger;
 
+import io.moatwel.crypto.eddsa.DecodeException;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.HexEncoder;
@@ -111,5 +112,38 @@ public class EncodedPointEd448Test {
 
         assertThat(point.getX().getInteger(), is(new BigInteger("449601228056392842230918689215266494656853731174814964546460532894095209940282727350955807386237790569082667715328043268032774236716391")));
         assertThat(point.getY().getInteger(), is(new BigInteger("463660519351695293978775992627459962966972487196635521875909448266291287923975634634090639053873258679301513736748439507889181142748412")));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_GenerateEncodedPoint_1() {
+        new EncodedPointEd448(new byte[56]);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_GenerateEncodedPoint_2() {
+        new EncodedPointEd448(new byte[58]);
+    }
+
+    @Test(expected = DecodeException.class)
+    public void failure_IllegalDecode_1() {
+        // BigInteger("93035356709837681990313447409664580397266094167976711716030745495121828878514934185752454491361736391777602765602070775492429008462675967")
+        byte[] value = new byte[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 127};
+        EncodedPoint encodedPoint = new EncodedPointEd448(value);
+        encodedPoint.decode();
+    }
+
+    @Test(expected = DecodeException.class)
+    public void failure_IllegalDecode_2() {
+        byte[] input = HexEncoder.getBytes("000c43838ea49d80316e3d1a637e99dc7adc3fea0c5c7852798ba6d2385b0c66044462f1913cfb34abdc3fb6d1c1039c5e1b451827534ea300");
+        EncodedPoint encodedPoint = new EncodedPointEd448(input);
+        encodedPoint.decode();
+    }
+
+    @Test(expected = DecodeException.class)
+    public void failure_IllegalDecode_3() {
+        byte[] input = HexEncoder.getBytes("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080");
+        input[0] = (byte)1;
+        EncodedPoint encodedPoint = new EncodedPointEd448(input);
+        encodedPoint.decode();
     }
 }

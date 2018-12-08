@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.math.BigInteger;
 
+import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.HexEncoder;
@@ -11,6 +12,7 @@ import io.moatwel.util.HexEncoder;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 public class PointEd448Test {
@@ -188,5 +190,22 @@ public class PointEd448Test {
         byte[] result = point.encode().getValue();
 
         assertThat(HexEncoder.getString(result), is("533a37f6bbe457251f023c0d88f976ae2dfb504a843e34d2074fd823d41a591f2b233f034f628281f2fd7a22ddd47d7828c59bd0a21bfd3980"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_GeneratePrivateKey_wrong_byte_length_1() {
+        PrivateKeyEd448.fromBytes(new byte[58]);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_GeneratePrivateKey_wrong_byte_length_2() {
+        PrivateKeyEd448.fromBytes(new byte[56]);
+    }
+
+    @Test
+    public void success_GeneratePrivateKey_random() {
+        PrivateKey key = PrivateKeyEd448.random();
+        assertNotNull(key);
+        assertThat(key.getRaw().length, is(57));
     }
 }

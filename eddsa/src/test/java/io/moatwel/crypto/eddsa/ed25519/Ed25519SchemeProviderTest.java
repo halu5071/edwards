@@ -6,6 +6,7 @@ import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.SchemeProvider;
+import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
@@ -33,5 +34,14 @@ public class Ed25519SchemeProviderTest {
         EdDsaSigner signer = provider.getSigner();
 
         assertNotNull(signer);
+    }
+
+
+    @Test
+    public void success_dom_1() {
+        SchemeProvider schemeProvider = new Ed25519SchemeProvider(HashAlgorithm.KECCAK_512);
+        byte[] dom = schemeProvider.dom(new byte[0]);
+
+        assertThat(HexEncoder.getString(dom), is(""));
     }
 }
