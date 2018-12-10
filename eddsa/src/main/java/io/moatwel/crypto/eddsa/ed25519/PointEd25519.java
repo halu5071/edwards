@@ -70,7 +70,7 @@ class PointEd25519 extends Point {
 
         Point[] points = new Point[2];
         points[0] = this;
-        int[] bin = ByteUtils.toBinaryArray(integer);
+        int[] bin = ArrayUtils.toBinaryArray(integer);
 
         for (int i = 1; i < bin.length; i++) {
             points[0] = points[0].add(points[0]);
