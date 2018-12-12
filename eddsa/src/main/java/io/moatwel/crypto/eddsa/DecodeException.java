@@ -6,7 +6,7 @@ package io.moatwel.crypto.eddsa;
  * In this library, operation a point not on curve is not allowed.
  * This is the reason that this class is RuntimeException.
  */
-public class DecodeException extends RuntimeException {
+public class DecodeException extends Exception {
 
     private static final long serialVersionUID = 128502351280931L;
 
