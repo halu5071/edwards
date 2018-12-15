@@ -73,25 +73,19 @@ public class ArrayUtils {
         return result;
     }
 
-    public static int[] toTernaryArray(BigInteger integer) {
+    public static int[] toMutualOppositeForm(BigInteger integer) {
         int[] binaryArray = toBinaryArray(integer);
         int binaryLength = binaryArray.length;
 
-        int[] ternaryArray = new int[binaryLength];
-        int[] tmpArray = new int[binaryLength + 1];
-        tmpArray[0] = 0;
+        int[] ternaryArray = new int[binaryLength + 1];
 
-        for (int i = 0; i < binaryLength; i++) {
-            int k1 = binaryArray[i];
-            int k2;
-            if (i + 1 == binaryLength) {
-                k2 = 0;
-            } else {
-                k2 = binaryArray[i + 1];
-            }
-            tmpArray[i + 1] = (int) Math.floor((k1 + k2 + tmpArray[i]) / 2.0d);
-            ternaryArray[i] = binaryArray[i] + tmpArray[i] - 2 * tmpArray[i + 1];
+        ternaryArray[0] = binaryArray[0];
+
+        for (int i = 1; i < binaryLength; i++) {
+            ternaryArray[i] = binaryArray[i] - binaryArray[i - 1];
         }
+
+        ternaryArray[binaryLength] = -binaryArray[binaryLength - 1];
 
         return ternaryArray;
     }

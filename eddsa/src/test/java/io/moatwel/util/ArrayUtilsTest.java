@@ -81,38 +81,21 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void success_toTernaryArray() {
-        BigInteger integer = new BigInteger("2");
-        BigInteger integer1 = new BigInteger("17");
-        BigInteger integer2 = new BigInteger("257");
-        BigInteger integer3 = new BigInteger("256");
-        BigInteger integer4 = new BigInteger("47");
-        BigInteger integer5 = new BigInteger("35");
-        BigInteger integer6 = new BigInteger("1985721");
+    public void success_toMutualOppositeForm() {
+        BigInteger integer1 = new BigInteger("27");
+        BigInteger integer2 = new BigInteger("11");
+        BigInteger integer3 = new BigInteger("247");
+        BigInteger integer4 = new BigInteger("327");
 
-        int[] result = ArrayUtils.toTernaryArray(integer);
-        int[] result1 = ArrayUtils.toTernaryArray(integer1);
-        int[] result2 = ArrayUtils.toTernaryArray(integer2);
-        int[] result3 = ArrayUtils.toTernaryArray(integer3);
-        int[] result4 = ArrayUtils.toTernaryArray(integer4);
-        int[] result5 = ArrayUtils.toTernaryArray(integer5);
-        int[] result6 = ArrayUtils.toTernaryArray(integer6);
+        int[] result1 = ArrayUtils.toMutualOppositeForm(integer1);
+        int[] result2 = ArrayUtils.toMutualOppositeForm(integer2);
+        int[] result3 = ArrayUtils.toMutualOppositeForm(integer3);
+        int[] result4 = ArrayUtils.toMutualOppositeForm(integer4);
 
-        result = ArrayUtils.reverse(result);
-        result1 = ArrayUtils.reverse(result1);
-        result2 = ArrayUtils.reverse(result2);
-        result3 = ArrayUtils.reverse(result3);
-        result4 = ArrayUtils.reverse(result4);
-        result5 = ArrayUtils.reverse(result5);
-        result6 = ArrayUtils.reverse(result6);
-
-        assertThat(result, is(new int[]{0, 1}));
-        assertThat(result1, is(new int[]{1, 0, 0, 0, 1}));
-        assertThat(result2, is(new int[]{1, 0, 0, 0, 0, 0, 0, 0, 1}));
-        assertThat(result3, is(new int[]{0, 0, 0, 0, 0, 0, 0, 0, 1}));
-        assertThat(result4, is(new int[]{0, 0, 0, -1, 0, 1}));
-        assertThat(result5, is(new int[]{0, -1, 0, 0, 0, 1}));
-        assertThat(result6, is(new int[]{1, 0, 1, 0, 0, -1, 0, 1, 0, 1, 0, -1, 0, 0, 1, 0, 1, 0, 0, 0, -1}));
+        assertThat(result1, is(new int[]{1, 0, -1, 1, 0, -1}));
+        assertThat(result2, is(new int[]{1, -1, 1, 0, -1}));
+        assertThat(result3, is(new int[]{1, 0, 0, 0, -1, 1, 0, 0, -1}));
+        assertThat(result4, is(new int[]{1, -1, 1, -1, 0, 0, 1, 0, 0, -1}));
     }
 
     @Test
