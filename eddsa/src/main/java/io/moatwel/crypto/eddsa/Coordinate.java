@@ -4,6 +4,8 @@ import java.math.BigInteger;
 
 /**
  * Represents a element of the finite field
+ *
+ * @author Yasunori Horii.
  */
 public abstract class Coordinate implements Cloneable {
 
@@ -14,31 +16,42 @@ public abstract class Coordinate implements Cloneable {
     }
 
     /**
-     * @param coordinate
-     * @return
+     * Addition of Coordinate. Just Adding.
+     *
+     * @param coordinate target of addition.
+     * @return added Coordinate.
      */
     public abstract Coordinate add(Coordinate coordinate);
 
     /**
-     * @param coordinate
-     * @return
+     * Division of Coordinate. Just Division.
+     *
+     * @param coordinate target of division.
+     * @return divided Coordinate.
      */
     public abstract Coordinate divide(Coordinate coordinate);
 
     /**
-     * @param coordinate
-     * @return
+     * Multiplication of Coordinate. This method return value
+     * which is applied mod operation.
+     *
+     * @param coordinate target of multiplication.
+     * @return multiplied Coordinate.
      */
     public abstract Coordinate multiply(Coordinate coordinate);
 
     /**
-     * @param coordinate
-     * @return
+     * Subtraction of Coordinate. Just subtraction.
+     *
+     * @param coordinate target of subtraction.
+     * @return subtracted Coordinate.
      */
     public abstract Coordinate subtract(Coordinate coordinate);
 
     /**
-     * @return
+     * Return Coordinate contains a number for mod some number.
+     *
+     * @return modded Coordinate.
      */
     public abstract Coordinate mod();
 
@@ -77,6 +90,12 @@ public abstract class Coordinate implements Cloneable {
         return value.compareTo(coordinate.getInteger()) == 0;
     }
 
+    /**
+     * All values on Edwards-curve can be encoded style. The method is depends on
+     * each schemes.
+     *
+     * @return Encoded Coordinate.
+     */
     public abstract EncodedCoordinate encode();
 
     @Override

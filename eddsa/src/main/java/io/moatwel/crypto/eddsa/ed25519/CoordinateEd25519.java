@@ -15,8 +15,8 @@ class CoordinateEd25519 extends Coordinate {
 
     private static final Curve curve = Curve25519.getInstance();
 
-    public static final CoordinateEd25519 ZERO = new CoordinateEd25519(new BigInteger("0"));
-    public static final Coordinate ONE = new CoordinateEd25519(new BigInteger("1"));
+    public static final CoordinateEd25519 ZERO = new CoordinateEd25519(BigInteger.ZERO);
+    public static final Coordinate ONE = new CoordinateEd25519(BigInteger.ONE);
 
     CoordinateEd25519(BigInteger integer) {
         this.value = integer;

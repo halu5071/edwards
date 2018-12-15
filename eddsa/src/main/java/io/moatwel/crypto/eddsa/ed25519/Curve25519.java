@@ -14,8 +14,6 @@ import io.moatwel.crypto.eddsa.Point;
  */
 public class Curve25519 extends Curve {
 
-    private static Curve25519 curve;
-
     private Curve25519() {
     }
 

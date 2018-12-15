@@ -10,7 +10,11 @@ import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.util.ByteUtils;
 
 /**
+ * Delegate class from {@link io.moatwel.crypto.eddsa.EdDsaKeyGenerator}.
+ * This will be provide from {@link Ed448SchemeProvider}
+ *
  * @author halu5071 (Yasunori Horii) at 2018/6/26
+ * @see Ed448SchemeProvider
  */
 class Ed448PublicKeyDelegate implements PublicKeyDelegate {
 

@@ -4,6 +4,8 @@ import io.moatwel.crypto.PrivateKey;
 
 /**
  * Represent delegate class for generating {@link io.moatwel.crypto.PublicKey}
+ *
+ * @author Yasunori Horii
  */
 public interface PublicKeyDelegate {
 

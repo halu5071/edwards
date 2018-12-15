@@ -12,6 +12,7 @@ public abstract class EncodedPoint {
      * EncodedPoint can be decode to {@link Point}.
      *
      * @return {@link Point}
+     * @throws DecodeException if a point you want to decode is not on your curve.
      */
     public abstract Point decode() throws DecodeException;
 }

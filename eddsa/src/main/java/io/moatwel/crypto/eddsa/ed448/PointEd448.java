@@ -8,10 +8,17 @@ import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
 
+/**
+ * Represent Point on Curve448 of Edwards-curve.
+ *
+ * @author Yasunori Horii.
+ */
 class PointEd448 extends Point {
 
-    private static final Coordinate Z1 = new CoordinateEd448(new BigInteger("1"));
-    private static final Coordinate Z2 = new CoordinateEd448(new BigInteger("1"));
+    private static final PointEd448 O = new PointEd448(CoordinateEd448.ZERO, CoordinateEd448.ONE);
+
+    private static final Coordinate Z1 = new CoordinateEd448(BigInteger.ONE);
+    private static final Coordinate Z2 = new CoordinateEd448(BigInteger.ONE);
 
     /**
      * constructor of Point
@@ -22,7 +29,6 @@ class PointEd448 extends Point {
     PointEd448(Coordinate x, Coordinate y) {
         super(x, y);
         curve = Curve448.getInstance();
-
     }
 
     /**
@@ -60,9 +66,7 @@ class PointEd448 extends Point {
     @Override
     public Point scalarMultiply(BigInteger integer) {
         if (integer.equals(BigInteger.ZERO)) {
-            return new PointEd448(
-                    new CoordinateEd448(BigInteger.ZERO),
-                    new CoordinateEd448(BigInteger.ONE));
+            return PointEd448.O;
         }
 
         Point[] points = new Point[2];

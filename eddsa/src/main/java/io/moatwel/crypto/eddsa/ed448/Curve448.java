@@ -14,12 +14,6 @@ import io.moatwel.crypto.eddsa.Point;
  */
 public class Curve448 extends Curve {
 
-    private static final Curve448 ED_448_CURVE;
-
-    static {
-        ED_448_CURVE = new Curve448();
-    }
-
     private Curve448() {
     }
 
@@ -57,6 +51,10 @@ public class Curve448 extends Curve {
     }
 
     public static Curve448 getInstance() {
-        return ED_448_CURVE;
+        return CurveHolder.INSTANCE;
+    }
+
+    private static class CurveHolder {
+        private static final Curve448 INSTANCE = new Curve448();
     }
 }

@@ -10,8 +10,10 @@ import io.moatwel.util.ByteUtils;
 
 class PointEd25519 extends Point {
 
-    private static final Coordinate Z1 = new CoordinateEd25519(new BigInteger("1"));
-    private static final Coordinate Z2 = new CoordinateEd25519(new BigInteger("1"));
+    private static final PointEd25519 O = new PointEd25519(CoordinateEd25519.ZERO, CoordinateEd25519.ONE);
+
+    private static final Coordinate Z1 = new CoordinateEd25519(BigInteger.ONE);
+    private static final Coordinate Z2 = new CoordinateEd25519(BigInteger.ONE);
 
     /**
      * constructor of Point
@@ -63,7 +65,7 @@ class PointEd25519 extends Point {
     @Override
     public final Point scalarMultiply(BigInteger integer) {
         if (integer.equals(BigInteger.ZERO)) {
-            return new PointEd25519(new CoordinateEd25519(BigInteger.ZERO), new CoordinateEd25519(BigInteger.ONE));
+            return PointEd25519.O;
         }
 
         Point[] points = new Point[2];
