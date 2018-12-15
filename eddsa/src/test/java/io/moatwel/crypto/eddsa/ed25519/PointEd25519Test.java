@@ -222,6 +222,14 @@ public class PointEd25519Test {
 
     @Test
     public void success_ScalarMultiplyBasePoint_2() {
+        Point doubled = curve.getBasePoint().scalarMultiply(new BigInteger("3"));
+
+        assertThat(doubled.getX().getInteger(), is(new BigInteger("46896733464454938657123544595386787789046198280132665686241321779790909858396")));
+        assertThat(doubled.getY().getInteger(), is(new BigInteger("8324843778533443976490377120369201138301417226297555316741202210403726505172")));
+    }
+
+    @Test
+    public void success_ScalarMultiplyBasePoint_3() {
         Point scalard = curve.getBasePoint().scalarMultiply(new BigInteger("50459379271018302582465998844449622265826330103819895252966304478993432089656"));
 
         assertThat(scalard.getX().getInteger(), is(new BigInteger("15803359856018908320086002332714894013924030585248052893900291221487236226419")));

@@ -68,16 +68,23 @@ class PointEd25519 extends Point {
             return PointEd25519.O;
         }
 
-        Point[] points = new Point[2];
-        points[0] = this;
-        int[] bin = ArrayUtils.toBinaryArray(integer);
+        Point q = this;
+        Point positivePoint = q;
+        Point negativePoint = new PointEd25519(
+                positivePoint.getX(),
+                new CoordinateEd25519(positivePoint.getY().getInteger().negate()).mod());
 
-        for (int i = 1; i < bin.length; i++) {
-            points[0] = points[0].add(points[0]);
-            points[1] = points[0].add(this);
-            points[0] = points[bin[i]];
+        int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
+
+        for (int i = 1; i < signedBin.length; i++) {
+            q = q.add(q);
+            if (signedBin[i] == 1) {
+                q = q.add(positivePoint);
+            } else if (signedBin[i] == -1) {
+                q = q.add(negativePoint);
+            }
         }
-        return points[0];
+        return q;
     }
 
     /**
