@@ -70,9 +70,7 @@ class PointEd25519 extends Point {
 
         Point q = this;
         Point positivePoint = q;
-        Point negativePoint = new PointEd25519(
-                positivePoint.getX(),
-                new CoordinateEd25519(positivePoint.getY().getInteger().negate()).mod());
+        Point negativePoint = new PointEd25519(positivePoint.getX(), positivePoint.getY().negate());
 
         int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
 

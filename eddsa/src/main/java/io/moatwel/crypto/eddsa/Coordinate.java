@@ -66,6 +66,8 @@ public abstract class Coordinate implements Cloneable {
      */
     public abstract Coordinate powerMod(BigInteger integer);
 
+    public abstract Coordinate negate();
+
     /**
      * Check value equality between two Coordinates.
      * <p>Pay attention not to check different Coordinate implementation. Below code will throw
