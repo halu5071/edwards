@@ -69,22 +69,22 @@ class PointEd448 extends Point {
             return PointEd448.O;
         }
 
-        Point q = O;
-        Point positivePoint = this;
-        Point negativePoint = positivePoint.negateY();
+        Point[] qs = new Point[2];
+        Point[] rs = new Point[3];
+        rs[0] = this;
+        rs[1] = this;
+        rs[2] = negateY();
+        qs[0] = O;
 
         int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
 
         for (int aSignedBin : signedBin) {
-            q = q.add(q);
-            if (aSignedBin == 1) {
-                q = q.add(positivePoint);
-            } else if (aSignedBin == -1) {
-                q = ((PointEd448) q.add(negativePoint)).negate();
-            }
+            qs[0] = qs[0].add(qs[0]);
+            qs[1] = ((PointEd448) qs[0].add(rs[1 - aSignedBin])).negate();
+            qs[0] = qs[Math.abs(aSignedBin)];
         }
 
-        return q;
+        return qs[0];
     }
 
     @Override
