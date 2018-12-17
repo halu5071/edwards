@@ -36,10 +36,6 @@ class PointEd448 extends Point {
      */
     @Override
     public Point add(Point point) {
-        if (point == O) {
-            return this;
-        }
-
         Coordinate x1 = this.x.multiply(Z1).mod();
         Coordinate y1 = this.y.multiply(Z1).mod();
         Coordinate x2 = point.getX().multiply(Z2).mod();
