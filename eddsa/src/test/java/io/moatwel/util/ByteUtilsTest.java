@@ -122,24 +122,6 @@ public class ByteUtilsTest {
     }
 
     @Test
-    public void success_toBinaryArray() {
-        BigInteger integer = new BigInteger("2");   // 00000010
-        BigInteger integer1 = new BigInteger("17"); // 00010001
-        BigInteger integer2 = new BigInteger("257"); // 0000000100000001
-        BigInteger integer3 = new BigInteger("256"); // 0000000100000000
-
-        int[] result = ByteUtils.toBinaryArray(integer);
-        int[] result1 = ByteUtils.toBinaryArray(integer1);
-        int[] result2 = ByteUtils.toBinaryArray(integer2);
-        int[] result3 = ByteUtils.toBinaryArray(integer3);
-
-        assertThat(result, is(new int[]{1, 0}));
-        assertThat(result1, is(new int[]{1, 0, 0, 0, 1}));
-        assertThat(result2, is(new int[]{1, 0, 0, 0, 0, 0, 0, 0, 1}));
-        assertThat(result3, is(new int[]{1, 0, 0, 0, 0, 0, 0, 0, 0}));
-    }
-
-    @Test
     public void success_ReadBit() {
         byte value = 0b01010101;
 

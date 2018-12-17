@@ -67,6 +67,11 @@ class CoordinateEd448 extends Coordinate {
     }
 
     @Override
+    public Coordinate negate() {
+        return new CoordinateEd448(value.negate()).mod();
+    }
+
+    @Override
     public EncodedCoordinate encode() {
         byte[] seed = ByteUtils.reverse(ArrayUtils.toByteArray(value, 57));
         return new EncodedCoordinateEd448(seed);

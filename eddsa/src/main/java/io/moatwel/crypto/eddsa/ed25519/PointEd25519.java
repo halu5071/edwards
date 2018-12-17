@@ -36,8 +36,8 @@ class PointEd25519 extends Point {
         Coordinate x2 = point.getX().multiply(Z2).mod();
         Coordinate y2 = point.getY().multiply(Z2).mod();
 
-        Coordinate t1 = x1.multiply(y1).multiply(Z1);
-        Coordinate t2 = x2.multiply(y2).multiply(Z2);
+        Coordinate t1 = x1.multiply(y1).multiply(Z1).mod();
+        Coordinate t2 = x2.multiply(y2).multiply(Z2).mod();
 
         Coordinate d = new CoordinateEd25519(curve.getD().getInteger());
         Coordinate coord2 = new CoordinateEd25519(BigInteger.ONE.shiftLeft(1));
@@ -45,13 +45,13 @@ class PointEd25519 extends Point {
         Coordinate A = y1.subtract(x1).multiply(y2.subtract(x2)).mod();
         Coordinate B = y1.add(x1).multiply(y2.add(x2)).mod();
         Coordinate C = t1.multiply(coord2).multiply(d).multiply(t2).mod();
-        Coordinate D = Z1.multiply(coord2).multiply(Z2);
+        Coordinate D = Z1.multiply(coord2).multiply(Z2).mod();
         Coordinate E = B.subtract(A);
         Coordinate F = D.subtract(C);
         Coordinate G = D.add(C);
         Coordinate H = B.add(A);
 
-        Coordinate Z3 = F.multiply(G);
+        Coordinate Z3 = F.multiply(G).mod();
 
         Coordinate x3 = E.multiply(F).multiply(Z3.inverse()).mod();
         Coordinate y3 = G.multiply(H).multiply(Z3.inverse()).mod();
@@ -68,16 +68,26 @@ class PointEd25519 extends Point {
             return PointEd25519.O;
         }
 
-        Point[] points = new Point[2];
-        points[0] = this;
-        int[] bin = ByteUtils.toBinaryArray(integer);
+        Point q = O;
+        Point positivePoint = this;
+        Point negativePoint = positivePoint.negateY();
 
-        for (int i = 1; i < bin.length; i++) {
-            points[0] = points[0].add(points[0]);
-            points[1] = points[0].add(this);
-            points[0] = points[bin[i]];
+        int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
+
+        for (int aSignedBin : signedBin) {
+            q = q.add(q);
+            if (aSignedBin == 1) {
+                q = q.add(positivePoint);
+            } else if (aSignedBin == -1) {
+                q = ((PointEd25519) q.add(negativePoint)).negate();
+            }
         }
-        return points[0];
+        return q;
+    }
+
+    @Override
+    public Point negateY() {
+        return new PointEd25519(x, y.negate());
     }
 
     /**
@@ -100,5 +110,9 @@ class PointEd25519 extends Point {
         }
 
         return new EncodedPointEd25519(reversedY);
+    }
+
+    private Point negate() {
+        return new PointEd25519(x.negate(), y.negate());
     }
 }

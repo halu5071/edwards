@@ -66,6 +66,15 @@ public abstract class Point implements Cloneable {
     public abstract Point scalarMultiply(BigInteger integer);
 
     /**
+     * Negation of Point on elliptic curve means negateY of y-coordinate.
+     *
+     * You will negateY Point(x, y), will get Point(x, -y mod P).
+     *
+     * @return Point negated.
+     */
+    public abstract Point negateY();
+
+    /**
      * All values on edwards curve are coded as octet strings.
      * <p>
      * Point can be encoded as follows.
