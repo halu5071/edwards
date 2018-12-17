@@ -69,17 +69,22 @@ class PointEd448 extends Point {
             return PointEd448.O;
         }
 
-        Point[] points = new Point[2];
-        points[0] = this;
-        int[] bin = ArrayUtils.toBinaryArray(integer);
+        Point q = O;
+        Point positivePoint = this;
+        Point negativePoint = positivePoint.negateY();
 
-        for (int i = 1; i < bin.length; i++) {
-            points[0] = points[0].add(points[0]);
-            points[1] = points[0].add(this);
-            points[0] = points[bin[i]];
+        int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
+
+        for (int aSignedBin : signedBin) {
+            q = q.add(q);
+            if (aSignedBin == 1) {
+                q = q.add(positivePoint);
+            } else if (aSignedBin == -1) {
+                q = ((PointEd448) q.add(negativePoint)).negate();
+            }
         }
 
-        return points[0];
+        return q;
     }
 
     @Override
@@ -107,5 +112,9 @@ class PointEd448 extends Point {
         }
 
         return new EncodedPointEd448(reversedY);
+    }
+
+    private Point negate() {
+        return new PointEd448(x.negate(), y.negate());
     }
 }
