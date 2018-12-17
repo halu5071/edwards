@@ -82,6 +82,11 @@ class PointEd448 extends Point {
         return points[0];
     }
 
+    @Override
+    public Point negateY() {
+        return new PointEd448(x, y.negate());
+    }
+
     /**
      * {@inheritDoc}
      */

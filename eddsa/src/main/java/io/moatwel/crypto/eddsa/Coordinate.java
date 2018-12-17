@@ -66,6 +66,17 @@ public abstract class Coordinate implements Cloneable {
      */
     public abstract Coordinate powerMod(BigInteger integer);
 
+    /**
+     * Negate Coordinate value.
+     *
+     * Note that a negated coordinate on elliptic-curve will be a positive integer by mod operation.
+     * For example, negated 15112221349535400772501151409588531511454012693041857206046113283949847762202
+     * on Curve25519 will be 42783823269122696939284341094755422415180979639778424813682678720006717057747.
+     *
+     * See our test on CoordinateEd25519Test class.
+     *
+     * @return a Coordinate contains a positive integer.
+     */
     public abstract Coordinate negate();
 
     /**
