@@ -15,7 +15,7 @@ import io.moatwel.util.ByteUtils;
  */
 class PointEd448 extends Point {
 
-    private static final PointEd448 O = new PointEd448(CoordinateEd448.ZERO, CoordinateEd448.ONE);
+    public static final PointEd448 O = new PointEd448(CoordinateEd448.ZERO, CoordinateEd448.ONE);
 
     private static final Coordinate Z1 = new CoordinateEd448(BigInteger.ONE);
     private static final Coordinate Z2 = new CoordinateEd448(BigInteger.ONE);
@@ -36,6 +36,10 @@ class PointEd448 extends Point {
      */
     @Override
     public Point add(Point point) {
+        if (point == O) {
+            return this;
+        }
+
         Coordinate x1 = this.x.multiply(Z1).mod();
         Coordinate y1 = this.y.multiply(Z1).mod();
         Coordinate x2 = point.getX().multiply(Z2).mod();
@@ -69,12 +73,8 @@ class PointEd448 extends Point {
             return PointEd448.O;
         }
 
-        Point[] qs = new Point[2];
-        Point[] rs = new Point[3];
-        rs[0] = this;
-        rs[1] = this;
-        rs[2] = negateY();
-        qs[0] = O;
+        Point[] qs = new Point[]{O, O};
+        Point[] rs = new Point[]{this, this, negateY()};
 
         int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
 

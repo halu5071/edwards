@@ -140,6 +140,17 @@ public class PointEd25519Test {
     }
 
     @Test
+    public void success_AddPoint_Origin() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("24714885350915573524959492804958774885039633758708007137167239543662320763472")),
+                new CoordinateEd25519(new BigInteger("32610704945606948033834599741453719010166132071117736619400925734673110257760")));
+
+        Point result = point1.add(PointEd25519.O);
+
+        assertThat(result.getX().getInteger(), is(new BigInteger("24714885350915573524959492804958774885039633758708007137167239543662320763472")));
+        assertThat(result.getY().getInteger(), is(new BigInteger("32610704945606948033834599741453719010166132071117736619400925734673110257760")));
+    }
+
+    @Test
     public void success_ScalarMultiply_1() {
         Point point = curve.getBasePoint();
         BigInteger integer = new BigInteger("1234");
