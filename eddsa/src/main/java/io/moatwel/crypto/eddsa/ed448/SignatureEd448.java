@@ -7,7 +7,9 @@ import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
 
 /**
- * @author halu5071 (Yasunori Horii) at 2018/6/26
+ * Signature for Ed448.
+ *
+ * @author halu5071 (Yasunori Horii)
  */
 class SignatureEd448 extends Signature {
 
@@ -16,12 +18,10 @@ class SignatureEd448 extends Signature {
     }
 
     SignatureEd448(byte[] byteR, byte[] byteS) {
+        super(byteR, byteS);
         if (byteR.length != 57 || byteS.length != 57) {
             throw new IllegalArgumentException("Signature on ed448 curve must have 57 byte length.");
         }
-
-        this.r = byteR;
-        this.s = byteS;
     }
 
     SignatureEd448(byte[] sig) {

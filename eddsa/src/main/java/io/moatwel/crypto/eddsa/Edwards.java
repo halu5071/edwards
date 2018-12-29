@@ -12,7 +12,9 @@ import io.moatwel.crypto.eddsa.ed25519.Ed25519SchemeProvider;
 /**
  * Base class for operations of EdDsa.
  *
- * @author halu5071 (Yasunori Horii) at 2018/6/9
+ * This class is a thread-safe. See newInstance() methods.
+ *
+ * @author halu5071 (Yasunori Horii)
  * @see SchemeProvider
  * @see HashAlgorithm
  * @see EdDsaSigner
@@ -23,21 +25,34 @@ public final class Edwards {
     private KeyGenerator generator;
     private EdDsaSigner signer;
 
-    public Edwards() {
-        this(new Ed25519SchemeProvider(HashAlgorithm.KECCAK_512));
+    public static Edwards newInstance(final HashAlgorithm algorithm) {
+        ThreadLocal<Edwards> instance = new ThreadLocal<Edwards>() {
+            @Override
+            protected Edwards initialValue() {
+                return new Edwards(algorithm);
+            }
+        };
+        return instance.get();
     }
 
-    public Edwards(HashAlgorithm algorithm) {
-        this(new Ed25519SchemeProvider(algorithm));
+    public static Edwards newInstance(final SchemeProvider schemeProvider) {
+        ThreadLocal<Edwards> instance = new ThreadLocal<Edwards>() {
+            @Override
+            protected Edwards initialValue() {
+                return new Edwards(schemeProvider);
+            }
+        };
+        return instance.get();
     }
 
-    public Edwards(SchemeProvider schemeProvider) {
-        if (schemeProvider == null) {
-            throw new IllegalArgumentException("SchemeProvider must not be null.");
-        }
-        this.curve = schemeProvider.getCurve();
-        this.generator = new EdDsaKeyGenerator(schemeProvider);
-        this.signer = schemeProvider.getSigner();
+    public static Edwards newInstance() {
+        ThreadLocal<Edwards> instance = new ThreadLocal<Edwards>() {
+            @Override
+            protected Edwards initialValue() {
+                return new Edwards();
+            }
+        };
+        return instance.get();
     }
 
     public KeyPair generateKeyPair() {
@@ -78,5 +93,22 @@ public final class Edwards {
 
     public KeyGenerator getKeyGenerator() {
         return generator;
+    }
+
+    private Edwards() {
+        this(new Ed25519SchemeProvider(HashAlgorithm.KECCAK_512));
+    }
+
+    private Edwards(HashAlgorithm algorithm) {
+        this(new Ed25519SchemeProvider(algorithm));
+    }
+
+    private Edwards(SchemeProvider schemeProvider) {
+        if (schemeProvider == null) {
+            throw new IllegalArgumentException("SchemeProvider must not be null.");
+        }
+        this.curve = schemeProvider.getCurve();
+        this.generator = new EdDsaKeyGenerator(schemeProvider);
+        this.signer = schemeProvider.getSigner();
     }
 }

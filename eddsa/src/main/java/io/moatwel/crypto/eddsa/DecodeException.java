@@ -5,6 +5,8 @@ package io.moatwel.crypto.eddsa;
  *
  * <p>Failure of decoding means a point you want to decode is not on edwards curve.
  * In this library, operation a point not on curve is not allowed.
+ *
+ * @author halu5071 (Yasunori Horii)
  */
 public class DecodeException extends Exception {
 

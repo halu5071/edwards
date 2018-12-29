@@ -8,11 +8,17 @@ import io.moatwel.crypto.eddsa.ed448.PrivateKeyEd448;
 import io.moatwel.util.HexEncoder;
 
 /**
- * @author halu5071 (Yasunori Horii) at 2018/5/28
+ * PrivateKey on Edwards-curve DSA.
+ *
+ * @author halu5071 (Yasunori Horii)
  */
 public abstract class PrivateKey {
 
-    protected byte[] value;
+    protected final byte[] value;
+
+    protected PrivateKey(byte[] value) {
+        this.value = value;
+    }
 
     public byte[] getRaw() {
         return value;

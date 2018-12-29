@@ -8,9 +8,14 @@ import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
 
+/**
+ * Point class on Curve25519.
+ *
+ * @author halu5071 (Yasunori Horii)
+ */
 class PointEd25519 extends Point {
 
-    public static final PointEd25519 O = new PointEd25519(CoordinateEd25519.ZERO, CoordinateEd25519.ONE);
+    static final PointEd25519 O = new PointEd25519(CoordinateEd25519.ZERO, CoordinateEd25519.ONE);
 
     private static final Coordinate Z1 = new CoordinateEd25519(BigInteger.ONE);
     private static final Coordinate Z2 = new CoordinateEd25519(BigInteger.ONE);

@@ -3,13 +3,20 @@ package io.moatwel.crypto.eddsa;
 import java.math.BigInteger;
 
 /**
- * Represents a element of the finite field
+ * Represents a element of the finite field.
+ * <p>
+ * A subclass of this must be immutable object. In other words, all operation
+ * must create new object of result.
  *
- * @author Yasunori Horii.
+ * @author halu5071 (Yasunori Horii)
  */
-public abstract class Coordinate implements Cloneable {
+public abstract class Coordinate {
 
-    protected BigInteger value;
+    protected final BigInteger value;
+
+    protected Coordinate(BigInteger value) {
+        this.value = value;
+    }
 
     public BigInteger getInteger() {
         return this.value;
@@ -68,11 +75,11 @@ public abstract class Coordinate implements Cloneable {
 
     /**
      * Negate Coordinate value.
-     *
+     * <p>
      * Note that a negated coordinate on elliptic-curve will be a positive integer by mod operation.
      * For example, negated 15112221349535400772501151409588531511454012693041857206046113283949847762202
      * on Curve25519 will be 42783823269122696939284341094755422415180979639778424813682678720006717057747.
-     *
+     * <p>
      * See our test on CoordinateEd25519Test class.
      *
      * @return a Coordinate contains a positive integer.
@@ -110,19 +117,4 @@ public abstract class Coordinate implements Cloneable {
      * @return Encoded Coordinate.
      */
     public abstract EncodedCoordinate encode();
-
-    @Override
-    public Coordinate clone() {
-        Coordinate coordinate = null;
-        try {
-            coordinate = ((Coordinate) super.clone());
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-
-        if (coordinate != null) {
-            coordinate.value = value;
-        }
-        return coordinate;
-    }
 }

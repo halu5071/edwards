@@ -3,11 +3,11 @@ package io.moatwel.crypto.eddsa;
 import io.moatwel.crypto.PublicKey;
 
 /**
- * @author halu5071 (Yasunori Horii) at 2018/6/2
+ * @author halu5071 (Yasunori Horii)
  */
 public class EdKeyAnalyzer {
 
-    private Curve curve;
+    private final Curve curve;
 
     EdKeyAnalyzer(Curve curve) {
         if (curve == null) {

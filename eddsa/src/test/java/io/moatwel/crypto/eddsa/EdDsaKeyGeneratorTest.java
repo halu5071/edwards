@@ -22,8 +22,8 @@ public class EdDsaKeyGeneratorTest {
 
     @Before
     public void setup() {
-        generator = new Edwards().getKeyGenerator();
-        generator2 = new Edwards(HashAlgorithm.SHA3_512).getKeyGenerator();
+        generator = Edwards.newInstance().getKeyGenerator();
+        generator2 = Edwards.newInstance(HashAlgorithm.SHA3_512).getKeyGenerator();
     }
 
     @Test
@@ -50,13 +50,13 @@ public class EdDsaKeyGeneratorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void failure_GeneratePublicKey_Curve25519() {
-        KeyGenerator generator = new Edwards().getKeyGenerator();
+        KeyGenerator generator = Edwards.newInstance().getKeyGenerator();
         generator.derivePublicKey(null);
     }
 
     @Test
     public void success_GenerateKeyPair_Curve25519() {
-        KeyGenerator generator = new Edwards().getKeyGenerator();
+        KeyGenerator generator = Edwards.newInstance().getKeyGenerator();
         KeyPair keyPair = generator.generateKeyPair();
 
         assertNotNull(keyPair);
@@ -66,7 +66,7 @@ public class EdDsaKeyGeneratorTest {
 
     @Test
     public void success_GetKeyAnalyzer_Curve25519() {
-        KeyGenerator generator = new Edwards().getKeyGenerator();
+        KeyGenerator generator = Edwards.newInstance().getKeyGenerator();
         EdKeyAnalyzer analyzer = generator.getKeyAnalyzer();
 
         assertNotNull(analyzer);
@@ -75,14 +75,14 @@ public class EdDsaKeyGeneratorTest {
     @Test(expected = IllegalArgumentException.class)
     public void failure_GeneratePublicKey_Curve448() {
         SchemeProvider schemeProvider = new Ed448SchemeProvider(HashAlgorithm.SHAKE_256);
-        KeyGenerator generator = new Edwards(schemeProvider).getKeyGenerator();
+        KeyGenerator generator = Edwards.newInstance(schemeProvider).getKeyGenerator();
         generator.derivePublicKey(null);
     }
 
     @Test
     public void success_GenerateKeyPair_Curve448() {
         SchemeProvider schemeProvider = new Ed448SchemeProvider(HashAlgorithm.SHAKE_256);
-        KeyGenerator generator = new Edwards(schemeProvider).getKeyGenerator();
+        KeyGenerator generator = Edwards.newInstance(schemeProvider).getKeyGenerator();
         KeyPair keyPair = generator.generateKeyPair();
 
         assertNotNull(keyPair);
@@ -93,7 +93,7 @@ public class EdDsaKeyGeneratorTest {
     @Test
     public void success_GetKeyAnalyzer_Curve448() {
         SchemeProvider schemeProvider = new Ed448SchemeProvider(HashAlgorithm.SHAKE_256);
-        KeyGenerator generator = new Edwards(schemeProvider).getKeyGenerator();
+        KeyGenerator generator = Edwards.newInstance(schemeProvider).getKeyGenerator();
         EdKeyAnalyzer analyzer = generator.getKeyAnalyzer();
 
         assertNotNull(analyzer);

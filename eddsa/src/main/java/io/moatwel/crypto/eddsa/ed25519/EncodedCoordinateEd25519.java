@@ -9,7 +9,7 @@ import io.moatwel.util.ByteUtils;
 class EncodedCoordinateEd25519 extends EncodedCoordinate {
 
     EncodedCoordinateEd25519(byte[] value) {
-        this.value = value;
+        super(value);
     }
 
     @Override

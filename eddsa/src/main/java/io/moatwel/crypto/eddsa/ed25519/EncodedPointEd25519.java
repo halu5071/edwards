@@ -18,10 +18,11 @@ class EncodedPointEd25519 extends EncodedPoint {
     private static final Curve curve = Curve25519.getInstance();
 
     EncodedPointEd25519(byte[] value) {
+        super(value);
         if (value.length != 32) {
-            throw new IllegalArgumentException("EncodedPoint on ed25519 curve must have 32 byte length.");
+            throw new IllegalArgumentException("EncodedPoint on ed25519 curve must have 32 byte length. " +
+                    "The length of your EncodedPoint was " + value.length);
         }
-        this.value = value;
     }
 
     /**

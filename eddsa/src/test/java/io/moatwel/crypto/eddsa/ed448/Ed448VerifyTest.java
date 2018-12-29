@@ -28,7 +28,7 @@ public class Ed448VerifyTest {
     @Before
     public void setup() {
         generator = new EdDsaKeyGenerator(scheme);
-        edwards = new Edwards(scheme);
+        edwards = Edwards.newInstance(scheme);
     }
 
     @Test

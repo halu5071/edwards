@@ -9,11 +9,13 @@ import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.crypto.eddsa.SchemeProvider;
 
 /**
- * @author halu5071 (Yasunori Horii) at 2018/6/26
+ * SchemeProvider for Ed25519
+ *
+ * @author halu5071 (Yasunori Horii)
  */
 public class Ed25519SchemeProvider extends SchemeProvider {
 
-    private HashAlgorithm hashAlgorithm;
+    private final HashAlgorithm hashAlgorithm;
 
     public Ed25519SchemeProvider(HashAlgorithm algorithm) {
         super(Curve25519.getInstance());

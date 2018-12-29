@@ -16,7 +16,7 @@ import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ByteUtils;
 
 /**
- * A Signer on Edwards-curve DSA specified on Ed25519 curve.
+ * A Signer on Edwards-CURVE DSA specified on Ed25519 CURVE.
  *
  * @author halu5071 (Yasunori Horii) at 2018/6/11
  * @see Ed25519SchemeProvider
@@ -24,9 +24,9 @@ import io.moatwel.util.ByteUtils;
  */
 class Ed25519Signer implements EdDsaSigner {
 
-    private static final Curve curve = Curve25519.getInstance();
+    private static final Curve CURVE = Curve25519.getInstance();
 
-    private HashAlgorithm hashAlgorithm;
+    private final HashAlgorithm hashAlgorithm;
 
     Ed25519Signer(HashAlgorithm algorithm) {
         this.hashAlgorithm = algorithm;
@@ -54,7 +54,7 @@ class Ed25519Signer implements EdDsaSigner {
         BigInteger r = new BigInteger(1, rSeedReversed);
 
         // Step3
-        Point pointR = curve.getBasePoint().scalarMultiply(r);
+        Point pointR = CURVE.getBasePoint().scalarMultiply(r);
         byte[] rPoint = pointR.encode().getValue();
 
         // Step4
@@ -63,7 +63,7 @@ class Ed25519Signer implements EdDsaSigner {
         // Step5
         BigInteger k = new BigInteger(1, ByteUtils.reverse(kSeed));
 
-        BigInteger pointS = k.mod(curve.getPrimeL()).multiply(s).add(r).mod(curve.getPrimeL());
+        BigInteger pointS = k.mod(CURVE.getPrimeL()).multiply(s).add(r).mod(CURVE.getPrimeL());
         byte[] sPoint = new CoordinateEd25519(pointS).encode().getValue();
 
         // Step6
@@ -89,7 +89,7 @@ class Ed25519Signer implements EdDsaSigner {
 
             Point checkPoint = r.add(a.scalarMultiply(k.getInteger()));
 
-            Point target = curve.getBasePoint().scalarMultiply(s.getInteger());
+            Point target = CURVE.getBasePoint().scalarMultiply(s.getInteger());
 
             return checkPoint.isEqual(target);
         } catch (DecodeException e) {

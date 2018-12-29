@@ -4,13 +4,16 @@ import java.math.BigInteger;
 
 /**
  * A point on the eddsa curve which represents a group of {@link Coordinate}.
+ * <p>
+ * A subclass of this class must be immutable object, in other words, all operations
+ * must create new object.
  *
- * @author halu5071 (Yasunori Horii) at 2018/6/2
+ * @author halu5071 (Yasunori Horii)
  */
-public abstract class Point implements Cloneable {
+public abstract class Point {
 
-    protected Coordinate x;
-    protected Coordinate y;
+    final protected Coordinate x;
+    final protected Coordinate y;
 
     protected static Curve curve;
 
@@ -20,7 +23,7 @@ public abstract class Point implements Cloneable {
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    public Point(Coordinate x, Coordinate y) {
+    protected Point(Coordinate x, Coordinate y) {
         this.x = x;
         this.y = y;
     }
@@ -67,7 +70,7 @@ public abstract class Point implements Cloneable {
 
     /**
      * Negation of Point on elliptic curve means negateY of y-coordinate.
-     *
+     * <p>
      * You will negateY Point(x, y), will get Point(x, -y mod P).
      *
      * @return Point negated.
@@ -112,23 +115,5 @@ public abstract class Point implements Cloneable {
         }
 
         return point.getX().isEqual(this.x) && point.getY().isEqual(this.y);
-    }
-
-    @Override
-    public Point clone() {
-        Point point = null;
-
-        try {
-            point = ((Point) super.clone());
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-
-        if (point != null) {
-            point.x = x.clone();
-            point.y = y.clone();
-        }
-
-        return point;
     }
 }

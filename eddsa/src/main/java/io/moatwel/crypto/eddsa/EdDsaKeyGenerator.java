@@ -6,12 +6,12 @@ import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.PublicKey;
 
 /**
- * @author halu5071 (Yasunori Horii) at 2018/6/2
+ * @author halu5071 (Yasunori Horii)
  */
 public class EdDsaKeyGenerator implements KeyGenerator {
 
-    private EdKeyAnalyzer analyzer;
-    private SchemeProvider schemeProvider;
+    private final EdKeyAnalyzer analyzer;
+    private final SchemeProvider schemeProvider;
 
     public EdDsaKeyGenerator(SchemeProvider schemeProvider) {
         if (schemeProvider == null) {

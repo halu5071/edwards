@@ -3,7 +3,7 @@ package io.moatwel.crypto;
 /**
  * A interface represent signer for Edward-curve DSA.
  *
- * @author halu5071 (Yasunori Horii) at 2018/5/28
+ * @author halu5071 (Yasunori Horii)
  */
 public interface EdDsaSigner {
 

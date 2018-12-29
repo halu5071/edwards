@@ -130,16 +130,6 @@ public class PointEd448Test {
     }
 
     @Test
-    public void success_ClonePoint() {
-        Point point = curve.getBasePoint();
-        Point refCopy = point;
-        Point valCopy = point.clone();
-
-        assertEquals(point, refCopy);
-        assertNotEquals(point, valCopy);
-    }
-
-    @Test
     public void success_IsEqual_true_1() {
         Point point1 = new PointEd448(new CoordinateEd448(new BigInteger("12345")),
                 new CoordinateEd448(new BigInteger("23456")));

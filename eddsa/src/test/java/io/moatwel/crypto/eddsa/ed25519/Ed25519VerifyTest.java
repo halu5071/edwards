@@ -29,7 +29,7 @@ public class Ed25519VerifyTest {
         PrivateKey privateKey = PrivateKeyEd25519.fromHexString("abd3df0ba4c941a451c934a44938cc2bf051233c4e535931233c4e5351a4c695");
         pair = generator.generateKeyPair(privateKey);
 
-        edwards = new Edwards();
+        edwards = Edwards.newInstance();
 
         assertThat(pair.getPublicKey().getHexString(), is("195ac5d462f0aa357c424982250f994ab0918ecee50a2ce5c6feb4f6b07ab660"));
     }

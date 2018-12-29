@@ -7,10 +7,10 @@ import io.moatwel.crypto.PrivateKey;
 public class PrivateKeyEd448 extends PrivateKey {
 
     private PrivateKeyEd448(byte[] value) {
+        super(value);
         if (value.length != 57) {
             throw new IllegalArgumentException("PrivateKey on Ed448 curve must have 57 byte length.");
         }
-        this.value = value;
     }
 
     public static PrivateKey random() {
