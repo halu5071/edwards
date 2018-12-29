@@ -8,10 +8,10 @@ import io.moatwel.util.HexEncoder;
 public class PrivateKeyEd25519 extends PrivateKey {
 
     private PrivateKeyEd25519(byte[] value) {
+        super(value);
         if (value.length != 32) {
             throw new IllegalArgumentException("PrivateKey on ed25519 curve must have 32 byte length");
         }
-        this.value = value;
     }
 
     public static PrivateKey fromHexString(String hexString) {

@@ -12,16 +12,16 @@ import io.moatwel.crypto.eddsa.ed25519.Ed25519SchemeProvider;
 /**
  * Base class for operations of EdDsa.
  *
- * @author halu5071 (Yasunori Horii) at 2018/6/9
+ * @author halu5071 (Yasunori Horii)
  * @see SchemeProvider
  * @see HashAlgorithm
  * @see EdDsaSigner
  */
 public final class Edwards {
 
-    private Curve curve;
-    private KeyGenerator generator;
-    private EdDsaSigner signer;
+    private final Curve curve;
+    private final KeyGenerator generator;
+    private final EdDsaSigner signer;
 
     public Edwards() {
         this(new Ed25519SchemeProvider(HashAlgorithm.KECCAK_512));

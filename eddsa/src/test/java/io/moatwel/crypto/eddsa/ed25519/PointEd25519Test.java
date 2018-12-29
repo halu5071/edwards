@@ -140,6 +140,17 @@ public class PointEd25519Test {
     }
 
     @Test
+    public void success_AddPoint_Origin() {
+        Point point1 = new PointEd25519(new CoordinateEd25519(new BigInteger("24714885350915573524959492804958774885039633758708007137167239543662320763472")),
+                new CoordinateEd25519(new BigInteger("32610704945606948033834599741453719010166132071117736619400925734673110257760")));
+
+        Point result = point1.add(PointEd25519.O);
+
+        assertThat(result.getX().getInteger(), is(new BigInteger("24714885350915573524959492804958774885039633758708007137167239543662320763472")));
+        assertThat(result.getY().getInteger(), is(new BigInteger("32610704945606948033834599741453719010166132071117736619400925734673110257760")));
+    }
+
+    @Test
     public void success_ScalarMultiply_1() {
         Point point = curve.getBasePoint();
         BigInteger integer = new BigInteger("1234");
@@ -213,7 +224,7 @@ public class PointEd25519Test {
     }
 
     @Test
-    public void success_ScalarMultiplyBasePoint_1() {
+    public void success_ScalarMultiplyBasePoint_2() {
         Point doubled = curve.getBasePoint().scalarMultiply(new BigInteger("2"));
 
         assertThat(doubled.getX().getInteger(), is(new BigInteger("24727413235106541002554574571675588834622768167397638456726423682521233608206")));
@@ -221,7 +232,63 @@ public class PointEd25519Test {
     }
 
     @Test
-    public void success_ScalarMultiplyBasePoint_2() {
+    public void success_ScalarMultiplyBasePoint_7() {
+        Point doubled = curve.getBasePoint().scalarMultiply(new BigInteger("7"));
+
+        assertThat(doubled.getX().getInteger(), is(new BigInteger("9199134265559022971505535402808359556995554859516252602543778295037484220679")));
+        assertThat(doubled.getY().getInteger(), is(new BigInteger("22512087849695599276028560866629687720820254811233262850576678203618951717560")));
+    }
+
+    @Test
+    public void success_ScalarMultiplyBasePoint_3() {
+        Point doubled = curve.getBasePoint().scalarMultiply(new BigInteger("3"));
+
+        assertThat(doubled.getX().getInteger(), is(new BigInteger("46896733464454938657123544595386787789046198280132665686241321779790909858396")));
+        assertThat(doubled.getY().getInteger(), is(new BigInteger("8324843778533443976490377120369201138301417226297555316741202210403726505172")));
+    }
+
+    @Test
+    public void success_ScalarMultiplyBasePoint_4() {
+        Point doubled = curve.getBasePoint().scalarMultiply(new BigInteger("4"));
+
+        assertThat(doubled.getX().getInteger(), is(new BigInteger("14582954232372986451776170844943001818709880559417862259286374126315108956272")));
+        assertThat(doubled.getY().getInteger(), is(new BigInteger("32483318716863467900234833297694612235682047836132991208333042722294373421359")));
+    }
+
+    @Test
+    public void success_ScalarMultiplyBasePoint_6() {
+        Point doubled = curve.getBasePoint().scalarMultiply(new BigInteger("6"));
+
+        assertThat(doubled.getX().getInteger(), is(new BigInteger("34643617590234865996699167120328052565261792237873803846102513686264813449789")));
+        assertThat(doubled.getY().getInteger(), is(new BigInteger("2399184961499513294557607325187831088545696902880432827228757905043131825908")));
+    }
+
+    @Test
+    public void success_ScalarMultiplyBasePoint_10() {
+        Point doubled = curve.getBasePoint().scalarMultiply(new BigInteger("10"));
+
+        assertThat(doubled.getX().getInteger(), is(new BigInteger("43500613248243327786121022071801015118933854441360174117148262713429272820047")));
+        assertThat(doubled.getY().getInteger(), is(new BigInteger("45005105423099817237495816771148012388779685712352441364231470781391834741548")));
+    }
+
+    @Test
+    public void success_ScalarMultiplyBasePoint_11() {
+        Point doubled = curve.getBasePoint().scalarMultiply(new BigInteger("11"));
+
+        assertThat(doubled.getX().getInteger(), is(new BigInteger("9451145793506787353375160377761530931587019091193333050860601958827395183563")));
+        assertThat(doubled.getY().getInteger(), is(new BigInteger("20609402718286069808115703540855311742885093522056241285814584245966805874451")));
+    }
+
+    @Test
+    public void success_ScalarMultiplyBasePoint_12() {
+        Point doubled = curve.getBasePoint().scalarMultiply(new BigInteger("12"));
+
+        assertThat(doubled.getX().getInteger(), is(new BigInteger("32159939716063394567822525359727347405356413309540137282993608327129696604205")));
+        assertThat(doubled.getY().getInteger(), is(new BigInteger("29147333543209904737197244325450674102993621692520459538942544703173373584633")));
+    }
+
+    @Test
+    public void success_ScalarMultiplyBasePoint_50459379271018302582465998844449622265826330103819895252966304478993432089656() {
         Point scalard = curve.getBasePoint().scalarMultiply(new BigInteger("50459379271018302582465998844449622265826330103819895252966304478993432089656"));
 
         assertThat(scalard.getX().getInteger(), is(new BigInteger("15803359856018908320086002332714894013924030585248052893900291221487236226419")));
@@ -237,16 +304,6 @@ public class PointEd25519Test {
         BigInteger result = k.mod(curve.getPrimeL()).multiply(s).add(r).mod(curve.getPrimeL());
 
         assertThat(result, is(new BigInteger("319146615599574595135908926944340520491598694492366832960461172005503422390")));
-    }
-
-    @Test
-    public void success_ClonePoint() {
-        Point point = curve.getBasePoint();
-        Point refCopy = point;
-        Point valCopy = point.clone();
-
-        assertEquals(point, refCopy);
-        assertNotEquals(point, valCopy);
     }
 
     @Test

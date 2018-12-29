@@ -9,46 +9,43 @@ import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
 
 /**
- * @author halu5071 (Yasunori Horii) at 2018/06/28
+ * Coordinate on Curve448.
+ *
+ * @author halu5071 (Yasunori Horii)
  */
 class CoordinateEd448 extends Coordinate {
 
     public static final Coordinate ZERO = new CoordinateEd448(BigInteger.ZERO);
     public static final Coordinate ONE = new CoordinateEd448(BigInteger.ONE);
-    public static final Coordinate TWO = new CoordinateEd448(BigInteger.ONE.shiftLeft(1));
 
     private static final Curve curve = Curve448.getInstance();
 
     CoordinateEd448(BigInteger integer) {
-        this.value = integer;
+        super(integer);
     }
 
     @Override
     public Coordinate add(Coordinate coordinate) {
-        BigInteger coord1 = this.value;
-        BigInteger coord2 = coordinate.getInteger();
-        return new CoordinateEd448(coord1.add(coord2));
+        BigInteger integer = coordinate.getInteger();
+        return new CoordinateEd448(value.add(integer));
     }
 
     @Override
     public Coordinate divide(Coordinate coordinate) {
-        BigInteger coord1 = this.value;
-        BigInteger coord2 = coordinate.getInteger();
-        return new CoordinateEd448(coord1.divide(coord2));
+        BigInteger integer = coordinate.getInteger();
+        return new CoordinateEd448(value.divide(integer));
     }
 
     @Override
     public Coordinate multiply(Coordinate coordinate) {
-        BigInteger coord1 = this.value;
-        BigInteger coord2 = coordinate.getInteger();
-        return new CoordinateEd448(coord1.multiply(coord2));
+        BigInteger integer = coordinate.getInteger();
+        return new CoordinateEd448(value.multiply(integer));
     }
 
     @Override
     public Coordinate subtract(Coordinate coordinate) {
-        BigInteger coord1 = this.value;
-        BigInteger coord2 = coordinate.getInteger();
-        return new CoordinateEd448(coord1.subtract(coord2));
+        BigInteger integer = coordinate.getInteger();
+        return new CoordinateEd448(value.subtract(integer));
     }
 
     @Override
@@ -65,6 +62,11 @@ class CoordinateEd448 extends Coordinate {
     @Override
     public Coordinate powerMod(BigInteger integer) {
         return new CoordinateEd448(this.value.modPow(integer, curve.getPrimePowerP()));
+    }
+
+    @Override
+    public Coordinate negate() {
+        return new CoordinateEd448(value.negate()).mod();
     }
 
     @Override

@@ -4,11 +4,13 @@ import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.PrivateKey;
 
 /**
- * @author halu5071 (Yasunori Horii) at 2018/6/26
+ * Provide scheme used for creating public key, singing, verifying.
+ *
+ * @author halu5071 (Yasunori Horii)
  */
 public abstract class SchemeProvider {
 
-    private Curve curve;
+    private final Curve curve;
 
     protected SchemeProvider(Curve curve) {
         if (curve == null) {

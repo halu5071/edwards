@@ -10,13 +10,17 @@ import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.util.ByteUtils;
 
 /**
- * @author halu5071 (Yasunori Horii) at 2018/6/26
+ * Delegate class from {@link io.moatwel.crypto.eddsa.EdDsaKeyGenerator}.
+ * This will be provide from {@link Ed448SchemeProvider}
+ *
+ * @author halu5071 (Yasunori Horii)
+ * @see Ed448SchemeProvider
  */
 class Ed448PublicKeyDelegate implements PublicKeyDelegate {
 
-    private Curve448 curve = Curve448.getInstance();
+    private static final Curve448 CURVE = Curve448.getInstance();
 
-    private HashAlgorithm hashAlgorithm;
+    private final HashAlgorithm hashAlgorithm;
 
     Ed448PublicKeyDelegate(HashAlgorithm hashAlgorithm) {
         this.hashAlgorithm = hashAlgorithm;
@@ -38,7 +42,7 @@ class Ed448PublicKeyDelegate implements PublicKeyDelegate {
         BigInteger s = new BigInteger(reversed);
 
         // Step4
-        Point point = curve.getBasePoint().scalarMultiply(s);
+        Point point = CURVE.getBasePoint().scalarMultiply(s);
         return point.encode().getValue();
     }
 }

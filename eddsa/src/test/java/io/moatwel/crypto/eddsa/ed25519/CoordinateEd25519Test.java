@@ -147,4 +147,24 @@ public class CoordinateEd25519Test {
 
         assertThat(HexEncoder.getString(encoded.getValue()), is("762115b81aae8ab7a87e5d205ee64173ffc2666721b9bed118c4af49a2928601"));
     }
+
+    @Test
+    public void success_Negate_1() {
+        // Base point
+        Coordinate coordinate1 = new CoordinateEd25519(new BigInteger("15112221349535400772501151409588531511454012693041857206046113283949847762202"));
+        Coordinate coordinate2 = new CoordinateEd25519(new BigInteger("46316835694926478169428394003475163141307993866256225615783033603165251855960"));
+
+        Coordinate coordinate3 = new CoordinateEd25519(new BigInteger("29526982755515629833010601177215416502583846089738343830061683922017848058174"));
+        Coordinate coordinate4 = new CoordinateEd25519(new BigInteger("38867791596533294917564303539771571723867178851912571219685671691706937241210"));
+
+        Coordinate negated1 = coordinate1.negate();
+        Coordinate negated2 = coordinate2.negate();
+        Coordinate negated3 = coordinate3.negate();
+        Coordinate negated4 = coordinate4.negate();
+
+        assertThat(negated1.getInteger(), is(new BigInteger("42783823269122696939284341094755422415180979639778424813682678720006717057747")));
+        assertThat(negated2.getInteger(), is(new BigInteger("11579208923731619542357098500868790785326998466564056403945758400791312963989")));
+        assertThat(negated3.getInteger(), is(new BigInteger("28369061863142467878774891327128537424051146243081938189667108081938716761775")));
+        assertThat(negated4.getInteger(), is(new BigInteger("19028253022124802794221188964572382202767813480907710800043120312249627578739")));
+    }
 }

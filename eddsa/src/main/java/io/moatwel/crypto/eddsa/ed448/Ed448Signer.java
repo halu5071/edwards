@@ -16,16 +16,16 @@ import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.util.ByteUtils;
 
 /**
- * A signer on Curve448 of Edwards-curve DSA.
+ * A signer on Curve448 of Edwards-CURVE DSA.
  *
- * @author halu5071 (Yasunori Horii) at 2018/6/26
+ * @author halu5071 (Yasunori Horii)
  */
 class Ed448Signer implements EdDsaSigner {
 
-    private static final Curve curve = Curve448.getInstance();
+    private static final Curve CURVE = Curve448.getInstance();
 
-    private HashAlgorithm algorithm;
-    private SchemeProvider scheme;
+    private final HashAlgorithm algorithm;
+    private final SchemeProvider scheme;
 
     Ed448Signer(HashAlgorithm algorithm, SchemeProvider scheme) {
         this.algorithm = algorithm;
@@ -69,16 +69,16 @@ class Ed448Signer implements EdDsaSigner {
 
         byte[] rSeed = Hashes.hash(algorithm, 114, scheme.dom(context), prefix, data);
         byte[] rSeedReversed = ByteUtils.reverse(rSeed);
-        BigInteger r = new BigInteger(1, rSeedReversed).mod(curve.getPrimeL());
+        BigInteger r = new BigInteger(1, rSeedReversed).mod(CURVE.getPrimeL());
 
-        Point pointR = curve.getBasePoint().scalarMultiply(r);
+        Point pointR = CURVE.getBasePoint().scalarMultiply(r);
         byte[] rPoint = pointR.encode().getValue();
 
         byte[] kSeed = Hashes.hash(algorithm, 114, scheme.dom(context), rPoint, keyPair.getPublicKey().getRaw(), data);
 
         BigInteger k = new BigInteger(1, ByteUtils.reverse(kSeed));
 
-        BigInteger pointS = k.mod(curve.getPrimeL()).multiply(s).add(r).mod(curve.getPrimeL());
+        BigInteger pointS = k.mod(CURVE.getPrimeL()).multiply(s).add(r).mod(CURVE.getPrimeL());
         byte[] sPoint = new CoordinateEd448(pointS).encode().getValue();
 
         return new SignatureEd448(ByteUtils.paddingZeroOnTail(rPoint, 57),
@@ -100,7 +100,7 @@ class Ed448Signer implements EdDsaSigner {
 
             EncodedCoordinate encodedS = new EncodedCoordinateEd448(signature.getS());
             BigInteger s = encodedS.decode().getInteger();
-            if (s.compareTo(BigInteger.ZERO) < 0 || s.compareTo(curve.getPrimeL()) > 0) {
+            if (s.compareTo(BigInteger.ZERO) < 0 || s.compareTo(CURVE.getPrimeL()) > 0) {
                 return false;
             }
 
@@ -110,7 +110,7 @@ class Ed448Signer implements EdDsaSigner {
 
             Point checkPoint = r.add(a.scalarMultiply(k));
 
-            Point target = curve.getBasePoint().scalarMultiply(s);
+            Point target = CURVE.getBasePoint().scalarMultiply(s);
 
             return checkPoint.isEqual(target);
         } catch (DecodeException e) {

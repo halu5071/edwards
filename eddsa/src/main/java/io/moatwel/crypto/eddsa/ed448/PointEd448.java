@@ -8,10 +8,17 @@ import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
 
+/**
+ * Represent Point on Curve448 of Edwards-curve.
+ *
+ * @author Yasunori Horii.
+ */
 class PointEd448 extends Point {
 
-    private static final Coordinate Z1 = new CoordinateEd448(new BigInteger("1"));
-    private static final Coordinate Z2 = new CoordinateEd448(new BigInteger("1"));
+    static final PointEd448 O = new PointEd448(CoordinateEd448.ZERO, CoordinateEd448.ONE);
+
+    private static final Coordinate Z1 = new CoordinateEd448(BigInteger.ONE);
+    private static final Coordinate Z2 = new CoordinateEd448(BigInteger.ONE);
 
     /**
      * constructor of Point
@@ -22,7 +29,6 @@ class PointEd448 extends Point {
     PointEd448(Coordinate x, Coordinate y) {
         super(x, y);
         curve = Curve448.getInstance();
-
     }
 
     /**
@@ -60,22 +66,26 @@ class PointEd448 extends Point {
     @Override
     public Point scalarMultiply(BigInteger integer) {
         if (integer.equals(BigInteger.ZERO)) {
-            return new PointEd448(
-                    new CoordinateEd448(BigInteger.ZERO),
-                    new CoordinateEd448(BigInteger.ONE));
+            return PointEd448.O;
         }
 
-        Point[] points = new Point[2];
-        points[0] = this;
-        int[] bin = ByteUtils.toBinaryArray(integer);
+        Point[] qs = new Point[]{O, O};
+        Point[] rs = new Point[]{this, this, negateY()};
 
-        for (int i = 1; i < bin.length; i++) {
-            points[0] = points[0].add(points[0]);
-            points[1] = points[0].add(this);
-            points[0] = points[bin[i]];
+        int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
+
+        for (int aSignedBin : signedBin) {
+            qs[0] = qs[0].add(qs[0]);
+            qs[1] = ((PointEd448) qs[0].add(rs[1 - aSignedBin])).negate();
+            qs[0] = qs[Math.abs(aSignedBin)];
         }
 
-        return points[0];
+        return qs[0];
+    }
+
+    @Override
+    public Point negateY() {
+        return new PointEd448(x, y.negate());
     }
 
     /**
@@ -98,5 +108,9 @@ class PointEd448 extends Point {
         }
 
         return new EncodedPointEd448(reversedY);
+    }
+
+    private Point negate() {
+        return new PointEd448(x.negate(), y.negate());
     }
 }

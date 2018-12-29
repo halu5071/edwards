@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
 public class EncodedPointEd25519Test {
 
     @Test
-    public void success_DecodePoint_1() {
+    public void success_DecodePoint_1() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("467c72ee4596e75c4ccda69acd1f528df3a9e6d787c2fb992f313417cd0b1aae"));
 
         Point point = encodedPoint.decode();
@@ -25,7 +25,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_2() {
+    public void success_DecodePoint_2() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("a631abbdf283aa8c79f23967935399e71d720eec6c4e90ccd57ae562eeb8498f"));
 
         Point point = encodedPoint.decode();
@@ -35,7 +35,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_3() {
+    public void success_DecodePoint_3() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("deffe1a9ccc8ba06b10782013fbaa8154f4350e04e862151faac0cde3523278a"));
 
         Point point = encodedPoint.decode();
@@ -45,7 +45,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_4() {
+    public void success_DecodePoint_4() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("354028754b43b4a27535a82375a7d4edefa90ced814e8a67ef543eb7911fb0f1"));
 
         Point point = encodedPoint.decode();
@@ -55,7 +55,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_5() {
+    public void success_DecodePoint_5() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("840ce11e453af4c2e48fbec448b7de3957e167c16f8e72051c535dd75281e574"));
 
         Point point = encodedPoint.decode();
@@ -65,7 +65,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_6() {
+    public void success_DecodePoint_6() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("0b67a11b2564accd38d9b963ac22eb64ed2ec9c17de25f7fe3209afc21886702"));
 
         Point point = encodedPoint.decode();
@@ -75,7 +75,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_7() {
+    public void success_DecodePoint_7() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("60d01f4c733a4e4f6890e67c8c62693e5c1dc7cadd68be5dfab0fe9f41011948"));
 
         Point point = encodedPoint.decode();
@@ -85,7 +85,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_8() {
+    public void success_DecodePoint_8() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("24a2101437ae0680dc1425e0fc43ad7bbcfeec01ec4831b3907290d5443e5296"));
 
         Point point = encodedPoint.decode();
@@ -95,7 +95,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_9() {
+    public void success_DecodePoint_9() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("467c72ee4596e75c4ccda69acd1f528df3a9e6d787c2fb992f313417cd0b1aae"));
 
         Point point = encodedPoint.decode();
@@ -105,7 +105,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_10() {
+    public void success_DecodePoint_10() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("b195102f70426e51c8e8ed0e31e74447e0b461a85e1ec14397bb88acbcfc15c8"));
 
         Point point = encodedPoint.decode();
@@ -115,7 +115,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_11() {
+    public void success_DecodePoint_11() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("0a7839c8658c2186c5650644ee832c092cb46bff7c6a777621567dd5c9e8c8c3"));
 
         Point point = encodedPoint.decode();
@@ -125,7 +125,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_12() {
+    public void success_DecodePoint_12() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("17ccd9301c1504aa65aed4872634d7317707fd8e95bbc3b4c4e732be73baf074"));
 
         Point point = encodedPoint.decode();
@@ -135,7 +135,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_13() {
+    public void success_DecodePoint_13() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("1782e3085548baead1ac7ab9befa1259f892e59102ac7022506e6de0940c9fed"));
 
         Point point = encodedPoint.decode();
@@ -145,7 +145,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_14() {
+    public void success_DecodePoint_14() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("fc1e0fede6e4549180dcdb91a629ea9d30fb9ab61da5f789726d5882722cab05"));
 
         Point point = encodedPoint.decode();
@@ -155,7 +155,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_15() {
+    public void success_DecodePoint_15() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("03cd98b81ef433956b7e2b239910450605959361e6391ebb770149693b6895c8"));
 
         Point point = encodedPoint.decode();
@@ -165,7 +165,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_16() {
+    public void success_DecodePoint_16() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("6c543c13177252112541e3382e5b73be26a5360e68459c87604ac53b8ac1cfcb"));
 
         Point point = encodedPoint.decode();
@@ -175,7 +175,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_17() {
+    public void success_DecodePoint_17() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("899c9d230f24d416647b0cfa04edc8158bb87bcd4332901cda27a979d8132a99"));
 
         Point point = encodedPoint.decode();
@@ -185,7 +185,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_18() {
+    public void success_DecodePoint_18() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("a13f3a02cc97ec252b785702ce5f1a201a0fc7dd177c636c5f97482af7294f5f"));
 
         Point point = encodedPoint.decode();
@@ -195,7 +195,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_19() {
+    public void success_DecodePoint_19() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("ebb7b4086e62dfd02dc01ab9c5c05828beb0756207aafd74a9ffc9f506f544fb"));
 
         Point point = encodedPoint.decode();
@@ -205,7 +205,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test
-    public void success_DecodePoint_20() {
+    public void success_DecodePoint_20() throws DecodeException {
         EncodedPoint encodedPoint = new EncodedPointEd25519(HexEncoder.getBytes("1c8dc594082e7ddad6a97f500247a585993d3b1a797041ce6f203902a7816833"));
 
         Point point = encodedPoint.decode();
@@ -227,7 +227,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test(expected = DecodeException.class)
-    public void failure_IllegalDecode_1() {
+    public void failure_IllegalDecode_1() throws DecodeException {
         // BigInteger("57896044618658097711785492504343953926634992332820282019728792003956564819967")
         byte[] value = new byte[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 127};
         EncodedPoint encodedPoint = new EncodedPointEd25519(value);
@@ -235,7 +235,7 @@ public class EncodedPointEd25519Test {
     }
 
     @Test(expected = DecodeException.class)
-    public void failure_IllegalDecode_2() {
+    public void failure_IllegalDecode_2() throws DecodeException {
         // BigInteger("56086793224325032158292195863583205366427648822419648206612267253832922169343")
         byte[] value = new byte[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 123};
         EncodedPoint encodedPoint = new EncodedPointEd25519(value);

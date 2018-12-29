@@ -10,11 +10,13 @@ import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.util.ByteUtils;
 
 /**
- * @author halu5071 (Yasunori Horii) at 2018/6/26
+ * SchemeProvider for Ed448.
+ *
+ * @author halu5071 (Yasunori Horii)
  */
 public class Ed448SchemeProvider extends SchemeProvider {
 
-    private HashAlgorithm hashAlgorithm;
+    private final HashAlgorithm hashAlgorithm;
 
     /**
      * Constructor of Ed448SchemeProvider.

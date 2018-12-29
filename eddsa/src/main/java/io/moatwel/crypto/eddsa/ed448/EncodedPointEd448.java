@@ -15,14 +15,14 @@ import io.moatwel.util.ByteUtils;
  */
 class EncodedPointEd448 extends EncodedPoint {
 
-    private Curve curve = Curve448.getInstance();
+    private static final Curve curve = Curve448.getInstance();
 
     EncodedPointEd448(byte[] value) {
+        super(value);
         if (value.length != 57) {
             throw new IllegalArgumentException("EncodedPoint on ed448 curve must have 57 byte length. " +
                     "The length of your EncodedPoint was " + value.length);
         }
-        this.value = value;
     }
 
     /**

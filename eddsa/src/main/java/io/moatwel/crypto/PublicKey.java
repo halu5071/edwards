@@ -5,7 +5,9 @@ import java.math.BigInteger;
 import io.moatwel.util.HexEncoder;
 
 /**
- * @author halu5071 (Yasunori Horii) at 2018/5/29
+ * PublicKey for EdDsa.
+ *
+ * @author halu5071 (Yasunori Horii)
  */
 public class PublicKey {
 

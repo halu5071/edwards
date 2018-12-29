@@ -13,14 +13,14 @@ import io.moatwel.util.ByteUtils;
  * Delegate class from {@link io.moatwel.crypto.eddsa.EdDsaKeyGenerator}.
  * This will be provide from {@link Ed25519SchemeProvider}
  *
- * @author halu5071 (Yasunori Horii) 2018/6/8
+ * @author halu5071 (Yasunori Horii)
  * @see Ed25519SchemeProvider
  */
 class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
-    private Curve25519 curve = Curve25519.getInstance();
+    private static final Curve25519 CURVE = Curve25519.getInstance();
 
-    private HashAlgorithm hashAlgorithm;
+    private final HashAlgorithm hashAlgorithm;
 
     Ed25519PublicKeyDelegate(HashAlgorithm hashAlgorithm) {
         this.hashAlgorithm = hashAlgorithm;
@@ -42,7 +42,7 @@ class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
         byte[] a = ByteUtils.reverse(first32);
         BigInteger s = new BigInteger(a);
 
-        Point point = curve.getBasePoint().scalarMultiply(s);
+        Point point = CURVE.getBasePoint().scalarMultiply(s);
         return point.encode().getValue();
     }
 }

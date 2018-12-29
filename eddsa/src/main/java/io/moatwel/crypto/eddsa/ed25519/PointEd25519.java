@@ -8,10 +8,17 @@ import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
 
+/**
+ * Point class on Curve25519.
+ *
+ * @author halu5071 (Yasunori Horii)
+ */
 class PointEd25519 extends Point {
 
-    private static final Coordinate Z1 = new CoordinateEd25519(new BigInteger("1"));
-    private static final Coordinate Z2 = new CoordinateEd25519(new BigInteger("1"));
+    static final PointEd25519 O = new PointEd25519(CoordinateEd25519.ZERO, CoordinateEd25519.ONE);
+
+    private static final Coordinate Z1 = new CoordinateEd25519(BigInteger.ONE);
+    private static final Coordinate Z2 = new CoordinateEd25519(BigInteger.ONE);
 
     /**
      * constructor of Point
@@ -34,8 +41,8 @@ class PointEd25519 extends Point {
         Coordinate x2 = point.getX().multiply(Z2).mod();
         Coordinate y2 = point.getY().multiply(Z2).mod();
 
-        Coordinate t1 = x1.multiply(y1).multiply(Z1);
-        Coordinate t2 = x2.multiply(y2).multiply(Z2);
+        Coordinate t1 = x1.multiply(y1).multiply(Z1).mod();
+        Coordinate t2 = x2.multiply(y2).multiply(Z2).mod();
 
         Coordinate d = new CoordinateEd25519(curve.getD().getInteger());
         Coordinate coord2 = new CoordinateEd25519(BigInteger.ONE.shiftLeft(1));
@@ -43,13 +50,13 @@ class PointEd25519 extends Point {
         Coordinate A = y1.subtract(x1).multiply(y2.subtract(x2)).mod();
         Coordinate B = y1.add(x1).multiply(y2.add(x2)).mod();
         Coordinate C = t1.multiply(coord2).multiply(d).multiply(t2).mod();
-        Coordinate D = Z1.multiply(coord2).multiply(Z2);
+        Coordinate D = Z1.multiply(coord2).multiply(Z2).mod();
         Coordinate E = B.subtract(A);
         Coordinate F = D.subtract(C);
         Coordinate G = D.add(C);
         Coordinate H = B.add(A);
 
-        Coordinate Z3 = F.multiply(G);
+        Coordinate Z3 = F.multiply(G).mod();
 
         Coordinate x3 = E.multiply(F).multiply(Z3.inverse()).mod();
         Coordinate y3 = G.multiply(H).multiply(Z3.inverse()).mod();
@@ -63,19 +70,25 @@ class PointEd25519 extends Point {
     @Override
     public final Point scalarMultiply(BigInteger integer) {
         if (integer.equals(BigInteger.ZERO)) {
-            return new PointEd25519(new CoordinateEd25519(BigInteger.ZERO), new CoordinateEd25519(BigInteger.ONE));
+            return PointEd25519.O;
         }
 
-        Point[] points = new Point[2];
-        points[0] = this;
-        int[] bin = ByteUtils.toBinaryArray(integer);
+        Point[] qs = new Point[]{O, O};
+        Point[] rs = new Point[]{this, this, negateY()};
 
-        for (int i = 1; i < bin.length; i++) {
-            points[0] = points[0].add(points[0]);
-            points[1] = points[0].add(this);
-            points[0] = points[bin[i]];
+        int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
+
+        for (int aSignedBin : signedBin) {
+            qs[0] = qs[0].add(qs[0]);
+            qs[1] = ((PointEd25519) qs[0].add(rs[1 - aSignedBin])).negate();
+            qs[0] = qs[Math.abs(aSignedBin)];
         }
-        return points[0];
+        return qs[0];
+    }
+
+    @Override
+    public Point negateY() {
+        return new PointEd25519(x, y.negate());
     }
 
     /**
@@ -98,5 +111,9 @@ class PointEd25519 extends Point {
         }
 
         return new EncodedPointEd25519(reversedY);
+    }
+
+    private Point negate() {
+        return new PointEd25519(x.negate(), y.negate());
     }
 }
