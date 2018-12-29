@@ -22,13 +22,13 @@ public class EdwardsCurve448Test {
 
     @Before
     public void setup() {
-        edwards = Edwards.newInstance(new Ed448SchemeProvider(HashAlgorithm.SHAKE_256));
+        edwards = new Edwards(new Ed448SchemeProvider(HashAlgorithm.SHAKE_256));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void failure_InstantiateEdwards() {
         SchemeProvider provider = null;
-        Edwards.newInstance(provider);
+        new Edwards(provider);
     }
 
     @Test
@@ -101,7 +101,7 @@ public class EdwardsCurve448Test {
 
     @Test(expected = IllegalStateException.class)
     public void failure_wrong_HashAlgorithm() {
-        Edwards edwards = Edwards.newInstance(new Ed448SchemeProvider(HashAlgorithm.KECCAK_256));
+        Edwards edwards = new Edwards(new Ed448SchemeProvider(HashAlgorithm.KECCAK_256));
         edwards.generateKeyPair();
     }
 

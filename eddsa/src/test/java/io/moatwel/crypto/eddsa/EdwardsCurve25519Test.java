@@ -23,13 +23,13 @@ public class EdwardsCurve25519Test {
 
     @Before
     public void setup() {
-        edwards = Edwards.newInstance(HashAlgorithm.SHA_512);
+        edwards = new Edwards(HashAlgorithm.SHA_512);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void failure_InstantiateEdwards() {
         SchemeProvider provider = null;
-        Edwards.newInstance(provider);
+        new Edwards(provider);
     }
 
     @Test
