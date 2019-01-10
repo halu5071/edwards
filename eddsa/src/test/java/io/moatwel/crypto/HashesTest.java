@@ -117,6 +117,23 @@ public class HashesTest {
         assertThat(HexEncoder.getString(result6), is("d00a3d9da389b712ecac6f6c2f9833b866417fa67ed9f1f23dd991df82b847d156ca43fe"));
     }
 
+    @Test
+    public void success_ripemd() {
+        // Test Vector from https://md5calc.com/hash/ripemd160
+        String seed1 = "This is a pen.";
+        byte[] result1 = Hashes.hash(HashAlgorithm.RIPEMD_160, seed1.getBytes());
+        assertThat(HexEncoder.getString(result1), is("539f1d6a8339b49e607ee55e5345b9ac3b3ae252"));
+
+        String seed2 = "lkadjlkfalkgnlaksdnfkladf";
+        byte[] result2 = Hashes.hash(HashAlgorithm.RIPEMD_160, seed2.getBytes());
+        assertThat(HexEncoder.getString(result2), is("174a10788898aa542a198ee27a59a039d5671bc8"));
+
+        String seed3 = "fjadklfasdufopadsf089q2ohiasjdlkfary80p oiajfdklf";
+        byte[] result3 = Hashes.hash(HashAlgorithm.RIPEMD_160, seed3.getBytes());
+        assertThat(HexEncoder.getString(result3), is("311a4846f7f7889dcb32c4ff4500e9923fb61988"));
+
+    }
+
     @Test(expected = IllegalStateException.class)
     public void failure_wrong_outputLength_1() {
         String seed1 = "hoge";
