@@ -1,6 +1,7 @@
 package io.moatwel.crypto;
 
 import io.moatwel.util.ByteUtils;
+import io.moatwel.util.HexEncoder;
 
 /**
  * @author halu5071 (Yasunori Horii)
@@ -25,5 +26,9 @@ public abstract class Signature {
 
     public byte[] getSignature() {
         return ByteUtils.join(r, s);
+    }
+
+    public String asString() {
+        return HexEncoder.getString(ByteUtils.join(r, s));
     }
 }
