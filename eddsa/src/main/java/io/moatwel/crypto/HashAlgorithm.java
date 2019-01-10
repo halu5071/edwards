@@ -14,7 +14,9 @@ public enum HashAlgorithm {
 
     SHAKE_128("SHAKE-128", 128),
 
-    SHAKE_256("SHAKE-256", 256);
+    SHAKE_256("SHAKE-256", 256),
+
+    RIPEMD_160("RipeMD160", 160);
 
     private String algorithm;
     private int defaultBitLength;
