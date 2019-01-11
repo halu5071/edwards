@@ -20,7 +20,7 @@ import static org.junit.Assert.assertThat;
 public class Ed25519VerifyTest {
 
     private KeyPair pair;
-    private EdDsaSigner signer = new Ed25519Signer(HashAlgorithm.SHA_512);
+    private EdDsaSigner signer = new Ed25519Signer(HashAlgorithm.SHA_512, new Ed25519SchemeProvider(HashAlgorithm.SHA_512));
     private Edwards edwards;
 
     @Before
@@ -264,5 +264,13 @@ public class Ed25519VerifyTest {
         // invoke DecodeException
         boolean isValid = edwards.verify(keyPair, "hoge".getBytes(), new SignatureEd25519(new byte[32], new byte[32]));
         assertThat(isValid, is(false));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void failure_TooLongContext() {
+        byte[] context = new byte[256];
+
+        Signature signature = signer.sign(pair, "doctor".getBytes(), null);
+        signer.verify(pair, "doctor".getBytes(), context, signature);
     }
 }

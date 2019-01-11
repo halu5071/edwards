@@ -18,7 +18,7 @@ import static org.junit.Assert.assertThat;
 public class Ed25519SignTest {
 
     private KeyPair pair;
-    private EdDsaSigner signer = new Ed25519Signer(HashAlgorithm.SHA_512);
+    private EdDsaSigner signer = new Ed25519Signer(HashAlgorithm.SHA_512, new Ed25519SchemeProvider(HashAlgorithm.SHA_512));
 
     @Before
     public void setup() {
@@ -214,5 +214,11 @@ public class Ed25519SignTest {
 
         assertThat(HexEncoder.getString(byteS), is("3d1e56d8b2056234a601126871ea8d87a7bc70b66dc944e2ab3b1d22f70b4b00"));
         assertThat(HexEncoder.getString(byteR), is("100027018c8eeac626c5f78ac3f79cd2469d51336f859736291c030b879d9e43"));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void failure_TooLongContext() {
+        byte[] context = new byte[256];
+        Signature signature = signer.sign(pair, "hoge".getBytes(), context);
     }
 }

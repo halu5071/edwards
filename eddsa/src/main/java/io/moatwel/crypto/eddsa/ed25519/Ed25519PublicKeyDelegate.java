@@ -16,13 +16,13 @@ import io.moatwel.util.ByteUtils;
  * @author halu5071 (Yasunori Horii)
  * @see Ed25519SchemeProvider
  */
-class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
+public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
     private static final Curve25519 CURVE = Curve25519.getInstance();
 
     private final HashAlgorithm hashAlgorithm;
 
-    Ed25519PublicKeyDelegate(HashAlgorithm hashAlgorithm) {
+    public Ed25519PublicKeyDelegate(HashAlgorithm hashAlgorithm) {
         this.hashAlgorithm = hashAlgorithm;
     }
 

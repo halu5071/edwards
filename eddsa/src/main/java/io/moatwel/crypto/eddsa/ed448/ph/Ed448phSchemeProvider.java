@@ -1,48 +1,39 @@
-package io.moatwel.crypto.eddsa.ed448;
+package io.moatwel.crypto.eddsa.ed448.ph;
 
 import java.security.SecureRandom;
 
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
+import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.crypto.eddsa.SchemeProvider;
+import io.moatwel.crypto.eddsa.ed448.Curve448;
+import io.moatwel.crypto.eddsa.ed448.Ed448PublicKeyDelegate;
+import io.moatwel.crypto.eddsa.ed448.Ed448Signer;
 import io.moatwel.util.ByteUtils;
 
-/**
- * SchemeProvider for Ed448.
- *
- * @author halu5071 (Yasunori Horii)
- */
-public class Ed448SchemeProvider extends SchemeProvider {
+public class Ed448phSchemeProvider extends SchemeProvider {
 
-    private final HashAlgorithm hashAlgorithm;
+    private final HashAlgorithm algorithm;
 
-    /**
-     * Constructor of Ed448SchemeProvider.
-     * <p>
-     * Note that wrong hash algorithm is not allowed on Curve448 of
-     * Edwards-curve DSA.
-     *
-     * @param hashAlgorithm hash algorithm you use.
-     */
-    public Ed448SchemeProvider(HashAlgorithm hashAlgorithm) {
+    public Ed448phSchemeProvider(HashAlgorithm algorithm) {
         super(Curve448.getInstance());
 
-        if (hashAlgorithm == null) {
+        if (algorithm == null) {
             throw new IllegalArgumentException("argument HashAlgorithm must not be null.");
         }
-        this.hashAlgorithm = hashAlgorithm;
+        this.algorithm = algorithm;
     }
 
     @Override
     public EdDsaSigner getSigner() {
-        return new Ed448Signer(hashAlgorithm, this);
+        return new Ed448Signer(algorithm, this);
     }
 
     @Override
     public PublicKeyDelegate getPublicKeyDelegate() {
-        return new Ed448PublicKeyDelegate(hashAlgorithm);
+        return new Ed448PublicKeyDelegate(algorithm);
     }
 
     @Override
@@ -55,7 +46,7 @@ public class Ed448SchemeProvider extends SchemeProvider {
 
     @Override
     public byte[] ph(byte[] input) {
-        return input;
+        return Hashes.hash(algorithm, 64, input);
     }
 
     @Override
@@ -63,8 +54,8 @@ public class Ed448SchemeProvider extends SchemeProvider {
         String domPrefix = "SigEd448";
         return ByteUtils.join(
                 domPrefix.getBytes(),
-                // 0 is a flag for Ed448
-                new byte[]{(byte) 0},
+                // 1 is a flag for Ed448ph
+                new byte[]{(byte) 1},
                 new byte[]{(byte) context.length},
                 context);
     }

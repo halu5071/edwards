@@ -13,6 +13,7 @@ import io.moatwel.crypto.eddsa.DecodeException;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.util.ByteUtils;
 
 /**
@@ -22,18 +23,28 @@ import io.moatwel.util.ByteUtils;
  * @see Ed25519SchemeProvider
  * @see EdDsaSigner
  */
-class Ed25519Signer implements EdDsaSigner {
+public class Ed25519Signer implements EdDsaSigner {
 
     private static final Curve CURVE = Curve25519.getInstance();
 
     private final HashAlgorithm hashAlgorithm;
+    private final SchemeProvider schemeProvider;
 
-    Ed25519Signer(HashAlgorithm algorithm) {
+    public Ed25519Signer(HashAlgorithm algorithm, SchemeProvider schemeProvider) {
         this.hashAlgorithm = algorithm;
+        this.schemeProvider = schemeProvider;
     }
 
     @Override
     public Signature sign(KeyPair keyPair, byte[] data, byte[] context) {
+        if (context == null) {
+            context = new byte[0];
+        }
+
+        if (context.length > 255) {
+            throw new IllegalStateException("context length in byte must be less than 255 bit.");
+        }
+
         byte[] h = Hashes.hash(hashAlgorithm, keyPair.getPrivateKey().getRaw());
 
         // Step1
@@ -47,9 +58,11 @@ class Ed25519Signer implements EdDsaSigner {
         BigInteger s = new BigInteger(sSeed);
 
         // Step2
+        byte[] dom = schemeProvider.dom(context);
         byte[] prefix = ByteUtils.split(h, 32)[1];
+        byte[] ph = schemeProvider.ph(data);
 
-        byte[] rSeed = Hashes.hash(hashAlgorithm, prefix, data);
+        byte[] rSeed = Hashes.hash(hashAlgorithm, dom, prefix, ph);
         byte[] rSeedReversed = ByteUtils.reverse(rSeed);
         BigInteger r = new BigInteger(1, rSeedReversed);
 
@@ -58,7 +71,7 @@ class Ed25519Signer implements EdDsaSigner {
         byte[] rPoint = pointR.encode().getValue();
 
         // Step4
-        byte[] kSeed = Hashes.hash(hashAlgorithm, rPoint, keyPair.getPublicKey().getRaw(), data);
+        byte[] kSeed = Hashes.hash(hashAlgorithm, dom, rPoint, keyPair.getPublicKey().getRaw(), ph);
 
         // Step5
         BigInteger k = new BigInteger(1, ByteUtils.reverse(kSeed));
@@ -74,6 +87,14 @@ class Ed25519Signer implements EdDsaSigner {
     @Override
     public boolean verify(KeyPair keyPair, byte[] data, byte[] context, Signature signature) {
         try {
+            if (context == null) {
+                context = new byte[0];
+            }
+
+            if (context.length > 255) {
+                throw new IllegalStateException("context length in byte must be less than 255 bit.");
+            }
+
             byte[] rSeed = signature.getR();
             EncodedPoint encodedR = new EncodedPointEd25519(rSeed);
             Point r = encodedR.decode();
@@ -84,7 +105,9 @@ class Ed25519Signer implements EdDsaSigner {
             EncodedCoordinate encodedS = new EncodedCoordinateEd25519(signature.getS());
             Coordinate s = encodedS.decode();
 
-            byte[] kSeed = Hashes.hash(hashAlgorithm, r.encode().getValue(), keyPair.getPublicKey().getRaw(), data);
+            byte[] dom = schemeProvider.dom(context);
+            byte[] ph = schemeProvider.ph(data);
+            byte[] kSeed = Hashes.hash(hashAlgorithm, dom, r.encode().getValue(), a.encode().getValue(), ph);
             Coordinate k = new EncodedCoordinateEd25519(kSeed).decode();
 
             Point checkPoint = r.add(a.scalarMultiply(k.getInteger()));

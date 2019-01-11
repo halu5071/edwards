@@ -16,13 +16,13 @@ import io.moatwel.util.ByteUtils;
  * @author halu5071 (Yasunori Horii)
  * @see Ed448SchemeProvider
  */
-class Ed448PublicKeyDelegate implements PublicKeyDelegate {
+public class Ed448PublicKeyDelegate implements PublicKeyDelegate {
 
     private static final Curve448 CURVE = Curve448.getInstance();
 
     private final HashAlgorithm hashAlgorithm;
 
-    Ed448PublicKeyDelegate(HashAlgorithm hashAlgorithm) {
+    public Ed448PublicKeyDelegate(HashAlgorithm hashAlgorithm) {
         this.hashAlgorithm = hashAlgorithm;
     }
 

@@ -462,4 +462,12 @@ public class Ed448VerifyTest {
         boolean isValid = edwards.verify(keyPair, "hoge".getBytes(), new byte[0], new SignatureEd448(new byte[57], new byte[57]));
         assertThat(isValid, is(false));
     }
+
+    @Test(expected = IllegalStateException.class)
+    public void failure_TooLongContext() {
+        byte[] context = new byte[256];
+        KeyPair pair = generator.generateKeyPair();
+        Signature signature = scheme.getSigner().sign(pair, "hoge".getBytes(), null);
+        scheme.getSigner().verify(pair, "hoge".getBytes(), context, signature);
+    }
 }
