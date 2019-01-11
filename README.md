@@ -50,6 +50,17 @@ Signature signature = ...;
 boolean isVerified = edwards.verify(keyPair, /* data represented in byte array */, signature);
 ```
 
+### Built-in Scheme
+Edwards supports some schemes. 
+
+- Ed25519
+- Ed25519ctx
+- Ed25519ph
+- Ed448
+- Ed448ph
+
+`Ed25591ctx`, `Ed25519ph` are contextualized extensions of the `Ed25519` scheme, and also `Ed448ph` is a contextualized extension of `Ed448` scheme.
+
 ### Built-in Hash algorithm
 This library use `SpongyCastle` internally, so you can almost all hash algorithm. Specify hash algorithm you want like this.
 
