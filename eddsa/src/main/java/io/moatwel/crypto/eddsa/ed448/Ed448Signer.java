@@ -20,14 +20,14 @@ import io.moatwel.util.ByteUtils;
  *
  * @author halu5071 (Yasunori Horii)
  */
-class Ed448Signer implements EdDsaSigner {
+public class Ed448Signer implements EdDsaSigner {
 
     private static final Curve CURVE = Curve448.getInstance();
 
     private final HashAlgorithm algorithm;
     private final SchemeProvider scheme;
 
-    Ed448Signer(HashAlgorithm algorithm, SchemeProvider scheme) {
+    public Ed448Signer(HashAlgorithm algorithm, SchemeProvider scheme) {
         this.algorithm = algorithm;
         this.scheme = scheme;
     }
@@ -65,16 +65,18 @@ class Ed448Signer implements EdDsaSigner {
         byte[] reversed = ByteUtils.reverse(first57);
         BigInteger s = new BigInteger(reversed);
 
+        byte[] dom = scheme.dom(context);
         byte[] prefix = ByteUtils.split(h, 57)[1];
+        byte[] ph = scheme.ph(data);
 
-        byte[] rSeed = Hashes.hash(algorithm, 114, scheme.dom(context), prefix, data);
+        byte[] rSeed = Hashes.hash(algorithm, 114, dom, prefix, ph);
         byte[] rSeedReversed = ByteUtils.reverse(rSeed);
         BigInteger r = new BigInteger(1, rSeedReversed).mod(CURVE.getPrimeL());
 
         Point pointR = CURVE.getBasePoint().scalarMultiply(r);
         byte[] rPoint = pointR.encode().getValue();
 
-        byte[] kSeed = Hashes.hash(algorithm, 114, scheme.dom(context), rPoint, keyPair.getPublicKey().getRaw(), data);
+        byte[] kSeed = Hashes.hash(algorithm, 114, dom, rPoint, keyPair.getPublicKey().getRaw(), ph);
 
         BigInteger k = new BigInteger(1, ByteUtils.reverse(kSeed));
 
@@ -91,6 +93,11 @@ class Ed448Signer implements EdDsaSigner {
             if (context == null) {
                 context = new byte[0];
             }
+
+            if (context.length > 255) {
+                throw new IllegalStateException("context length in byte must be less than 255 bit.");
+            }
+
             byte[] rSeed = signature.getR();
             EncodedPoint encodedR = new EncodedPointEd448(rSeed);
             Point r = encodedR.decode();
@@ -104,7 +111,9 @@ class Ed448Signer implements EdDsaSigner {
                 return false;
             }
 
-            byte[] kSeed = Hashes.hash(algorithm, 114, scheme.dom(context), r.encode().getValue(), a.encode().getValue(), data);
+            byte[] dom = scheme.dom(context);
+            byte[] ph = scheme.ph(data);
+            byte[] kSeed = Hashes.hash(algorithm, 114, dom, r.encode().getValue(), a.encode().getValue(), ph);
 
             BigInteger k = new EncodedCoordinateEd448(kSeed).decode().getInteger();
 
