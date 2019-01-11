@@ -13,6 +13,7 @@ import io.moatwel.crypto.eddsa.DecodeException;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.util.ByteUtils;
 
 /**
@@ -27,9 +28,11 @@ class Ed25519Signer implements EdDsaSigner {
     private static final Curve CURVE = Curve25519.getInstance();
 
     private final HashAlgorithm hashAlgorithm;
+    private final SchemeProvider schemeProvider;
 
-    Ed25519Signer(HashAlgorithm algorithm) {
+    Ed25519Signer(HashAlgorithm algorithm, SchemeProvider schemeProvider) {
         this.hashAlgorithm = algorithm;
+        this.schemeProvider = schemeProvider;
     }
 
     @Override

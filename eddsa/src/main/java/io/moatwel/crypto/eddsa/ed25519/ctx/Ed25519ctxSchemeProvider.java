@@ -1,56 +1,47 @@
-package io.moatwel.crypto.eddsa.ed25519;
-
-import java.security.SecureRandom;
+package io.moatwel.crypto.eddsa.ed25519.ctx;
 
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.crypto.eddsa.SchemeProvider;
+import io.moatwel.crypto.eddsa.ed25519.Curve25519;
 
-/**
- * SchemeProvider for Ed25519
- *
- * @author halu5071 (Yasunori Horii)
- */
-public class Ed25519SchemeProvider extends SchemeProvider {
+public class Ed25519ctxSchemeProvider extends SchemeProvider {
 
-    private final HashAlgorithm hashAlgorithm;
+    private final HashAlgorithm algorithm;
 
-    public Ed25519SchemeProvider(HashAlgorithm algorithm) {
+    Ed25519ctxSchemeProvider(HashAlgorithm algorithm) {
         super(Curve25519.getInstance());
 
         if (algorithm == null) {
             throw new IllegalArgumentException("argument HashAlgorithm must not be null.");
         }
-        this.hashAlgorithm = algorithm;
+        this.algorithm = algorithm;
     }
 
     @Override
     public EdDsaSigner getSigner() {
-        return new Ed25519Signer(hashAlgorithm, this);
+        return null;
     }
 
     @Override
     public PublicKeyDelegate getPublicKeyDelegate() {
-        return new Ed25519PublicKeyDelegate(hashAlgorithm);
+        return null;
     }
 
     @Override
     public PrivateKey generatePrivateKey() {
-        SecureRandom random = new SecureRandom();
-        byte[] seed = new byte[32];
-        random.nextBytes(seed);
-        return PrivateKey.newInstance(seed);
+        return null;
     }
 
     @Override
     public byte[] ph(byte[] input) {
-        return input;
+        return new byte[0];
     }
 
     @Override
     public byte[] dom(byte[] context) {
-        return "".getBytes();
+        return new byte[0];
     }
 }

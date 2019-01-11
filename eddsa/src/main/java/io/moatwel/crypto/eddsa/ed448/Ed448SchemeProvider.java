@@ -54,6 +54,11 @@ public class Ed448SchemeProvider extends SchemeProvider {
     }
 
     @Override
+    public byte[] ph(byte[] input) {
+        return input;
+    }
+
+    @Override
     public byte[] dom(byte[] context) {
         String domPrefix = "SigEd448";
         return ByteUtils.join(

@@ -20,7 +20,7 @@ import static org.junit.Assert.assertThat;
 public class Ed25519VerifyTest {
 
     private KeyPair pair;
-    private EdDsaSigner signer = new Ed25519Signer(HashAlgorithm.SHA_512);
+    private EdDsaSigner signer = new Ed25519Signer(HashAlgorithm.SHA_512, new Ed25519SchemeProvider(HashAlgorithm.SHA_512));
     private Edwards edwards;
 
     @Before
