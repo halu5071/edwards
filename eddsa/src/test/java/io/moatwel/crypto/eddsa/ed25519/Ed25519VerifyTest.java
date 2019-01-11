@@ -265,4 +265,12 @@ public class Ed25519VerifyTest {
         boolean isValid = edwards.verify(keyPair, "hoge".getBytes(), new SignatureEd25519(new byte[32], new byte[32]));
         assertThat(isValid, is(false));
     }
+
+    @Test(expected = IllegalStateException.class)
+    public void failure_TooLongContext() {
+        byte[] context = new byte[256];
+
+        Signature signature = signer.sign(pair, "doctor".getBytes(), null);
+        signer.verify(pair, "doctor".getBytes(), context, signature);
+    }
 }

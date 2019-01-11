@@ -287,4 +287,11 @@ public class Ed448SignTest {
 
         scheme.getSigner().sign(pair, HexEncoder.getBytes("03"), randomByte);
     }
+
+    @Test(expected = IllegalStateException.class)
+    public void failure_TooLongContext() {
+        byte[] context = new byte[256];
+        KeyPair pair = generator.generateKeyPair();
+        Signature signature = scheme.getSigner().sign(pair, "hoge".getBytes(), context);
+    }
 }
