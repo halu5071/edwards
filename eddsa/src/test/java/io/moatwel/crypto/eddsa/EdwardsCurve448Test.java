@@ -7,6 +7,7 @@ import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.PrivateKey;
+import io.moatwel.crypto.PublicKey;
 import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.ed448.Curve448;
 import io.moatwel.crypto.eddsa.ed448.Ed448SchemeProvider;
@@ -115,5 +116,13 @@ public class EdwardsCurve448Test {
     public void success_GetSigner() {
         EdDsaSigner signer = edwards.getDsaSigner();
         assertNotNull(signer);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_GeneratePublicKey() {
+        // PrivateKey on Curve25519
+        PrivateKey privateKey = PrivateKey.newInstance("ab4195d4123f0594e5341c45134c5938cc5913d34aa951234c5938cc2a6eb487");
+
+        PublicKey publicKey = edwards.derivePublicKey(privateKey);
     }
 }
