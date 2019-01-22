@@ -28,9 +28,9 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
     @Override
     public byte[] generatePublicKeySeed(PrivateKey privateKey) {
-        if (privateKey.getRaw().length != CURVE.getPublicKeyByteLength()) {
+        if (!(privateKey instanceof PrivateKeyEd25519)) {
             throw new IllegalArgumentException("Public key on Curve25519 must be " +
-                    CURVE.getPublicKeyByteLength() + " byte length");
+                    CURVE.getPublicKeyByteLength() + " byte length. Length: " + privateKey.getRaw().length);
         }
 
         byte[] h = Hashes.hash(hashAlgorithm, privateKey.getRaw());

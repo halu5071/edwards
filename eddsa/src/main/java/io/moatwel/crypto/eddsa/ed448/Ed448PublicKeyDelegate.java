@@ -28,9 +28,9 @@ public class Ed448PublicKeyDelegate implements PublicKeyDelegate {
 
     @Override
     public byte[] generatePublicKeySeed(PrivateKey privateKey) {
-        if (privateKey.getRaw().length != CURVE.getPublicKeyByteLength()) {
-            throw new IllegalArgumentException("Public key on Curve448 must be "
-                    + CURVE.getPublicKeyByteLength() + " byte length");
+        if (!(privateKey instanceof PrivateKeyEd448)) {
+            throw new IllegalArgumentException("Public key on Curve448 must be " +
+                    CURVE.getPublicKeyByteLength() + " byte length. Length: " + privateKey.getRaw().length);
         }
 
         // Step1
