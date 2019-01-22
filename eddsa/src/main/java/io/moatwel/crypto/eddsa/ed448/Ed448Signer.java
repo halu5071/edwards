@@ -51,7 +51,7 @@ public class Ed448Signer implements EdDsaSigner {
         }
 
         if (context.length > 255) {
-            throw new IllegalStateException("context length in byte must be less than 255 bit.");
+            throw new IllegalStateException("context length in byte must be less than 256 bytes.");
         }
 
         byte[] h = Hashes.hash(algorithm, 114, keyPair.getPrivateKey().getRaw());
@@ -95,7 +95,7 @@ public class Ed448Signer implements EdDsaSigner {
             }
 
             if (context.length > 255) {
-                throw new IllegalStateException("context length in byte must be less than 255 bit.");
+                throw new IllegalStateException("context length in byte must be less than 256 bytes.");
             }
 
             byte[] rSeed = signature.getR();
