@@ -111,7 +111,15 @@ public abstract class Point {
      */
     public boolean isEqual(Point point) {
         if (point.getClass() != this.getClass()) {
-            throw new IllegalComparisonException("These points can not be compared. Different point implementation.");
+            String thisPointData = getClass().getSimpleName() + "{" +
+                    x.value.toString() + ", " +
+                    y.value.toString() + "}";
+            String pointData = point.getClass().getSimpleName() + "{" +
+                    point.getX().value.toString() + ", " +
+                    point.getY().value.toString() + "}";
+            throw new IllegalComparisonException("These points (" +
+                    thisPointData + ", " +
+                    pointData + ") can not be compared. Different point implementation.");
         }
 
         return point.getX().isEqual(this.x) && point.getY().isEqual(this.y);

@@ -105,7 +105,11 @@ public abstract class Coordinate {
      */
     public boolean isEqual(Coordinate coordinate) {
         if (coordinate.getClass() != this.getClass()) {
-            throw new IllegalComparisonException("These coordinates can not be compared. Different coordinate implementations");
+            String thisClassData = getClass().getSimpleName() + ":" + value.toString();
+            String coordClassData = coordinate.getClass().getSimpleName() + ":" + coordinate.value.toString();
+            throw new IllegalComparisonException("These coordinates (" +
+                    thisClassData + ", " +
+                    coordClassData + ") can not be compared. Different coordinate implementations");
         }
         return value.compareTo(coordinate.getInteger()) == 0;
     }

@@ -6,6 +6,8 @@ import java.math.BigInteger;
 
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
+import io.moatwel.crypto.eddsa.IllegalComparisonException;
+import io.moatwel.crypto.eddsa.ed448.CoordinateEd448TestFactory;
 import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -166,5 +168,13 @@ public class CoordinateEd25519Test {
         assertThat(negated2.getInteger(), is(new BigInteger("11579208923731619542357098500868790785326998466564056403945758400791312963989")));
         assertThat(negated3.getInteger(), is(new BigInteger("28369061863142467878774891327128537424051146243081938189667108081938716761775")));
         assertThat(negated4.getInteger(), is(new BigInteger("19028253022124802794221188964572382202767813480907710800043120312249627578739")));
+    }
+
+    @Test(expected = IllegalComparisonException.class)
+    public void failure_IsEqual_other_scheme() {
+        Coordinate coordinate1 = CoordinateEd25519TestFactory.getOriginCoordinate();
+        Coordinate coordinate2 = CoordinateEd448TestFactory.getOriginCoordinate();
+
+        coordinate1.isEqual(coordinate2);
     }
 }

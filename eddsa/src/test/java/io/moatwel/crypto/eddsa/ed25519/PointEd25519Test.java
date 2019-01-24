@@ -5,12 +5,12 @@ import org.junit.Test;
 import java.math.BigInteger;
 
 import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.IllegalComparisonException;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.crypto.eddsa.ed448.PointEd448TestFactory;
 import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 
 public class PointEd25519Test {
@@ -561,5 +561,13 @@ public class PointEd25519Test {
                 new CoordinateEd25519(new BigInteger("23252602200307492321313643524776623321052079804243872788483132543098216090908")));
 
         assertThat(point1.isEqual(point2), is(false));
+    }
+
+    @Test(expected = IllegalComparisonException.class)
+    public void failure_IsEqual_other_scheme_point() {
+        Point point1 = PointEd25519TestFactory.getOriginPoint();
+        Point point2 = PointEd448TestFactory.getOriginPoint();
+
+        point1.isEqual(point2);
     }
 }

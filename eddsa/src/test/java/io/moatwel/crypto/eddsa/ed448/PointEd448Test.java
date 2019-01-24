@@ -6,7 +6,9 @@ import java.math.BigInteger;
 
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.IllegalComparisonException;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.crypto.eddsa.ed25519.PointEd25519TestFactory;
 import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -265,5 +267,13 @@ public class PointEd448Test {
         PrivateKey key = PrivateKeyEd448.random();
         assertNotNull(key);
         assertThat(key.getRaw().length, is(57));
+    }
+
+    @Test(expected = IllegalComparisonException.class)
+    public void failure_IsEqual_other_scheme_point() {
+        Point point1 = PointEd25519TestFactory.getOriginPoint();
+        Point point2 = PointEd448TestFactory.getOriginPoint();
+
+        point1.isEqual(point2);
     }
 }
