@@ -463,6 +463,30 @@ public class Ed448VerifyTest {
         assertThat(isValid, is(false));
     }
 
+    @Test
+    public void failure_VerifyMessage_10() {
+        PrivateKey privateKey = PrivateKey.newInstance(
+                "2ec5fe3c17045abdb136a5e6a913e32a" +
+                        "b75ae68b53d2fc149b77e504132d3756" +
+                        "9b7e766ba74a19bd6162343a21c8590a" +
+                        "a9cebca9014c636df5");
+        KeyPair pair = generator.generateKeyPair(privateKey);
+        byte[] r = HexEncoder.getBytes(
+                "c650ddbb0601c19ca11439e1640dd931" +
+                        "f43c518ea5bea70d3dcde5f4191fe53f" +
+                        "00cf966546b72bcc7d58be2b9badef28" +
+                        "743954e3a44a23f880");
+        // This byte array will be an integer which is larger than prime L on Curve448.
+        byte[] s = new byte[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 123};
+        Signature signature = new SignatureEd448(r, s);
+
+        boolean isValid = scheme.getSigner().verify(pair, "bob".getBytes(), null, signature);
+
+        assertThat(isValid, is(false));
+    }
+
     @Test(expected = IllegalStateException.class)
     public void failure_TooLongContext() {
         byte[] context = new byte[256];

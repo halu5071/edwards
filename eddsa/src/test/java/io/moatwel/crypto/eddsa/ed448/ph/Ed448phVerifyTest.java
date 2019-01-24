@@ -15,7 +15,7 @@ import io.moatwel.util.HexEncoder;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class Ed448VerifyTest {
+public class Ed448phVerifyTest {
 
     private KeyPair pair;
     private EdDsaSigner signer = new Ed448Signer(HashAlgorithm.SHAKE_256, new Ed448phSchemeProvider(HashAlgorithm.SHAKE_256));
