@@ -6,10 +6,16 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import io.moatwel.crypto.eddsa.EdDsaKeyGenerator;
 import io.moatwel.crypto.eddsa.EdKeyAnalyzer;
+import io.moatwel.crypto.eddsa.EdKeyAnalyzerTestFactory;
 import io.moatwel.crypto.eddsa.Edwards;
+import io.moatwel.crypto.eddsa.SchemeProvider;
+import io.moatwel.crypto.eddsa.ed25519.Curve25519;
+import io.moatwel.crypto.eddsa.ed25519.Ed25519SchemeProvider;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -67,11 +73,35 @@ public class KeyPairTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void failure_GenerateKeyPair_public_key_not_compressed() {
+    public void failure_GenerateKeyPair_public_key_not_compressed_1() {
         when(mockEdwards.getKeyGenerator()).thenReturn(mockGenerator);
         when(mockGenerator.derivePublicKey(mockPrivateKey)).thenReturn(mockPublicKey);
         when(mockAnalyzer.isKeyCompressed(mockPublicKey)).thenReturn(false);
 
         new KeyPair(mockPrivateKey, mockGenerator, mockAnalyzer);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failure_GenerateKeyPair_public_key_not_compressed_2() {
+        PrivateKey privateKey = PrivateKey.newInstance(new byte[32]);
+        EdKeyAnalyzer analyzer = EdKeyAnalyzerTestFactory.generate(Curve25519.getInstance());
+        PublicKey publicKey = new PublicKey(new byte[31]);
+
+        new KeyPair(privateKey, publicKey, analyzer);
+    }
+
+    @Test
+    public void success_GenerateKeyPair_from_EdDsaKeyGenerator() {
+        SchemeProvider schemeProvider = new Ed25519SchemeProvider(HashAlgorithm.KECCAK_512);
+        EdDsaKeyGenerator generator = new EdDsaKeyGenerator(schemeProvider);
+        PrivateKey privateKey = PrivateKey.newInstance(new byte[32]);
+        EdKeyAnalyzer analyzer = EdKeyAnalyzerTestFactory.generate(Curve25519.getInstance());
+
+        PublicKey checkKey = generator.derivePublicKey(privateKey);
+
+        KeyPair keyPair = new KeyPair(privateKey, generator, analyzer);
+
+        assertNotNull(keyPair);
+        assertThat(keyPair.getPublicKey().getRaw(), is(checkKey.getRaw()));
     }
 }
