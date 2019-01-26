@@ -10,6 +10,8 @@ import io.moatwel.crypto.PrivateKey;
 public interface PublicKeyDelegate {
 
     /**
+     * Return byte array which is a seed of {@link io.moatwel.crypto.PublicKey}
+     *
      * @param privateKey {@link PrivateKey} which this publicKey derived from.
      * @return seed byte array for {@link io.moatwel.crypto.PublicKey}
      */

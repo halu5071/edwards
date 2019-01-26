@@ -32,18 +32,6 @@ public class Ed448Signer implements EdDsaSigner {
         this.scheme = scheme;
     }
 
-    /**
-     * Sign your message on your key pair.
-     * <p>
-     * You can set null value on context byte array. If you do that, Edwards set
-     * zero-length byte array to context.
-     *
-     * @param keyPair {@link KeyPair} you want to use.
-     * @param data    byte data you want to sign.
-     * @param context byte array you want to use on signature.
-     * @return {@link Signature} which has result in byte array.
-     * @throws IllegalStateException if you input context which has 256 or above length.
-     */
     @Override
     public Signature sign(KeyPair keyPair, byte[] data, byte[] context) {
         if (context == null) {
@@ -67,7 +55,7 @@ public class Ed448Signer implements EdDsaSigner {
 
         byte[] dom = scheme.dom(context);
         byte[] prefix = ByteUtils.split(h, 57)[1];
-        byte[] ph = scheme.ph(data);
+        byte[] ph = scheme.preHash(data);
 
         byte[] rSeed = Hashes.hash(algorithm, 114, dom, prefix, ph);
         byte[] rSeedReversed = ByteUtils.reverse(rSeed);
@@ -112,7 +100,7 @@ public class Ed448Signer implements EdDsaSigner {
             }
 
             byte[] dom = scheme.dom(context);
-            byte[] ph = scheme.ph(data);
+            byte[] ph = scheme.preHash(data);
             byte[] kSeed = Hashes.hash(algorithm, 114, dom, r.encode().getValue(), a.encode().getValue(), ph);
 
             BigInteger k = new EncodedCoordinateEd448(kSeed).decode().getInteger();

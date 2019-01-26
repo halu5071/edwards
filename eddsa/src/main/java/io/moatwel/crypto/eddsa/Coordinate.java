@@ -4,9 +4,10 @@ import java.math.BigInteger;
 
 /**
  * Represents a element of the finite field.
+ *
  * <p>
  * A subclass of this must be immutable object. In other words, all operation
- * must create new object of result.
+ * must create new object of the result.
  *
  * @author halu5071 (Yasunori Horii)
  */
@@ -18,65 +19,84 @@ public abstract class Coordinate {
         this.value = value;
     }
 
+    /**
+     * Return integer value which this class contains.
+     *
+     * @return integer value which this class contains.
+     */
     public BigInteger getInteger() {
         return this.value;
     }
 
     /**
-     * Addition of Coordinate. Just Adding.
+     * Return a Coordinate whose value is {@code this + val}.
      *
-     * @param coordinate target of addition.
-     * @return added Coordinate.
+     * @param val target of addition.
+     * @return an added Coordinate.
      */
-    public abstract Coordinate add(Coordinate coordinate);
+    public abstract Coordinate add(Coordinate val);
 
     /**
-     * Division of Coordinate. Just Division.
+     * Return a Coordinate whose value is {@code this - val}.
      *
-     * @param coordinate target of division.
-     * @return divided Coordinate.
+     * @param val target of division.
+     * @return a divided Coordinate.
      */
-    public abstract Coordinate divide(Coordinate coordinate);
+    public abstract Coordinate divide(Coordinate val);
 
     /**
-     * Multiplication of Coordinate. This method return value
-     * which is applied mod operation.
+     * Return a Coordinate whose value is {@code this * val}.
      *
-     * @param coordinate target of multiplication.
-     * @return multiplied Coordinate.
+     * <p>
+     * Pay attention to apply mod operation to the result.
+     *
+     * @param val target of multiplication.
+     * @return a multiplied Coordinate.
      */
-    public abstract Coordinate multiply(Coordinate coordinate);
+    public abstract Coordinate multiply(Coordinate val);
 
     /**
-     * Subtraction of Coordinate. Just subtraction.
+     * Return a Coordinate whose value is {@code this - val}.
      *
-     * @param coordinate target of subtraction.
-     * @return subtracted Coordinate.
+     * @param val target of subtraction.
+     * @return a subtracted Coordinate.
      */
-    public abstract Coordinate subtract(Coordinate coordinate);
+    public abstract Coordinate subtract(Coordinate val);
 
     /**
-     * Return Coordinate contains a number for mod some number.
+     * Return a Coordinate whose value is {@code this mod prime L}. Prime L
+     * depends on each curves of elliptic curve.
      *
-     * @return modded Coordinate.
+     * @return a modded Coordinate.
      */
     public abstract Coordinate mod();
 
     /**
-     * @return
+     * Return {@link Coordinate} whose value is {@code 1/this mod prime L}.
+     *
+     * <p>
+     * Pay attention that the prime L depends on each curves of elliptic curve.
+     *
+     * @return {@code 1/this mod prime L}
      */
     public abstract Coordinate inverse();
 
     /**
-     * @param integer
-     * @return
+     * Return Coordinate whose value is {@code pow(this, exponent) mod prime L}.
+     *
+     * Pay attention that the prime L depends on each curves of elliptic curve.
+     *
+     * @param exponent the exponent
+     * @return {@code pow(this exponent mod prime L}
      */
-    public abstract Coordinate powerMod(BigInteger integer);
+    public abstract Coordinate powerMod(BigInteger exponent);
 
     /**
      * Negate Coordinate value.
+     *
      * <p>
      * Note that a negated coordinate on elliptic-curve will be a positive integer by mod operation.
+     * <p>
      * For example, negated 15112221349535400772501151409588531511454012693041857206046113283949847762202
      * on Curve25519 will be 42783823269122696939284341094755422415180979639778424813682678720006717057747.
      * <p>
@@ -88,20 +108,22 @@ public abstract class Coordinate {
 
     /**
      * Check value equality between two Coordinates.
-     * <p>Pay attention not to check different Coordinate implementation. Below code will throw
-     * {@link IllegalComparisonException}.
+     *
+     * <p>Pay attention not to compare different {@link Coordinate} implementations. Below code will
+     * throw {@link IllegalComparisonException}.
+     *
      * <pre>
      *      {@code
-     *          Coordinate coordinate1 = new CoordinateEd25519(...);
-     *          Coordinate coordinate2 = new CoordinateEd448(...);
-     *          coordinate1.isEqual(coordinate2);
+     *          Coordinate coordinate25519 = new CoordinateEd25519(...);
+     *          Coordinate coordinate448 = new CoordinateEd448(...);
+     *          coordinate25519.isEqual(coordinate448);
      *      }
      * </pre>
      *
      * @param coordinate target {@link Coordinate} to check value.
      * @return true, if both Coordinate have {@link Coordinate}s which have the same value each.
      * false, others.
-     * @throws RuntimeException when you check different Coordinate implementations.
+     * @throws RuntimeException when you compare different {@link Coordinate} implementations.
      */
     public boolean isEqual(Coordinate coordinate) {
         if (coordinate.getClass() != this.getClass()) {
@@ -115,6 +137,9 @@ public abstract class Coordinate {
     }
 
     /**
+     * Encode this Coordinate to an {@link EncodedCoordinate} object.
+     *
+     * <p>
      * All values on Edwards-curve can be encoded style. The method is depends on
      * each schemes.
      *

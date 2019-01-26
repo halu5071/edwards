@@ -12,10 +12,8 @@ import java.math.BigInteger;
  */
 public abstract class Point {
 
-    final protected Coordinate x;
-    final protected Coordinate y;
-
-    protected static Curve curve;
+    protected final Coordinate x;
+    protected final Coordinate y;
 
     /**
      * constructor of Point
@@ -28,17 +26,30 @@ public abstract class Point {
         this.y = y;
     }
 
+    /**
+     * Return x-coordinate value.
+     *
+     * @return x coordinate
+     */
     public Coordinate getX() {
         return x;
     }
 
+    /**
+     * Return y-coordinate value.
+     *
+     * @return y coordinate
+     */
     public Coordinate getY() {
         return y;
     }
 
     /**
-     * Point on edwards curve can be added. However, it is not just an addition like
-     * {@code int result = 1 + 1;} on elliptic curve.
+     * Return a Point which is result of addition of two points.
+     *
+     * <p>
+     * Pay attention that addition on elliptic curve is not just an addition like
+     * {@code int result = 1 + 1;}.
      * <p>Addition of each coordinates are defined as follows.
      * <pre>
      * {@code
@@ -47,7 +58,7 @@ public abstract class Point {
      *       1 + d * x1 * x2 * y1 * y2           1 - d * x1 * x2 * y1 * y2
      * }
      * </pre>
-     * <p>A class extends this class must pay attention this addition.
+     * <p>A class extends this class must pay attention to this addition.
      *
      * @param point which will be added.
      * @return {@link Point} will have been added.
@@ -55,8 +66,8 @@ public abstract class Point {
     public abstract Point add(Point point);
 
     /**
-     * Point on edwards curve can be multiplied. However, it is not just a multiplication like
-     * {@code int result = 10 * 3;} on elliptic curve.
+     * Return a Point which is result of multiplying of Point.
+     *
      * <p>
      * A multiplication on elliptic curve is defined as a lot of addition. However, just adding
      * spend a lot of time to calculate, so use 'double-and-add' algorithm or some others.
@@ -69,16 +80,18 @@ public abstract class Point {
     public abstract Point scalarMultiply(BigInteger integer);
 
     /**
-     * Negation of Point on elliptic curve means negateY of y-coordinate.
+     * Return a negated Point.
      * <p>
-     * You will negateY Point(x, y), will get Point(x, -y mod P).
+     * Negation of coordinate y means you will get Point(x, -y mod P).
+     * Prime P depends on each curves of elliptic curve.
      *
-     * @return Point negated.
+     * @return {@code Point(x, -y mod P)}.
      */
     public abstract Point negateY();
 
     /**
-     * All values on edwards curve are coded as octet strings.
+     * Encode this Point to an {@link EncodedPoint} object.
+     *
      * <p>
      * Point can be encoded as follows.
      * <ul>
@@ -88,7 +101,7 @@ public abstract class Point {
      * bit of the final octet.
      * </ul>
      *
-     * @return {@link EncodedPoint} on each edwards curve.
+     * @return {@link EncodedPoint}
      */
     public abstract EncodedPoint encode();
 
@@ -98,16 +111,16 @@ public abstract class Point {
      * {@link IllegalComparisonException}.
      * <pre>
      *      {@code
-     *          Point point1 = new PointEd25519(...);
-     *          Point point2 = new PointEd448(...);
-     *          point1.isEqual(point2);
+     *          Point point25519 = new PointEd25519(...);
+     *          Point point448 = new PointEd448(...);
+     *          point25519.isEqual(point448);
      *      }
      * </pre>
      *
      * @param point target {@link Point} to check value.
      * @return true, if both Points have {@link Coordinate}s which have the same value each.
      * false, others.
-     * @throws RuntimeException when you check different Point implementations.
+     * @throws IllegalComparisonException when you compare different Point implementations.
      */
     public boolean isEqual(Point point) {
         if (point.getClass() != this.getClass()) {

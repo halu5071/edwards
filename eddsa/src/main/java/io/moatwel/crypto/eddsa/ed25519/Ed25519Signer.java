@@ -19,7 +19,7 @@ import io.moatwel.util.ByteUtils;
 /**
  * A Signer on Edwards-CURVE DSA specified on Ed25519 CURVE.
  *
- * @author halu5071 (Yasunori Horii) at 2018/6/11
+ * @author halu5071 (Yasunori Horii)
  * @see Ed25519SchemeProvider
  * @see EdDsaSigner
  */
@@ -60,7 +60,7 @@ public class Ed25519Signer implements EdDsaSigner {
         // Step2
         byte[] dom = schemeProvider.dom(context);
         byte[] prefix = ByteUtils.split(h, 32)[1];
-        byte[] ph = schemeProvider.ph(data);
+        byte[] ph = schemeProvider.preHash(data);
 
         byte[] rSeed = Hashes.hash(hashAlgorithm, dom, prefix, ph);
         byte[] rSeedReversed = ByteUtils.reverse(rSeed);
@@ -106,7 +106,7 @@ public class Ed25519Signer implements EdDsaSigner {
             Coordinate s = encodedS.decode();
 
             byte[] dom = schemeProvider.dom(context);
-            byte[] ph = schemeProvider.ph(data);
+            byte[] ph = schemeProvider.preHash(data);
             byte[] kSeed = Hashes.hash(hashAlgorithm, dom, r.encode().getValue(), a.encode().getValue(), ph);
             Coordinate k = new EncodedCoordinateEd25519(kSeed).decode();
 

@@ -29,7 +29,24 @@ public abstract class SchemeProvider {
 
     public abstract PrivateKey generatePrivateKey();
 
-    public abstract byte[] ph(byte[] input);
+    /**
+     * Return a pre-hashed byte array.
+     *
+     * <p>
+     * check the pre-hash function of each schemes.
+     *
+     * @param input byte array which will be hashed.
+     * @return hashed byte array
+     */
+    public abstract byte[] preHash(byte[] input);
 
+    /**
+     * Return byte array which the result of 'dom' operation
+     * <p>
+     * see <a href="https://tools.ietf.org/html/rfc8032#section-2" target="_blank">RFC8032</a>
+     *
+     * @param context context of signing and verifying
+     * @return byte array
+     */
     public abstract byte[] dom(byte[] context);
 }

@@ -45,7 +45,7 @@ public class Ed25519phSchemeProvider extends SchemeProvider {
     }
 
     @Override
-    public byte[] ph(byte[] input) {
+    public byte[] preHash(byte[] input) {
         return Hashes.hash(algorithm, input);
     }
 

@@ -44,7 +44,7 @@ public class Ed25519ctxSchemeProvider extends SchemeProvider {
     }
 
     @Override
-    public byte[] ph(byte[] input) {
+    public byte[] preHash(byte[] input) {
         return input;
     }
 

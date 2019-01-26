@@ -25,26 +25,26 @@ class CoordinateEd448 extends Coordinate {
     }
 
     @Override
-    public Coordinate add(Coordinate coordinate) {
-        BigInteger integer = coordinate.getInteger();
+    public Coordinate add(Coordinate val) {
+        BigInteger integer = val.getInteger();
         return new CoordinateEd448(value.add(integer));
     }
 
     @Override
-    public Coordinate divide(Coordinate coordinate) {
-        BigInteger integer = coordinate.getInteger();
+    public Coordinate divide(Coordinate val) {
+        BigInteger integer = val.getInteger();
         return new CoordinateEd448(value.divide(integer));
     }
 
     @Override
-    public Coordinate multiply(Coordinate coordinate) {
-        BigInteger integer = coordinate.getInteger();
+    public Coordinate multiply(Coordinate val) {
+        BigInteger integer = val.getInteger();
         return new CoordinateEd448(value.multiply(integer));
     }
 
     @Override
-    public Coordinate subtract(Coordinate coordinate) {
-        BigInteger integer = coordinate.getInteger();
+    public Coordinate subtract(Coordinate val) {
+        BigInteger integer = val.getInteger();
         return new CoordinateEd448(value.subtract(integer));
     }
 
@@ -60,8 +60,8 @@ class CoordinateEd448 extends Coordinate {
     }
 
     @Override
-    public Coordinate powerMod(BigInteger integer) {
-        return new CoordinateEd448(this.value.modPow(integer, curve.getPrimePowerP()));
+    public Coordinate powerMod(BigInteger exponent) {
+        return new CoordinateEd448(this.value.modPow(exponent, curve.getPrimePowerP()));
     }
 
     @Override

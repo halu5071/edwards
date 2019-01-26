@@ -3,6 +3,7 @@ package io.moatwel.crypto.eddsa.ed448;
 import java.math.BigInteger;
 
 import io.moatwel.crypto.eddsa.Coordinate;
+import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ArrayUtils;
@@ -19,6 +20,7 @@ class PointEd448 extends Point {
 
     private static final Coordinate Z1 = new CoordinateEd448(BigInteger.ONE);
     private static final Coordinate Z2 = new CoordinateEd448(BigInteger.ONE);
+    private static final Curve curve = Curve448.getInstance();
 
     /**
      * constructor of Point
@@ -28,7 +30,6 @@ class PointEd448 extends Point {
      */
     PointEd448(Coordinate x, Coordinate y) {
         super(x, y);
-        curve = Curve448.getInstance();
     }
 
     /**
