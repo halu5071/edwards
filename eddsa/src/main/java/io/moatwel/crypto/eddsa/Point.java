@@ -74,6 +74,10 @@ public abstract class Point {
      * See also brief description of
      * <a href="https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication">Elliptic curve point multiplication</a>
      *
+     * <p>
+     * If {@code integer} is equal to {@link BigInteger#ZERO}, this method must return the origin
+     * point which is Point(0, 1).
+     *
      * @param integer scalar value to multiply Point.
      * @return {@link Point} which will be multiplied.
      */

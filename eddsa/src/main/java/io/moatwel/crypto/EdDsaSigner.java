@@ -27,6 +27,11 @@ public interface EdDsaSigner {
      *
      * <p>
      * Pay attention to use the same {@code context} as the context on signing.
+     * <p>
+     * Verify operation must handle point decoding, which throw
+     * {@link io.moatwel.crypto.eddsa.DecodeException}. This method must tackle with that exception.
+     * {@link io.moatwel.crypto.eddsa.DecodeException} means failure of verifying, so this method
+     * must return false.
      *
      * @param keyPair {@link KeyPair} you want to use.
      * @param data byte array you want to verify.
