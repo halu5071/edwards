@@ -34,13 +34,8 @@ public class Ed448Signer implements EdDsaSigner {
 
     @Override
     public Signature sign(KeyPair keyPair, byte[] data, byte[] context) {
-        if (context == null) {
-            context = new byte[0];
-        }
-
-        if (context.length > 255) {
-            throw new IllegalStateException("context length in byte must be less than 256 bytes.");
-        }
+        context = beNonNullContext(context);
+        checkContextLength(context);
 
         byte[] h = Hashes.hash(algorithm, 114, keyPair.getPrivateKey().getRaw());
 
@@ -78,13 +73,8 @@ public class Ed448Signer implements EdDsaSigner {
     @Override
     public boolean verify(KeyPair keyPair, byte[] data, byte[] context, Signature signature) {
         try {
-            if (context == null) {
-                context = new byte[0];
-            }
-
-            if (context.length > 255) {
-                throw new IllegalStateException("context length in byte must be less than 256 bytes.");
-            }
+            context = beNonNullContext(context);
+            checkContextLength(context);
 
             byte[] rSeed = signature.getR();
             EncodedPoint encodedR = new EncodedPointEd448(rSeed);
@@ -113,5 +103,15 @@ public class Ed448Signer implements EdDsaSigner {
         } catch (DecodeException e) {
             return false;
         }
+    }
+
+    private byte[] beNonNullContext(byte[] context) {
+        if (context == null) context = new byte[0];
+        return context;
+    }
+
+    private void checkContextLength(byte[] context) {
+        if (context.length > 255)
+            throw new IllegalStateException("context length in byte must be less than 256 bytes.");
     }
 }

@@ -19,10 +19,9 @@ class EncodedPointEd25519 extends EncodedPoint {
 
     EncodedPointEd25519(byte[] value) {
         super(value);
-        if (value.length != 32) {
-            throw new IllegalArgumentException("EncodedPoint on ed25519 curve must have 32 byte length. " +
-                    "The length of your EncodedPoint was " + value.length);
-        }
+        if (value.length != 32)
+            throw new IllegalArgumentException("EncodedPoint on ed25519 curve must have " +
+                    "32 byte length. The length of your EncodedPoint was " + value.length);
     }
 
     /**
@@ -34,14 +33,23 @@ class EncodedPointEd25519 extends EncodedPoint {
         byte readTarget = value[value.length - 1];
         int x0 = ByteUtils.readBit(readTarget, 7);
 
-        // Recover Y
-        this.value[value.length - 1] &= 0x7F;
-        BigInteger ySeed = new BigInteger(ByteUtils.reverse(this.value));
+        Coordinate y = recoverY(this.value);
+
+        Coordinate x = recoverX(y, x0);
+
+        return new PointEd25519(x, y);
+    }
+
+    private Coordinate recoverY(byte[] source) throws DecodeException {
+        source[source.length - 1] &= 0x7F;
+        BigInteger ySeed = new BigInteger(ByteUtils.reverse(source));
         if (ySeed.compareTo(curve.getPrimePowerP()) >= 1) {
             throw new DecodeException("EdDsa decoding failed. This point is not on the edwards Curve25519.");
         }
-        Coordinate y = new CoordinateEd25519(ySeed);
+        return new CoordinateEd25519(ySeed);
+    }
 
+    private Coordinate recoverX(Coordinate y, int xSource) throws DecodeException {
         Coordinate u = y.multiply(y).subtract(CoordinateEd25519.ONE).mod();
         Coordinate v = (curve.getD().multiply(y).multiply(y).add(CoordinateEd25519.ONE)).mod();
         Coordinate xx = u.multiply(v.inverse()).mod();
@@ -60,10 +68,10 @@ class EncodedPointEd25519 extends EncodedPoint {
         }
 
         BigInteger result = x.getInteger().mod(BigInteger.ONE.shiftLeft(1));
-        if (result.compareTo(BigInteger.valueOf((long) x0)) != 0) {
+        if (result.compareTo(BigInteger.valueOf((long) xSource)) != 0) {
             x = new CoordinateEd25519(curve.getPrimePowerP().subtract(x.getInteger()).mod(curve.getPrimePowerP()));
         }
 
-        return new PointEd25519(x, y);
+        return x;
     }
 }

@@ -33,13 +33,23 @@ class EncodedPointEd448 extends EncodedPoint {
         byte readTarget = value[value.length - 1];
         int x0 = ByteUtils.readBit(readTarget, 7);
 
-        this.value[value.length - 1] &= 0x7F;
-        BigInteger ySeed = new BigInteger(1, ByteUtils.reverse(this.value));
+        Coordinate y = recoverY(this.value);
+
+        Coordinate x = recoverX(y, x0);
+
+        return new PointEd448(x, y);
+    }
+
+    private Coordinate recoverY(byte[] source) throws DecodeException {
+        source[source.length - 1] &= 0x7F;
+        BigInteger ySeed = new BigInteger(1, ByteUtils.reverse(source));
         if (ySeed.compareTo(curve.getPrimePowerP()) >= 1) {
             throw new DecodeException("EdDsa decoding failed. This point is not on the Curve448.");
         }
-        Coordinate y = new CoordinateEd448(ySeed);
+        return new CoordinateEd448(ySeed);
+    }
 
+    private Coordinate recoverX(Coordinate y, int xSource) throws DecodeException {
         Coordinate u = y.multiply(y).subtract(CoordinateEd448.ONE).mod();
         Coordinate v = curve.getD().multiply(y).multiply(y).subtract(CoordinateEd448.ONE).mod();
         Coordinate xx = u.multiply(v.inverse()).mod();
@@ -50,14 +60,14 @@ class EncodedPointEd448 extends EncodedPoint {
             throw new DecodeException("EdDsa decoding failed. This encoded point is not on the Curve448");
         }
 
-        if (x.isEqual(CoordinateEd448.ZERO) && x0 == 1) {
+        if (x.isEqual(CoordinateEd448.ZERO) && xSource == 1) {
             throw new DecodeException("EdDsa decoding failed.");
         }
 
-        if (x.getInteger().mod(BigInteger.ONE.shiftLeft(1)).compareTo(BigInteger.valueOf((long) x0)) != 0) {
+        if (x.getInteger().mod(BigInteger.ONE.shiftLeft(1)).compareTo(BigInteger.valueOf((long) xSource)) != 0) {
             x = new CoordinateEd448(BigInteger.ZERO.subtract(x.getInteger()).mod(curve.getPrimePowerP()));
         }
 
-        return new PointEd448(x, y);
+        return x;
     }
 }
