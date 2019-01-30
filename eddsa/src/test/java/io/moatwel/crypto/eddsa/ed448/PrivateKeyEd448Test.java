@@ -21,7 +21,7 @@ public class PrivateKeyEd448Test {
 
     @Test(expected = IllegalArgumentException.class)
     public void failure_GeneratePrivateKey_wrong_byte_length_3() {
-        PrivateKey.newInstance("a8b41c2d01323");
+        PrivateKey.newInstance("a8b41c2d013234");
     }
 
     @Test
