@@ -16,6 +16,13 @@ public class Ed448phSchemeProviderTest {
     }
 
     @Test
+    public void success_GetSigner() {
+        SchemeProvider schemeProvider = new Ed448phSchemeProvider(HashAlgorithm.SHAKE_256);
+
+        assertNotNull(schemeProvider.getSigner());
+    }
+
+    @Test
     public void success_GenerateRandomPrivateKey() {
         SchemeProvider schemeProvider = new Ed448phSchemeProvider(HashAlgorithm.SHAKE_256);
         PrivateKey privateKey = schemeProvider.generatePrivateKey();

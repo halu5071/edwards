@@ -16,6 +16,12 @@ public class Ed25519ctxSchemeProviderTest {
     }
 
     @Test
+    public void success_GetSigner() {
+        SchemeProvider schemeProvider = new Ed25519ctxSchemeProvider(HashAlgorithm.SHAKE_256);
+        assertNotNull(schemeProvider.getSigner());
+    }
+
+    @Test
     public void success_GenerateRandomPrivateKey() {
         SchemeProvider schemeProvider = new Ed25519ctxSchemeProvider(HashAlgorithm.SHAKE_256);
         PrivateKey privateKey = schemeProvider.generatePrivateKey();

@@ -3,6 +3,8 @@ package io.moatwel.crypto.eddsa.ed448;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigInteger;
+
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyGenerator;
 import io.moatwel.crypto.KeyPair;
@@ -485,6 +487,29 @@ public class Ed448VerifyTest {
         boolean isValid = scheme.getSigner().verify(pair, "bob".getBytes(), null, signature);
 
         assertThat(isValid, is(false));
+    }
+
+    @Test
+    public void failure_VerifyMessage_11() {
+        PrivateKey privateKey = PrivateKey.newInstance(
+                "2ec5fe3c17045abdb136a5e6a913e32a" +
+                        "b75ae68b53d2fc149b77e504132d3756" +
+                        "9b7e766ba74a19bd6162343a21c8590a" +
+                        "a9cebca9014c636df5");
+        KeyPair pair = generator.generateKeyPair(privateKey);
+        byte[] r = HexEncoder.getBytes(
+                "c650ddbb0601c19ca11439e1640dd931" +
+                        "f43c518ea5bea70d3dcde5f4191fe53f" +
+                        "00cf966546b72bcc7d58be2b9badef28" +
+                        "743954e3a44a23f880");
+        byte[] s = HexEncoder.getBytes(
+                "feffffffffffffffffffffffffffffff" +
+                        "ffffffffffffffffffffffffffffffff" +
+                        "ffffffffffffffffffffffffffffffff" +
+                        "ffffffffffffffffff");
+        Signature signature = new SignatureEd448(r, s);
+
+        scheme.getSigner().verify(pair, "bob".getBytes(), null, signature);
     }
 
     @Test(expected = IllegalStateException.class)

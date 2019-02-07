@@ -15,6 +15,7 @@ import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 public class Ed448SignTest {
@@ -254,6 +255,23 @@ public class Ed448SignTest {
                         "3d00"));
         assertThat(HexEncoder.getString(byteR), is("c650ddbb0601c19ca11439e1640dd931f43c518ea5bea70d3dcde5f4191fe53f00cf966546b72bcc7d58be2b9badef28743954e3a44a23f880"));
         assertThat(HexEncoder.getString(byteS), is("e8d4f1cfce2d7a61452d26da05896f0a50da66a239a8a188b6d825b3305ad77b73fbac0836ecc60987fd08527c1a8e80d5823e65cafe2a3d00"));
+    }
+
+    @Test
+    public void success_SignMessage_0() {
+        PrivateKey privateKey = PrivateKey.newInstance(
+                "c4eab05d357007c632f3dbb48489924d" +
+                        "552b08fe0c353a0d4a1f00acda2c463a" +
+                        "fbea67c5e8d2877c5e3bc397a659949e" +
+                        "f8021e954e0a12274e");
+        KeyPair pair = generator.generateKeyPair(privateKey);
+
+        SecureRandom random = new SecureRandom();
+        byte[] randomByte = new byte[255];
+        random.nextBytes(randomByte);
+
+        Signature signature = scheme.getSigner().sign(pair, HexEncoder.getBytes("03"), randomByte);
+        assertNotNull(signature);
     }
 
     @Test(expected = IllegalStateException.class)

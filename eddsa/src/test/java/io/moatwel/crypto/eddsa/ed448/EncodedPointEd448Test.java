@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import io.moatwel.crypto.eddsa.DecodeException;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.util.ByteUtils;
 import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -112,6 +113,14 @@ public class EncodedPointEd448Test {
 
         assertThat(point.getX().getInteger(), is(new BigInteger("449601228056392842230918689215266494656853731174814964546460532894095209940282727350955807386237790569082667715328043268032774236716391")));
         assertThat(point.getY().getInteger(), is(new BigInteger("463660519351695293978775992627459962966972487196635521875909448266291287923975634634090639053873258679301513736748439507889181142748412")));
+    }
+
+    @Test
+    public void success_DecodePoint_11() throws DecodeException {
+        // BigInteger("726838724295606890549323807888004534353641360687318060281490199180612328166730772686396383698676545930088884461843637361053498018365439") powerPrime
+        byte[] value = HexEncoder.getBytes("fffffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffff00");
+        EncodedPoint encodedPoint = new EncodedPointEd448(value);
+        encodedPoint.decode();
     }
 
     @Test(expected = IllegalArgumentException.class)
