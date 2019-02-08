@@ -123,6 +123,14 @@ public class EncodedPointEd448Test {
         encodedPoint.decode();
     }
 
+    @Test(expected = DecodeException.class)
+    public void success_DecodePoint_12() throws DecodeException {
+        // BigInteger("726838724295606890549323807888004534353641360687318060281490199180612328166730772686396383698676545930088884461843637361053498018365440")
+        byte[] value = HexEncoder.getBytes("00000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff00");
+        EncodedPoint encodedPoint = new EncodedPointEd448(value);
+        encodedPoint.decode();
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void failure_GenerateEncodedPoint_1() {
         new EncodedPointEd448(new byte[56]);
