@@ -36,6 +36,14 @@ jobs:
       - store_artifacts:
           path: ~/code/benchmark/build/reports/jmh
       - run:
+          name: Pitest
+          command: |
+                ./gradlew eddsa:pitest
+      - store_test_results:
+          path: ~/code/eddsa/build/reports/pitest
+      - store_artifacts:
+          path: ~/code/eddsa/build/reports/pitest
+      - run:
           name: Publish Artifact
           command: |
                 if [ $CIRCLE_BRANCH = "master" ]; then
