@@ -82,7 +82,7 @@ class PointEd25519 extends Point {
         for (int aSignedBin : signedBin) {
             qs[0] = qs[0].add(qs[0]);
             qs[1] = ((PointEd25519) qs[0].add(rs[1 - aSignedBin])).negate();
-            qs[0] = qs[Math.abs(aSignedBin)];
+            qs[0] = qs[(aSignedBin ^ (aSignedBin >> 31)) - (aSignedBin >> 31)];
         }
         return qs[0];
     }
