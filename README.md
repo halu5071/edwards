@@ -2,7 +2,7 @@
 [![CircleCI](https://circleci.com/gh/halu5071/edwards.svg?style=svg&circle-token=cbf414b02faf05868c94e788f208e115aea1650d)](https://circleci.com/gh/halu5071/edwards) [![codecov](https://codecov.io/gh/halu5071/edwards/branch/master/graph/badge.svg?token=ahNKdm6dVP)](https://codecov.io/gh/halu5071/edwards) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [ ![Download](https://api.bintray.com/packages/halu5071/edwards/edwards/images/download.svg) ](https://bintray.com/halu5071/edwards/edwards/_latestVersion)[![Maintainability](https://api.codeclimate.com/v1/badges/f901cadc8bb4fc891b66/maintainability)](https://codeclimate.com/github/halu5071/edwards/maintainability)
 
 
-Edwards is a crypto library for Edwards-curve Digital Signature Algorithm (EdDSA). It makes it easy to create KeyPair, sign and verify your message.
+Edwards is a crypto library for Edwards-curve Digital Signature Algorithm (EdDSA). This library makes it easy to create KeyPair, sign and verify your message.
 
 ## How to use
 
@@ -118,7 +118,11 @@ Please use AndroidStudio or Intellij. Clone this repository, and open it.
 ## Dependencies
 This software is built on some Open Source Softwares.
 
-- Spongy Castle
+- [Spongy Castle](https://github.com/rtyley/spongycastle)
+- [jna-gmp](https://github.com/square/jna-gmp)
+
+## Benchmark
+Latest benchmark is [here](https://302-136564461-gh.circle-artifacts.com/0/home/circleci/code/benchmark/build/reports/jmh/index.html)
 
 ## License
 This software is under the Apache License, Version 2.0.
