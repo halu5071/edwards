@@ -16,6 +16,12 @@ public class HexEncoderTest {
         assertThat(HexEncoder.getBytes(hex), is(input));
     }
 
+    @Test(expected = IllegalHexStringException.class)
+    public void failure_GetBytes_from_odd_hex_string() {
+        String hex = "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1";
+        byte[] result = HexEncoder.getBytes(hex);
+    }
+
     @Test
     public void success_GetString_from_hexString() {
         String hex = "abcd12";

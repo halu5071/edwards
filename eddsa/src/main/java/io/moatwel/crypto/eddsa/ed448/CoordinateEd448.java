@@ -1,5 +1,7 @@
 package io.moatwel.crypto.eddsa.ed448;
 
+import com.squareup.jnagmp.Gmp;
+
 import java.math.BigInteger;
 
 import io.moatwel.crypto.eddsa.Coordinate;
@@ -33,7 +35,7 @@ class CoordinateEd448 extends Coordinate {
     @Override
     public Coordinate divide(Coordinate val) {
         BigInteger integer = val.getInteger();
-        return new CoordinateEd448(value.divide(integer));
+        return new CoordinateEd448(Gmp.exactDivide(value, integer));
     }
 
     @Override
@@ -55,13 +57,12 @@ class CoordinateEd448 extends Coordinate {
 
     @Override
     public Coordinate inverse() {
-        BigInteger integer = this.getInteger();
-        return new CoordinateEd448(integer.modInverse(curve.getPrimePowerP()));
+        return new CoordinateEd448(Gmp.modInverse(value, curve.getPrimePowerP()));
     }
 
     @Override
     public Coordinate powerMod(BigInteger exponent) {
-        return new CoordinateEd448(this.value.modPow(exponent, curve.getPrimePowerP()));
+        return new CoordinateEd448(Gmp.modPowSecure(value, exponent, curve.getPrimePowerP()));
     }
 
     @Override

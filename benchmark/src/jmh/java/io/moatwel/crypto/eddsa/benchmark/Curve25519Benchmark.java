@@ -1,16 +1,8 @@
 package io.moatwel.crypto.eddsa.benchmark;
 
 import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.results.format.ResultFormatType;
-import org.openjdk.jmh.runner.Runner;
-import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
-
-import java.util.concurrent.TimeUnit;
 
 import io.moatwel.crypto.KeyPair;
 import io.moatwel.crypto.Signature;
@@ -35,20 +27,5 @@ public class Curve25519Benchmark {
     @Benchmark
     public void verify() {
         edwards.verify(pair, new byte[32], signature);
-    }
-
-    public static void main(String[] args) throws RunnerException {
-        Options opt = new OptionsBuilder()
-                .resultFormat(ResultFormatType.JSON)
-                .result("benchmark.json")
-                .include(Curve25519Benchmark.class.getCanonicalName())
-                .include(Curve448Benchmark.class.getCanonicalName())
-                .warmupIterations(50)
-                .measurementIterations(50)
-                .timeUnit(TimeUnit.MILLISECONDS)
-                .forks(1)
-                .mode(Mode.AverageTime)
-                .build();
-        new Runner(opt).run();
     }
 }

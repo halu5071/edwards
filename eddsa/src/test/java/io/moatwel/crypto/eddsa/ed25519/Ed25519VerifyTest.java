@@ -3,6 +3,8 @@ package io.moatwel.crypto.eddsa.ed25519;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.security.SecureRandom;
+
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyGenerator;
@@ -210,6 +212,18 @@ public class Ed25519VerifyTest {
         Signature signature = signer.sign(pair, "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do".getBytes(), null);
 
         boolean isVerified = signer.verify(pair, "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do".getBytes(), null, signature);
+
+        assertThat(isVerified, is(true));
+    }
+
+    @Test
+    public void success_VerifySignature_21() {
+        SecureRandom random = new SecureRandom();
+        byte[] context = new byte[255];
+        random.nextBytes(context);
+        Signature signature = signer.sign(pair, "alice".getBytes(), context);
+
+        boolean isVerified = signer.verify(pair, "alice".getBytes(), context, signature);
 
         assertThat(isVerified, is(true));
     }

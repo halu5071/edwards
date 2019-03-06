@@ -30,6 +30,7 @@ jmh {
     warmupIterations = 5
 
     jmhVersion = '1.21' // Specifies JMH version
+    duplicateClassesStrategy = 'warn'
 }
 
 jmhReport {

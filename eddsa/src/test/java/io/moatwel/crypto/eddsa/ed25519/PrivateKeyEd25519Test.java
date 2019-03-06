@@ -27,7 +27,7 @@ public class PrivateKeyEd25519Test {
 
     @Test(expected = IllegalArgumentException.class)
     public void failure_GeneratePrivateKey_wrong_hex_string() {
-        PrivateKey.newInstance("98fa9d87f89ad7f");
+        PrivateKey.newInstance("98fa9d87f89ad7");
     }
 
     @Test

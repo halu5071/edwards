@@ -487,6 +487,101 @@ public class Ed448VerifyTest {
         assertThat(isValid, is(false));
     }
 
+    @Test
+    public void failure_VerifyMessage_11() {
+        PrivateKey privateKey = PrivateKey.newInstance(
+                "2ec5fe3c17045abdb136a5e6a913e32a" +
+                        "b75ae68b53d2fc149b77e504132d3756" +
+                        "9b7e766ba74a19bd6162343a21c8590a" +
+                        "a9cebca9014c636df5");
+        KeyPair pair = generator.generateKeyPair(privateKey);
+        byte[] r = HexEncoder.getBytes(
+                "c650ddbb0601c19ca11439e1640dd931" +
+                        "f43c518ea5bea70d3dcde5f4191fe53f" +
+                        "00cf966546b72bcc7d58be2b9badef28" +
+                        "743954e3a44a23f880");
+        byte[] s = HexEncoder.getBytes(
+                "feffffffffffffffffffffffffffffff" +
+                        "ffffffffffffffffffffffffffffffff" +
+                        "ffffffffffffffffffffffffffffffff" +
+                        "ffffffffffffffffff");
+        Signature signature = new SignatureEd448(r, s);
+
+        scheme.getSigner().verify(pair, "bob".getBytes(), null, signature);
+    }
+
+    @Test
+    public void failure_VerifyMessage_12() {
+        PrivateKey privateKey = PrivateKey.newInstance(
+                "2ec5fe3c17045abdb136a5e6a913e32a" +
+                        "b75ae68b53d2fc149b77e504132d3756" +
+                        "9b7e766ba74a19bd6162343a21c8590a" +
+                        "a9cebca9014c636df5");
+        KeyPair pair = generator.generateKeyPair(privateKey);
+        byte[] r = HexEncoder.getBytes(
+                "c650ddbb0601c19ca11439e1640dd931" +
+                        "f43c518ea5bea70d3dcde5f4191fe53f" +
+                        "00cf966546b72bcc7d58be2b9badef28" +
+                        "743954e3a44a23f880");
+        byte[] s = HexEncoder.getBytes(
+                "f44458ab92c27823558fc58d72c26c2" +
+                        "19036d6ae49db4ec4e923ca7cffffff" +
+                        "fffffffffffffffffffffffffffffff" +
+                        "fffffffffffffffff3f00");
+        Signature signature = new SignatureEd448(r, s);
+
+        boolean isVerified = scheme.getSigner().verify(pair, "bob".getBytes(), null, signature);
+        assertThat(isVerified, is(false));
+    }
+
+    @Test
+    public void failure_VerifyMessage_13() {
+        PrivateKey privateKey = PrivateKey.newInstance(
+                "2ec5fe3c17045abdb136a5e6a913e32a" +
+                        "b75ae68b53d2fc149b77e504132d3756" +
+                        "9b7e766ba74a19bd6162343a21c8590a" +
+                        "a9cebca9014c636df5");
+        KeyPair pair = generator.generateKeyPair(privateKey);
+        byte[] r = HexEncoder.getBytes(
+                "c650ddbb0601c19ca11439e1640dd931" +
+                        "f43c518ea5bea70d3dcde5f4191fe53f" +
+                        "00cf966546b72bcc7d58be2b9badef28" +
+                        "743954e3a44a23f880");
+        byte[] s = HexEncoder.getBytes(
+                "f34458ab92c27823558fc58d72c26c2" +
+                        "19036d6ae49db4ec4e923ca7cffffff" +
+                        "fffffffffffffffffffffffffffffff" +
+                        "fffffffffffffffff3f00");
+        Signature signature = new SignatureEd448(r, s);
+
+        boolean isVerified = scheme.getSigner().verify(pair, "bob".getBytes(), null, signature);
+        assertThat(isVerified, is(false));
+    }
+
+    @Test
+    public void failure_VerifyMessage_14() {
+        PrivateKey privateKey = PrivateKey.newInstance(
+                "2ec5fe3c17045abdb136a5e6a913e32a" +
+                        "b75ae68b53d2fc149b77e504132d3756" +
+                        "9b7e766ba74a19bd6162343a21c8590a" +
+                        "a9cebca9014c636df5");
+        KeyPair pair = generator.generateKeyPair(privateKey);
+        byte[] r = HexEncoder.getBytes(
+                "c650ddbb0601c19ca11439e1640dd931" +
+                        "f43c518ea5bea70d3dcde5f4191fe53f" +
+                        "00cf966546b72bcc7d58be2b9badef28" +
+                        "743954e3a44a23f880");
+        byte[] s = HexEncoder.getBytes(
+                "f24458ab92c27823558fc58d72c26c2" +
+                        "19036d6ae49db4ec4e923ca7cffffff" +
+                        "fffffffffffffffffffffffffffffff" +
+                        "fffffffffffffffff3f00");
+        Signature signature = new SignatureEd448(r, s);
+
+        boolean isVerified = scheme.getSigner().verify(pair, "bob".getBytes(), null, signature);
+        assertThat(isVerified, is(false));
+    }
+
     @Test(expected = IllegalStateException.class)
     public void failure_TooLongContext() {
         byte[] context = new byte[256];

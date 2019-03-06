@@ -80,6 +80,37 @@ public class BitTest {
     }
 
     @Test
+    public void set_7F() {
+        byte value1 = 0b01011101;
+        byte value2 = 0b01011011;
+        byte value3 = 0b01111111;
+        byte value4 = 0b01000010;
+
+        byte value5 = (byte) -62;
+        byte value6 = (byte) -37;
+        byte value7 = (byte) -1;
+        byte value8 = (byte) -35;
+
+        value1 &= 0x7F;
+        value2 &= 0x7F;
+        value3 &= 0x7F;
+        value4 &= 0x7F;
+        value5 &= 0x7F;
+        value6 &= 0x7F;
+        value7 &= 0x7F;
+        value8 &= 0x7F;
+
+        assertThat(value1, is((byte) 0b01011101));
+        assertThat(value2, is((byte) 0b01011011));
+        assertThat(value3, is((byte) 0b01111111));
+        assertThat(value4, is((byte) 0b01000010));
+        assertThat(value5, is((byte) 0b01000010));
+        assertThat(value6, is((byte) 0b01011011));
+        assertThat(value7, is((byte) 0b01111111));
+        assertThat(value8, is((byte) 0b01011101));
+    }
+
+    @Test
     public void set_the_second_highest_bit() {
         byte value1 = 0b00011101;
         byte value2 = 0b01011011;
