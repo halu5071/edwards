@@ -116,9 +116,6 @@ dependencies {
 ## How to build
 Please use AndroidStudio or Intellij. Clone this repository, and open it.
 
-## Attention
-Now you can not run this artifact on Android platform.
-
 
 ## Dependencies
 This software is built on some Open Source Softwares.
@@ -127,7 +124,7 @@ This software is built on some Open Source Softwares.
 - [jna-gmp](https://github.com/square/jna-gmp)
 
 ## Benchmark
-Latest benchmark is [here](https://302-136564461-gh.circle-artifacts.com/0/home/circleci/code/benchmark/build/reports/jmh/index.html)
+Latest benchmark is [here](https://328-136564461-gh.circle-artifacts.com/0/home/circleci/code/benchmark/build/reports/jmh/index.html)
 
 ## License
 This software is under the Apache License, Version 2.0.
