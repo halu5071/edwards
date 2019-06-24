@@ -15,7 +15,7 @@ import io.moatwel.util.ByteUtils;
 public class NemPublicKeyDelegate implements PublicKeyDelegate {
 
     private static final Curve CURVE = Curve25519.getInstance();
-    private static final HashAlgorithm HASH_ALGORITHM = HashAlgorithm.KECCAK_256;
+    private static final HashAlgorithm HASH_ALGORITHM = HashAlgorithm.KECCAK_512;
 
     @Override
     public byte[] generatePublicKeySeed(PrivateKey privateKey) {
