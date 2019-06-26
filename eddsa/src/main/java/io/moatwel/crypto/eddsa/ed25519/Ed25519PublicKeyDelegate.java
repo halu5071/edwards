@@ -33,7 +33,7 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
                     CURVE.getPublicKeyByteLength() + " byte length. Length: " + privateKey.getRaw().length);
         }
 
-        byte[] h = Hashes.hash(hashAlgorithm, privateKey.getRaw());
+        byte[] h = hashPrivateKey(privateKey);
 
         // Step1
         byte[] first32 = ByteUtils.split(h, 32)[0];
@@ -49,5 +49,10 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
 
         Point point = CURVE.getBasePoint().scalarMultiply(s);
         return point.encode().getValue();
+    }
+
+    @Override
+    public byte[] hashPrivateKey(PrivateKey privateKey) {
+        return Hashes.hash(hashAlgorithm, privateKey.getRaw());
     }
 }

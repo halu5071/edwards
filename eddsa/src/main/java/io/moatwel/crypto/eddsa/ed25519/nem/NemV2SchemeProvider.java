@@ -7,7 +7,7 @@ import io.moatwel.crypto.eddsa.ed25519.Ed25519SchemeProvider;
 public class NemV2SchemeProvider extends Ed25519SchemeProvider {
 
     public NemV2SchemeProvider() {
-        super(HashAlgorithm.KECCAK_256);
+        super(HashAlgorithm.SHA3_512);
     }
 
     @Override

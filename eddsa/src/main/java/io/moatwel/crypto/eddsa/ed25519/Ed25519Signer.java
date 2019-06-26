@@ -39,7 +39,7 @@ public class Ed25519Signer implements EdDsaSigner {
     public Signature sign(KeyPair keyPair, byte[] data, byte[] context) {
         context = beNonNullContext(context);
         checkContextLength(context);
-        byte[] h = Hashes.hash(hashAlgorithm, keyPair.getPrivateKey().getRaw());
+        byte[] h = schemeProvider.getPublicKeyDelegate().hashPrivateKey(keyPair.getPrivateKey());
 
         // Step1
         byte[] first32 = ByteUtils.split(h, 32)[0];

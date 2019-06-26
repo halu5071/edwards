@@ -37,7 +37,7 @@ public class Ed448Signer implements EdDsaSigner {
         context = beNonNullContext(context);
         checkContextLength(context);
 
-        byte[] h = Hashes.hash(algorithm, 114, keyPair.getPrivateKey().getRaw());
+        byte[] h = scheme.getPublicKeyDelegate().hashPrivateKey(keyPair.getPrivateKey());
 
         byte[] first57 = ByteUtils.split(h, 57)[0];
         first57[0] &= 0xFC;

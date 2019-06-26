@@ -16,4 +16,12 @@ public interface PublicKeyDelegate {
      * @return seed byte array for {@link io.moatwel.crypto.PublicKey}
      */
     byte[] generatePublicKeySeed(PrivateKey privateKey);
+
+    /**
+     * Return hash result of {@link PrivateKey}.
+     *
+     * @param privateKey {@link PrivateKey} which this public key derived from.
+     * @return hash byte array of {@link PrivateKey}
+     */
+    byte[] hashPrivateKey(PrivateKey privateKey);
 }

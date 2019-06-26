@@ -34,7 +34,7 @@ public class Ed448PublicKeyDelegate implements PublicKeyDelegate {
         }
 
         // Step1
-        byte[] hash = Hashes.hash(hashAlgorithm, 114, privateKey.getRaw());
+        byte[] hash = hashPrivateKey(privateKey);
         byte[] first57 = ByteUtils.split(hash, 57)[0];
 
         // Step2
@@ -49,5 +49,10 @@ public class Ed448PublicKeyDelegate implements PublicKeyDelegate {
         // Step4
         Point point = CURVE.getBasePoint().scalarMultiply(s);
         return point.encode().getValue();
+    }
+
+    @Override
+    public byte[] hashPrivateKey(PrivateKey privateKey) {
+        return Hashes.hash(hashAlgorithm, 114, privateKey.getRaw());
     }
 }
