@@ -9,9 +9,9 @@ import io.moatwel.util.HexEncoder;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class NemPublicKeyDelegateTest {
+public class NemV1PublicKeyDelegateTest {
 
-    private PublicKeyDelegate delegate = new NemPublicKeyDelegate();
+    private PublicKeyDelegate delegate = new NemV1PublicKeyDelegate();
 
     /** These test vectors were derived from nis on localhost:7890/account/generate **/
     @Test
