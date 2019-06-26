@@ -1,4 +1,4 @@
-package io.moatwel.crypto.eddsa.nem;
+package io.moatwel.crypto.eddsa.ed25519.nem;
 
 import org.junit.Test;
 
@@ -9,9 +9,9 @@ import io.moatwel.util.HexEncoder;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class NemPublicKeyDelegateTest {
+public class NemV2PublicKeyDelegateTest {
 
-    private PublicKeyDelegate delegate = new NemPublicKeyDelegate();
+    private PublicKeyDelegate delegate = new NemV2PublicKeyDelegate();
 
     /** These test vectors were derived from nis on localhost:7890/account/generate **/
     @Test
@@ -20,7 +20,7 @@ public class NemPublicKeyDelegateTest {
 
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
-        assertThat(HexEncoder.getString(seed), is("c6281a16ec99d25421e539a21f4a542f4da4fcbab525ba14c1aa169898fd4794"));
+        assertThat(HexEncoder.getString(seed), is("ec830bacf66db8391a69817e174ac89cde7f2749bc62fd5f3f27a7c912fb3118"));
     }
 
     @Test
@@ -29,7 +29,7 @@ public class NemPublicKeyDelegateTest {
 
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
-        assertThat(HexEncoder.getString(seed), is("9f067b408296fc1ea3369b9f0944fee263b8cf9a16a5fb5a025a76949b20fa6a"));
+        assertThat(HexEncoder.getString(seed), is("325346aa33cd778fd1c711e5e9f1591d145254095b42fdc58930204f6a57ff89"));
     }
 
     @Test
@@ -38,7 +38,7 @@ public class NemPublicKeyDelegateTest {
 
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
-        assertThat(HexEncoder.getString(seed), is("324c9c4fa40fd28d9570f0bbee76e33b3925689b6e3656efdabc798304515bf9"));
+        assertThat(HexEncoder.getString(seed), is("ab477c7e9ccc44877bcaae50c633934ade5802727ff3babdc1cc3f4ad1f213fc"));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class NemPublicKeyDelegateTest {
 
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
-        assertThat(HexEncoder.getString(seed), is("355d9ccac7eeea7ba0ba7918c3d768e3f7bfc3d1f28c20f1fb69ac5a945e197c"));
+        assertThat(HexEncoder.getString(seed), is("2c195df04f644ec962c294415c5de2e59cf59e1949f5d3f0344a5251eff761d8"));
     }
 
     @Test
@@ -56,7 +56,7 @@ public class NemPublicKeyDelegateTest {
 
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
-        assertThat(HexEncoder.getString(seed), is("17c7084d76d641bfb6618a9853678dacf62be6a1da98b838088e630e776cd99c"));
+        assertThat(HexEncoder.getString(seed), is("ec1ca16935c4efd928cbb61f822224709c24d216c64f93d5349f4f63307ae760"));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class NemPublicKeyDelegateTest {
 
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
-        assertThat(HexEncoder.getString(seed), is("1d830d870142d17b895ab692850db64c6580db9c45dea175187ec2cc7b442d34"));
+        assertThat(HexEncoder.getString(seed), is("fdfd06266ce8fd51b9b09b4e18e8742ea0e071468205ed11b7048331a178b5e4"));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class NemPublicKeyDelegateTest {
 
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
-        assertThat(HexEncoder.getString(seed), is("b2b72b351eb01ee988376ecc8defc1107d60023121b4ceb92fcc0f60fae54442"));
+        assertThat(HexEncoder.getString(seed), is("fc278c719962d1bd60a1a63540b5b0643e54ffe8c6303647617f1770d447d079"));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class NemPublicKeyDelegateTest {
 
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
-        assertThat(HexEncoder.getString(seed), is("52241a95d30ec523f79a4236a7bd748619ad472a54b1fdfe172ea1c0be2d0b06"));
+        assertThat(HexEncoder.getString(seed), is("bc2a9778d249f81c5619d04b328a957334fe063a724c822d2af74f8868ed7cd9"));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class NemPublicKeyDelegateTest {
 
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
-        assertThat(HexEncoder.getString(seed), is("f5496c59ff336ae2d497140f0ad48306092beeda0d36c31c7373103956c90261"));
+        assertThat(HexEncoder.getString(seed), is("b87476a1dbf653018d04a688b70f0d152d469b6a76025a86ec6e776363e0a784"));
     }
 
     @Test
@@ -101,7 +101,7 @@ public class NemPublicKeyDelegateTest {
 
         byte[] seed = delegate.generatePublicKeySeed(privateKey);
 
-        assertThat(HexEncoder.getString(seed), is("e2ec113bea44285e5f64f8a45f6ec71e9e2b806293f30e970fa5d77401447f35"));
+        assertThat(HexEncoder.getString(seed), is("8572aba7b580204112e746ddf8ebd798be391bba6958b3840e4a87786605d9de"));
     }
 
     @Test(expected = IllegalArgumentException.class)

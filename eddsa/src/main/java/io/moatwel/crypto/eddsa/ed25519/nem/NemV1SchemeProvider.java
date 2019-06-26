@@ -1,17 +1,17 @@
-package io.moatwel.crypto.eddsa.nem;
+package io.moatwel.crypto.eddsa.ed25519.nem;
 
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.crypto.eddsa.ed25519.Ed25519SchemeProvider;
 
-public class NemSchemeProvider extends Ed25519SchemeProvider {
+public class NemV1SchemeProvider extends Ed25519SchemeProvider {
 
-    public NemSchemeProvider() {
+    public NemV1SchemeProvider() {
         super(HashAlgorithm.KECCAK_256);
     }
 
     @Override
     public PublicKeyDelegate getPublicKeyDelegate() {
-        return new NemPublicKeyDelegate();
+        return new NemV1PublicKeyDelegate();
     }
 }
