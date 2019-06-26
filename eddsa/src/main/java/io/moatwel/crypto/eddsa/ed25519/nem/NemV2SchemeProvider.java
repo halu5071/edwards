@@ -1,4 +1,4 @@
-package io.moatwel.crypto.eddsa.nem;
+package io.moatwel.crypto.eddsa.ed25519.nem;
 
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;

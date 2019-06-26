@@ -1,4 +1,4 @@
-package io.moatwel.crypto.eddsa.nem;
+package io.moatwel.crypto.eddsa.ed25519.nem;
 
 import java.math.BigInteger;
 
@@ -12,10 +12,10 @@ import io.moatwel.crypto.eddsa.ed25519.Curve25519;
 import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
 import io.moatwel.util.ByteUtils;
 
-public class NemV1PublicKeyDelegate implements PublicKeyDelegate {
+public class NemV2PublicKeyDelegate implements PublicKeyDelegate {
 
     private static final Curve CURVE = Curve25519.getInstance();
-    private static final HashAlgorithm HASH_ALGORITHM = HashAlgorithm.KECCAK_512;
+    private static final HashAlgorithm HASH_ALGORITHM = HashAlgorithm.SHA3_512;
 
     @Override
     public byte[] generatePublicKeySeed(PrivateKey privateKey) {
@@ -24,7 +24,7 @@ public class NemV1PublicKeyDelegate implements PublicKeyDelegate {
                     CURVE.getPublicKeyByteLength() + " byte length. Length: " + privateKey.getRaw().length);
         }
 
-        byte[] h = Hashes.hash(HASH_ALGORITHM, ByteUtils.reverse(privateKey.getRaw()));
+        byte[] h = Hashes.hash(HASH_ALGORITHM, privateKey.getRaw());
 
         // Step1
         byte[] first32 = ByteUtils.split(h, 32)[0];
