@@ -61,7 +61,7 @@ Edwards supports some schemes.
 
 `Ed25591ctx`, `Ed25519ph` are contextualized extensions of the `Ed25519` scheme, and also `Ed448ph` is a contextualized extension of `Ed448` scheme.
 
-In addition, `NemSchemeProvider` is implemented. The use case of this provider is some operation in NEM v1.
+In addition, `NemV1SchemeProvider` and `NemV2SchemeProvider` are implemented. The use case of this provider is some operation in NEM v1 and v2 respectively.
 
 ### Built-in Hash algorithm
 This library use `SpongyCastle` internally, so you can almost all hash algorithm. Specify hash algorithm you want like this.
@@ -98,7 +98,7 @@ buildscript {
 }
 
 dependencies {
-    compile "io.moatwel.crypto:eddsa:0.5.0-beta"
+    compile "io.moatwel.crypto:eddsa:0.5.1-beta"
 }
 ```
 
@@ -108,7 +108,7 @@ dependencies {
 <dependency> 
     <groupId>io.moatwel.crypto</groupId> 
     <artifactId>eddsa</artifactId> 
-    <version>0.5.0-beta</version>
+    <version>0.5.1-beta</version>
     <type>pom</type> 
 </dependency>
 ```
