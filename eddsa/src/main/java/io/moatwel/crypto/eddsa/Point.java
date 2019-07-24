@@ -66,6 +66,16 @@ public abstract class Point {
     public abstract Point add(Point point);
 
     /**
+     * Return a Point which is result of doubling of a point.
+     *
+     * You know, of course the result of addition between each other is the same
+     * as a return of this. But there is some optimization for doubling.
+     *
+     * @return {@link Point} will have been doubled.
+     */
+    public abstract Point doubling();
+
+    /**
      * Return a Point which is result of multiplying of Point.
      *
      * <p>
