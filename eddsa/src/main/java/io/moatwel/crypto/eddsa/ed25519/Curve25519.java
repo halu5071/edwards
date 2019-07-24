@@ -21,7 +21,7 @@ public class Curve25519 extends Curve {
             .multiply(new BigInteger("121666").modInverse(P))
             .mod(P));
 
-    private static final Point BASE = new PointEd25519(
+    private static final Point BASE = PointEd25519.fromAffine(
             new CoordinateEd25519(new BigInteger("15112221349535400772501151409588531511454012693041857206046113283949847762202")),
             new CoordinateEd25519(new BigInteger("46316835694926478169428394003475163141307993866256225615783033603165251855960"))
     );

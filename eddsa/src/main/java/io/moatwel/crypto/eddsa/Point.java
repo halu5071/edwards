@@ -14,6 +14,7 @@ public abstract class Point {
 
     protected final Coordinate x;
     protected final Coordinate y;
+    protected final Coordinate z;
 
     /**
      * constructor of Point
@@ -21,9 +22,10 @@ public abstract class Point {
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    protected Point(Coordinate x, Coordinate y) {
+    protected Point(Coordinate x, Coordinate y, Coordinate z) {
         this.x = x;
         this.y = y;
+        this.z = z;
     }
 
     /**
@@ -35,6 +37,11 @@ public abstract class Point {
         return x;
     }
 
+    public Coordinate getAffineX() {
+        Coordinate zInverse = z.inverse();
+        return x.multiply(zInverse).mod();
+    }
+
     /**
      * Return y-coordinate value.
      *
@@ -42,6 +49,14 @@ public abstract class Point {
      */
     public Coordinate getY() {
         return y;
+    }
+
+    public Coordinate getAffineY() {
+        return y.multiply(z.inverse()).mod();
+    }
+
+    public Coordinate getZ() {
+        return z;
     }
 
     /**

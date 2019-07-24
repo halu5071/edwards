@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-
+/*
 public class PointEd448Test {
 
     private Curve curve = Curve448.getInstance();
@@ -277,3 +277,4 @@ public class PointEd448Test {
         point1.isEqual(point2);
     }
 }
+*/

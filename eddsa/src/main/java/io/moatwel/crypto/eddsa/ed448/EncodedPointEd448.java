@@ -37,7 +37,7 @@ class EncodedPointEd448 extends EncodedPoint {
 
         Coordinate x = recoverX(y, x0);
 
-        return new PointEd448(x, y);
+        return PointEd448.fromAffine(x, y);
     }
 
     private Coordinate recoverY(byte[] source) throws DecodeException {

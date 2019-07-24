@@ -16,7 +16,7 @@ import io.moatwel.util.ByteUtils;
  */
 class PointEd448 extends Point {
 
-    static final PointEd448 O = new PointEd448(CoordinateEd448.ZERO, CoordinateEd448.ONE);
+    static final PointEd448 O = PointEd448.fromAffine(CoordinateEd448.ZERO, CoordinateEd448.ONE);
 
     private static final Coordinate Z1 = new CoordinateEd448(BigInteger.ONE);
     private static final Coordinate Z2 = new CoordinateEd448(BigInteger.ONE);
@@ -28,8 +28,16 @@ class PointEd448 extends Point {
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    PointEd448(Coordinate x, Coordinate y) {
-        super(x, y);
+    PointEd448(Coordinate x, Coordinate y, Coordinate z) {
+        super(x, y, z);
+    }
+
+    public static PointEd448 fromAffine(Coordinate x, Coordinate y) {
+        return new PointEd448(
+                x.multiply(Z1).multiply(Z1).mod(),
+                y.multiply(Z1).multiply(Z1).multiply(Z1).mod(),
+                Z1
+        );
     }
 
     /**
@@ -58,7 +66,7 @@ class PointEd448 extends Point {
         Coordinate x3 = X3.multiply(Z3).mod();
         Coordinate y3 = Y3.multiply(Z3).mod();
 
-        return new PointEd448(x3, y3);
+        return PointEd448.fromAffine(x3, y3);
     }
 
     @Override
@@ -80,7 +88,7 @@ class PointEd448 extends Point {
         Coordinate x3 = X3.multiply(Z3).mod();
         Coordinate y3 = Y3.multiply(Z3).mod();
 
-        return new PointEd448(x3, y3);
+        return PointEd448.fromAffine(x3, y3);
     }
 
     /**
@@ -108,7 +116,7 @@ class PointEd448 extends Point {
 
     @Override
     public Point negateY() {
-        return new PointEd448(x, y.negate());
+        return PointEd448.fromAffine(x, y.negate());
     }
 
     /**
@@ -134,6 +142,6 @@ class PointEd448 extends Point {
     }
 
     private Point negate() {
-        return new PointEd448(x.negate(), y.negate());
+        return PointEd448.fromAffine(x.negate(), y.negate());
     }
 }
