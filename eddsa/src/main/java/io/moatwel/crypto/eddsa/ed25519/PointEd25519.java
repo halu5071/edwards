@@ -16,7 +16,6 @@ import io.moatwel.util.ByteUtils;
  */
 class PointEd25519 extends Point {
 
-//    static final PointEd25519 O = PointEd25519.fromAffine(CoordinateEd25519.ZERO, CoordinateEd25519.ONE);
     static final PointEd25519 O = new PointEd25519(CoordinateEd25519.ZERO, CoordinateEd25519.ONE, CoordinateEd25519.ONE);
 
     private static final Coordinate DEFAULT_Z = new CoordinateEd25519(BigInteger.ONE);
@@ -75,23 +74,21 @@ class PointEd25519 extends Point {
 
     @Override
     public Point doubling() {
-        Coordinate x1 = this.x.multiply(DEFAULT_Z).mod();
-        Coordinate y1 = this.y.multiply(DEFAULT_Z).mod();
-        Coordinate A = x.multiply(x1).mod();
-        Coordinate B = y.multiply(y1).mod();
-        Coordinate C = new CoordinateEd25519(BigInteger.ONE.shiftLeft(1)).multiply(DEFAULT_Z).multiply(DEFAULT_Z).mod();
+        Coordinate x1 = this.x;
+        Coordinate y1 = this.y;
+        Coordinate z1 = this.z;
+        Coordinate A = x1.multiply(x1).mod();
+        Coordinate B = y1.multiply(y1).mod();
+        Coordinate C = new CoordinateEd25519(BigInteger.ONE.shiftLeft(1)).multiply(z1).multiply(z1).mod();
         Coordinate H = A.add(B).mod();
-        Coordinate E = H.subtract(x1.add(y1).multiply(x1.add(y1))).mod();
+        Coordinate E = H.subtract(x1.add(y1).multiply(x1.add(y1)).mod()).mod();
         Coordinate G = A.subtract(B).mod();
         Coordinate F = C.add(G).mod();
         Coordinate X3 = E.multiply(F).mod();
         Coordinate Y3 = G.multiply(H).mod();
-        Coordinate Z3 = F.multiply(G).mod().inverse();
+        Coordinate Z3 = F.multiply(G).mod();
 
-        Coordinate x3 = X3.multiply(Z3).mod();
-        Coordinate y3 = Y3.multiply(Z3).mod();
-
-        return PointEd25519.fromAffine(x3, y3);
+        return new PointEd25519(X3, Y3, Z3);
     }
 
     /**
@@ -126,9 +123,9 @@ class PointEd25519 extends Point {
      */
     @Override
     public final EncodedPoint encode() {
-        byte[] reversedY = ByteUtils.reverse(ArrayUtils.toByteArray(y.getInteger(), 32));
+        byte[] reversedY = ByteUtils.reverse(ArrayUtils.toByteArray(getAffineY().getInteger(), 32));
         reversedY = ByteUtils.paddingZeroOnTail(reversedY, 32);
-        byte[] byteX = ArrayUtils.toByteArray(x.getInteger(), 32);
+        byte[] byteX = ArrayUtils.toByteArray(getAffineX().getInteger(), 32);
         int lengthX = byteX.length;
         int lengthY = reversedY.length;
         int writeBit = byteX[lengthX - 1] & 0b00000001;
