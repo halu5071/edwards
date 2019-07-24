@@ -25,12 +25,12 @@ public class CoordinateEd25519Benchmark {
     }
 
     @Benchmark
-    public void Coordinate_multiplication() {
+    public void Coordinate_Multiplication() {
         coordinateX.multiply(coordinateY);
     }
 
     @Benchmark
-    public void Coodinate_inverse() {
+    public void Coodinate_Inverse() {
         coordinateX.inverse();
     }
 }

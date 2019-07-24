@@ -20,4 +20,9 @@ public class PointEd25519Benchmark {
     public void Point_Addition() {
         point.add(point);
     }
+
+    @Benchmark
+    public void Point_Multiplication() {
+        point.scalarMultiply(new BigInteger("50459379271018302582465998844449622265826330103819895252966304478993432089656"));
+    }
 }

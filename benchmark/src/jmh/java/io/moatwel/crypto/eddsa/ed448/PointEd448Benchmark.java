@@ -5,6 +5,7 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 
 import java.math.BigInteger;
+import java.security.SecureRandom;
 
 import io.moatwel.crypto.eddsa.Point;
 
@@ -16,8 +17,23 @@ public class PointEd448Benchmark {
             new CoordinateEd448(new BigInteger("649903705284910193856318595038125557166018654435367923522702114760308296858957956415522408311508190563055939943858476798475601957147521"))
     );
 
+    private BigInteger integer;
+
+    public PointEd448Benchmark() {
+        SecureRandom random = new SecureRandom();
+        byte[] seed = new byte[57];
+        random.nextBytes(seed);
+        integer = new BigInteger(seed);
+
+    }
+
     @Benchmark
     public void Point_Addition() {
         point.add(point);
+    }
+
+    @Benchmark
+    public void Point_Mulitiplication() {
+        point.scalarMultiply(integer);
     }
 }
