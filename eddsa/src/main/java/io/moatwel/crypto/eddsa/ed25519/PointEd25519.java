@@ -57,10 +57,10 @@ class PointEd25519 extends Point {
         Coordinate G = D.add(C);
         Coordinate H = B.add(A);
 
-        Coordinate Z3 = F.multiply(G).mod();
+        Coordinate Z3 = F.multiply(G).mod().inverse();
 
-        Coordinate x3 = E.multiply(F).multiply(Z3.inverse()).mod();
-        Coordinate y3 = G.multiply(H).multiply(Z3.inverse()).mod();
+        Coordinate x3 = E.multiply(F).multiply(Z3).mod();
+        Coordinate y3 = G.multiply(H).multiply(Z3).mod();
 
         return new PointEd25519(x3, y3);
     }
@@ -78,10 +78,10 @@ class PointEd25519 extends Point {
         Coordinate F = C.add(G).mod();
         Coordinate X3 = E.multiply(F).mod();
         Coordinate Y3 = G.multiply(H).mod();
-        Coordinate Z3 = F.multiply(G).mod();
+        Coordinate Z3 = F.multiply(G).mod().inverse();
 
-        Coordinate x3 = X3.multiply(Z3.inverse()).mod();
-        Coordinate y3 = Y3.multiply(Z3.inverse()).mod();
+        Coordinate x3 = X3.multiply(Z3).mod();
+        Coordinate y3 = Y3.multiply(Z3).mod();
 
         return new PointEd25519(x3, y3);
     }

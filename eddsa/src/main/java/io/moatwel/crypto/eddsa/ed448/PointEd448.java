@@ -53,18 +53,34 @@ class PointEd448 extends Point {
         Coordinate H = (x1.add(y1)).multiply(x2.add(y2)).mod();
         Coordinate X3 = A.multiply(F).multiply(H.subtract(C).subtract(D)).mod();
         Coordinate Y3 = A.multiply(G).multiply(D.subtract(C)).mod();
-        Coordinate Z3 = F.multiply(G).mod();
+        Coordinate Z3 = F.multiply(G).mod().inverse();
 
-        Coordinate x3 = X3.multiply(Z3.inverse()).mod();
-        Coordinate y3 = Y3.multiply(Z3.inverse()).mod();
+        Coordinate x3 = X3.multiply(Z3).mod();
+        Coordinate y3 = Y3.multiply(Z3).mod();
 
         return new PointEd448(x3, y3);
     }
 
     @Override
     public Point doubling() {
-        // no-op temporally
-        return null;
+        Coordinate x1 = this.x.multiply(Z1).mod();
+        Coordinate y1 = this.y.multiply(Z1).mod();
+
+        Coordinate B = (x1.add(y1)).multiply(x.add(y1)).mod();
+        Coordinate C = x1.multiply(x1).mod();
+        Coordinate D = y1.multiply(y1).mod();
+        Coordinate E = C.add(D).mod();
+        Coordinate H = Z1.multiply(Z1).mod();
+        Coordinate J = E.subtract(new CoordinateEd448(BigInteger.ONE.shiftLeft(1)).multiply(H)).mod();
+
+        Coordinate X3 = (B.subtract(E)).multiply(J).mod();
+        Coordinate Y3 = E.multiply(C.subtract(D)).mod();
+        Coordinate Z3 = E.multiply(J).inverse();
+
+        Coordinate x3 = X3.multiply(Z3).mod();
+        Coordinate y3 = Y3.multiply(Z3).mod();
+
+        return new PointEd448(x3, y3);
     }
 
     /**
@@ -82,7 +98,7 @@ class PointEd448 extends Point {
         int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
 
         for (int aSignedBin : signedBin) {
-            qs[0] = qs[0].add(qs[0]);
+            qs[0] = qs[0].doubling();
             qs[1] = ((PointEd448) qs[0].add(rs[1 - aSignedBin])).negate();
             qs[0] = qs[(aSignedBin ^ (aSignedBin >> 31)) - (aSignedBin >> 31)];
         }
