@@ -65,6 +65,27 @@ class PointEd25519 extends Point {
         return new PointEd25519(x3, y3);
     }
 
+    @Override
+    public Point doubling() {
+        Coordinate x1 = this.x.multiply(Z1).mod();
+        Coordinate y1 = this.y.multiply(Z1).mod();
+        Coordinate A = x.multiply(x1).mod();
+        Coordinate B = y.multiply(y1).mod();
+        Coordinate C = new CoordinateEd25519(BigInteger.ONE.shiftLeft(1)).multiply(Z1).multiply(Z1).mod();
+        Coordinate H = A.add(B).mod();
+        Coordinate E = H.subtract(x1.add(y1).multiply(x1.add(y1))).mod();
+        Coordinate G = A.subtract(B).mod();
+        Coordinate F = C.add(G).mod();
+        Coordinate X3 = E.multiply(F).mod();
+        Coordinate Y3 = G.multiply(H).mod();
+        Coordinate Z3 = F.multiply(G).mod();
+
+        Coordinate x3 = X3.multiply(Z3.inverse()).mod();
+        Coordinate y3 = Y3.multiply(Z3.inverse()).mod();
+
+        return new PointEd25519(x3, y3);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -80,7 +101,7 @@ class PointEd25519 extends Point {
         int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
 
         for (int aSignedBin : signedBin) {
-            qs[0] = qs[0].add(qs[0]);
+            qs[0] = qs[0].doubling();
             qs[1] = ((PointEd25519) qs[0].add(rs[1 - aSignedBin])).negate();
             qs[0] = qs[(aSignedBin ^ (aSignedBin >> 31)) - (aSignedBin >> 31)];
         }

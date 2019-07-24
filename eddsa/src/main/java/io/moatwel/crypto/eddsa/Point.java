@@ -65,6 +65,8 @@ public abstract class Point {
      */
     public abstract Point add(Point point);
 
+    public abstract Point doubling();
+
     /**
      * Return a Point which is result of multiplying of Point.
      *

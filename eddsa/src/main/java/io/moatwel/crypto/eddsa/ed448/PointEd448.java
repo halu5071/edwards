@@ -61,6 +61,12 @@ class PointEd448 extends Point {
         return new PointEd448(x3, y3);
     }
 
+    @Override
+    public Point doubling() {
+        // no-op temporally
+        return null;
+    }
+
     /**
      * {@inheritDoc}
      */
