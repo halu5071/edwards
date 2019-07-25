@@ -33,8 +33,8 @@ class PointEd25519 extends Point {
 
     public static PointEd25519 fromAffine(Coordinate x, Coordinate y) {
         return new PointEd25519(
-                x.multiply(DEFAULT_Z).multiply(DEFAULT_Z).mod(),
-                y.multiply(DEFAULT_Z).multiply(DEFAULT_Z).multiply(DEFAULT_Z).mod(),
+                x.multiply(DEFAULT_Z).mod(),
+                y.multiply(DEFAULT_Z).mod(),
                 DEFAULT_Z);
     }
 
@@ -115,7 +115,7 @@ class PointEd25519 extends Point {
 
     @Override
     public Point negateY() {
-        return PointEd25519.fromAffine(x, y.negate());
+        return new PointEd25519(x, y.negate(), z);
     }
 
     /**
@@ -141,6 +141,6 @@ class PointEd25519 extends Point {
     }
 
     private Point negate() {
-        return PointEd25519.fromAffine(x.negate(), y.negate());
+        return new PointEd25519(x.negate(), y.negate(), z);
     }
 }

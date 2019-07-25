@@ -16,7 +16,7 @@ import io.moatwel.util.ByteUtils;
  */
 class PointEd448 extends Point {
 
-    static final PointEd448 O = PointEd448.fromAffine(CoordinateEd448.ZERO, CoordinateEd448.ONE);
+    static final PointEd448 O = new PointEd448(CoordinateEd448.ZERO, CoordinateEd448.ONE, CoordinateEd448.ONE);
 
     private static final Coordinate Z1 = new CoordinateEd448(BigInteger.ONE);
     private static final Coordinate Z2 = new CoordinateEd448(BigInteger.ONE);

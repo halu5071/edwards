@@ -155,15 +155,17 @@ public abstract class Point {
         if (point.getClass() != this.getClass()) {
             String thisPointData = getClass().getSimpleName() + "{" +
                     x.value.toString() + ", " +
-                    y.value.toString() + "}";
+                    y.value.toString() + ", " +
+                    z.value.toString() + "}";
             String pointData = point.getClass().getSimpleName() + "{" +
                     point.getX().value.toString() + ", " +
-                    point.getY().value.toString() + "}";
+                    point.getY().value.toString() + ", " +
+                    point.getZ().value.toString() + "}";
             throw new IllegalComparisonException("These points (" +
                     thisPointData + ", " +
                     pointData + ") can not be compared. Different point implementation.");
         }
 
-        return point.getX().isEqual(this.x) && point.getY().isEqual(this.y);
+        return point.getX().isEqual(this.x) && point.getY().isEqual(this.y) && point.getZ().isEqual(this.z);
     }
 }
