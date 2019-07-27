@@ -52,7 +52,8 @@ public abstract class Point {
     }
 
     public Coordinate getAffineY() {
-        return y.multiply(z.inverse()).mod();
+        Coordinate zInverse = z.inverse();
+        return y.multiply(zInverse).mod();
     }
 
     public Coordinate getZ() {

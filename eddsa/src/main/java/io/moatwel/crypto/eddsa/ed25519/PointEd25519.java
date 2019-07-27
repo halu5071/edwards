@@ -16,10 +16,10 @@ import io.moatwel.util.ByteUtils;
  */
 class PointEd25519 extends Point {
 
-    static final PointEd25519 O = new PointEd25519(CoordinateEd25519.ZERO, CoordinateEd25519.ONE, CoordinateEd25519.ONE);
-
-    private static final Coordinate DEFAULT_Z = new CoordinateEd25519(BigInteger.ONE);
+    private static final Coordinate DEFAULT_Z = CoordinateEd25519.ONE;
     private static final Curve curve = Curve25519.getInstance();
+
+    static final PointEd25519 O = new PointEd25519(CoordinateEd25519.ZERO, CoordinateEd25519.ONE, DEFAULT_Z);
 
     /**
      * constructor of Point
@@ -77,6 +77,7 @@ class PointEd25519 extends Point {
         Coordinate x1 = this.x;
         Coordinate y1 = this.y;
         Coordinate z1 = this.z;
+
         Coordinate A = x1.multiply(x1).mod();
         Coordinate B = y1.multiply(y1).mod();
         Coordinate C = new CoordinateEd25519(BigInteger.ONE.shiftLeft(1)).multiply(z1).multiply(z1).mod();
@@ -84,6 +85,7 @@ class PointEd25519 extends Point {
         Coordinate E = H.subtract(x1.add(y1).multiply(x1.add(y1)).mod()).mod();
         Coordinate G = A.subtract(B).mod();
         Coordinate F = C.add(G).mod();
+
         Coordinate X3 = E.multiply(F).mod();
         Coordinate Y3 = G.multiply(H).mod();
         Coordinate Z3 = F.multiply(G).mod();
@@ -100,17 +102,25 @@ class PointEd25519 extends Point {
             return PointEd25519.O;
         }
 
-        Point[] qs = new Point[]{O, O};
-        Point[] rs = new Point[]{this, this, negateY()};
+//        Point[] qs = new Point[]{O, O};
+//        Point[] rs = new Point[]{this, this, negateY()};
 
-        int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
+        Point point = O;
+
+//        int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
+        int[] signedBin = ArrayUtils.toBinaryArray(integer);
 
         for (int aSignedBin : signedBin) {
-            qs[0] = qs[0].doubling();
-            qs[1] = ((PointEd25519) qs[0].add(rs[1 - aSignedBin])).negate();
-            qs[0] = qs[(aSignedBin ^ (aSignedBin >> 31)) - (aSignedBin >> 31)];
+//            qs[0] = qs[0].doubling();
+//            qs[1] = ((PointEd25519) qs[0].add(rs[1 - aSignedBin])).negate();
+//            qs[0] = qs[(aSignedBin ^ (aSignedBin >> 31)) - (aSignedBin >> 31)];
+            point = point.doubling();
+            if (aSignedBin == 1) {
+                point = point.add(this);
+            }
         }
-        return qs[0];
+//        return qs[0];
+        return point;
     }
 
     @Override
