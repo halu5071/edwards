@@ -97,26 +97,18 @@ class PointEd448 extends Point {
             return PointEd448.O;
         }
 
-//        Point[] qs = new Point[]{O, O};
-//        Point[] rs = new Point[]{this, this, negateY()};
+        Point[] qs = new Point[]{O, O};
+        Point[] rs = new Point[]{this, this, negateY()};
 
-//        int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
-        int[] signedBin = ArrayUtils.toBinaryArray(integer);
-
-        Point point = O;
+        int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
 
         for (int aSignedBin : signedBin) {
-//            qs[0] = qs[0].doubling();
-//            qs[1] = ((PointEd448) qs[0].add(rs[1 - aSignedBin])).negate();
-//            qs[0] = qs[(aSignedBin ^ (aSignedBin >> 31)) - (aSignedBin >> 31)];
-            point = point.doubling();
-            if (aSignedBin == 1) {
-                point = point.add(this);
-            }
+            qs[0] = qs[0].doubling();
+            qs[1] = ((PointEd448) qs[0].add(rs[1 - aSignedBin])).negate();
+            qs[0] = qs[(aSignedBin ^ (aSignedBin >> 31)) - (aSignedBin >> 31)];
         }
 
-//        return qs[0];
-        return point;
+        return qs[0];
     }
 
     @Override
