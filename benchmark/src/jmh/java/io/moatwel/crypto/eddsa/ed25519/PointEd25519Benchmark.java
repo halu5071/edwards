@@ -11,7 +11,7 @@ import io.moatwel.crypto.eddsa.Point;
 @State(Scope.Benchmark)
 public class PointEd25519Benchmark {
 
-    private Point point = new PointEd25519(
+    private Point point = PointEd25519.fromAffine(
             new CoordinateEd25519(new BigInteger("20266806181347897178517736945403300566236311925948585575972021784256181966831")),
             new CoordinateEd25519(new BigInteger("20852410506957026626210500909507772892959249564214740554270305643381675686982"))
     );
