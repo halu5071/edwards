@@ -1,6 +1,10 @@
 package io.moatwel.crypto.eddsa.ed448;
 
-import io.moatwel.crypto.*;
+import io.moatwel.crypto.HashAlgorithm;
+import io.moatwel.crypto.KeyGenerator;
+import io.moatwel.crypto.KeyPair;
+import io.moatwel.crypto.PrivateKey;
+import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.EdDsaKeyGenerator;
 import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.util.HexEncoder;

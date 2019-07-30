@@ -1,6 +1,10 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import io.moatwel.crypto.eddsa.*;
+import io.moatwel.crypto.eddsa.Coordinate;
+import io.moatwel.crypto.eddsa.Curve;
+import io.moatwel.crypto.eddsa.DecodeException;
+import io.moatwel.crypto.eddsa.EncodedPoint;
+import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ByteUtils;
 
 import java.math.BigInteger;

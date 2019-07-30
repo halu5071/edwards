@@ -19,9 +19,8 @@ class PointEd25519 extends Point {
     private static final Coordinate DEFAULT_Z = new CoordinateEd25519(BigInteger.ONE);
     private static final Coordinate ONE = new CoordinateEd25519(BigInteger.ONE);
     private static final Coordinate ZERO = new CoordinateEd25519(BigInteger.ZERO);
-    private static final Curve curve = Curve25519.getInstance();
-
     static final PointEd25519 O = new PointEd25519(ZERO, ONE, DEFAULT_Z, ZERO);
+    private static final Curve curve = Curve25519.getInstance();
 
     /**
      * constructor of Point

@@ -19,6 +19,7 @@ public class Curve448 extends Curve {
 
     private static final Coordinate D = new CoordinateEd448(new BigInteger("-39081"));
 
+    // arg t is unnecessary on scalar multiplication indeed, so set ONE as arg t.
     private static final Point BASE = new PointEd448(
             new CoordinateEd448(new BigInteger("224580040295924300187604334099896036246789641632564134246125461686950415467406032909029192869357953282578032075146446173674602635247710")),
             new CoordinateEd448(new BigInteger("298819210078481492676017930443930673437544040154080242095928241372331506189835876003536878655418784733982303233503462500531545062832660")),
@@ -27,6 +28,10 @@ public class Curve448 extends Curve {
     );
 
     private Curve448() {
+    }
+
+    public static Curve448 getInstance() {
+        return CurveHolder.INSTANCE;
     }
 
     @Override
@@ -57,10 +62,6 @@ public class Curve448 extends Curve {
     @Override
     public BigInteger getA() {
         return BigInteger.ONE;
-    }
-
-    public static Curve448 getInstance() {
-        return CurveHolder.INSTANCE;
     }
 
     private static class CurveHolder {

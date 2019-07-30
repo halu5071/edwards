@@ -1,6 +1,10 @@
 package io.moatwel.crypto;
 
-import io.moatwel.crypto.eddsa.*;
+import io.moatwel.crypto.eddsa.EdDsaKeyGenerator;
+import io.moatwel.crypto.eddsa.EdKeyAnalyzer;
+import io.moatwel.crypto.eddsa.EdKeyAnalyzerTestFactory;
+import io.moatwel.crypto.eddsa.Edwards;
+import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.crypto.eddsa.ed25519.Curve25519;
 import io.moatwel.crypto.eddsa.ed25519.Ed25519SchemeProvider;
 import org.junit.Before;

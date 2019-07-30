@@ -32,6 +32,10 @@ public class Curve25519 extends Curve {
     private Curve25519() {
     }
 
+    public static Curve25519 getInstance() {
+        return CurveHolder.INSTANCE;
+    }
+
     @Override
     public final int getPublicKeyByteLength() {
         return 32;
@@ -60,10 +64,6 @@ public class Curve25519 extends Curve {
     @Override
     public final BigInteger getA() {
         return new BigInteger("-1");
-    }
-
-    public static Curve25519 getInstance() {
-        return CurveHolder.INSTANCE;
     }
 
     private static class CurveHolder {

@@ -20,6 +20,21 @@ public abstract class PrivateKey {
         this.value = value;
     }
 
+    public static PrivateKey newInstance(byte[] seed) {
+        switch (seed.length) {
+            case 32:
+                return PrivateKeyEd25519.fromBytes(seed);
+            case 57:
+                return PrivateKeyEd448.fromBytes(seed);
+            default:
+                throw new IllegalArgumentException("PrivateKey byte length " + seed.length + " is not supported.");
+        }
+    }
+
+    public static PrivateKey newInstance(String hexString) {
+        return newInstance(HexEncoder.getBytes(hexString));
+    }
+
     public byte[] getRaw() {
         return value;
     }
@@ -44,20 +59,5 @@ public abstract class PrivateKey {
         }
         final PrivateKey privateKey = ((PrivateKey) obj);
         return Arrays.equals(this.value, privateKey.value);
-    }
-
-    public static PrivateKey newInstance(byte[] seed) {
-        switch (seed.length) {
-            case 32:
-                return PrivateKeyEd25519.fromBytes(seed);
-            case 57:
-                return PrivateKeyEd448.fromBytes(seed);
-            default:
-                throw new IllegalArgumentException("PrivateKey byte length " + seed.length + " is not supported.");
-        }
-    }
-
-    public static PrivateKey newInstance(String hexString) {
-        return newInstance(HexEncoder.getBytes(hexString));
     }
 }

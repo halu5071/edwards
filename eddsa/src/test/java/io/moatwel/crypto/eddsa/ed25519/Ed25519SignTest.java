@@ -1,6 +1,11 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import io.moatwel.crypto.*;
+import io.moatwel.crypto.EdDsaSigner;
+import io.moatwel.crypto.HashAlgorithm;
+import io.moatwel.crypto.KeyGenerator;
+import io.moatwel.crypto.KeyPair;
+import io.moatwel.crypto.PrivateKey;
+import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.EdDsaKeyGenerator;
 import io.moatwel.util.HexEncoder;
 import org.junit.Before;

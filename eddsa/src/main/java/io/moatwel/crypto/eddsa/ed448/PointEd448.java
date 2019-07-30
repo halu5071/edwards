@@ -16,10 +16,9 @@ import java.math.BigInteger;
  */
 class PointEd448 extends Point {
 
+    static final PointEd448 O = new PointEd448(CoordinateEd448.ZERO, CoordinateEd448.ONE, CoordinateEd448.ONE, CoordinateEd448.ZERO);
     private static final Coordinate DEFAULT_Z = CoordinateEd448.ONE;
     private static final Curve curve = Curve448.getInstance();
-
-    static final PointEd448 O = new PointEd448(CoordinateEd448.ZERO, CoordinateEd448.ONE, CoordinateEd448.ONE, CoordinateEd448.ZERO);
 
     /**
      * constructor of Point
@@ -65,6 +64,7 @@ class PointEd448 extends Point {
         Coordinate Y3 = A.multiply(G).multiply(D.subtract(C)).mod();
         Coordinate Z3 = F.multiply(G).mod();
 
+        // arg t is unnecessary on scalar multiplication indeed, so set ZERO as arg t.
         return new PointEd448(X3, Y3, Z3, CoordinateEd448.ZERO);
     }
 
@@ -85,6 +85,7 @@ class PointEd448 extends Point {
         Coordinate Y3 = E.multiply(C.subtract(D)).mod();
         Coordinate Z3 = E.multiply(J);
 
+        // arg t is unnecessary on scalar multiplication indeed, so set ZERO as arg t.
         return new PointEd448(X3, Y3, Z3, CoordinateEd448.ZERO);
     }
 
