@@ -225,29 +225,6 @@ public class PointEd25519Test {
     }
 
     @Test
-    public void success_DoublePoint6() {
-        Point point1 = PointEd25519.fromAffine(
-                new CoordinateEd25519(new BigInteger("31621228259983782766387151846173419701451207683454700670358544852161525834558")),
-                new CoordinateEd25519(new BigInteger("1087550498622212171315934886475455672530696511327350732598338573849547859723")));
-
-        Point result1 = point1.doubling();
-//        Point result2 = point1.add(point1);
-
-//        Point result3 = result1.add(point1); // addition after doubling
-//        Point result4 = result2.add(point1);
-
-        assertThat(result1.getAffineX().getInteger(), is(new BigInteger("54335164024625743934669286787931302569680669857893696519224744689691858515668")));
-        assertThat(result1.getAffineY().getInteger(), is(new BigInteger("44807246093863216660634594959379875777640228908622772878292058541219108796161")));
-//        assertThat(result2.getAffineX().getInteger(), is(new BigInteger("54335164024625743934669286787931302569680669857893696519224744689691858515668")));
-//        assertThat(result2.getAffineY().getInteger(), is(new BigInteger("44807246093863216660634594959379875777640228908622772878292058541219108796161")));
-
-//        assertThat(result3.getAffineX().getInteger(), is(new BigInteger("42291340684598238402599270661817480517964721090623332905920764586389824412061")));
-//        assertThat(result3.getAffineY().getInteger(), is(new BigInteger("47742476443217169668746179300118863030864633351028876668435556104757530781667")));
-//        assertThat(result4.getAffineX().getInteger(), is(new BigInteger("42291340684598238402599270661817480517964721090623332905920764586389824412061")));
-//        assertThat(result4.getAffineY().getInteger(), is(new BigInteger("47742476443217169668746179300118863030864633351028876668435556104757530781667")));
-    }
-
-    @Test
     public void doubling() {
         Point point1 = PointEd25519.fromAffine(
                 new CoordinateEd25519(new BigInteger("31621228259983782766387151846173419701451207683454700670358544852161525834558")),

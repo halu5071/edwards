@@ -17,8 +17,6 @@ public class Curve25519 extends Curve {
     private static final BigInteger P = BigInteger.ONE.shiftLeft(255).subtract(new BigInteger("19"));
     private static final BigInteger L = BigInteger.ONE.shiftLeft(252).add(new BigInteger("27742317777372353535851937790883648493"));
 
-    private static final Curve25519 INSTANCE = new Curve25519();
-
     private static final Coordinate D = new CoordinateEd25519(new BigInteger("-121665")
             .multiply(new BigInteger("121666").modInverse(P))
             .mod(P));
@@ -65,10 +63,10 @@ public class Curve25519 extends Curve {
     }
 
     public static Curve25519 getInstance() {
-        return INSTANCE;
+        return CurveHolder.INSTANCE;
     }
 
-//    private static class CurveHolder {
-//        private static final Curve25519 INSTANCE = new Curve25519();
-//    }
+    private static class CurveHolder {
+        private static final Curve25519 INSTANCE = new Curve25519();
+    }
 }
