@@ -15,6 +15,7 @@ public abstract class Point {
     protected final Coordinate x;
     protected final Coordinate y;
     protected final Coordinate z;
+    protected final Coordinate t;
 
     /**
      * constructor of Point
@@ -22,10 +23,11 @@ public abstract class Point {
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    protected Point(Coordinate x, Coordinate y, Coordinate z) {
+    protected Point(Coordinate x, Coordinate y, Coordinate z, Coordinate t) {
         this.x = x;
         this.y = y;
         this.z = z;
+        this.t = t;
     }
 
     /**
@@ -58,6 +60,10 @@ public abstract class Point {
 
     public Coordinate getZ() {
         return z;
+    }
+
+    public Coordinate getT() {
+        return t;
     }
 
     /**
