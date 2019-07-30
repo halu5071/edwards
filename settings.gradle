@@ -1,1 +1,1 @@
-include ':app', ':eddsa', ':benchmark'
+include ':eddsa', ':benchmark'
