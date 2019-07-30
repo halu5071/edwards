@@ -5,9 +5,7 @@ import org.junit.Test;
 import java.math.BigInteger;
 
 import io.moatwel.crypto.eddsa.Curve;
-import io.moatwel.crypto.eddsa.IllegalComparisonException;
 import io.moatwel.crypto.eddsa.Point;
-import io.moatwel.crypto.eddsa.ed448.PointEd448TestFactory;
 import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;

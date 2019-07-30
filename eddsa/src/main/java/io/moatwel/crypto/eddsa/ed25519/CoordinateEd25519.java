@@ -15,7 +15,6 @@ import io.moatwel.util.ByteUtils;
  */
 class CoordinateEd25519 extends Coordinate {
 
-    public static final CoordinateEd25519 ZERO = new CoordinateEd25519(BigInteger.ZERO);
     public static final CoordinateEd25519 ONE = new CoordinateEd25519(BigInteger.ONE);
 
     private static final Curve curve = Curve25519.getInstance();

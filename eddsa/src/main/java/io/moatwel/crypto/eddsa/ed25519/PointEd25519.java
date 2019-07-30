@@ -16,10 +16,12 @@ import io.moatwel.util.ByteUtils;
  */
 class PointEd25519 extends Point {
 
-    private static final Coordinate DEFAULT_Z = CoordinateEd25519.ONE;
+    private static final Coordinate DEFAULT_Z = new CoordinateEd25519(BigInteger.ONE);
+    private static final Coordinate ONE = new CoordinateEd25519(BigInteger.ONE);
+    private static final Coordinate ZERO = new CoordinateEd25519(BigInteger.ZERO);
     private static final Curve curve = Curve25519.getInstance();
 
-    static final PointEd25519 O = new PointEd25519(CoordinateEd25519.ZERO, CoordinateEd25519.ONE, DEFAULT_Z, CoordinateEd25519.ZERO);
+    static final PointEd25519 O = new PointEd25519(ZERO, ONE, DEFAULT_Z, ZERO);
 
     /**
      * constructor of Point

@@ -95,11 +95,11 @@ public class CoordinateEd448Test {
         assertThat(negatedCoordinate3.getInteger(), is(new BigInteger("428834847334408065424101046653922675268648402805517655566079217516561273618371155884973866382219162098752441832487746043021563830835609")));
     }
 
-    @Test(expected = IllegalComparisonException.class)
-    public void failure_IsEqual_other_scheme() {
-        Coordinate coordinate1 = CoordinateEd25519TestFactory.getOriginCoordinate();
-        Coordinate coordinate2 = CoordinateEd448TestFactory.getOriginCoordinate();
-
-        coordinate1.isEqual(coordinate2);
-    }
+//    @Test(expected = IllegalComparisonException.class)
+//    public void failure_IsEqual_other_scheme() {
+//        Coordinate coordinate1 = CoordinateEd25519TestFactory.getOriginCoordinate();
+//        Coordinate coordinate2 = CoordinateEd448TestFactory.getOriginCoordinate();
+//
+//        coordinate1.isEqual(coordinate2);
+//    }
 }

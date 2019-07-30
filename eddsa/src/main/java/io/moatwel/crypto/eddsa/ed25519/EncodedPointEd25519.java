@@ -50,8 +50,9 @@ class EncodedPointEd25519 extends EncodedPoint {
     }
 
     private Coordinate recoverX(Coordinate y, int xSource) throws DecodeException {
-        Coordinate u = y.multiply(y).subtract(CoordinateEd25519.ONE).mod();
-        Coordinate v = (curve.getD().multiply(y).multiply(y).add(CoordinateEd25519.ONE)).mod();
+        Coordinate one = new CoordinateEd25519(BigInteger.ONE);
+        Coordinate u = y.multiply(y).subtract(one).mod();
+        Coordinate v = (curve.getD().multiply(y).multiply(y).add(one)).mod();
         Coordinate xx = u.multiply(v.inverse()).mod();
 
         Coordinate x = xx.powerMod(curve.getPrimePowerP().add(new BigInteger("3")).divide(new BigInteger("8")));
