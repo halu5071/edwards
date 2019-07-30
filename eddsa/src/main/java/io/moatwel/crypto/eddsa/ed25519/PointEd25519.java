@@ -46,9 +46,6 @@ class PointEd25519 extends Point {
      */
     @Override
     public final Point add(Point point) {
-//        if (this.isEqual(point)) {
-//            return this.doubling();
-//        }
         Coordinate x1 = this.x;
         Coordinate y1 = this.y;
         Coordinate z1 = this.z;
