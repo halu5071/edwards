@@ -1,12 +1,12 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import java.security.SecureRandom;
-
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.crypto.eddsa.SchemeProvider;
+
+import java.security.SecureRandom;
 
 /**
  * SchemeProvider for Ed25519

@@ -1,13 +1,13 @@
 package io.moatwel.crypto.eddsa.ed448;
 
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
+
+import java.math.BigInteger;
 
 /**
  * Represent Point on Curve448 of Edwards-curve.
@@ -107,7 +107,6 @@ class PointEd448 extends Point {
             qs[1] = qs[0].add(rs[1 - aSignedBin]).negate();
             qs[0] = qs[(aSignedBin ^ (aSignedBin >> 31)) - (aSignedBin >> 31)];
         }
-
         return qs[0];
     }
 

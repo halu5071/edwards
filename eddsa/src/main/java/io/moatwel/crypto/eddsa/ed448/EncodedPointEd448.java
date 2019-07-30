@@ -1,13 +1,9 @@
 package io.moatwel.crypto.eddsa.ed448;
 
-import java.math.BigInteger;
-
-import io.moatwel.crypto.eddsa.Coordinate;
-import io.moatwel.crypto.eddsa.Curve;
-import io.moatwel.crypto.eddsa.DecodeException;
-import io.moatwel.crypto.eddsa.EncodedPoint;
-import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.crypto.eddsa.*;
 import io.moatwel.util.ByteUtils;
+
+import java.math.BigInteger;
 
 /**
  * Encoded Point implementation of ed448 curve. Implements {@link EncodedPoint#decode()}

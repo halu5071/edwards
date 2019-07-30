@@ -1,12 +1,12 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
 import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
+
+import java.math.BigInteger;
 
 /**
  * Coordinate on Curve25519

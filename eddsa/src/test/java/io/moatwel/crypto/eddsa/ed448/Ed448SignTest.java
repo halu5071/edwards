@@ -1,18 +1,13 @@
 package io.moatwel.crypto.eddsa.ed448;
 
+import io.moatwel.crypto.*;
+import io.moatwel.crypto.eddsa.EdDsaKeyGenerator;
+import io.moatwel.crypto.eddsa.SchemeProvider;
+import io.moatwel.util.HexEncoder;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.security.SecureRandom;
-
-import io.moatwel.crypto.HashAlgorithm;
-import io.moatwel.crypto.KeyGenerator;
-import io.moatwel.crypto.KeyPair;
-import io.moatwel.crypto.PrivateKey;
-import io.moatwel.crypto.Signature;
-import io.moatwel.crypto.eddsa.EdDsaKeyGenerator;
-import io.moatwel.crypto.eddsa.SchemeProvider;
-import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;

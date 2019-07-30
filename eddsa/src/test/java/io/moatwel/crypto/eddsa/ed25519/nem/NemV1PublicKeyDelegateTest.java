@@ -1,10 +1,9 @@
 package io.moatwel.crypto.eddsa.ed25519.nem;
 
-import org.junit.Test;
-
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.util.HexEncoder;
+import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -13,7 +12,9 @@ public class NemV1PublicKeyDelegateTest {
 
     private PublicKeyDelegate delegate = new NemV1PublicKeyDelegate();
 
-    /** These test vectors were derived from nis on localhost:7890/account/generate **/
+    /**
+     * These test vectors were derived from nis on localhost:7890/account/generate
+     **/
     @Test
     public void success_GeneratePublicKeySeed_for_NEM_v1_1() {
         PrivateKey privateKey = PrivateKey.newInstance("a958255dbd7d642fa4fac6c775f2ee667340f5d005b1459f74c7d1c186ddc46a");

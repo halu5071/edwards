@@ -1,8 +1,8 @@
 package io.moatwel.crypto.eddsa.ed448;
 
-import java.security.SecureRandom;
-
 import io.moatwel.crypto.PrivateKey;
+
+import java.security.SecureRandom;
 
 public class PrivateKeyEd448 extends PrivateKey {
 

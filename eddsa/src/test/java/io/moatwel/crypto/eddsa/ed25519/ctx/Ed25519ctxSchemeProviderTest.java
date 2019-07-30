@@ -1,10 +1,9 @@
 package io.moatwel.crypto.eddsa.ed25519.ctx;
 
-import org.junit.Test;
-
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.SchemeProvider;
+import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 

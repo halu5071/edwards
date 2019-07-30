@@ -5,6 +5,7 @@ import java.math.BigInteger;
 /**
  * A point on the eddsa curve which represents a group of {@link Coordinate}.
  * <p>
+ * This point on the projective coordinate.
  * A subclass of this class must be immutable object, in other words, all operations
  * must create new object.
  *
@@ -22,6 +23,8 @@ public abstract class Point {
      *
      * @param x x-coordinate
      * @param y y-coordinate
+     * @param z z-coordinate
+     * @param t t-coordinate
      */
     protected Point(Coordinate x, Coordinate y, Coordinate z, Coordinate t) {
         this.x = x;
@@ -31,7 +34,7 @@ public abstract class Point {
     }
 
     /**
-     * Return x-coordinate value.
+     * Return x-coordinate value on projective coordinate.
      *
      * @return x coordinate
      */
@@ -39,13 +42,18 @@ public abstract class Point {
         return x;
     }
 
+    /**
+     * Return x-coordinate on affine coordinate.
+     *
+     * @return x coordinate on affine coordinate.
+     */
     public Coordinate getAffineX() {
         Coordinate zInverse = z.inverse();
         return x.multiply(zInverse).mod();
     }
 
     /**
-     * Return y-coordinate value.
+     * Return y-coordinate value on projective coordinate.
      *
      * @return y coordinate
      */
@@ -53,6 +61,11 @@ public abstract class Point {
         return y;
     }
 
+    /**
+     * Return y-coordinate on affine coordinate.
+     *
+     * @return y coordinate on affine coordinate.
+     */
     public Coordinate getAffineY() {
         Coordinate zInverse = z.inverse();
         return y.multiply(zInverse).mod();
@@ -89,7 +102,7 @@ public abstract class Point {
 
     /**
      * Return a Point which is result of doubling of a point.
-     *
+     * <p>
      * You know, of course the result of addition between each other is the same
      * as a return of this. But there is some optimization for doubling.
      *
@@ -116,15 +129,20 @@ public abstract class Point {
     public abstract Point scalarMultiply(BigInteger integer);
 
     /**
-     * Return a negated Point.
+     * Return a point has negated y-coordinate.
      * <p>
-     * Negation of coordinate y means you will get Point(x, -y mod P).
+     * Negation of coordinate y means you will get Point(x, -y mod P, z, t).
      * Prime P depends on each curves of elliptic curve.
      *
-     * @return {@code Point(x, -y mod P)}.
+     * @return {@code Point(x, -y mod P, z, t)}.
      */
     public abstract Point negateY();
 
+    /**
+     * Return a negated Point.
+     *
+     * @return {@code Point(-x mod P, -y mod P, z, t)}
+     */
     public abstract Point negate();
 
     /**

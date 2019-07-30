@@ -1,12 +1,9 @@
 package io.moatwel.crypto.eddsa.ed448;
 
+import io.moatwel.crypto.eddsa.Coordinate;
 import org.junit.Test;
 
 import java.math.BigInteger;
-
-import io.moatwel.crypto.eddsa.Coordinate;
-import io.moatwel.crypto.eddsa.IllegalComparisonException;
-import io.moatwel.crypto.eddsa.ed25519.CoordinateEd25519TestFactory;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;

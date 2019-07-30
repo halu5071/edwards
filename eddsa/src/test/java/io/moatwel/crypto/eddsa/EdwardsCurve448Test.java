@@ -1,21 +1,13 @@
 package io.moatwel.crypto.eddsa;
 
+import io.moatwel.crypto.*;
+import io.moatwel.crypto.eddsa.ed448.Curve448;
+import io.moatwel.crypto.eddsa.ed448.Ed448SchemeProvider;
 import org.junit.Before;
 import org.junit.Test;
 
-import io.moatwel.crypto.EdDsaSigner;
-import io.moatwel.crypto.HashAlgorithm;
-import io.moatwel.crypto.KeyPair;
-import io.moatwel.crypto.PrivateKey;
-import io.moatwel.crypto.PublicKey;
-import io.moatwel.crypto.Signature;
-import io.moatwel.crypto.eddsa.ed448.Curve448;
-import io.moatwel.crypto.eddsa.ed448.Ed448SchemeProvider;
-
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class EdwardsCurve448Test {
 

@@ -1,8 +1,8 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.Coordinate;
+
+import java.math.BigInteger;
 
 public class CoordinateEd25519TestFactory {
 

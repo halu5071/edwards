@@ -1,11 +1,10 @@
 package io.moatwel.crypto.eddsa.ed448;
 
+import io.moatwel.crypto.eddsa.Curve;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigInteger;
-
-import io.moatwel.crypto.eddsa.Curve;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

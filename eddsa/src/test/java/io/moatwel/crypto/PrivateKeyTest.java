@@ -1,14 +1,13 @@
 package io.moatwel.crypto;
 
+import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
+import io.moatwel.crypto.eddsa.ed448.PrivateKeyEd448;
+import io.moatwel.util.HexEncoder;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
-
-import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
-import io.moatwel.crypto.eddsa.ed448.PrivateKeyEd448;
-import io.moatwel.util.HexEncoder;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotEquals;

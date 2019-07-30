@@ -1,11 +1,11 @@
 package io.moatwel.crypto;
 
-import java.math.BigInteger;
-import java.util.Arrays;
-
 import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
 import io.moatwel.crypto.eddsa.ed448.PrivateKeyEd448;
 import io.moatwel.util.HexEncoder;
+
+import java.math.BigInteger;
+import java.util.Arrays;
 
 /**
  * PrivateKey on Edwards-curve DSA.

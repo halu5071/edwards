@@ -1,12 +1,11 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import org.junit.Test;
-
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.HexEncoder;
+import org.junit.Test;
+
+import java.math.BigInteger;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -720,12 +719,4 @@ public class PointEd25519Test {
 
         assertThat(point1.isEqual(point2), is(false));
     }
-
-//    @Test(expected = IllegalComparisonException.class)
-//    public void failure_IsEqual_other_scheme_point() {
-//        Point point1 = PointEd25519TestFactory.getOriginPoint();
-//        Point point2 = PointEd448TestFactory.getOriginPoint();
-//
-//        point1.isEqual(point2);
-//    }
 }

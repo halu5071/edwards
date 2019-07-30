@@ -83,7 +83,7 @@ public abstract class Coordinate {
 
     /**
      * Return Coordinate whose value is {@code pow(this, exponent) mod prime L}.
-     *
+     * <p>
      * Pay attention that the prime L depends on each curves of elliptic curve.
      *
      * @param exponent the exponent
