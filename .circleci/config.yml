@@ -9,11 +9,11 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "eddsa/build.gradle" }}
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "eddsa/build.gradle" }}-{{ checksum "benchmark/build.gradle" }}
       - save_cache:
           paths:
             - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "eddsa/build.gradle" }}
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "eddsa/build.gradle" }}-{{ checksum "benchmark/build.gradle" }}
       - run:
           name: EdDsa Unit Test
           command: ./gradlew eddsa:test
