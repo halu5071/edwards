@@ -16,11 +16,10 @@ import io.moatwel.util.ByteUtils;
  */
 class PointEd448 extends Point {
 
-    static final PointEd448 O = new PointEd448(CoordinateEd448.ZERO, CoordinateEd448.ONE, CoordinateEd448.ONE, CoordinateEd448.ZERO);
-
-    private static final Coordinate Z1 = new CoordinateEd448(BigInteger.ONE);
-    private static final Coordinate Z2 = new CoordinateEd448(BigInteger.ONE);
+    private static final Coordinate DEFAULT_Z = CoordinateEd448.ONE;
     private static final Curve curve = Curve448.getInstance();
+
+    static final PointEd448 O = new PointEd448(CoordinateEd448.ZERO, CoordinateEd448.ONE, CoordinateEd448.ONE, CoordinateEd448.ZERO);
 
     /**
      * constructor of Point
@@ -34,10 +33,10 @@ class PointEd448 extends Point {
 
     public static PointEd448 fromAffine(Coordinate x, Coordinate y) {
         return new PointEd448(
-                x.multiply(Z1).multiply(Z1).mod(),
-                y.multiply(Z1).multiply(Z1).multiply(Z1).mod(),
-                Z1,
-                x.multiply(y).multiply(Z1).mod()
+                x.multiply(DEFAULT_Z).mod(),
+                y.multiply(DEFAULT_Z).mod(),
+                DEFAULT_Z,
+                x.multiply(y).multiply(DEFAULT_Z).mod()
         );
     }
 
@@ -46,13 +45,15 @@ class PointEd448 extends Point {
      */
     @Override
     public Point add(Point point) {
-        Coordinate x1 = this.x.multiply(Z1).mod();
-        Coordinate y1 = this.y.multiply(Z1).mod();
-        Coordinate x2 = point.getX().multiply(Z2).mod();
-        Coordinate y2 = point.getY().multiply(Z2).mod();
+        Coordinate x1 = this.x;
+        Coordinate y1 = this.y;
+        Coordinate z1 = this.z;
+        Coordinate x2 = point.getX();
+        Coordinate y2 = point.getY();
+        Coordinate z2 = point.getZ();
 
-        Coordinate A = Z1.multiply(Z2);
-        Coordinate B = A.multiply(A);
+        Coordinate A = z1.multiply(z2).mod();
+        Coordinate B = A.multiply(A).mod();
         Coordinate C = x1.multiply(x2).mod();
         Coordinate D = y1.multiply(y2).mod();
 
@@ -62,34 +63,29 @@ class PointEd448 extends Point {
         Coordinate H = (x1.add(y1)).multiply(x2.add(y2)).mod();
         Coordinate X3 = A.multiply(F).multiply(H.subtract(C).subtract(D)).mod();
         Coordinate Y3 = A.multiply(G).multiply(D.subtract(C)).mod();
-        Coordinate Z3 = F.multiply(G).mod().inverse();
+        Coordinate Z3 = F.multiply(G).mod();
 
-        Coordinate x3 = X3.multiply(Z3).mod();
-        Coordinate y3 = Y3.multiply(Z3).mod();
-
-        return PointEd448.fromAffine(x3, y3);
+        return new PointEd448(X3, Y3, Z3, CoordinateEd448.ZERO);
     }
 
     @Override
     public Point doubling() {
-        Coordinate x1 = this.x.multiply(Z1).mod();
-        Coordinate y1 = this.y.multiply(Z1).mod();
+        Coordinate x1 = this.x;
+        Coordinate y1 = this.y;
+        Coordinate z1 = this.z;
 
-        Coordinate B = (x1.add(y1)).multiply(x.add(y1)).mod();
+        Coordinate B = (x1.add(y1)).multiply(x1.add(y1)).mod();
         Coordinate C = x1.multiply(x1).mod();
         Coordinate D = y1.multiply(y1).mod();
         Coordinate E = C.add(D).mod();
-        Coordinate H = Z1.multiply(Z1).mod();
+        Coordinate H = z1.multiply(z1).mod();
         Coordinate J = E.subtract(new CoordinateEd448(BigInteger.ONE.shiftLeft(1)).multiply(H)).mod();
 
         Coordinate X3 = (B.subtract(E)).multiply(J).mod();
         Coordinate Y3 = E.multiply(C.subtract(D)).mod();
-        Coordinate Z3 = E.multiply(J).inverse();
+        Coordinate Z3 = E.multiply(J);
 
-        Coordinate x3 = X3.multiply(Z3).mod();
-        Coordinate y3 = Y3.multiply(Z3).mod();
-
-        return PointEd448.fromAffine(x3, y3);
+        return new PointEd448(X3, Y3, Z3, CoordinateEd448.ZERO);
     }
 
     /**
@@ -101,23 +97,31 @@ class PointEd448 extends Point {
             return PointEd448.O;
         }
 
-        Point[] qs = new Point[]{O, O};
-        Point[] rs = new Point[]{this, this, negateY()};
+//        Point[] qs = new Point[]{O, O};
+//        Point[] rs = new Point[]{this, this, negateY()};
 
-        int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
+//        int[] signedBin = ArrayUtils.toMutualOppositeForm(integer);
+        int[] signedBin = ArrayUtils.toBinaryArray(integer);
+
+        Point point = O;
 
         for (int aSignedBin : signedBin) {
-            qs[0] = qs[0].doubling();
-            qs[1] = ((PointEd448) qs[0].add(rs[1 - aSignedBin])).negate();
-            qs[0] = qs[(aSignedBin ^ (aSignedBin >> 31)) - (aSignedBin >> 31)];
+//            qs[0] = qs[0].doubling();
+//            qs[1] = ((PointEd448) qs[0].add(rs[1 - aSignedBin])).negate();
+//            qs[0] = qs[(aSignedBin ^ (aSignedBin >> 31)) - (aSignedBin >> 31)];
+            point = point.doubling();
+            if (aSignedBin == 1) {
+                point = point.add(this);
+            }
         }
 
-        return qs[0];
+//        return qs[0];
+        return point;
     }
 
     @Override
     public Point negateY() {
-        return PointEd448.fromAffine(x, y.negate());
+        return new PointEd448(x, y.negate(), z, t.negate());
     }
 
     /**
@@ -125,9 +129,9 @@ class PointEd448 extends Point {
      */
     @Override
     public EncodedPoint encode() {
-        byte[] reversedY = ByteUtils.reverse(ArrayUtils.toByteArray(y.getInteger(), 57));
+        byte[] reversedY = ByteUtils.reverse(ArrayUtils.toByteArray(getAffineY().getInteger(), 57));
         reversedY = ByteUtils.paddingZeroOnTail(reversedY, 57);
-        byte[] byteX = ArrayUtils.toByteArray(x.getInteger(), 57);
+        byte[] byteX = ArrayUtils.toByteArray(getAffineX().getInteger(), 57);
         int lengthX = byteX.length;
         int lengthY = reversedY.length;
         int writeBit = byteX[lengthX - 1] & 0b00000001;
@@ -143,6 +147,6 @@ class PointEd448 extends Point {
     }
 
     private Point negate() {
-        return PointEd448.fromAffine(x.negate(), y.negate());
+        return new PointEd448(x.negate(), y.negate(), z, t);
     }
 }

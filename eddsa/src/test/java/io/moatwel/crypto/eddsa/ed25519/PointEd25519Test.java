@@ -723,11 +723,11 @@ public class PointEd25519Test {
         assertThat(point1.isEqual(point2), is(false));
     }
 
-    @Test(expected = IllegalComparisonException.class)
-    public void failure_IsEqual_other_scheme_point() {
-        Point point1 = PointEd25519TestFactory.getOriginPoint();
-        Point point2 = PointEd448TestFactory.getOriginPoint();
-
-        point1.isEqual(point2);
-    }
+//    @Test(expected = IllegalComparisonException.class)
+//    public void failure_IsEqual_other_scheme_point() {
+//        Point point1 = PointEd25519TestFactory.getOriginPoint();
+//        Point point2 = PointEd448TestFactory.getOriginPoint();
+//
+//        point1.isEqual(point2);
+//    }
 }

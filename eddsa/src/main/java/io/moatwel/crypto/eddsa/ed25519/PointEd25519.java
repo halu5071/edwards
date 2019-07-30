@@ -90,12 +90,6 @@ class PointEd25519 extends Point {
         Coordinate G = A.subtract(B).mod();
         Coordinate F = C.add(G).mod();
 
-//        Coordinate D = A.negate();
-//        Coordinate E = x1.add(y1).multiply(x1.add(y1)).subtract(A).subtract(B);
-//        Coordinate G = D.add(B);
-//        Coordinate F = G.subtract(C);
-//        Coordinate H = D.subtract(B);
-
         Coordinate X3 = E.multiply(F).mod();
         Coordinate Y3 = G.multiply(H).mod();
         Coordinate T3 = E.multiply(H).mod();

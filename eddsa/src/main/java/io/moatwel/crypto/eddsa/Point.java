@@ -161,18 +161,16 @@ public abstract class Point {
     public boolean isEqual(Point point) {
         if (point.getClass() != this.getClass()) {
             String thisPointData = getClass().getSimpleName() + "{" +
-                    x.value.toString() + ", " +
-                    y.value.toString() + ", " +
-                    z.value.toString() + "}";
+                    this.getAffineX().value.toString() + ", " +
+                    this.getAffineY().value.toString() + "}";
             String pointData = point.getClass().getSimpleName() + "{" +
-                    point.getX().value.toString() + ", " +
-                    point.getY().value.toString() + ", " +
-                    point.getZ().value.toString() + "}";
+                    point.getAffineX().value.toString() + ", " +
+                    point.getAffineY().value.toString() + "}";
             throw new IllegalComparisonException("These points (" +
                     thisPointData + ", " +
                     pointData + ") can not be compared. Different point implementation.");
         }
 
-        return point.getX().isEqual(this.x) && point.getY().isEqual(this.y) && point.getZ().isEqual(this.z);
+        return point.getAffineX().isEqual(this.getAffineX()) && point.getAffineY().isEqual(this.getAffineY());
     }
 }
