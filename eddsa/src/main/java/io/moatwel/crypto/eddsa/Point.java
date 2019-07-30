@@ -125,6 +125,8 @@ public abstract class Point {
      */
     public abstract Point negateY();
 
+    public abstract Point negate();
+
     /**
      * Encode this Point to an {@link EncodedPoint} object.
      *

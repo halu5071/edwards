@@ -116,7 +116,7 @@ class PointEd25519 extends Point {
 
         for (int aSignedBin : signedBin) {
             qs[0] = qs[0].doubling();
-            qs[1] = ((PointEd25519) qs[0].add(rs[1 - aSignedBin])).negate();
+            qs[1] = qs[0].add(rs[1 - aSignedBin]).negate();
             qs[0] = qs[(aSignedBin ^ (aSignedBin >> 31)) - (aSignedBin >> 31)];
         }
         return qs[0];
@@ -149,7 +149,8 @@ class PointEd25519 extends Point {
         return new EncodedPointEd25519(reversedY);
     }
 
-    private Point negate() {
+    @Override
+    public Point negate() {
         return new PointEd25519(x.negate(), y.negate(), z, t);
     }
 }
