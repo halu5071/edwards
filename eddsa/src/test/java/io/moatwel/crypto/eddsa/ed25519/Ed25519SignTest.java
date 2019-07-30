@@ -1,8 +1,5 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyGenerator;
@@ -11,6 +8,8 @@ import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.EdDsaKeyGenerator;
 import io.moatwel.util.HexEncoder;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

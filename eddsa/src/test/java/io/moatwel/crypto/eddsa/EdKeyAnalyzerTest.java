@@ -1,10 +1,9 @@
 package io.moatwel.crypto.eddsa;
 
-import org.junit.Test;
-
 import io.moatwel.crypto.PublicKey;
 import io.moatwel.crypto.eddsa.ed25519.Curve25519;
 import io.moatwel.crypto.eddsa.ed448.Curve448;
+import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

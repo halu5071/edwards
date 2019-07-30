@@ -1,10 +1,10 @@
 package io.moatwel.crypto.eddsa.ed448;
 
-import java.math.BigInteger;
-
 import io.moatwel.crypto.Signature;
 import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
+
+import java.math.BigInteger;
 
 /**
  * Signature for Ed448.

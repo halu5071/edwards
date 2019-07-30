@@ -1,8 +1,8 @@
 package io.moatwel.crypto;
 
-import java.math.BigInteger;
-
 import io.moatwel.util.HexEncoder;
+
+import java.math.BigInteger;
 
 /**
  * PublicKey for EdDsa.

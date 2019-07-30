@@ -1,7 +1,5 @@
 package io.moatwel.crypto.eddsa.ed25519.ph;
 
-import java.security.SecureRandom;
-
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.Hashes;
@@ -12,6 +10,8 @@ import io.moatwel.crypto.eddsa.ed25519.Curve25519;
 import io.moatwel.crypto.eddsa.ed25519.Ed25519PublicKeyDelegate;
 import io.moatwel.crypto.eddsa.ed25519.Ed25519Signer;
 import io.moatwel.util.ByteUtils;
+
+import java.security.SecureRandom;
 
 public class Ed25519phSchemeProvider extends SchemeProvider {
 
