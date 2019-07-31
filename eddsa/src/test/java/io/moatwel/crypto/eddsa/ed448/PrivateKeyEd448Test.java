@@ -1,8 +1,7 @@
 package io.moatwel.crypto.eddsa.ed448;
 
-import org.junit.Test;
-
 import io.moatwel.crypto.PrivateKey;
+import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

@@ -19,7 +19,7 @@ public abstract class EncodedCoordinate {
 
     /**
      * Encode value to Coordinate.
-     *
+     * <p>
      * All values on Edwards-curve can be encoded and decoded. The method is depends on
      * each schemes.
      *

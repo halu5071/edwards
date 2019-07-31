@@ -1,12 +1,12 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
 import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
+
+import java.math.BigInteger;
 
 /**
  * Coordinate on Curve25519
@@ -15,10 +15,9 @@ import io.moatwel.util.ByteUtils;
  */
 class CoordinateEd25519 extends Coordinate {
 
-    private static final Curve curve = Curve25519.getInstance();
+    public static final CoordinateEd25519 ONE = new CoordinateEd25519(BigInteger.ONE);
 
-    public static final CoordinateEd25519 ZERO = new CoordinateEd25519(BigInteger.ZERO);
-    public static final Coordinate ONE = new CoordinateEd25519(BigInteger.ONE);
+    private static final Curve curve = Curve25519.getInstance();
 
     CoordinateEd25519(BigInteger integer) {
         super(integer);

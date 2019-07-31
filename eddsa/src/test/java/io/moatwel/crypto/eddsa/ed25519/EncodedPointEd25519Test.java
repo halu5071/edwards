@@ -1,13 +1,12 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import org.junit.Test;
-
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.DecodeException;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.util.HexEncoder;
+import org.junit.Test;
+
+import java.math.BigInteger;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

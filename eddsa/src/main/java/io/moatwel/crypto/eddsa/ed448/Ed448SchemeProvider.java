@@ -1,13 +1,13 @@
 package io.moatwel.crypto.eddsa.ed448;
 
-import java.security.SecureRandom;
-
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.util.ByteUtils;
+
+import java.security.SecureRandom;
 
 /**
  * SchemeProvider for Ed448.

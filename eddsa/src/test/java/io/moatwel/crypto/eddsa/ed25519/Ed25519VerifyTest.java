@@ -1,10 +1,5 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import java.security.SecureRandom;
-
 import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.KeyGenerator;
@@ -15,6 +10,10 @@ import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.EdDsaKeyGenerator;
 import io.moatwel.crypto.eddsa.EdKeyAnalyzer;
 import io.moatwel.crypto.eddsa.Edwards;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.security.SecureRandom;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

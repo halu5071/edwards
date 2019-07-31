@@ -1,15 +1,12 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
+import io.moatwel.crypto.Signature;
+import io.moatwel.util.ByteUtils;
 import org.junit.Test;
 
 import java.math.BigInteger;
 
-import io.moatwel.crypto.Signature;
-import io.moatwel.util.ByteUtils;
-import io.moatwel.util.HexEncoder;
-
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 

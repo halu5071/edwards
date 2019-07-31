@@ -33,12 +33,12 @@ public interface EdDsaSigner {
      * {@link io.moatwel.crypto.eddsa.DecodeException} means failure of verifying, so this method
      * must return false.
      *
-     * @param keyPair {@link KeyPair} you want to use.
-     * @param data byte array you want to verify.
-     * @param context byte array you want to use on this signature.
+     * @param keyPair   {@link KeyPair} you want to use.
+     * @param data      byte array you want to verify.
+     * @param context   byte array you want to use on this signature.
      * @param signature {@link Signature} to verify you message.
      * @return true if {@code data} is authorized,
-     *         false if not.
+     * false if not.
      */
     boolean verify(KeyPair keyPair, final byte[] data, byte[] context, final Signature signature);
 }

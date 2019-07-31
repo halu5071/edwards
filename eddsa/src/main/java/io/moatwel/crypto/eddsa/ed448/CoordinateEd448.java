@@ -1,12 +1,12 @@
 package io.moatwel.crypto.eddsa.ed448;
 
-import java.math.BigInteger;
-
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
 import io.moatwel.util.ArrayUtils;
 import io.moatwel.util.ByteUtils;
+
+import java.math.BigInteger;
 
 /**
  * Coordinate on Curve448.
@@ -15,8 +15,8 @@ import io.moatwel.util.ByteUtils;
  */
 class CoordinateEd448 extends Coordinate {
 
-    public static final Coordinate ZERO = new CoordinateEd448(BigInteger.ZERO);
-    public static final Coordinate ONE = new CoordinateEd448(BigInteger.ONE);
+    public static final CoordinateEd448 ZERO = new CoordinateEd448(BigInteger.ZERO);
+    public static final CoordinateEd448 ONE = new CoordinateEd448(BigInteger.ONE);
 
     private static final Curve curve = Curve448.getInstance();
 

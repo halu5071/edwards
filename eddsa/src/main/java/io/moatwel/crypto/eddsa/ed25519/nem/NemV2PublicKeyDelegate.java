@@ -1,7 +1,5 @@
 package io.moatwel.crypto.eddsa.ed25519.nem;
 
-import java.math.BigInteger;
-
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
@@ -11,6 +9,8 @@ import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.crypto.eddsa.ed25519.Curve25519;
 import io.moatwel.crypto.eddsa.ed25519.PrivateKeyEd25519;
 import io.moatwel.util.ByteUtils;
+
+import java.math.BigInteger;
 
 public class NemV2PublicKeyDelegate implements PublicKeyDelegate {
 

@@ -6,7 +6,7 @@ apply plugin: 'info.solidsoft.pitest'
 
 group = 'io.moatwel.crypto'
 archivesBaseName = 'eddsa'
-version = '0.5.1-beta'
+version = '0.6.0-beta'
 description = 'Edwards is a crypto library for Edwards-curve Digital Signature Algorithm (EdDSA) written in pure Java. '
 
 def powermock_version = '2.0.0'
