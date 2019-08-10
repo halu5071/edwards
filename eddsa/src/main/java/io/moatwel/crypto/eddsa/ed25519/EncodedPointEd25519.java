@@ -13,11 +13,11 @@ import java.math.BigInteger;
  * Encoded Point implementation of the Curve25519. Implements {@link EncodedPoint#decode()}
  * operation. This object has byte array whose length is 32, which represents encoded point.
  */
-class EncodedPointEd25519 extends EncodedPoint {
+public class EncodedPointEd25519 extends EncodedPoint {
 
     private static final Curve curve = Curve25519.getInstance();
 
-    EncodedPointEd25519(byte[] value) {
+    public EncodedPointEd25519(byte[] value) {
         super(value);
         if (value.length != 32)
             throw new IllegalArgumentException("EncodedPoint on ed25519 curve must have " +

@@ -33,20 +33,8 @@ public class Ed448PublicKeyDelegate implements PublicKeyDelegate {
                     CURVE.getPublicKeyByteLength() + " byte length. Length: " + privateKey.getRaw().length);
         }
 
-        // Step1
-        byte[] hash = hashPrivateKey(privateKey);
-        byte[] first57 = ByteUtils.split(hash, 57)[0];
+        BigInteger s = privateKey.getScalarSeed(hashAlgorithm);
 
-        // Step2
-        first57[0] &= 0xFC;
-        first57[56] &= 0x00;
-        first57[55] |= 0x80;
-
-        // Step3
-        byte[] reversed = ByteUtils.reverse(first57);
-        BigInteger s = new BigInteger(reversed);
-
-        // Step4
         Point point = CURVE.getBasePoint().scalarMultiply(s);
         return point.encode().getValue();
     }

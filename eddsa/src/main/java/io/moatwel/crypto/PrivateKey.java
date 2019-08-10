@@ -35,6 +35,8 @@ public abstract class PrivateKey {
         return newInstance(HexEncoder.getBytes(hexString));
     }
 
+    public abstract BigInteger getScalarSeed(HashAlgorithm algorithm);
+
     public byte[] getRaw() {
         return value;
     }

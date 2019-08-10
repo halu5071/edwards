@@ -13,5 +13,6 @@
 /.idea/misc.xml
 .DS_Store
 /build
+/eddsa/out
 /captures
 .externalNativeBuild

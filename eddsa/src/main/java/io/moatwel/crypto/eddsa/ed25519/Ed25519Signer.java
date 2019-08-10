@@ -41,15 +41,7 @@ public class Ed25519Signer implements EdDsaSigner {
         checkContextLength(context);
         byte[] h = schemeProvider.getPublicKeyDelegate().hashPrivateKey(keyPair.getPrivateKey());
 
-        // Step1
-        byte[] first32 = ByteUtils.split(h, 32)[0];
-
-        first32[0] &= 0xF8;
-        first32[31] &= 0x7F;
-        first32[31] |= 0x40;
-
-        byte[] sSeed = ByteUtils.reverse(first32);
-        BigInteger s = new BigInteger(sSeed);
+        BigInteger s = keyPair.getPrivateKey().getScalarSeed(hashAlgorithm);
 
         // Step2
         byte[] dom = schemeProvider.dom(context);

@@ -1,5 +1,8 @@
 package io.moatwel.crypto.eddsa;
 
+import io.moatwel.crypto.eddsa.ed25519.EncodedPointEd25519;
+import io.moatwel.crypto.eddsa.ed448.EncodedPointEd448;
+
 /**
  * Encoded Point on elliptic curve.
  *
@@ -11,6 +14,17 @@ public abstract class EncodedPoint {
 
     protected EncodedPoint(byte[] value) {
         this.value = value;
+    }
+
+    public static EncodedPoint from(byte[] value) {
+        switch (value.length) {
+            case 32:
+                return new EncodedPointEd25519(value);
+            case 57:
+                return new EncodedPointEd448(value);
+            default:
+                throw new IllegalArgumentException("Length(" + value.length + ") is not supported.");
+        }
     }
 
     public byte[] getValue() {

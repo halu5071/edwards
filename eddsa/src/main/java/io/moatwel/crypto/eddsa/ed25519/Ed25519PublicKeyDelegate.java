@@ -5,7 +5,6 @@ import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
-import io.moatwel.util.ByteUtils;
 
 import java.math.BigInteger;
 
@@ -33,19 +32,7 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
                     CURVE.getPublicKeyByteLength() + " byte length. Length: " + privateKey.getRaw().length);
         }
 
-        byte[] h = hashPrivateKey(privateKey);
-
-        // Step1
-        byte[] first32 = ByteUtils.split(h, 32)[0];
-
-        // Step2
-        first32[0] &= 0xF8;
-        first32[31] &= 0x7F;
-        first32[31] |= 0x40;
-
-        // Step3
-        byte[] a = ByteUtils.reverse(first32);
-        BigInteger s = new BigInteger(a);
+        BigInteger s = privateKey.getScalarSeed(hashAlgorithm);
 
         Point point = CURVE.getBasePoint().scalarMultiply(s);
         return point.encode().getValue();
