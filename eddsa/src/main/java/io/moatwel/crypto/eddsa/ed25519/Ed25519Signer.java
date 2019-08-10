@@ -11,6 +11,7 @@ import io.moatwel.crypto.eddsa.DecodeException;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.util.ByteUtils;
 
@@ -39,9 +40,10 @@ public class Ed25519Signer implements EdDsaSigner {
     public Signature sign(KeyPair keyPair, byte[] data, byte[] context) {
         context = beNonNullContext(context);
         checkContextLength(context);
-        byte[] h = schemeProvider.getPublicKeyDelegate().hashPrivateKey(keyPair.getPrivateKey());
+        PublicKeyDelegate publicKeyDelegate = schemeProvider.getPublicKeyDelegate();
+        byte[] h = publicKeyDelegate.hashPrivateKey(keyPair.getPrivateKey());
 
-        BigInteger s = keyPair.getPrivateKey().getScalarSeed(hashAlgorithm);
+        BigInteger s = keyPair.getPrivateKey().getScalarSeed(publicKeyDelegate);
 
         // Step2
         byte[] dom = schemeProvider.dom(context);

@@ -3,9 +3,9 @@ package io.moatwel.crypto.eddsa.ed448;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
+import io.moatwel.crypto.eddsa.HashDelegate;
 import io.moatwel.crypto.eddsa.Point;
 import io.moatwel.crypto.eddsa.PublicKeyDelegate;
-import io.moatwel.util.ByteUtils;
 
 import java.math.BigInteger;
 
@@ -16,7 +16,7 @@ import java.math.BigInteger;
  * @author halu5071 (Yasunori Horii)
  * @see Ed448SchemeProvider
  */
-public class Ed448PublicKeyDelegate implements PublicKeyDelegate {
+public class Ed448PublicKeyDelegate implements PublicKeyDelegate, HashDelegate {
 
     private static final Curve448 CURVE = Curve448.getInstance();
 
@@ -33,7 +33,7 @@ public class Ed448PublicKeyDelegate implements PublicKeyDelegate {
                     CURVE.getPublicKeyByteLength() + " byte length. Length: " + privateKey.getRaw().length);
         }
 
-        BigInteger s = privateKey.getScalarSeed(hashAlgorithm);
+        BigInteger s = privateKey.getScalarSeed(this);
 
         Point point = CURVE.getBasePoint().scalarMultiply(s);
         return point.encode().getValue();

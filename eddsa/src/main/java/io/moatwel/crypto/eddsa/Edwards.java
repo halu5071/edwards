@@ -22,6 +22,7 @@ public final class Edwards {
     private final Curve curve;
     private final KeyGenerator generator;
     private final EdDsaSigner signer;
+    private final SchemeProvider schemeProvider;
 
     public Edwards() {
         this(new Ed25519SchemeProvider(HashAlgorithm.KECCAK_512));
@@ -38,6 +39,7 @@ public final class Edwards {
         this.curve = schemeProvider.getCurve();
         this.generator = new EdDsaKeyGenerator(schemeProvider);
         this.signer = schemeProvider.getSigner();
+        this.schemeProvider = schemeProvider;
     }
 
     public KeyPair generateKeyPair() {
@@ -78,5 +80,9 @@ public final class Edwards {
 
     public KeyGenerator getKeyGenerator() {
         return generator;
+    }
+
+    public SchemeProvider getSchemeProvider() {
+        return schemeProvider;
     }
 }

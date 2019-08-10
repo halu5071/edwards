@@ -7,7 +7,7 @@ import io.moatwel.crypto.PrivateKey;
  *
  * @author Yasunori Horii
  */
-public interface PublicKeyDelegate {
+public interface PublicKeyDelegate extends HashDelegate {
 
     /**
      * Return byte array which is a seed of {@link io.moatwel.crypto.PublicKey}
@@ -16,12 +16,4 @@ public interface PublicKeyDelegate {
      * @return seed byte array for {@link io.moatwel.crypto.PublicKey}
      */
     byte[] generatePublicKeySeed(PrivateKey privateKey);
-
-    /**
-     * Return hash result of {@link PrivateKey}.
-     *
-     * @param privateKey {@link PrivateKey} which this public key derived from.
-     * @return hash byte array of {@link PrivateKey}
-     */
-    byte[] hashPrivateKey(PrivateKey privateKey);
 }

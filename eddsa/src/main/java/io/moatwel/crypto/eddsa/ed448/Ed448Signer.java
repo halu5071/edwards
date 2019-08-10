@@ -10,6 +10,7 @@ import io.moatwel.crypto.eddsa.DecodeException;
 import io.moatwel.crypto.eddsa.EncodedCoordinate;
 import io.moatwel.crypto.eddsa.EncodedPoint;
 import io.moatwel.crypto.eddsa.Point;
+import io.moatwel.crypto.eddsa.PublicKeyDelegate;
 import io.moatwel.crypto.eddsa.SchemeProvider;
 import io.moatwel.util.ByteUtils;
 
@@ -37,16 +38,10 @@ public class Ed448Signer implements EdDsaSigner {
         context = beNonNullContext(context);
         checkContextLength(context);
 
-        byte[] h = scheme.getPublicKeyDelegate().hashPrivateKey(keyPair.getPrivateKey());
+        PublicKeyDelegate delegate = scheme.getPublicKeyDelegate();
+        byte[] h = delegate.hashPrivateKey(keyPair.getPrivateKey());
 
-        byte[] first57 = ByteUtils.split(h, 57)[0];
-        first57[0] &= 0xFC;
-        first57[56] &= 0x00;
-        first57[55] |= 0x80;
-
-        // Step3
-        byte[] reversed = ByteUtils.reverse(first57);
-        BigInteger s = new BigInteger(reversed);
+        BigInteger s = keyPair.getPrivateKey().getScalarSeed(delegate);
 
         byte[] dom = scheme.dom(context);
         byte[] prefix = ByteUtils.split(h, 57)[1];

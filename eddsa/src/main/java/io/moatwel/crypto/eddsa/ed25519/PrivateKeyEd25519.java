@@ -1,8 +1,7 @@
 package io.moatwel.crypto.eddsa.ed25519;
 
-import io.moatwel.crypto.HashAlgorithm;
-import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
+import io.moatwel.crypto.eddsa.HashDelegate;
 import io.moatwel.util.ByteUtils;
 import io.moatwel.util.HexEncoder;
 
@@ -34,8 +33,8 @@ public class PrivateKeyEd25519 extends PrivateKey {
     }
 
     @Override
-    public BigInteger getScalarSeed(HashAlgorithm algorithm) {
-        byte[] hashResult = Hashes.hash(algorithm, value);
+    public BigInteger getScalarSeed(HashDelegate hashDelegate) {
+        byte[] hashResult = hashDelegate.hashPrivateKey(this);
         byte[] first32 = ByteUtils.split(hashResult, 32)[0];
 
         first32[0] &= 0xF8;

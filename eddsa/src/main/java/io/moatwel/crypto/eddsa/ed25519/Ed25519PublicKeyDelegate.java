@@ -32,7 +32,7 @@ public class Ed25519PublicKeyDelegate implements PublicKeyDelegate {
                     CURVE.getPublicKeyByteLength() + " byte length. Length: " + privateKey.getRaw().length);
         }
 
-        BigInteger s = privateKey.getScalarSeed(hashAlgorithm);
+        BigInteger s = privateKey.getScalarSeed(this);
 
         Point point = CURVE.getBasePoint().scalarMultiply(s);
         return point.encode().getValue();

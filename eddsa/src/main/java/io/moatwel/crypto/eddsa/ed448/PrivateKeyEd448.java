@@ -1,8 +1,7 @@
 package io.moatwel.crypto.eddsa.ed448;
 
-import io.moatwel.crypto.HashAlgorithm;
-import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.PrivateKey;
+import io.moatwel.crypto.eddsa.HashDelegate;
 import io.moatwel.util.ByteUtils;
 
 import java.math.BigInteger;
@@ -29,8 +28,8 @@ public class PrivateKeyEd448 extends PrivateKey {
     }
 
     @Override
-    public BigInteger getScalarSeed(HashAlgorithm algorithm) {
-        byte[] hashResult = Hashes.hash(algorithm, 114, value);
+    public BigInteger getScalarSeed(HashDelegate hashDelegate) {
+        byte[] hashResult = hashDelegate.hashPrivateKey(this);
         byte[] first57 = ByteUtils.split(hashResult, 57)[0];
 
         first57[0] &= 0xFC;
