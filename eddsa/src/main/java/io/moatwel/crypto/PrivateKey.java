@@ -39,7 +39,7 @@ public abstract class PrivateKey {
     public abstract BigInteger getScalarSeed(HashDelegate hashDelegate);
 
     public byte[] getRaw() {
-        return value;
+        return this.value.clone();
     }
 
     public BigInteger getInteger() {

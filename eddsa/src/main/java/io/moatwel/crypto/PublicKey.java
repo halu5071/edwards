@@ -30,7 +30,7 @@ public class PublicKey {
     }
 
     public byte[] getRaw() {
-        return this.value;
+        return this.value.clone();
     }
 
     public String getHexString() {

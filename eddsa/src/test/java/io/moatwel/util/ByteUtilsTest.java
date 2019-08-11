@@ -132,6 +132,16 @@ public class ByteUtilsTest {
         assertThat(readBit2, is(1));
     }
 
+    @Test
+    public void success_ReadBit_but_do_not_modify_original() {
+        byte value = (byte) 0b11010101;
+
+        int readBit = ByteUtils.readBit(value, 7);
+
+        assertThat(readBit, is(1));
+        assertThat(value, is((byte) 0b11010101));
+    }
+
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void failure_ReadBit_1() {
         byte value = 0b01010101;

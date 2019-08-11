@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
 
 public class SharedKeyTest {
 
-    private static final int TRIAL = 10;
+    private static final int TRIAL = 50;
     private HashAlgorithm algorithm = HashAlgorithm.KECCAK_512;
     private Edwards edwards = new Edwards(algorithm);
 
@@ -55,10 +55,16 @@ public class SharedKeyTest {
             byte[] publicKey1 = result1.encode().getValue();
             byte[] publicKey2 = result2.encode().getValue();
 
+            // OK, use helper class
+            byte[] publicKey3 = SharedKeyHelper.generateSharedKeySeed(keyPair1.getPublicKey(), keyPair2.getPrivateKey(), delegate);
+            byte[] publicKey4 = SharedKeyHelper.generateSharedKeySeed(keyPair2.getPublicKey(), keyPair1.getPrivateKey(), delegate);
+
             assertThat(result1.getAffineX().getInteger(), is(result2.getAffineX().getInteger()));
             assertThat(result1.getAffineY().getInteger(), is(result2.getAffineY().getInteger()));
 
             assertThat(publicKey1, is(publicKey2));
+            assertThat(publicKey1, is(publicKey3));
+            assertThat(publicKey3, is(publicKey4));
         } catch (DecodeException e) {
             e.printStackTrace();
         }
@@ -84,6 +90,9 @@ public class SharedKeyTest {
             byte[] publicKey1 = result1.encode().getValue();
             byte[] publicKey2 = result2.encode().getValue();
 
+            byte[] publicKey3 = SharedKeyHelper.generateSharedKeySeed(keyPair1.getPublicKey(), keyPair2.getPrivateKey(), delegate);
+            byte[] publicKey4 = SharedKeyHelper.generateSharedKeySeed(keyPair2.getPublicKey(), keyPair1.getPrivateKey(), delegate);
+
             assertThat(result1.getAffineX().getInteger(), is(result2.getAffineX().getInteger()));
             assertThat(result1.getAffineY().getInteger(), is(result2.getAffineY().getInteger()));
 
@@ -91,7 +100,8 @@ public class SharedKeyTest {
             assertThat(publicKey2.length, is(57));
 
             assertThat(publicKey1, is(publicKey2));
-
+            assertThat(publicKey1, is(publicKey3));
+            assertThat(publicKey3, is(publicKey4));
         } catch (DecodeException e) {
             e.printStackTrace();
         }
