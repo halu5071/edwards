@@ -39,15 +39,17 @@ PublicKey publicKey = edwards.derivePublicKey(privateKey);
 
 ```java
 KeyPair keyPair = ...;
-Signature signature = edwards.sign(keyPair, /* data represented in byte array */);
+byte[] data = ...;
+Signature signature = edwards.sign(keyPair, data);
 ```
 
 ### Verifying
 
 ```java
-KeyPair keyPair = ...;
+PublicKey publicKey = ...;
 Signature signature = ...;
-boolean isVerified = edwards.verify(keyPair, /* data represented in byte array */, signature);
+byte[] data = ...;
+boolean isVerified = edwards.verify(publicKey, data, signature);
 ```
 
 ### Built-in Scheme
@@ -98,7 +100,7 @@ buildscript {
 }
 
 dependencies {
-    compile "io.moatwel.crypto:eddsa:0.6.2-beta"
+    compile "io.moatwel.crypto:eddsa:0.7.0-beta"
 }
 ```
 
@@ -108,7 +110,7 @@ dependencies {
 <dependency> 
     <groupId>io.moatwel.crypto</groupId> 
     <artifactId>eddsa</artifactId> 
-    <version>0.6.2-beta</version>
+    <version>0.7.0-beta</version>
     <type>pom</type> 
 </dependency>
 ```
