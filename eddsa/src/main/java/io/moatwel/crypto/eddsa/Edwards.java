@@ -62,12 +62,22 @@ public final class Edwards {
         return signer.sign(keyPair, data, context);
     }
 
+    @Deprecated
     public boolean verify(KeyPair keyPair, byte[] data, Signature signature) {
         return signer.verify(keyPair, data, null, signature);
     }
 
+    public boolean verify(PublicKey publicKey, byte[] data, Signature signature) {
+        return signer.verify(publicKey, data, null, signature);
+    }
+
+    @Deprecated
     public boolean verify(KeyPair keyPair, byte[] data, byte[] context, Signature signature) {
         return signer.verify(keyPair, data, context, signature);
+    }
+
+    public boolean verify(PublicKey publicKey, byte[] data, byte[] context, Signature signature) {
+        return signer.verify(publicKey, data, context, signature);
     }
 
     public Curve getCurve() {

@@ -40,5 +40,26 @@ public interface EdDsaSigner {
      * @return true if {@code data} is authorized,
      * false if not.
      */
+    @Deprecated
     boolean verify(KeyPair keyPair, final byte[] data, byte[] context, final Signature signature);
+
+    /**
+     * Verify your message with signature on your key pair.
+     *
+     * <p>
+     * Pay attention to use the same {@code context} as the context on signing.
+     * <p>
+     * Verify operation must handle point decoding, which throw
+     * {@link io.moatwel.crypto.eddsa.DecodeException}. This method must tackle with that exception.
+     * {@link io.moatwel.crypto.eddsa.DecodeException} means failure of verifying, so this method
+     * must return false.
+     *
+     * @param publicKey   {@link PublicKey} you want to use.
+     * @param data      byte array you want to verify.
+     * @param context   byte array you want to use on this signature.
+     * @param signature {@link Signature} to verify you message.
+     * @return true if {@code data} is authorized,
+     * false if not.
+     */
+    boolean verify(PublicKey publicKey, final byte[] data, byte[] context, final Signature signature);
 }

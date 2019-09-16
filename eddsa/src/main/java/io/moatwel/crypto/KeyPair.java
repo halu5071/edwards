@@ -15,8 +15,10 @@ public class KeyPair {
         this.privateKey = privateKey;
         this.publicKey = publicKey;
 
-        if (!analyzer.isKeyCompressed(publicKey)) {
-            throw new IllegalArgumentException("Public key must be in compressed form");
+        if (publicKey != null) {
+            if (!analyzer.isKeyCompressed(publicKey)) {
+                throw new IllegalArgumentException("Public key must be in compressed form");
+            }
         }
     }
 

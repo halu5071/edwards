@@ -4,6 +4,7 @@ import io.moatwel.crypto.EdDsaSigner;
 import io.moatwel.crypto.HashAlgorithm;
 import io.moatwel.crypto.Hashes;
 import io.moatwel.crypto.KeyPair;
+import io.moatwel.crypto.PublicKey;
 import io.moatwel.crypto.Signature;
 import io.moatwel.crypto.eddsa.Coordinate;
 import io.moatwel.crypto.eddsa.Curve;
@@ -74,6 +75,11 @@ public class Ed25519Signer implements EdDsaSigner {
 
     @Override
     public boolean verify(KeyPair keyPair, byte[] data, byte[] context, Signature signature) {
+        return verify(keyPair.getPublicKey(), data, context, signature);
+    }
+
+    @Override
+    public boolean verify(PublicKey publicKey, byte[] data, byte[] context, Signature signature) {
         try {
             context = beNonNullContext(context);
             checkContextLength(context);
@@ -82,7 +88,7 @@ public class Ed25519Signer implements EdDsaSigner {
             EncodedPoint encodedR = new EncodedPointEd25519(rSeed);
             Point r = encodedR.decode();
 
-            EncodedPoint encodedPublicKey = new EncodedPointEd25519(keyPair.getPublicKey().getRaw());
+            EncodedPoint encodedPublicKey = new EncodedPointEd25519(publicKey.getRaw());
             Point a = encodedPublicKey.decode();
 
             EncodedCoordinate encodedS = new EncodedCoordinateEd25519(signature.getS());
