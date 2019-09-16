@@ -30,7 +30,7 @@ public class Ed25519phVerifyTest {
     public void success_VerifyMessage_1() {
         Signature signature = signer.sign(pair, "demo".getBytes(), null);
 
-        boolean isVerified = signer.verify(pair, "demo".getBytes(), null, signature);
+        boolean isVerified = signer.verify(pair.getPublicKey(), "demo".getBytes(), null, signature);
 
         assertThat(isVerified, is(true));
     }
@@ -39,7 +39,7 @@ public class Ed25519phVerifyTest {
     public void success_VerifyMessage_2() {
         Signature signature = signer.sign(pair, "This is a pen.".getBytes(), null);
 
-        boolean isVerified = signer.verify(pair, "This is a pen.".getBytes(), null, signature);
+        boolean isVerified = signer.verify(pair.getPublicKey(), "This is a pen.".getBytes(), null, signature);
 
         assertThat(isVerified, is(true));
     }
@@ -48,7 +48,7 @@ public class Ed25519phVerifyTest {
     public void success_VerifyMessage_3() {
         Signature signature = signer.sign(pair, "falkdjflasdjl ko3ii;afd".getBytes(), null);
 
-        boolean isVerified = signer.verify(pair, "falkdjflasdjl ko3ii;afd".getBytes(), null, signature);
+        boolean isVerified = signer.verify(pair.getPublicKey(), "falkdjflasdjl ko3ii;afd".getBytes(), null, signature);
 
         assertThat(isVerified, is(true));
     }
@@ -57,7 +57,7 @@ public class Ed25519phVerifyTest {
     public void failure_VerifyMessage_1() {
         Signature signature = signer.sign(pair, "falkdjflasdjl ko3ii;afd".getBytes(), null);
 
-        boolean isVerified = signer.verify(pair, "falkdjflasdjl ko3ii;afd.".getBytes(), null, signature);
+        boolean isVerified = signer.verify(pair.getPublicKey(), "falkdjflasdjl ko3ii;afd.".getBytes(), null, signature);
 
         assertThat(isVerified, is(false));
     }
@@ -66,7 +66,7 @@ public class Ed25519phVerifyTest {
     public void failure_VerifyMessage_2() {
         Signature signature = signer.sign(pair, "falkdjflasdjl ko3ii;afd".getBytes(), null);
 
-        boolean isVerified = signer.verify(pair, "falkdjflasdjl ko3ii;afd".getBytes(), HexEncoder.getBytes("ab"), signature);
+        boolean isVerified = signer.verify(pair.getPublicKey(), "falkdjflasdjl ko3ii;afd".getBytes(), HexEncoder.getBytes("ab"), signature);
 
         assertThat(isVerified, is(false));
     }

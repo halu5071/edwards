@@ -68,10 +68,10 @@ public class EdwardsCurve25519Test {
 
         assertNotNull(signature);
 
-        boolean isValid1 = edwards.verify(pair, "hogehoge".getBytes(), signature);
+        boolean isValid1 = edwards.verify(pair.getPublicKey(), "hogehoge".getBytes(), signature);
         assertThat(isValid1, is(true));
 
-        boolean isValid2 = edwards.verify(pair, "hogefoge".getBytes(), signature);
+        boolean isValid2 = edwards.verify(pair.getPublicKey(), "hogefoge".getBytes(), signature);
         assertThat(isValid2, is(false));
     }
 

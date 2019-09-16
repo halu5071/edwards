@@ -48,7 +48,7 @@ public class Ed448VerifyTest {
                         "b61149f05a7363268c71d95808ff2e65" +
                         "2600"));
 
-        boolean isValid = scheme.getSigner().verify(pair, new byte[0], null, signature);
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), new byte[0], null, signature);
 
         assertThat(isValid, is(true));
     }
@@ -71,7 +71,7 @@ public class Ed448VerifyTest {
                         "f3348ab21aa4adafd1d234441cf807c0" +
                         "3a00"));
 
-        boolean isValid = scheme.getSigner().verify(pair, new byte[]{3}, null, signature);
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), new byte[]{3}, null, signature);
 
         assertThat(isValid, is(true));
     }
@@ -94,7 +94,7 @@ public class Ed448VerifyTest {
                         "5428407e85dcbc98a49155c13764e66c" +
                         "3c00"));
 
-        boolean isValid = scheme.getSigner().verify(pair, HexEncoder.getBytes("03"), HexEncoder.getBytes("666f6f"), signature);
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), HexEncoder.getBytes("03"), HexEncoder.getBytes("666f6f"), signature);
 
         assertThat(isValid, is(true));
     }
@@ -117,7 +117,7 @@ public class Ed448VerifyTest {
                         "028961c9bf8ffd973fe5d5c206492b14" +
                         "0e00"));
 
-        boolean isValid = scheme.getSigner().verify(pair, HexEncoder.getBytes("0c3e544074ec63b0265e0c"), null, signature);
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), HexEncoder.getBytes("0c3e544074ec63b0265e0c"), null, signature);
 
         assertThat(isValid, is(true));
     }
@@ -140,7 +140,7 @@ public class Ed448VerifyTest {
                         "e72003cbae6d6b8b827e4e6c143064ff" +
                         "3c00"));
 
-        boolean isValid = scheme.getSigner().verify(pair, HexEncoder.getBytes("64a65f3cdedcdd66811e2915"), new byte[0], signature);
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), HexEncoder.getBytes("64a65f3cdedcdd66811e2915"), new byte[0], signature);
 
         assertThat(isValid, is(true));
     }
@@ -163,7 +163,7 @@ public class Ed448VerifyTest {
                         "6b4e7e0ba5519234d047155ac727a105" +
                         "3100"));
 
-        boolean isValid = scheme.getSigner().verify(pair, HexEncoder.getBytes("64a65f3cdedcdd66811e2915e7"), new byte[0], signature);
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), HexEncoder.getBytes("64a65f3cdedcdd66811e2915e7"), new byte[0], signature);
 
         assertThat(isValid, is(true));
     }
@@ -186,7 +186,7 @@ public class Ed448VerifyTest {
                         "5f30e88e36ec2703b349ca229c267083" +
                         "3900"));
 
-        boolean isValid = scheme.getSigner().verify(pair, HexEncoder.getBytes(
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), HexEncoder.getBytes(
                 "bd0f6a3747cd561bdddf4640a332461a" +
                         "4a30a12a434cd0bf40d766d9c6d458e5" +
                         "512204a30c17d1f50b5079631f64eb31" +
@@ -213,7 +213,7 @@ public class Ed448VerifyTest {
                         "0987fd08527c1a8e80d5823e65cafe2a" +
                         "3d00"));
 
-        boolean isValid = scheme.getSigner().verify(pair, HexEncoder.getBytes(
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), HexEncoder.getBytes(
                 "15777532b0bdd0d1389f636c5f6b9ba7" +
                         "34c90af572877e2d272dd078aa1e567c" +
                         "fa80e12928bb542330e8409f31745041" +
@@ -252,7 +252,7 @@ public class Ed448VerifyTest {
                         "b61149f05a7363268c71d95808ff2e65" +
                         "2600"));
 
-        boolean isValid = scheme.getSigner().verify(pair, new byte[]{1}, null, signature);
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), new byte[]{1}, null, signature);
 
         assertThat(isValid, is(false));
     }
@@ -276,7 +276,7 @@ public class Ed448VerifyTest {
                         "f3348ab21aa4adafd1d234441cf807c0" +
                         "3a00"));
 
-        boolean isValid = scheme.getSigner().verify(pair, new byte[]{4}, null, signature);
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), new byte[]{4}, null, signature);
 
         assertThat(isValid, is(false));
     }
@@ -299,7 +299,7 @@ public class Ed448VerifyTest {
                         "5428407e85dcbc98a49155c13764e66c" +
                         "3c00"));
 
-        boolean isValid = scheme.getSigner().verify(pair, HexEncoder.getBytes("04"), HexEncoder.getBytes("666f6f"), signature);
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), HexEncoder.getBytes("04"), HexEncoder.getBytes("666f6f"), signature);
 
         assertThat(isValid, is(false));
     }
@@ -322,7 +322,7 @@ public class Ed448VerifyTest {
                         "028961c9bf8ffd973fe5d5c206492b14" +
                         "0e00"));
 
-        boolean isValid = scheme.getSigner().verify(pair, HexEncoder.getBytes("0d3e544074ec63b0265e0c"), null, signature);
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), HexEncoder.getBytes("0d3e544074ec63b0265e0c"), null, signature);
 
         assertThat(isValid, is(false));
     }
@@ -345,7 +345,7 @@ public class Ed448VerifyTest {
                         "e72003cbae6d6b8b827e4e6c143064ff" +
                         "3c00"));
 
-        boolean isValid = scheme.getSigner().verify(pair, HexEncoder.getBytes("64a65f3cdedcdd66811e2914"), new byte[0], signature);
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), HexEncoder.getBytes("64a65f3cdedcdd66811e2914"), new byte[0], signature);
 
         assertThat(isValid, is(false));
     }
@@ -368,7 +368,7 @@ public class Ed448VerifyTest {
                         "6b4e7e0ba5519234d047155ac727a105" +
                         "3100"));
 
-        boolean isValid = scheme.getSigner().verify(pair, HexEncoder.getBytes("64a65f3cdedcdd66811e2915e4"), new byte[0], signature);
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), HexEncoder.getBytes("64a65f3cdedcdd66811e2915e4"), new byte[0], signature);
 
         assertThat(isValid, is(false));
     }
@@ -391,7 +391,7 @@ public class Ed448VerifyTest {
                         "5f30e88e36ec2703b349ca229c267083" +
                         "3900"));
 
-        boolean isValid = scheme.getSigner().verify(pair, HexEncoder.getBytes(
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), HexEncoder.getBytes(
                 "bd0f6a3747cd561bdddf4640a332461a" +
                         "4a30a12a434cd0bf30d766d9c6d458e5" +
                         "512204a30c17d1f50b5079631f64eb31" +
@@ -418,7 +418,7 @@ public class Ed448VerifyTest {
                         "0987fd08527c1a8e80d5823e65cafe2a" +
                         "3d00"));
 
-        boolean isValid = scheme.getSigner().verify(pair, HexEncoder.getBytes(
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), HexEncoder.getBytes(
                 "15777532b0bdd0d1389f636c5f6b9ba7" +
                         "34c90af572877e2d272dd078aa1e567c" +
                         "fa80e12928bb542330e8409f31745041" +
@@ -458,7 +458,7 @@ public class Ed448VerifyTest {
         KeyPair keyPair = new KeyPair(privateKey, publicKey, analyzer);
 
         // invoke DecodeException
-        boolean isValid = edwards.verify(keyPair, "hoge".getBytes(), new byte[0], new SignatureEd448(new byte[57], new byte[57]));
+        boolean isValid = edwards.verify(keyPair.getPublicKey(), "hoge".getBytes(), new byte[0], new SignatureEd448(new byte[57], new byte[57]));
         assertThat(isValid, is(false));
     }
 
@@ -481,7 +481,7 @@ public class Ed448VerifyTest {
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 123};
         Signature signature = new SignatureEd448(r, s);
 
-        boolean isValid = scheme.getSigner().verify(pair, "bob".getBytes(), null, signature);
+        boolean isValid = scheme.getSigner().verify(pair.getPublicKey(), "bob".getBytes(), null, signature);
 
         assertThat(isValid, is(false));
     }
@@ -506,7 +506,7 @@ public class Ed448VerifyTest {
                         "ffffffffffffffffff");
         Signature signature = new SignatureEd448(r, s);
 
-        scheme.getSigner().verify(pair, "bob".getBytes(), null, signature);
+        scheme.getSigner().verify(pair.getPublicKey(), "bob".getBytes(), null, signature);
     }
 
     @Test
@@ -529,7 +529,7 @@ public class Ed448VerifyTest {
                         "fffffffffffffffff3f00");
         Signature signature = new SignatureEd448(r, s);
 
-        boolean isVerified = scheme.getSigner().verify(pair, "bob".getBytes(), null, signature);
+        boolean isVerified = scheme.getSigner().verify(pair.getPublicKey(), "bob".getBytes(), null, signature);
         assertThat(isVerified, is(false));
     }
 
@@ -553,7 +553,7 @@ public class Ed448VerifyTest {
                         "fffffffffffffffff3f00");
         Signature signature = new SignatureEd448(r, s);
 
-        boolean isVerified = scheme.getSigner().verify(pair, "bob".getBytes(), null, signature);
+        boolean isVerified = scheme.getSigner().verify(pair.getPublicKey(), "bob".getBytes(), null, signature);
         assertThat(isVerified, is(false));
     }
 
@@ -577,7 +577,7 @@ public class Ed448VerifyTest {
                         "fffffffffffffffff3f00");
         Signature signature = new SignatureEd448(r, s);
 
-        boolean isVerified = scheme.getSigner().verify(pair, "bob".getBytes(), null, signature);
+        boolean isVerified = scheme.getSigner().verify(pair.getPublicKey(), "bob".getBytes(), null, signature);
         assertThat(isVerified, is(false));
     }
 
@@ -586,6 +586,6 @@ public class Ed448VerifyTest {
         byte[] context = new byte[256];
         KeyPair pair = generator.generateKeyPair();
         Signature signature = scheme.getSigner().sign(pair, "hoge".getBytes(), null);
-        scheme.getSigner().verify(pair, "hoge".getBytes(), context, signature);
+        scheme.getSigner().verify(pair.getPublicKey(), "hoge".getBytes(), context, signature);
     }
 }

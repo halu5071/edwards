@@ -26,6 +26,6 @@ public class Curve25519Benchmark {
 
     @Benchmark
     public void verify() {
-        edwards.verify(pair, new byte[32], signature);
+        edwards.verify(pair.getPublicKey(), new byte[32], signature);
     }
 }

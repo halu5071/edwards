@@ -66,10 +66,10 @@ public class EdwardsCurve448Test {
 
         assertNotNull(signature);
 
-        boolean isValid1 = edwards.verify(pair, "hogehoge".getBytes(), signature);
+        boolean isValid1 = edwards.verify(pair.getPublicKey(), "hogehoge".getBytes(), signature);
         assertThat(isValid1, is(true));
 
-        boolean isValid2 = edwards.verify(pair, "hogefoge".getBytes(), signature);
+        boolean isValid2 = edwards.verify(pair.getPublicKey(), "hogefoge".getBytes(), signature);
         assertThat(isValid2, is(false));
     }
 
@@ -86,16 +86,16 @@ public class EdwardsCurve448Test {
 
         assertNotNull(signature);
 
-        boolean isValid1 = edwards.verify(pair, "hogehoge".getBytes(), "entity".getBytes(), signature);
+        boolean isValid1 = edwards.verify(pair.getPublicKey(), "hogehoge".getBytes(), "entity".getBytes(), signature);
         assertThat(isValid1, is(true));
 
-        boolean isValid2 = edwards.verify(pair, "hogefuga".getBytes(), "entity".getBytes(), signature);
+        boolean isValid2 = edwards.verify(pair.getPublicKey(), "hogefuga".getBytes(), "entity".getBytes(), signature);
         assertThat(isValid2, is(false));
 
-        boolean isValid3 = edwards.verify(pair, "hogehoge".getBytes(), "entiy".getBytes(), signature);
+        boolean isValid3 = edwards.verify(pair.getPublicKey(), "hogehoge".getBytes(), "entiy".getBytes(), signature);
         assertThat(isValid3, is(false));
 
-        boolean isValid4 = edwards.verify(pair, "hogefuga".getBytes(), "entiy".getBytes(), signature);
+        boolean isValid4 = edwards.verify(pair.getPublicKey(), "hogefuga".getBytes(), "entiy".getBytes(), signature);
         assertThat(isValid4, is(false));
     }
 

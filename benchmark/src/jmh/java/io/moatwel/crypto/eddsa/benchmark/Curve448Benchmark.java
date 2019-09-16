@@ -28,6 +28,6 @@ public class Curve448Benchmark {
 
     @Benchmark
     public void verify() {
-        edwards448.verify(pair448, new byte[32], signature448);
+        edwards448.verify(pair448.getPublicKey(), new byte[32], signature448);
     }
 }
