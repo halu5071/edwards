@@ -17,6 +17,8 @@ jobs:
       - run:
           name: EdDsa Unit Test
           command: ./gradlew eddsa:test
+      - store_test_results:
+          path: ~/code/eddsa/build/test-results/
       - run:
           name: Coverage
           command: |
