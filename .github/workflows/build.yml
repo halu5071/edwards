@@ -14,6 +14,10 @@ jobs:
           path: |
             ~/.gradle
           key: ${{ runner.os }}-build-v1-${{ hashFiles('**/*.gradle') }}
+      - uses: actions/setup-java@v2
+        with:
+          distribution: adopt
+          java-version: '8'
       - name: EdDsa Unit Test
         run: ./gradlew eddsa:test
       - name: Coverage
