@@ -95,12 +95,12 @@ A package of this software is provided from jcenter. Maven or Gradle may be usef
 ```gradle
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
     }
 }
 
 dependencies {
-    compile "io.moatwel.crypto:eddsa:0.7.0-beta"
+    compile "io.moatwel.crypto:eddsa:0.7.1"
 }
 ```
 
@@ -110,7 +110,7 @@ dependencies {
 <dependency> 
     <groupId>io.moatwel.crypto</groupId> 
     <artifactId>eddsa</artifactId> 
-    <version>0.7.0-beta</version>
+    <version>0.7.1</version>
     <type>pom</type> 
 </dependency>
 ```

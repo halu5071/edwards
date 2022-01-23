@@ -48,7 +48,8 @@ jobs:
           command: |
                 if [ $CIRCLE_BRANCH = "master" ]; then
                     ./gradlew eddsa:jar
-                    ./gradlew eddsa:bintrayUpload
+                    ./gradlew eddsa:signArchives
+                    ./gradlew eddsa:publish
                 fi
 dependencies:
   pre:
