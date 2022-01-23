@@ -1,5 +1,5 @@
 # Edwards
-[![CircleCI](https://circleci.com/gh/halu5071/edwards.svg?style=svg&circle-token=cbf414b02faf05868c94e788f208e115aea1650d)](https://circleci.com/gh/halu5071/edwards) [![codecov](https://codecov.io/gh/halu5071/edwards/branch/master/graph/badge.svg?token=ahNKdm6dVP)](https://codecov.io/gh/halu5071/edwards) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [ ![Download](https://api.bintray.com/packages/halu5071/edwards/edwards/images/download.svg) ](https://bintray.com/halu5071/edwards/edwards/_latestVersion)
+[![CircleCI](https://circleci.com/gh/halu5071/edwards.svg?style=svg&circle-token=cbf414b02faf05868c94e788f208e115aea1650d)](https://circleci.com/gh/halu5071/edwards) [![codecov](https://codecov.io/gh/halu5071/edwards/branch/master/graph/badge.svg?token=ahNKdm6dVP)](https://codecov.io/gh/halu5071/edwards) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
 Edwards is a crypto library for Edwards-curve Digital Signature Algorithm (EdDSA). This library makes it easy to create KeyPair, sign and verify your message.
@@ -100,7 +100,7 @@ buildscript {
 }
 
 dependencies {
-    compile "io.moatwel.crypto:eddsa:0.7.1"
+    compile "io.moatwel.crypto:eddsa:0.8.0"
 }
 ```
 
@@ -110,7 +110,7 @@ dependencies {
 <dependency> 
     <groupId>io.moatwel.crypto</groupId> 
     <artifactId>eddsa</artifactId> 
-    <version>0.7.1</version>
+    <version>0.8.0</version>
     <type>pom</type> 
 </dependency>
 ```
