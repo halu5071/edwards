@@ -26,6 +26,10 @@ jobs:
           name: Codecov
           command: bash <(curl -s https://codecov.io/bash)
       - run:
+          name: tmp sign
+          command: |
+            ./gradlew eddsa:signArchives --stacktrace
+      - run:
           name: Benchmark
           command: |
                 ./gradlew benchmark:clean
