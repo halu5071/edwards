@@ -43,14 +43,14 @@ jobs:
           path: ~/code/eddsa/build/reports/pitest
       - store_artifacts:
           path: ~/code/eddsa/build/reports/pitest
-      - run:
-          name: Publish Artifact
-          command: |
-                if [ $CIRCLE_BRANCH = "master" ]; then
-                    ./gradlew eddsa:jar
-                    ./gradlew eddsa:signArchives
-                    ./gradlew eddsa:publish
-                fi
+#      - run:
+#          name: Publish Artifact
+#          command: |
+#                if [ $CIRCLE_BRANCH = "master" ]; then
+#                    ./gradlew eddsa:jar
+#                    ./gradlew eddsa:signArchives
+#                    ./gradlew eddsa:publish
+#                fi
 dependencies:
   pre:
     - mkdir $ANDROID_HOME/licenses
