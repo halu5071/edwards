@@ -28,6 +28,7 @@ jobs:
       - run:
           name: tmp sign
           command: |
+            ./gradlew eddsa:jar --stacktrace
             ./gradlew eddsa:signArchives --stacktrace
       - run:
           name: Benchmark
