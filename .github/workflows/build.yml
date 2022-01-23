@@ -1,4 +1,4 @@
-name: Edwards build
+name: build
 
 on: [push]
 
