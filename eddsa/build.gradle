@@ -1,12 +1,11 @@
 apply plugin: 'java-library'
 apply plugin: 'jacoco'
-apply plugin: 'maven-publish'
-apply plugin: 'signing'
+apply plugin: "com.vanniktech.maven.publish"
 apply plugin: 'info.solidsoft.pitest'
 
 group = 'io.moatwel.crypto'
 archivesBaseName = 'eddsa'
-version = '0.8.0'
+version = '0.8.1'
 description = 'Edwards is a crypto library for Edwards-curve Digital Signature Algorithm (EdDSA) written in pure Java. '
 
 def powermock_version = '2.0.0'
@@ -22,16 +21,16 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // SpongyCastle
-    compile 'com.madgag.spongycastle:core:1.58.0.0'
-    compile 'com.madgag.spongycastle:prov:1.58.0.0'
+    implementation 'com.madgag.spongycastle:core:1.58.0.0'
+    implementation 'com.madgag.spongycastle:prov:1.58.0.0'
 
     // Test
-    testCompile 'junit:junit:4.12'
-    testCompile "org.mockito:mockito-core:$mockito_version"
-    testCompile "org.mockito:mockito-inline:$mockito_version"
-    testCompile "org.powermock:powermock-core:$powermock_version"
-    testCompile "org.powermock:powermock-module-junit4:$powermock_version"
-    testCompile "org.powermock:powermock-api-mockito2:$powermock_version"
+    testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito:mockito-inline:$mockito_version"
+    testImplementation "org.powermock:powermock-core:$powermock_version"
+    testImplementation "org.powermock:powermock-module-junit4:$powermock_version"
+    testImplementation "org.powermock:powermock-api-mockito2:$powermock_version"
 }
 
 jacoco {
@@ -67,55 +66,10 @@ task javadocJar(type: Jar) {
     from javadoc.destinationDir
 }
 
-def pomConfig = {
-    licenses {
-        license {
-            name "The Apache Software License, Version 2.0"
-            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
-            distribution "repo"
-        }
-    }
-    developers {
-        developer {
-            id "halu5071"
-            name "Yasunori Horii"
-            email "horiiortho5@gmail.com"
-        }
-    }
-
-    scm {
-        url "https://github.com/halu5071/edwards"
-    }
-}
-
-publishing {
-    publications {
-        EdwardsPublication(MavenPublication) {
-            from components.java
-            artifact sourceJar
-            artifact javadocJar
-            groupId "$group"
-            artifactId "$archivesBaseName"
-            version "$version"
-            pom.withXml {
-                def root = asNode()
-                root.appendNode('description', project.description)
-                root.appendNode('name', project.archivesBaseName)
-                root.appendNode('url', 'https://github.com/halu5071/edwards')
-                root.children().last() + pomConfig
-            }
-        }
-    }
-    repositories {
-        maven {
-            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-
-            credentials {
-                username = System.getenv('OSSRH_USER_NAME')
-                password = System.getenv('OSSRH_PASSWORD')
-            }
+allprojects {
+    plugins.withId("com.vanniktech.maven.publish") {
+        mavenPublish {
+            sonatypeHost = "S01"
         }
     }
 }
@@ -123,14 +77,6 @@ publishing {
 artifacts {
     archives sourceJar
     archives javadocJar
-}
-
-signing {
-    def signingKey = findProperty("signingKey")
-    def signingPassword = findProperty("signingPassword")
-    useInMemoryPgpKeys(signingKey, signingPassword)
-
-    sign configurations.archives
 }
 
 sourceCompatibility = "1.7"

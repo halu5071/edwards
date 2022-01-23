@@ -100,7 +100,7 @@ buildscript {
 }
 
 dependencies {
-    compile "io.moatwel.crypto:eddsa:0.8.0"
+    compile "io.moatwel.crypto:eddsa:0.8.1"
 }
 ```
 
@@ -110,7 +110,7 @@ dependencies {
 <dependency> 
     <groupId>io.moatwel.crypto</groupId> 
     <artifactId>eddsa</artifactId> 
-    <version>0.8.0</version>
+    <version>0.8.1</version>
     <type>pom</type> 
 </dependency>
 ```

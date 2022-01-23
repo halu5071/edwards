@@ -1,0 +1,35 @@
+name: build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle
+          key: ${{ runner.os }}-build-v1-${{ hashFiles('**/*.gradle') }}
+      - uses: actions/setup-java@v2
+        with:
+          distribution: adopt
+          java-version: '8'
+      - name: EdDsa Unit Test
+        run: ./gradlew eddsa:test
+      - name: Coverage
+        run: |
+          ./gradlew eddsa:check
+          ./gradlew eddsa:jacocoTestReport
+      - name: Codecove
+        run: bash <(curl -s https://codecov.io/bash)
+      - name: Benchmark
+        run: |
+          ./gradlew benchmark:clean
+          ./gradlew benchmark:jmh
+          ./gradlew benchmark:jmhReport
+      - name: Pitest
+        run: ./gradlew eddsa:pitest
